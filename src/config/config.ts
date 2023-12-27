@@ -1,0 +1,3 @@
+const BLOG_THEME_KEY = "BLOG_THEME";
+
+export { BLOG_THEME_KEY };
