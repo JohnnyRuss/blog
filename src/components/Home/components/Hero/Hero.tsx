@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import { Typewriter } from "react-simple-typewriter";
 import { useTheme } from "styled-components";
 
@@ -15,7 +14,6 @@ import { LineClamp } from "@/components/Layouts";
 
 const Hero: React.FC = () => {
   const theme = useTheme();
-  // const [showCursor, setShowCursor] = useState(true);
 
   return (
     <Styled.Hero>
@@ -26,21 +24,16 @@ const Hero: React.FC = () => {
             typeSpeed={80}
             deleteSpeed={40}
             words={["Hey, Welcome back !"]}
-            // cursor={showCursor}
-            // cursorBlinking={showCursor}
-            // onLoopDone={() => setShowCursor(false)}
           />
-        </span>
-        &nbsp;
+        </span>{" "}
         <span>Discover new stories and creative ideas here.</span>
       </h2>
 
       <article className="hero__post">
         <motion.figure
           className="hero__post-fig"
-          {...animateRight({ inView: true })}
           whileInView="onscreen"
-          viewport={{ once: false }}
+          {...animateRight({ inView: true, once: false })}
         >
           <img
             width="100%"
@@ -53,8 +46,8 @@ const Hero: React.FC = () => {
 
         <div className="hero__post-content">
           <motion.div
-            {...animateBottom({ inView: true })}
             whileInView="onscreen"
+            {...animateBottom({ inView: true, once: false })}
           >
             <LineClamp clamp={2} component="h3">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
@@ -63,7 +56,10 @@ const Hero: React.FC = () => {
             </LineClamp>
           </motion.div>
 
-          <motion.div whileInView="onscreen" {...animateLeft({ inView: true })}>
+          <motion.div
+            whileInView="onscreen"
+            {...animateLeft({ inView: true, once: false })}
+          >
             <LineClamp
               clamp={10}
               sx={{
@@ -100,7 +96,7 @@ const Hero: React.FC = () => {
           <motion.button
             className="hero__post-content--more__btn"
             whileInView="onscreen"
-            {...animateTop({ inView: true })}
+            {...animateTop({ inView: true, once: false })}
           >
             <strong>
               <u>View More</u>

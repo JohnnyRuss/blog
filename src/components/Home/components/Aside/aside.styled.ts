@@ -7,4 +7,9 @@ export const Aside = styled.aside`
   gap: 4rem;
   position: sticky;
   top: 8.5rem;
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    gap: 2rem;
+    position: unset;
+  }
 `;

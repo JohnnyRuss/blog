@@ -35,6 +35,8 @@ const GlobalStyles = createGlobalStyle`
   button{
     border:none;
     background: none;
+    outline:none;
+    cursor:pointer;
   }
 
   a,
@@ -57,6 +59,10 @@ const GlobalStyles = createGlobalStyle`
     border-radius: 2rem;
     background-color: ${({ theme }) =>
       theme.mode === "light" ? theme.colors.gray : theme.colors.gray_dark};
+  }
+
+  body:has(.scroll-block){
+    overflow: hidden;
   }
 `;
 

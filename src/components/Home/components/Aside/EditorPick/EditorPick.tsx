@@ -12,7 +12,7 @@ const EditorPick: React.FC<EditorPickT> = () => {
   return (
     <Styled.EditorPick
       whileInView="onscreen"
-      {...animateLeft({ inView: true })}
+      {...animateLeft({ inView: true, once: true })}
     >
       <li className="editor-pick__item">
         <figure className="editor-pick__item-fig">

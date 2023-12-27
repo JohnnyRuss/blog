@@ -1,10 +1,14 @@
-import { AnimationProps } from "framer-motion";
+import { MotionProps } from "framer-motion";
 
-const animateRight = (args?: {
+type AnimateMotionT = {
+  once: boolean;
   duration?: number;
   inView?: boolean;
-}): AnimationProps => {
-  const config: AnimationProps = {
+  delay?: number;
+};
+
+const animateRight = (args?: AnimateMotionT): MotionProps => {
+  const config: MotionProps = {
     initial: "offscreen",
     variants: {
       offscreen: {
@@ -12,6 +16,7 @@ const animateRight = (args?: {
         opacity: 0,
       },
     },
+    viewport: { once: args.once },
   };
 
   if (args.inView)
@@ -20,7 +25,7 @@ const animateRight = (args?: {
       opacity: 1,
       transition: {
         duration: args.duration || 0.5,
-        delay: 0.3,
+        delay: args.delay || 0,
       },
     };
   else {
@@ -31,11 +36,8 @@ const animateRight = (args?: {
   return config;
 };
 
-const animateLeft = (args?: {
-  duration?: number;
-  inView?: boolean;
-}): AnimationProps => {
-  const config: AnimationProps = {
+const animateLeft = (args?: AnimateMotionT): MotionProps => {
+  const config: MotionProps = {
     initial: "offscreen",
     variants: {
       offscreen: {
@@ -43,6 +45,7 @@ const animateLeft = (args?: {
         opacity: 0,
       },
     },
+    viewport: { once: args.once },
   };
 
   if (args.inView)
@@ -51,7 +54,7 @@ const animateLeft = (args?: {
       opacity: 1,
       transition: {
         duration: args.duration || 0.5,
-        delay: 0.3,
+        delay: args.delay || 0,
       },
     };
   else {
@@ -62,11 +65,8 @@ const animateLeft = (args?: {
   return config;
 };
 
-const animateBottom = (args?: {
-  duration?: number;
-  inView?: boolean;
-}): AnimationProps => {
-  const config: AnimationProps = {
+const animateBottom = (args?: AnimateMotionT): MotionProps => {
+  const config: MotionProps = {
     initial: "offscreen",
     variants: {
       offscreen: {
@@ -74,6 +74,7 @@ const animateBottom = (args?: {
         opacity: 0,
       },
     },
+    viewport: { once: args.once },
   };
 
   if (args.inView)
@@ -82,7 +83,7 @@ const animateBottom = (args?: {
       opacity: 1,
       transition: {
         duration: args.duration || 0.5,
-        delay: 0.3,
+        delay: args.delay || 0,
       },
     };
   else {
@@ -93,11 +94,8 @@ const animateBottom = (args?: {
   return config;
 };
 
-const animateTop = (args?: {
-  duration?: number;
-  inView?: boolean;
-}): AnimationProps => {
-  const config: AnimationProps = {
+const animateTop = (args?: AnimateMotionT): MotionProps => {
+  const config: MotionProps = {
     initial: "offscreen",
     variants: {
       offscreen: {
@@ -105,6 +103,7 @@ const animateTop = (args?: {
         opacity: 0,
       },
     },
+    viewport: { once: args.once },
   };
 
   if (args.inView)
@@ -113,7 +112,7 @@ const animateTop = (args?: {
       opacity: 1,
       transition: {
         duration: args.duration || 0.5,
-        delay: 0.3,
+        delay: args.delay || 0,
       },
     };
   else {

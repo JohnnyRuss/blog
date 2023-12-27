@@ -40,6 +40,8 @@ export const Navigation = styled(motion.nav)`
     width: 60px;
     height: 26px;
     padding: 3px;
+    margin-left: auto;
+    margin-right: 3rem;
     display: flex;
     cursor: pointer;
     position: relative;
@@ -94,11 +96,6 @@ export const Navigation = styled(motion.nav)`
   }
 
   .nav-routes__block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 4rem;
-
     &-list {
       display: flex;
       justify-content: space-between;
@@ -114,6 +111,82 @@ export const Navigation = styled(motion.nav)`
       border-bottom: 2px solid
         ${({ theme }) =>
           theme.mode === "dark" ? theme.colors.brown : theme.colors.gray_dark};
+    }
+  }
+
+  .nav__burger-btn {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    cursor: pointer;
+    font-size: ${({ theme }) => theme.fontSize.xxl};
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .nav__burger-btn {
+      display: flex;
+      position: relative;
+      z-index: 99;
+    }
+
+    .nav-routes__block {
+      pointer-events: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 100%;
+      overflow: hidden;
+      backdrop-filter: blur(3px);
+      transition: all 0.5s ease-out;
+      transform-origin: top right;
+      opacity: 0;
+
+      &-list {
+        flex-direction: column;
+        justify-content: flex-start;
+        position: absolute;
+        opacity: 0;
+        height: 30vh;
+        width: 50vw;
+        right: 0;
+        top: 0;
+        padding: 5.5rem 2rem 2rem;
+        align-items: stretch;
+        background-color: ${({ theme }) => theme.colors.bg};
+        box-shadow: -10px 0px 20px 4px rgba(0, 0, 0, 0.7);
+        transform: translateY(-100%);
+        transition: all 0.5s 0.2s ease-out;
+      }
+
+      &-list--item {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid transparent;
+        transition: all 0.5s ease;
+
+        @media (hover: hover) {
+          &:hover {
+            border-color: ${({ theme }) => theme.colors.gray_shade};
+          }
+        }
+      }
+    }
+
+    &.open .nav-routes__block {
+      /* inset: 0; */
+      width: 100vw;
+      height: 100vh;
+      border-radius: 0;
+      opacity: 1;
+
+      &-list {
+        height: 100vh;
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
   }
 `;

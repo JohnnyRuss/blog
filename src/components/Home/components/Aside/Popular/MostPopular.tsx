@@ -12,7 +12,7 @@ const MostPopular: React.FC<MostPopularT> = () => {
   return (
     <Styled.MostPopular
       whileInView="onscreen"
-      {...animateLeft({ inView: true })}
+      {...animateLeft({ inView: true, once: true })}
     >
       <li className="popular-item">
         <CategoryChip bgColor="#FFAE00" title="Travel" size="sm" />

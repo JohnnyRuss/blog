@@ -13,19 +13,31 @@ const Posts: React.FC<PostsT> = () => {
       <SectionTitle title="Recent Posts" />
 
       <ul className="posts-list">
-        <motion.div whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.div
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: false })}
+        >
           <Post />
         </motion.div>
 
-        <motion.div whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.div
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: false })}
+        >
           <Post />
         </motion.div>
 
-        <motion.div whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.div
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: false })}
+        >
           <Post />
         </motion.div>
 
-        <motion.div whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.div
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: false })}
+        >
           <Post />
         </motion.div>
       </ul>
@@ -33,7 +45,7 @@ const Posts: React.FC<PostsT> = () => {
       <div className="pagination-box">
         <motion.button
           whileInView="onscreen"
-          {...animateLeft({ inView: true })}
+          {...animateLeft({ inView: true, once: true })}
           className="pagination-box__btn"
         >
           Prev
@@ -41,7 +53,7 @@ const Posts: React.FC<PostsT> = () => {
 
         <motion.button
           whileInView="onscreen"
-          {...animateRight({ inView: true })}
+          {...animateRight({ inView: true, once: true })}
           className="pagination-box__btn"
         >
           Next

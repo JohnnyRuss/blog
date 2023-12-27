@@ -47,4 +47,73 @@ export const Hero = styled.section`
       padding: 4rem;
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop}) {
+    .hero__intro-txt {
+      font-size: ${({ theme }) => theme.fontSize.h2};
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+
+      span,
+      &--welcome {
+        line-height: 1;
+      }
+    }
+
+    .hero__post {
+      gap: 2rem;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    .hero__intro-txt {
+      font-size: ${({ theme }) => theme.fontSize.h3};
+    }
+
+    .hero__post {
+      gap: 1rem;
+      height: 30vw;
+
+      div[data-line-clamp] {
+        -webkit-line-clamp: 7;
+      }
+
+      &-content {
+        padding: 2rem;
+      }
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
+    .hero__intro-txt {
+      font-size: ${({ theme }) => theme.fontSize.xxl};
+    }
+
+    .hero__post {
+      height: auto;
+      flex-direction: column;
+
+      &-fig {
+        height: 40vh;
+        max-height: 40vh;
+        flex: 0;
+      }
+
+      &-content {
+        gap: 1.5rem;
+        padding: 0;
+
+        div[data-line-clamp] {
+          -webkit-line-clamp: 5;
+        }
+      }
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    gap: 3rem;
+    padding: 2rem 0;
+  }
 `;

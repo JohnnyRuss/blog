@@ -9,7 +9,7 @@ const Categories: React.FC<CategoriesT> = () => {
   return (
     <Styled.Categories
       whileInView="onscreen"
-      {...animateLeft({ inView: true })}
+      {...animateLeft({ inView: true, once: true })}
     >
       <CategoryChip bgColor="#01415B" title="Style" size="md" />
 

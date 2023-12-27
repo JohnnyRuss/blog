@@ -26,20 +26,21 @@ export const Container = styled.div`
 
   @media screen and (${({ theme }) => theme.breakpoints.tablet}) {
     .wrapper {
-      max-width: 76.8rem;
+      max-width: 95rem;
       padding: 0 4rem;
     }
   }
 
-  @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
+  /* @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
     .wrapper {
       max-width: 64rem;
     }
-  }
+  } */
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
     .wrapper {
-      max-width: 47.5rem;
+      max-width: 100%;
+      width: 100%;
     }
   }
 `;

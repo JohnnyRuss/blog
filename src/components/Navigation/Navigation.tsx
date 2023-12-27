@@ -1,8 +1,10 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { useThemeContext } from "@/Providers/useProviders";
+import { motion } from "framer-motion";
 
 import { PATHS } from "@/config/paths";
-import { animateBottom } from "@/styles/animations";
+import { useThemeContext } from "@/Providers/useProviders";
+import { animateBottom, animateLeft } from "@/styles/animations";
 
 // import Facebook from "@/assets/icons/facebook-rounded.svg";
 // import Instagram from "@/assets/icons/instagram.svg";
@@ -12,15 +14,33 @@ import LogoBlack from "@/assets/logo/logo-black.webp";
 import LogoWhite from "@/assets/logo/logo-white.webp";
 
 import ThemeButton from "./ThemeButton";
+import BurgerButton from "./BurgerButton";
 import * as Styled from "./navigation.styled";
 
 const Navigation: React.FC = () => {
   const { mode } = useThemeContext();
 
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
+
+  const [openNav, setOpenNav] = useState(false);
+  const onOpenNav = () => setOpenNav((prev) => !prev);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 640);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <Styled.Navigation
       whileInView="onscreen"
-      {...animateBottom({ inView: true })}
+      className={openNav ? "open scroll-block" : "closed"}
+      {...animateBottom({ inView: true, once: true })}
     >
       {/* <ul className="nav-socials__list">
         <Link to="#">
@@ -47,7 +67,6 @@ const Navigation: React.FC = () => {
           </li>
         </Link>
       </ul> */}
-
       <figure className="nav-logo">
         <img
           src={mode === "dark" ? LogoWhite : LogoBlack}
@@ -57,9 +76,9 @@ const Navigation: React.FC = () => {
         />
       </figure>
 
-      <div className="nav-routes__block">
-        <ThemeButton />
+      <ThemeButton />
 
+      <div className="nav-routes__block">
         <ul className="nav-routes__block-list">
           <NavLink
             to={PATHS.home_page}
@@ -90,6 +109,8 @@ const Navigation: React.FC = () => {
           </NavLink>
         </ul>
       </div>
+
+      <BurgerButton onOpen={onOpenNav} open={openNav} />
     </Styled.Navigation>
   );
 };

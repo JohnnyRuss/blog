@@ -22,7 +22,7 @@ const LineClamp: React.FC<LineClampT> = ({
   component = "div",
 }) => {
   return (
-    <LineClampedBox as={component} clamp={clamp} style={sx}>
+    <LineClampedBox as={component} clamp={clamp} style={sx} data-line-clamp>
       {children}
     </LineClampedBox>
   );

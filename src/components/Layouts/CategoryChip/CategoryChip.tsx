@@ -23,7 +23,12 @@ const CategoryChip: React.FC<CategoryChipT> = ({
       : "";
 
   return (
-    <Styled.CategoryChip bg_color={bgColor} className={sizeClass} title={title}>
+    <Styled.CategoryChip
+      bg_color={bgColor}
+      className={sizeClass}
+      title={title}
+      data-category-chip
+    >
       {img && (
         <figure className="categories__list-item--fig">
           <img

@@ -12,6 +12,14 @@ const AsideBlockItemContainerEl = styled.section`
   display: flex;
   flex-direction: column;
   gap: 3rem;
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    padding: 3rem 0;
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    padding: 1.5rem 0;
+  }
 `;
 
 const AsideBlockItemContainer: React.FC<AsideBlockItemContainerT> = ({

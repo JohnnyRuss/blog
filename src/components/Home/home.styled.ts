@@ -10,4 +10,16 @@ export const Home = styled.div`
     align-items: flex-start;
     gap: 3rem;
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    .content-box {
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .content-box {
+      padding: 0;
+    }
+  }
 `;

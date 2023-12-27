@@ -10,7 +10,10 @@ const Categories: React.FC = () => {
       <SectionTitle title="Popular Products" />
 
       <ul className="categories__list">
-        <motion.li whileInView="onscreen" {...animateBottom({ inView: true })}>
+        <motion.li
+          whileInView="onscreen"
+          {...animateBottom({ inView: true, once: true })}
+        >
           <CategoryChip
             bgColor="#01415B"
             title="Style"
@@ -18,7 +21,10 @@ const Categories: React.FC = () => {
           />
         </motion.li>
 
-        <motion.li whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.li
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: true })}
+        >
           <CategoryChip
             bgColor="#005148"
             title="Fashion"
@@ -26,7 +32,10 @@ const Categories: React.FC = () => {
           />
         </motion.li>
 
-        <motion.li whileInView="onscreen" {...animateBottom({ inView: true })}>
+        <motion.li
+          whileInView="onscreen"
+          {...animateBottom({ inView: true, once: true })}
+        >
           <CategoryChip
             bgColor="#019587"
             title="Food"
@@ -34,7 +43,10 @@ const Categories: React.FC = () => {
           />
         </motion.li>
 
-        <motion.li whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.li
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: true })}
+        >
           <CategoryChip
             bgColor="#FFAE00"
             title="Travel"
@@ -42,7 +54,10 @@ const Categories: React.FC = () => {
           />
         </motion.li>
 
-        <motion.li whileInView="onscreen" {...animateBottom({ inView: true })}>
+        <motion.li
+          whileInView="onscreen"
+          {...animateBottom({ inView: true, once: true })}
+        >
           <CategoryChip
             bgColor="#B33F00"
             title="Culture"
@@ -50,7 +65,10 @@ const Categories: React.FC = () => {
           />
         </motion.li>
 
-        <motion.li whileInView="onscreen" {...animateTop({ inView: true })}>
+        <motion.li
+          whileInView="onscreen"
+          {...animateTop({ inView: true, once: true })}
+        >
           <CategoryChip
             bgColor="#D92525"
             title="Coding"

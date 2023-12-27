@@ -7,7 +7,7 @@ const Theme: DefaultTheme = {
     desktop: "max-width:96em",
     desktop_sm: "max-width:80em",
     tablet: "max-width:64em",
-    tablet_sm: "max-width:48em",
+    tablet_sm: "max-width:53.75em",
     mobile_lg: "max-width:40em",
     mobile: "max-width:30em",
   },

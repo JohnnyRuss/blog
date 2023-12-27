@@ -107,4 +107,34 @@ export const Posts = styled.section`
       cursor: pointer;
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
+    .posts-list__item {
+      div[data-line-clamp] {
+        -webkit-line-clamp: 4;
+      }
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .posts-list__item {
+      flex-direction: column;
+      gap: 1rem;
+
+      &-fig {
+        width: 100%;
+        height: 28vh;
+      }
+
+      &-content {
+        width: 100%;
+        padding: 1rem 0;
+        gap: 1rem;
+      }
+
+      div[data-line-clamp] {
+        -webkit-line-clamp: 4;
+      }
+    }
+  }
 `;
