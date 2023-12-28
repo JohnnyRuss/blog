@@ -11,5 +11,6 @@ export const Aside = styled.aside`
   @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
     gap: 2rem;
     position: unset;
+    width: 100%;
   }
 `;

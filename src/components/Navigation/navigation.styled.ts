@@ -133,21 +133,23 @@ export const Navigation = styled(motion.nav)`
     .nav-routes__block {
       pointer-events: none;
       position: fixed;
+      z-index: 99;
       top: 0;
       right: 0;
-      width: 1rem;
-      height: 1rem;
-      border-radius: 100%;
+      transform: scale(0.1);
+      opacity: 0;
+      width: 15rem;
+      height: 15rem;
       overflow: hidden;
       backdrop-filter: blur(3px);
       transition: all 0.5s ease-out;
       transform-origin: top right;
-      opacity: 0;
 
       &-list {
         flex-direction: column;
         justify-content: flex-start;
         position: absolute;
+        z-index: 99;
         opacity: 0;
         height: 30vh;
         width: 50vw;
@@ -158,7 +160,7 @@ export const Navigation = styled(motion.nav)`
         background-color: ${({ theme }) => theme.colors.bg};
         box-shadow: -10px 0px 20px 4px rgba(0, 0, 0, 0.7);
         transform: translateY(-100%);
-        transition: all 0.5s 0.2s ease-out;
+        transition: all 0.5s 0.3s ease-out;
       }
 
       &-list--item {
@@ -176,11 +178,11 @@ export const Navigation = styled(motion.nav)`
     }
 
     &.open .nav-routes__block {
-      /* inset: 0; */
       width: 100vw;
       height: 100vh;
-      border-radius: 0;
       opacity: 1;
+      transform: scale(1);
+      pointer-events: all;
 
       &-list {
         height: 100vh;

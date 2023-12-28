@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import { PATHS } from "@/config/paths";
 import { useThemeContext } from "@/Providers/useProviders";
-import { animateBottom, animateLeft } from "@/styles/animations";
+import { animateBottom, animateLogo } from "@/styles/animations";
 
 // import Facebook from "@/assets/icons/facebook-rounded.svg";
 // import Instagram from "@/assets/icons/instagram.svg";
@@ -20,21 +20,8 @@ import * as Styled from "./navigation.styled";
 const Navigation: React.FC = () => {
   const { mode } = useThemeContext();
 
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
-
   const [openNav, setOpenNav] = useState(false);
   const onOpenNav = () => setOpenNav((prev) => !prev);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 640);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   return (
     <Styled.Navigation
@@ -67,14 +54,14 @@ const Navigation: React.FC = () => {
           </li>
         </Link>
       </ul> */}
-      <figure className="nav-logo">
+      <motion.figure className="nav-logo" {...animateLogo}>
         <img
           src={mode === "dark" ? LogoWhite : LogoBlack}
           width="100%"
           height={40}
           alt="Blog"
         />
-      </figure>
+      </motion.figure>
 
       <ThemeButton />
 
@@ -88,17 +75,24 @@ const Navigation: React.FC = () => {
           </NavLink>
 
           <NavLink
-            to={PATHS.contact_page}
+            to={PATHS.blog_page}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            <li className="nav-routes__block-list--item">Contact</li>
+            <li className="nav-routes__block-list--item">Blog</li>
           </NavLink>
 
           <NavLink
-            to={PATHS.about_page}
+            to={""}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            <li className="nav-routes__block-list--item">About</li>
+            <li className="nav-routes__block-list--item">For You</li>
+          </NavLink>
+
+          <NavLink
+            to={PATHS.profile_page}
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            <li className="nav-routes__block-list--item">Profile</li>
           </NavLink>
 
           <NavLink

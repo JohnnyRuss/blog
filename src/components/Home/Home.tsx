@@ -9,7 +9,7 @@ const Home: React.FC = () => {
       <UI.Categories />
 
       <div className="content-box">
-        <UI.Posts />
+        <UI.Articles />
 
         <UI.Aside />
       </div>

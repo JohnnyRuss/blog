@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
-export const MostPopular = styled(motion.ul)`
+export const PopularArticles = styled(motion.ul)`
   display: flex;
   flex-direction: column;
   gap: 2rem;

@@ -123,4 +123,11 @@ const animateTop = (args?: AnimateMotionT): MotionProps => {
   return config;
 };
 
-export { animateRight, animateBottom, animateLeft, animateTop };
+const animateLogo: MotionProps = {
+  initial: { rotate: -135, y: -20 },
+  animate: { rotate: 0, y: 0 },
+  transition: { duration: 1, delay: 0.5 },
+  style: { transformOrigin: "0% 0%" },
+};
+
+export { animateRight, animateBottom, animateLeft, animateTop, animateLogo };

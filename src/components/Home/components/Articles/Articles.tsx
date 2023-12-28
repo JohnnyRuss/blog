@@ -1,15 +1,14 @@
-import * as Styled from "./posts.styled";
+import * as Styled from "./articles.styled";
 import { animateTop, animateLeft, animateRight } from "@/styles/animations";
 import { motion } from "framer-motion";
 
-import Post from "./Post";
-import { SectionTitle } from "@/components/Layouts";
+import { SectionTitle, ArticleCard } from "@/components/Layouts";
 
-type PostsT = {};
+type ArticlesT = {};
 
-const Posts: React.FC<PostsT> = () => {
+const Articles: React.FC<ArticlesT> = () => {
   return (
-    <Styled.Posts>
+    <Styled.Articles>
       <SectionTitle title="Recent Posts" />
 
       <ul className="posts-list">
@@ -17,28 +16,28 @@ const Posts: React.FC<PostsT> = () => {
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <Post />
+          <ArticleCard />
         </motion.div>
 
         <motion.div
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <Post />
+          <ArticleCard />
         </motion.div>
 
         <motion.div
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <Post />
+          <ArticleCard />
         </motion.div>
 
         <motion.div
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <Post />
+          <ArticleCard />
         </motion.div>
       </ul>
 
@@ -59,8 +58,8 @@ const Posts: React.FC<PostsT> = () => {
           Next
         </motion.button>
       </div>
-    </Styled.Posts>
+    </Styled.Articles>
   );
 };
 
-export default Posts;
+export default Articles;

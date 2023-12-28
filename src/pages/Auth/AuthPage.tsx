@@ -2,18 +2,17 @@ import { lazy } from "react";
 import { SuspenseContainer, Container } from "@/components/Layouts";
 
 import Navigation from "@/components/Navigation/Navigation";
+const Auth = lazy(() => import("@/components/Auth/Auth"));
 
-const Home = lazy(() => import("@/components/Home/Home"));
-
-const HomePage: React.FC = () => {
+const AuthPage: React.FC = () => {
   return (
     <Container>
       <Navigation />
       <SuspenseContainer>
-        <Home />
+        <Auth />
       </SuspenseContainer>
     </Container>
   );
 };
 
-export default HomePage;
+export default AuthPage;

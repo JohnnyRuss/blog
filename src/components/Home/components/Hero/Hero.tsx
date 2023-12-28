@@ -49,11 +49,13 @@ const Hero: React.FC = () => {
             whileInView="onscreen"
             {...animateBottom({ inView: true, once: false })}
           >
-            <LineClamp clamp={2} component="h3">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+            <LineClamp
+              clamp={2}
+              component="h3"
+              text=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
               consequatur labore, quidem laboriosam voluptatum et eaque ea ipsa
-              perferendis, nesciunt porro quia, soluta quos.
-            </LineClamp>
+              perferendis, nesciunt porro quia, soluta quos."
+            />
           </motion.div>
 
           <motion.div
@@ -69,16 +71,11 @@ const Hero: React.FC = () => {
                     : theme.colors.gray_dark,
                 fontSize: theme.fontSize.sm,
               }}
-            >
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              text="Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Corrupti nam facilis, laborum magni sunt, fuga illo voluptatem
                 fugit sequi aperiam quidem reiciendis repellat quia
                 voluptatibus, quibusdam esse dolorem maxime error voluptates cum
-                harum nesciunt consectetur.
-              </p>
-              <p>
-                Sunt, eaque blanditiis. Dolor nostrum quaerat at enim, alias
+                harum nesciunt consectetur.\n Sunt, eaque blanditiis. Dolor nostrum quaerat at enim, alias
                 adipisci quas praesentium doloribus dolores dolorem consequuntur
                 amet accusamus nulla in, blanditiis, necessitatibus quia tempore
                 quo cupiditate maiores ullam sapiente ipsum? Unde delectus vel,
@@ -88,9 +85,8 @@ const Hero: React.FC = () => {
                 nisi incidunt veniam voluptatum voluptatibus voluptate expedita
                 eaque sunt est tenetur necessitatibus consequatur. Molestiae
                 tempora fuga est ipsum ea optio deserunt facere enim nulla,
-                consequatur
-              </p>
-            </LineClamp>
+                consequatur"
+            />
           </motion.div>
 
           <motion.button

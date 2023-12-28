@@ -7,6 +7,7 @@ export const EditorPick = styled(motion.ul)`
   gap: 3.5rem;
 
   .editor-pick__item {
+    width: 100%;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -30,6 +31,7 @@ export const EditorPick = styled(motion.ul)`
   }
 
   .editor-pick__item-content {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;

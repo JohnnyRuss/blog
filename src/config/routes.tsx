@@ -17,6 +17,30 @@ const Routes: Array<RouteT> = [
     children: [],
   },
   {
+    path: PATHS.article_page,
+    title: "article-page",
+    element: <Pages.ArticlePage />,
+    children: [],
+  },
+  {
+    path: PATHS.blog_page,
+    title: "blog-page",
+    element: <Pages.BlogPage />,
+    children: [],
+  },
+  {
+    path: PATHS.profile_page,
+    title: "profile-page",
+    element: <Pages.ProfilePage />,
+    children: [],
+  },
+  {
+    path: PATHS.auth_page,
+    title: "auth-page",
+    element: <Pages.AuthPage />,
+    children: [],
+  },
+  {
     path: PATHS.unknown_page,
     title: "unknown-page",
     element: <Pages.UnknownPage />,
