@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const ArticleCard = styled(Link)`
+export const ArticleCardBig = styled(Link)`
   .article-card {
     display: flex;
     align-items: flex-start;
@@ -43,7 +43,7 @@ export const ArticleCard = styled(Link)`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
-    .posts-list__item {
+    .article-card {
       div[data-line-clamp] {
         -webkit-line-clamp: 4;
       }
@@ -51,7 +51,7 @@ export const ArticleCard = styled(Link)`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
-    .posts-list__item {
+    .article-card {
       flex-direction: column;
       gap: 1rem;
 
@@ -69,6 +69,98 @@ export const ArticleCard = styled(Link)`
       div[data-line-clamp] {
         -webkit-line-clamp: 4;
       }
+    }
+  }
+`;
+
+export const ArticleCardMedium = styled(Link)`
+  max-width: 37rem;
+
+  .article-md__body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &-fig {
+      width: 100%;
+      height: 50%;
+      border-radius: 0.5rem;
+      overflow: hidden;
+
+      img {
+        margin-bottom: -2rem;
+        border-radius: inherit;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    &-content {
+      height: 50%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &-content--text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    &-content--about {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      &__date {
+        font-size: ${({ theme }) => theme.fontSize.xs};
+        color: ${({ theme }) => theme.colors.gray_shade};
+      }
+    }
+  }
+`;
+
+export const ArticleCardSmall = styled(Link)`
+  width: 100%;
+
+  .article-sm__body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    gap: 3rem;
+
+    &-fig {
+      width: 30%;
+      min-height: 100%;
+      border-radius: 0.5rem;
+      overflow: hidden;
+
+      img {
+        margin-bottom: -2rem;
+        border-radius: inherit;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    }
+
+    &-content {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    &-content--text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
     }
   }
 `;

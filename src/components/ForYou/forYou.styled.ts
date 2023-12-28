@@ -1,31 +1,31 @@
 import styled from "styled-components";
 
-export const Blog = styled.section`
+export const ForYou = styled.section`
   padding: 4rem 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 3rem;
 
-  .blog-content__box {
+  .for-you__content-box {
     display: flex;
     gap: 3rem;
   }
 
-  .blog-articles__list {
+  .for-you__articles-list {
     flex: 3;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     gap: 5rem;
-    grid-template-columns: repeat(2, 1fr);
   }
 
-  .blog-aside {
+  .for-you__aside {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 4rem;
   }
 
-  .blog-aside__sticky {
+  .for-you__aside-sticky {
     position: sticky;
     top: 8.5rem;
     display: flex;
@@ -34,11 +34,11 @@ export const Blog = styled.section`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
-    .blog-content__box {
+    .for-you__content-box {
       flex-direction: column;
     }
 
-    .blog-aside {
+    .for-you__aside {
       gap: 2rem;
       position: unset;
       width: 100%;
@@ -46,7 +46,7 @@ export const Blog = styled.section`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
-    .blog-content__box {
+    .for-you__content-box {
       padding: 0;
     }
   }

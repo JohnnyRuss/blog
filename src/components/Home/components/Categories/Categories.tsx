@@ -7,7 +7,7 @@ import { SectionTitle, CategoryChip } from "@/components/Layouts";
 const Categories: React.FC = () => {
   return (
     <Styled.Categories>
-      <SectionTitle title="Popular Products" />
+      <SectionTitle title="Categories" />
 
       <ul className="categories__list">
         <motion.li

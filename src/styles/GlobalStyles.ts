@@ -28,6 +28,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: inherit;
   }
   
+  li,
   ul{
     list-style:none;
   }

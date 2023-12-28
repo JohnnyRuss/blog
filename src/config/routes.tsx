@@ -29,6 +29,12 @@ const Routes: Array<RouteT> = [
     children: [],
   },
   {
+    path: PATHS.for_you_page,
+    title: "for-you-page",
+    element: <Pages.ForYouPage />,
+    children: [],
+  },
+  {
     path: PATHS.profile_page,
     title: "profile-page",
     element: <Pages.ProfilePage />,

@@ -9,6 +9,7 @@ const Categories: React.FC<CategoriesT> = () => {
   return (
     <AsideBlockItemContainer title="Categories" subTitle="Discover by topics">
       <Styled.Categories
+        data-aside-categories
         whileInView="onscreen"
         {...animateLeft({ inView: true, once: true })}
       >

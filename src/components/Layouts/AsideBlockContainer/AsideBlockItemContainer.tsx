@@ -1,6 +1,8 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
+import { animateBottom } from "@/styles/animations";
+
 import { SectionTitle } from "@/components/Layouts";
-import React from "react";
 
 type AsideBlockItemContainerT = {
   title: string;
@@ -28,8 +30,14 @@ const AsideBlockItemContainer: React.FC<AsideBlockItemContainerT> = ({
   children,
 }) => {
   return (
-    <AsideBlockItemContainerEl>
-      <SectionTitle title={title} subTitle={subTitle} />
+    <AsideBlockItemContainerEl data-aside-block>
+      <motion.div
+        whileInView="onscreen"
+        {...animateBottom({ inView: true, once: true })}
+      >
+        <SectionTitle title={title} subTitle={subTitle} />
+      </motion.div>
+
       {children}
     </AsideBlockItemContainerEl>
   );

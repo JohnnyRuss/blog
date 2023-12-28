@@ -82,7 +82,7 @@ const Navigation: React.FC = () => {
           </NavLink>
 
           <NavLink
-            to={""}
+            to={PATHS.for_you_page}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             <li className="nav-routes__block-list--item">For You</li>

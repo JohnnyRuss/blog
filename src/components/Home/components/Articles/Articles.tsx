@@ -1,8 +1,8 @@
 import * as Styled from "./articles.styled";
-import { animateTop, animateLeft, animateRight } from "@/styles/animations";
+import { animateTop } from "@/styles/animations";
 import { motion } from "framer-motion";
 
-import { SectionTitle, ArticleCard } from "@/components/Layouts";
+import { SectionTitle, ArticleCardBig } from "@/components/Layouts";
 
 type ArticlesT = {};
 
@@ -16,48 +16,30 @@ const Articles: React.FC<ArticlesT> = () => {
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <ArticleCard />
+          <ArticleCardBig />
         </motion.div>
 
         <motion.div
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <ArticleCard />
+          <ArticleCardBig />
         </motion.div>
 
         <motion.div
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <ArticleCard />
+          <ArticleCardBig />
         </motion.div>
 
         <motion.div
           whileInView="onscreen"
           {...animateTop({ inView: true, once: false })}
         >
-          <ArticleCard />
+          <ArticleCardBig />
         </motion.div>
       </ul>
-
-      <div className="pagination-box">
-        <motion.button
-          whileInView="onscreen"
-          {...animateLeft({ inView: true, once: true })}
-          className="pagination-box__btn"
-        >
-          Prev
-        </motion.button>
-
-        <motion.button
-          whileInView="onscreen"
-          {...animateRight({ inView: true, once: true })}
-          className="pagination-box__btn"
-        >
-          Next
-        </motion.button>
-      </div>
     </Styled.Articles>
   );
 };

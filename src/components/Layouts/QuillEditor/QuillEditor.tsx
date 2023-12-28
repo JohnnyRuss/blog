@@ -1,15 +1,13 @@
 import { useState } from "react";
 import ReactQuill from "react-quill";
-
 import "react-quill/dist/quill.snow.css";
-// import "highlight.js/styles/dark.css";
 
 type QuillEditorT = {
   readonly?: boolean;
   defaultValue?: string;
 };
 
-const quil = {
+const quill = {
   modules: {
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
@@ -29,15 +27,6 @@ const quil = {
       ["link", "image"],
       ["clean"],
     ],
-    // image: {
-    //   resizer: {
-    //     handleStyles: {
-    //       backgroundColor: "black",
-    //       border: "none",
-    //       borderRadius: "0",
-    //     },
-    //   },
-    // },
   },
   theme: "snow",
   formats: ["header", "code-block", "link"],
@@ -59,13 +48,25 @@ const QuillEditor: React.FC<QuillEditorT> = ({
       <ReactQuill
         value={value}
         onChange={setValue}
-        theme={readonly ? "bubble" : quil.theme}
-        modules={quil.modules}
+        theme={readonly ? "bubble" : quill.theme}
+        modules={quill.modules}
         readOnly={readonly}
-        formats={["link"]}
+        // formats={["link"]}
       />
 
-      {/* <button onClick={onSubmit}>Publish</button> */}
+      {/* <button
+        onClick={onSubmit}
+        style={{
+          background: "royalblue",
+          color: "#fff",
+          width: "100%",
+          padding: "1.5rem 0",
+          marginTop: "2rem",
+          borderRadius: "1rem",
+        }}
+      >
+        Publish
+      </button> */}
     </>
   );
 };

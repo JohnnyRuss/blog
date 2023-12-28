@@ -10,4 +10,6 @@ export { default as PopularArticles } from "./PopularArticles/PopularArticles";
 export { default as Categories } from "./Categories/Categories";
 export { default as EditorPick } from "./EditorPick/EditorPick";
 export { default as AuthorIdentifier } from "./AuthorIdentifier/AuthorIdentifier";
-export { default as ArticleCard } from "./ArticleCard/ArticleCard";
+export { default as ArticleCardBig } from "./ArticleCard/ArticleCardBig";
+export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
+export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";

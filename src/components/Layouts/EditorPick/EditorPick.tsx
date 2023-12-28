@@ -19,6 +19,7 @@ const EditorPick: React.FC<EditorPickT> = () => {
       subTitle="Chosen by the editor"
     >
       <Styled.EditorPick
+        data-editors-pick
         whileInView="onscreen"
         {...animateLeft({ inView: true, once: true })}
       >

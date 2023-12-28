@@ -9,9 +9,9 @@ import {
 } from "@/components/Layouts";
 import * as Styled from "./article.styled";
 
-type ArticleCardT = {};
+type ArticleCardBigT = {};
 
-const ArticleCard: React.FC<ArticleCardT> = () => {
+const ArticleCardBig: React.FC<ArticleCardBigT> = () => {
   const theme = useTheme();
 
   const x = localStorage.getItem("post");
@@ -21,7 +21,7 @@ const ArticleCard: React.FC<ArticleCardT> = () => {
   const text = getText(quillValue);
 
   return (
-    <Styled.ArticleCard to="/blog/123">
+    <Styled.ArticleCardBig to="/blog/123">
       <li className="article-card">
         <figure className="article-card__fig">
           <img
@@ -66,8 +66,8 @@ const ArticleCard: React.FC<ArticleCardT> = () => {
           </button>
         </div>
       </li>
-    </Styled.ArticleCard>
+    </Styled.ArticleCardBig>
   );
 };
 
-export default ArticleCard;
+export default ArticleCardBig;

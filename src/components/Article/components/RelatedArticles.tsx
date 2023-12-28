@@ -1,5 +1,5 @@
 import * as Styled from "./styles/relatedArticles.styled";
-import { ArticleCard, SectionTitle } from "@/components/Layouts";
+import { ArticleCardBig, SectionTitle } from "@/components/Layouts";
 
 type RelatedArticlesT = {};
 
@@ -9,10 +9,10 @@ const RelatedArticles: React.FC<RelatedArticlesT> = () => {
       <SectionTitle title="Related Articles" />
 
       <div className="articles-container">
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
-        <ArticleCard />
+        <ArticleCardBig />
+        <ArticleCardBig />
+        <ArticleCardBig />
+        <ArticleCardBig />
       </div>
     </Styled.RelatedArticles>
   );
