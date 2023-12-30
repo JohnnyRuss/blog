@@ -1,10 +1,11 @@
 import {
+  AsideCategories,
+  AsideWhoToFollow,
   ArticleCardMedium,
-  Categories,
-  PopularArticles,
-  EditorPick,
 } from "@/components/Layouts";
 import * as Styled from "./bog.styled";
+import { animateFadeIn } from "@/styles/animations";
+import { motion } from "framer-motion";
 
 type BlogT = {};
 
@@ -14,26 +15,60 @@ const Blog: React.FC<BlogT> = () => {
       <div>Filter</div>
       <div className="blog-content__box">
         <div className="blog-articles__list">
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
-          <ArticleCardMedium />
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
+          <motion.div {...animateFadeIn({ once: true, inView: true })}>
+            <ArticleCardMedium />
+          </motion.div>
         </div>
+
         <aside className="blog-aside">
-          <PopularArticles />
+          <AsideCategories />
 
-          <div className="blog-aside__sticky">
-            <Categories />
-
-            <EditorPick />
-          </div>
+          <AsideWhoToFollow />
         </aside>
       </div>
     </Styled.Blog>

@@ -25,7 +25,6 @@ const Navigation: React.FC = () => {
 
   return (
     <Styled.Navigation
-      whileInView="onscreen"
       className={openNav ? "open scroll-block" : "closed"}
       {...animateBottom({ inView: true, once: true })}
     >

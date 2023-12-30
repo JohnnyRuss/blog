@@ -32,7 +32,6 @@ const Hero: React.FC = () => {
       <article className="hero__post">
         <motion.figure
           className="hero__post-fig"
-          whileInView="onscreen"
           {...animateRight({ inView: true, once: false })}
         >
           <img
@@ -45,10 +44,7 @@ const Hero: React.FC = () => {
         </motion.figure>
 
         <div className="hero__post-content">
-          <motion.div
-            whileInView="onscreen"
-            {...animateBottom({ inView: true, once: false })}
-          >
+          <motion.div {...animateBottom({ inView: true, once: false })}>
             <LineClamp
               clamp={2}
               component="h3"
@@ -58,10 +54,7 @@ const Hero: React.FC = () => {
             />
           </motion.div>
 
-          <motion.div
-            whileInView="onscreen"
-            {...animateLeft({ inView: true, once: false })}
-          >
+          <motion.div {...animateLeft({ inView: true, once: false })}>
             <LineClamp
               clamp={10}
               sx={{
@@ -91,7 +84,6 @@ const Hero: React.FC = () => {
 
           <motion.button
             className="hero__post-content--more__btn"
-            whileInView="onscreen"
             {...animateTop({ inView: true, once: false })}
           >
             <strong>

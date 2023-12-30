@@ -3,9 +3,8 @@ import { motion } from "framer-motion";
 
 import {
   ArticleCardSmall,
-  PopularArticles,
-  Categories,
-  EditorPick,
+  AsideCategories,
+  AsideRecentlySaved,
 } from "@/components/Layouts";
 import * as Styled from "./forYou.styled";
 
@@ -17,75 +16,41 @@ const ForYou: React.FC<ForYouT> = () => {
       <div>Filter</div>
       <div className="for-you__content-box">
         <div className="for-you__articles-list">
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
-          <motion.div
-            whileInView="onscreen"
-            {...animateTop({ inView: true, once: true })}
-          >
+          <motion.div {...animateTop({ inView: true, once: true })}>
             <ArticleCardSmall />
           </motion.div>
         </div>
         <aside className="for-you__aside">
-          <PopularArticles />
+          <AsideCategories />
 
-          <div className="for-you__aside-sticky">
-            <Categories />
-
-            <EditorPick />
-          </div>
+          <AsideRecentlySaved />
         </aside>
       </div>
     </Styled.ForYou>

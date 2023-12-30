@@ -1,3 +1,16 @@
+// ASIDE BLOCKS
+export { default as AsideBlockItemContainer } from "./AsideBlockContainer/AsideBlockItemContainer";
+export { default as AsideEditorPick } from "./AsideEditorPick/AsideEditorPick";
+export { default as AsideCategories } from "./AsideCategories/AsideCategories";
+export { default as AsidePopularArticles } from "./AsidePopularArticles/AsidePopularArticles";
+export { default as AsideWhoToFollow } from "./AsideWhoToFollow/AsideWhoToFollow";
+export { default as AsideRecentlySaved } from "./AsideRecentlySaved/AsideRecentlySaved";
+// CARDS
+export { default as ArticleCardBig } from "./ArticleCard/ArticleCardBig";
+export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
+export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";
+// OTHERS
+export { default as AuthorIdentifier } from "./AuthorIdentifier/AuthorIdentifier";
 export { default as Container } from "./Container/Container";
 export { default as SuspenseContainer } from "./SuspenseContainer/SuspenseContainer";
 export { default as LineClamp } from "./LineClamp/LineClamp";
@@ -5,11 +18,3 @@ export { default as SectionTitle } from "./SectionTitle/SectionTitle";
 export { default as CategoryChip } from "./CategoryChip/CategoryChip";
 export { default as Text } from "./Text/Text";
 export { default as QuillEditor } from "./QuillEditor/QuillEditor";
-export { default as AsideBlockItemContainer } from "./AsideBlockContainer/AsideBlockItemContainer";
-export { default as PopularArticles } from "./PopularArticles/PopularArticles";
-export { default as Categories } from "./Categories/Categories";
-export { default as EditorPick } from "./EditorPick/EditorPick";
-export { default as AuthorIdentifier } from "./AuthorIdentifier/AuthorIdentifier";
-export { default as ArticleCardBig } from "./ArticleCard/ArticleCardBig";
-export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
-export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";

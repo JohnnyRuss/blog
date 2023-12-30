@@ -1,16 +1,16 @@
 import { animateLeft } from "@/styles/animations";
 import { useTheme } from "styled-components";
 
-import * as Styled from "./editorPick.styled";
 import {
   CategoryChip,
   LineClamp,
   AsideBlockItemContainer,
 } from "@/components/Layouts";
+import * as Styled from "./editorPick.styled";
 
-type EditorPickT = {};
+type AsideEditorPickT = {};
 
-const EditorPick: React.FC<EditorPickT> = () => {
+const AsideEditorPick: React.FC<AsideEditorPickT> = () => {
   const theme = useTheme();
 
   return (
@@ -20,7 +20,6 @@ const EditorPick: React.FC<EditorPickT> = () => {
     >
       <Styled.EditorPick
         data-editors-pick
-        whileInView="onscreen"
         {...animateLeft({ inView: true, once: true })}
       >
         <li className="editor-pick__item">
@@ -167,4 +166,4 @@ const EditorPick: React.FC<EditorPickT> = () => {
   );
 };
 
-export default EditorPick;
+export default AsideEditorPick;

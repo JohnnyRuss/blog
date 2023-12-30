@@ -23,14 +23,9 @@ export const Blog = styled.section`
     display: flex;
     flex-direction: column;
     gap: 4rem;
-  }
-
-  .blog-aside__sticky {
     position: sticky;
     top: 8.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
+    height: 100%;
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
@@ -42,12 +37,25 @@ export const Blog = styled.section`
       gap: 2rem;
       position: unset;
       width: 100%;
+      display: none;
     }
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
     .blog-content__box {
       padding: 0;
+    }
+
+    .blog-articles__list {
+      gap: 3rem;
+      grid-template-columns: repeat(1, 1fr);
+      justify-items: center;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+    .blog-articles__list {
+      gap: 5rem;
     }
   }
 `;

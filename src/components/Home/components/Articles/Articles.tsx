@@ -12,31 +12,19 @@ const Articles: React.FC<ArticlesT> = () => {
       <SectionTitle title="Recent Posts" />
 
       <ul className="posts-list">
-        <motion.div
-          whileInView="onscreen"
-          {...animateTop({ inView: true, once: false })}
-        >
+        <motion.div {...animateTop({ inView: true, once: false })}>
           <ArticleCardBig />
         </motion.div>
 
-        <motion.div
-          whileInView="onscreen"
-          {...animateTop({ inView: true, once: false })}
-        >
+        <motion.div {...animateTop({ inView: true, once: false })}>
           <ArticleCardBig />
         </motion.div>
 
-        <motion.div
-          whileInView="onscreen"
-          {...animateTop({ inView: true, once: false })}
-        >
+        <motion.div {...animateTop({ inView: true, once: false })}>
           <ArticleCardBig />
         </motion.div>
 
-        <motion.div
-          whileInView="onscreen"
-          {...animateTop({ inView: true, once: false })}
-        >
+        <motion.div {...animateTop({ inView: true, once: false })}>
           <ArticleCardBig />
         </motion.div>
       </ul>

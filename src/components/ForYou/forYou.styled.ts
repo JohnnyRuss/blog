@@ -23,14 +23,9 @@ export const ForYou = styled.section`
     display: flex;
     flex-direction: column;
     gap: 4rem;
-  }
-
-  .for-you__aside-sticky {
+    height: 100%;
     position: sticky;
     top: 8.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 4rem;
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
@@ -42,6 +37,7 @@ export const ForYou = styled.section`
       gap: 2rem;
       position: unset;
       width: 100%;
+      display: none;
     }
   }
 

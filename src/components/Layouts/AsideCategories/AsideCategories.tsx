@@ -3,14 +3,13 @@ import { animateLeft } from "@/styles/animations";
 import * as Styled from "./categories.styled";
 import { CategoryChip, AsideBlockItemContainer } from "@/components/Layouts";
 
-type CategoriesT = {};
+type AsideCategoriesT = {};
 
-const Categories: React.FC<CategoriesT> = () => {
+const AsideCategories: React.FC<AsideCategoriesT> = () => {
   return (
     <AsideBlockItemContainer title="Categories" subTitle="Discover by topics">
       <Styled.Categories
         data-aside-categories
-        whileInView="onscreen"
         {...animateLeft({ inView: true, once: true })}
       >
         <CategoryChip bgColor="#01415B" title="Style" size="md" />
@@ -29,4 +28,4 @@ const Categories: React.FC<CategoriesT> = () => {
   );
 };
 
-export default Categories;
+export default AsideCategories;

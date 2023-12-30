@@ -1,24 +1,21 @@
 import { useTheme } from "styled-components";
 import { animateLeft } from "@/styles/animations";
 
-import * as Styled from "./populars.styled";
 import {
-  CategoryChip,
   LineClamp,
+  CategoryChip,
   AsideBlockItemContainer,
 } from "@/components/Layouts";
+import * as Styled from "./populars.styled";
 
-type PopularArticlesT = {};
+type AsidePopularArticlesT = {};
 
-const PopularArticles: React.FC<PopularArticlesT> = () => {
+const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
   const theme = useTheme();
 
   return (
     <AsideBlockItemContainer title="Most Popular" subTitle="What's hot">
-      <Styled.PopularArticles
-        whileInView="onscreen"
-        {...animateLeft({ inView: true, once: true })}
-      >
+      <Styled.PopularArticles {...animateLeft({ inView: true, once: true })}>
         <li className="popular-item">
           <CategoryChip bgColor="#FFAE00" title="Travel" size="sm" />
 
@@ -111,4 +108,4 @@ const PopularArticles: React.FC<PopularArticlesT> = () => {
   );
 };
 
-export default PopularArticles;
+export default AsidePopularArticles;

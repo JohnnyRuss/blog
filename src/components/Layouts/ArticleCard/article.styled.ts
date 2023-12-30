@@ -55,12 +55,12 @@ export const ArticleCardBig = styled(Link)`
       flex-direction: column;
       gap: 1rem;
 
-      &-fig {
+      &__fig {
         width: 100%;
         height: 28vh;
       }
 
-      &-content {
+      &__content {
         width: 100%;
         padding: 1rem 0;
         gap: 1rem;
@@ -123,6 +123,14 @@ export const ArticleCardMedium = styled(Link)`
       }
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+    .article-md__body {
+      &-content {
+        gap: 1rem;
+      }
+    }
+  }
 `;
 
 export const ArticleCardSmall = styled(Link)`
@@ -161,6 +169,28 @@ export const ArticleCardSmall = styled(Link)`
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+    }
+
+    @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+      gap: 2rem;
+
+      &-content {
+        gap: 1rem;
+      }
+
+      &-fig {
+        min-width: 15rem;
+      }
+    }
+
+    @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+      &-fig {
+        display: none;
+      }
+
+      &-content {
+        width: 100%;
+      }
     }
   }
 `;

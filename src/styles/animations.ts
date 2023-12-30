@@ -19,7 +19,8 @@ const animateRight = (args?: AnimateMotionT): MotionProps => {
     viewport: { once: args.once },
   };
 
-  if (args.inView)
+  if (args.inView) {
+    config.whileInView = "onscreen";
     config.variants.onscreen = {
       x: 0,
       opacity: 1,
@@ -28,7 +29,7 @@ const animateRight = (args?: AnimateMotionT): MotionProps => {
         delay: args.delay || 0,
       },
     };
-  else {
+  } else {
     config.animate = { x: 0, opacity: 1 };
     config.transition = { duration: args.duration || 0.5 };
   }
@@ -48,7 +49,8 @@ const animateLeft = (args?: AnimateMotionT): MotionProps => {
     viewport: { once: args.once },
   };
 
-  if (args.inView)
+  if (args.inView) {
+    config.whileInView = "onscreen";
     config.variants.onscreen = {
       x: 0,
       opacity: 1,
@@ -57,7 +59,7 @@ const animateLeft = (args?: AnimateMotionT): MotionProps => {
         delay: args.delay || 0,
       },
     };
-  else {
+  } else {
     config.animate = { x: 0, opacity: 1 };
     config.transition = { duration: args.duration || 0.5 };
   }
@@ -77,7 +79,8 @@ const animateBottom = (args?: AnimateMotionT): MotionProps => {
     viewport: { once: args.once },
   };
 
-  if (args.inView)
+  if (args.inView) {
+    config.whileInView = "onscreen";
     config.variants.onscreen = {
       y: 0,
       opacity: 1,
@@ -86,7 +89,7 @@ const animateBottom = (args?: AnimateMotionT): MotionProps => {
         delay: args.delay || 0,
       },
     };
-  else {
+  } else {
     config.animate = { y: 0, opacity: 1 };
     config.transition = { duration: args.duration || 0.5 };
   }
@@ -106,7 +109,8 @@ const animateTop = (args?: AnimateMotionT): MotionProps => {
     viewport: { once: args.once },
   };
 
-  if (args.inView)
+  if (args.inView) {
+    config.whileInView = "onscreen";
     config.variants.onscreen = {
       y: 0,
       opacity: 1,
@@ -115,8 +119,33 @@ const animateTop = (args?: AnimateMotionT): MotionProps => {
         delay: args.delay || 0,
       },
     };
-  else {
+  } else {
     config.animate = { y: 0, opacity: 1 };
+    config.transition = { duration: args.duration || 0.5 };
+  }
+
+  return config;
+};
+
+const animateFadeIn = (args?: AnimateMotionT): MotionProps => {
+  const config: MotionProps = {
+    initial: "offscreen",
+    variants: { offscreen: { opacity: 0, scale: 0.9 } },
+    viewport: { once: args.once, margin: "0px 0px -150px 0px" },
+  };
+
+  if (args.inView) {
+    config.whileInView = "onscreen";
+    config.variants.onscreen = {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: args.duration || 0.5,
+        delay: args.delay || 0,
+      },
+    };
+  } else {
+    config.animate = { opacity: 1 };
     config.transition = { duration: args.duration || 0.5 };
   }
 
@@ -130,4 +159,11 @@ const animateLogo: MotionProps = {
   style: { transformOrigin: "0% 0%" },
 };
 
-export { animateRight, animateBottom, animateLeft, animateTop, animateLogo };
+export {
+  animateRight,
+  animateBottom,
+  animateLeft,
+  animateTop,
+  animateLogo,
+  animateFadeIn,
+};

@@ -31,10 +31,7 @@ const AsideBlockItemContainer: React.FC<AsideBlockItemContainerT> = ({
 }) => {
   return (
     <AsideBlockItemContainerEl data-aside-block>
-      <motion.div
-        whileInView="onscreen"
-        {...animateBottom({ inView: true, once: true })}
-      >
+      <motion.div {...animateBottom({ inView: true, once: true })}>
         <SectionTitle title={title} subTitle={subTitle} />
       </motion.div>
 

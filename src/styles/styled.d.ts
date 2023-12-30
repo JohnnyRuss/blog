@@ -13,12 +13,16 @@ declare module "styled-components" {
   interface ColorsT {
     bg: "#F2F2F2" | "#070A0D";
     text: "#F2F2F2" | "#070A0D";
+    black: "#070A0D";
     soft_black: "#24272C";
     gray: "#D9D9D9";
     gray_shade: "#8C8C8C";
     gray_dark: "#404040";
     white: "#F2F2F2";
     brown: "#B33F00";
+    green: "#2B8C44";
+    green_shade: "#1F7334";
+    green_tint: "#658C6F";
   }
 
   interface FontSizeT {
