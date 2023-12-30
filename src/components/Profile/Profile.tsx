@@ -1,12 +1,20 @@
-import * as Styled from "./profile.styled";
-import { QuillEditor } from "../Layouts";
+import * as Styled from "./styles/profile.styled";
+import ProfileNav from "./components/ProfileNav";
+import ProfileAside from "./components/ProfileAside";
 
-type ProfileT = {};
+type ProfileT = {
+  children: React.ReactNode;
+};
 
-const Profile: React.FC<ProfileT> = () => {
+const Profile: React.FC<ProfileT> = ({ children }) => {
   return (
     <Styled.Profile>
-      <QuillEditor />
+      <div className="profile__main-thread">
+        <ProfileNav />
+        <div className="profile__child-wrapper">{children}</div>
+      </div>
+
+      <ProfileAside />
     </Styled.Profile>
   );
 };

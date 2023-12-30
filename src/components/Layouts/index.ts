@@ -1,3 +1,5 @@
+// LAYOUT
+export { default as AppLayout } from "./AppLayout/AppLayout";
 // ASIDE BLOCKS
 export { default as AsideBlockItemContainer } from "./AsideBlockContainer/AsideBlockItemContainer";
 export { default as AsideEditorPick } from "./AsideEditorPick/AsideEditorPick";

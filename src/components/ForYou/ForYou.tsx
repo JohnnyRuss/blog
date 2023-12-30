@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { animateTop } from "@/styles/animations";
 import { motion } from "framer-motion";
 
@@ -16,36 +17,14 @@ const ForYou: React.FC<ForYouT> = () => {
       <div>Filter</div>
       <div className="for-you__content-box">
         <div className="for-you__articles-list">
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
-          <motion.div {...animateTop({ inView: true, once: true })}>
-            <ArticleCardSmall />
-          </motion.div>
+          {Array.from(new Array(12)).map(() => (
+            <motion.div
+              {...animateTop({ inView: true, once: true })}
+              key={uuid()}
+            >
+              <ArticleCardSmall />
+            </motion.div>
+          ))}
         </div>
         <aside className="for-you__aside">
           <AsideCategories />

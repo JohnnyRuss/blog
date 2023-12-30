@@ -1,17 +1,23 @@
-import { lazy } from "react";
-import { SuspenseContainer, Container } from "@/components/Layouts";
+import { lazy, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import Navigation from "@/components/Navigation/Navigation";
-const Profile = lazy(() => import("@/components/Profile/Profile"));
+import { PATHS } from "@/config/paths";
+
+const ProfileEl = lazy(() => import("@/components/Profile/Profile"));
 
 const ProfilePage: React.FC = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    if (pathname === PATHS.profile_page) navigate(PATHS.profile_lists);
+  }, [pathname, navigate]);
+
   return (
-    <Container>
-      <Navigation />
-      <SuspenseContainer>
-        <Profile />
-      </SuspenseContainer>
-    </Container>
+    <ProfileEl>
+      <Outlet />
+    </ProfileEl>
   );
 };
 

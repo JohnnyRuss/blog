@@ -1,6 +1,9 @@
-import * as Styled from "./articles.styled";
-import { animateTop } from "@/styles/animations";
+import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
+
+import { animateTop } from "@/styles/animations";
+
+import * as Styled from "./articles.styled";
 
 import { SectionTitle, ArticleCardBig } from "@/components/Layouts";
 
@@ -12,21 +15,14 @@ const Articles: React.FC<ArticlesT> = () => {
       <SectionTitle title="Recent Posts" />
 
       <ul className="posts-list">
-        <motion.div {...animateTop({ inView: true, once: false })}>
-          <ArticleCardBig />
-        </motion.div>
-
-        <motion.div {...animateTop({ inView: true, once: false })}>
-          <ArticleCardBig />
-        </motion.div>
-
-        <motion.div {...animateTop({ inView: true, once: false })}>
-          <ArticleCardBig />
-        </motion.div>
-
-        <motion.div {...animateTop({ inView: true, once: false })}>
-          <ArticleCardBig />
-        </motion.div>
+        {Array.from(new Array(4)).map(() => (
+          <motion.div
+            {...animateTop({ inView: true, once: false })}
+            key={uuid()}
+          >
+            <ArticleCardBig />
+          </motion.div>
+        ))}
       </ul>
     </Styled.Articles>
   );

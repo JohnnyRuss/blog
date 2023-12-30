@@ -9,11 +9,13 @@ const Routes: React.FC<RoutesT> = () => {
       {AppRoutes.map((route) => (
         <Route key={route.title} path={route.path} element={route.element}>
           {route.children.length > 0 ? (
-            <Route
-              key={route.title}
-              path={route.path}
-              element={route.element}
-            />
+            route.children.map((childRoute) => (
+              <Route
+                key={childRoute.title}
+                path={childRoute.path}
+                element={childRoute.element}
+              />
+            ))
           ) : (
             <></>
           )}

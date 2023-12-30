@@ -17,15 +17,15 @@ const Routes: Array<RouteT> = [
     children: [],
   },
   {
-    path: PATHS.article_page,
-    title: "article-page",
-    element: <Pages.ArticlePage />,
-    children: [],
-  },
-  {
     path: PATHS.blog_page,
     title: "blog-page",
     element: <Pages.BlogPage />,
+    children: [],
+  },
+  {
+    path: PATHS.article_page,
+    title: "article-page",
+    element: <Pages.ArticlePage />,
     children: [],
   },
   {
@@ -34,18 +34,52 @@ const Routes: Array<RouteT> = [
     element: <Pages.ForYouPage />,
     children: [],
   },
+  // PROFILE
   {
     path: PATHS.profile_page,
     title: "profile-page",
     element: <Pages.ProfilePage />,
-    children: [],
+    children: [
+      {
+        path: PATHS.profile_lists,
+        title: "profile-lists-page",
+        element: <Pages.UserListsPage />,
+        children: [],
+      },
+      {
+        path: PATHS.profile_saved_lists,
+        title: "profile-saved-lists-page",
+        element: <Pages.UserSavedListsPage />,
+        children: [],
+      },
+      {
+        path: PATHS.profile_history,
+        title: "profile-history-page",
+        element: <Pages.UserReadingHistoryPage />,
+        children: [],
+      },
+      {
+        path: PATHS.profile_settings,
+        title: "profile-settings-page",
+        element: <Pages.UserProfileSettingsPage />,
+        children: [],
+      },
+      {
+        path: PATHS.profile_following,
+        title: "profile-following-page",
+        element: <Pages.UserFollowingPage />,
+        children: [],
+      },
+    ],
   },
+  // AUTH
   {
     path: PATHS.auth_page,
     title: "auth-page",
     element: <Pages.AuthPage />,
     children: [],
   },
+  // 404
   {
     path: PATHS.unknown_page,
     title: "unknown-page",
