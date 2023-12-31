@@ -4,8 +4,6 @@ export const Container = styled.div`
   min-height: 100vh;
 
   .wrapper {
-    /* background-color: ${({ theme }) =>
-      theme.mode === "dark" ? theme.colors.soft_black : theme.colors.gray}; */
     max-width: 153.6rem;
     margin: 0 auto;
     padding: 0 8rem;

@@ -44,15 +44,6 @@ const ProfileNav: React.FC<ProfileNavT> = () => {
         >
           <li className="profile-nav--list__item-wrapper">Following</li>
         </NavLink>
-
-        <NavLink
-          to={PATHS.profile_settings}
-          className={({ isActive }) =>
-            `profile-nav--list__item ${isActive ? "active" : ""}`
-          }
-        >
-          <li className="profile-nav--list__item-wrapper">Edit Profile</li>
-        </NavLink>
       </ul>
     </Styled.ProfileNav>
   );

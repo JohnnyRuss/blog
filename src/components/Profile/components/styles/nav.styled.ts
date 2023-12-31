@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { themeTransition } from "@/styles/utils";
 
 const borderTransition = keyframes`
   0%{
@@ -15,6 +16,7 @@ export const ProfileNav = styled.nav`
   top: 7rem;
   background-color: ${({ theme }) => theme.colors.bg};
   padding-bottom: 1.5rem;
+  ${themeTransition};
 
   .profile-nav--list {
     display: flex;
@@ -32,7 +34,8 @@ export const ProfileNav = styled.nav`
       &::after {
         content: "";
         position: absolute;
-        background: ${({ theme }) => theme.colors.gray_dark};
+        background: ${({ theme }) =>
+          theme.mode === "dark" ? theme.colors.brown : theme.colors.gray_dark};
         height: 3px;
         left: 0;
         right: 0;

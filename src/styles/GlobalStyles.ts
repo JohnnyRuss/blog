@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import { themeTransition } from "./utils";
 
 const GlobalStyles = createGlobalStyle`
   *,
@@ -17,10 +18,10 @@ const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     max-width: 100vw;
     font-size: 1.6rem;
-    background-color: ${({ theme }) => theme.colors.bg};
-    color:${({ theme }) => theme.colors.text};
-    transition:background-color 0.5s ease, color 0.6s ease;
     font-family: 'Poppins', sans-serif;
+    background-color: ${({ theme }) => theme.colors.bg};
+    color: ${({ theme }) => theme.colors.text};
+    ${themeTransition};
   }
 
   a {

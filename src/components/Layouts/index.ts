@@ -11,6 +11,8 @@ export { default as AsideRecentlySaved } from "./AsideRecentlySaved/AsideRecentl
 export { default as ArticleCardBig } from "./ArticleCard/ArticleCardBig";
 export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
 export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";
+// FORM
+export { default as TextField } from "./Form/TextField";
 // OTHERS
 export { default as AuthorIdentifier } from "./AuthorIdentifier/AuthorIdentifier";
 export { default as Container } from "./Container/Container";
@@ -20,3 +22,4 @@ export { default as SectionTitle } from "./SectionTitle/SectionTitle";
 export { default as CategoryChip } from "./CategoryChip/CategoryChip";
 export { default as Text } from "./Text/Text";
 export { default as QuillEditor } from "./QuillEditor/QuillEditor";
+export { default as FollowCard } from "./FollowCard/FollowCard";

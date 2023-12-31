@@ -59,18 +59,18 @@ const Routes: Array<RouteT> = [
         children: [],
       },
       {
-        path: PATHS.profile_settings,
-        title: "profile-settings-page",
-        element: <Pages.UserProfileSettingsPage />,
-        children: [],
-      },
-      {
         path: PATHS.profile_following,
         title: "profile-following-page",
         element: <Pages.UserFollowingPage />,
         children: [],
       },
     ],
+  },
+  {
+    path: PATHS.profile_settings,
+    title: "profile-settings-page",
+    element: <Pages.UserProfileSettingsPage />,
+    children: [],
   },
   // AUTH
   {

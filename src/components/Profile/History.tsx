@@ -1,3 +1,7 @@
+import { v4 as uuid } from "uuid";
+import { motion } from "framer-motion";
+import { animateTop } from "@/styles/animations";
+
 import { ArticleCardSmall } from "@/components/Layouts";
 import * as Styled from "./styles/history.styled";
 
@@ -11,13 +15,14 @@ const History: React.FC = () => {
       </div>
 
       <ul className="reading-history__list">
-        <ArticleCardSmall />
-        <ArticleCardSmall />
-        <ArticleCardSmall />
-        <ArticleCardSmall />
-        <ArticleCardSmall />
-        <ArticleCardSmall />
-        <ArticleCardSmall />
+        {Array.from(new Array(10)).map(() => (
+          <motion.div
+            key={uuid()}
+            {...animateTop({ once: true, inView: true })}
+          >
+            <ArticleCardSmall />
+          </motion.div>
+        ))}
       </ul>
     </Styled.History>
   );

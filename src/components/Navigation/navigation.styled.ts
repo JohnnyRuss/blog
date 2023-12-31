@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { themeTransition } from "@/styles/utils";
 
 export const Navigation = styled(motion.nav)`
   display: flex;
@@ -10,6 +11,7 @@ export const Navigation = styled(motion.nav)`
   top: 0;
   z-index: 999;
   background-color: ${({ theme }) => theme.colors.bg};
+  ${themeTransition};
 
   .nav-socials__list {
     display: flex;
