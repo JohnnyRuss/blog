@@ -11,6 +11,7 @@ const ProfilePage: React.FC = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
     if (pathname === PATHS.profile_page) navigate(PATHS.profile_lists);
   }, [pathname, navigate]);
 

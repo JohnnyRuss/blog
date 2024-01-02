@@ -41,4 +41,20 @@ export const History = styled.section`
     flex-direction: column;
     gap: 4.5rem;
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .reading-history__header {
+      flex-direction: column;
+
+      button {
+        order: 1;
+        width: 90%;
+      }
+
+      p {
+        order: 2;
+        text-align: center;
+      }
+    }
+  }
 `;

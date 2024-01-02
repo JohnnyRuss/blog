@@ -1,21 +1,44 @@
-import { PATHS } from "@/config/paths";
-
-import * as Styled from "./styles/nav.styled";
+import { memo } from "react";
 import { NavLink } from "react-router-dom";
 
-type ProfileNavT = {};
+import { PATHS } from "@/config/paths";
 
-const ProfileNav: React.FC<ProfileNavT> = () => {
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import * as Styled from "./styles/nav.styled";
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 4000, min: 640 },
+    items: 4,
+    partialVisibilityGutter: 40,
+  },
+  mobile: {
+    breakpoint: { max: 640, min: 0 },
+    items: 1,
+    partialVisibilityGutter: 40,
+  },
+};
+
+const ProfileNav: React.FC = memo(() => {
   return (
     <Styled.ProfileNav>
-      <ul className="profile-nav--list">
+      <Carousel
+        responsive={responsive}
+        swipeable={true}
+        draggable={true}
+        rewind={true}
+        centerMode={true}
+        containerClass="profile-nav--list"
+        removeArrowOnDeviceType={["desktop", "mobile"]}
+      >
         <NavLink
           to={PATHS.profile_lists}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
         >
-          <li className="profile-nav--list__item-wrapper">Your lists</li>
+          Your lists
         </NavLink>
 
         <NavLink
@@ -24,7 +47,7 @@ const ProfileNav: React.FC<ProfileNavT> = () => {
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
         >
-          <li className="profile-nav--list__item-wrapper">Saved lists</li>
+          Saved lists
         </NavLink>
 
         <NavLink
@@ -33,7 +56,7 @@ const ProfileNav: React.FC<ProfileNavT> = () => {
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
         >
-          <li className="profile-nav--list__item-wrapper">Reading History</li>
+          Reading History
         </NavLink>
 
         <NavLink
@@ -42,11 +65,11 @@ const ProfileNav: React.FC<ProfileNavT> = () => {
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
         >
-          <li className="profile-nav--list__item-wrapper">Following</li>
+          Following
         </NavLink>
-      </ul>
+      </Carousel>
     </Styled.ProfileNav>
   );
-};
+});
 
 export default ProfileNav;

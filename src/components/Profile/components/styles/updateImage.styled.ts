@@ -68,8 +68,18 @@ export const UpdateImageField = styled.div`
       height: 3.75rem;
       cursor: pointer;
 
+      &.disabled,
+      &:disabled {
+        opacity: 0.5;
+        cursor: none;
+      }
+
       &.save {
         background-color: ${({ theme }) => theme.colors.green_shade};
+      }
+
+      &.cancel {
+        background-color: ${({ theme }) => theme.colors.gray_dark};
       }
 
       &.update {

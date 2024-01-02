@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
-export const EditorPick = styled(motion.ul)`
+export const EditorPick = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 3.5rem;

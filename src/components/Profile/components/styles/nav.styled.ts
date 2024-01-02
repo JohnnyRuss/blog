@@ -19,46 +19,68 @@ export const ProfileNav = styled.nav`
   ${themeTransition};
 
   .profile-nav--list {
-    display: flex;
-    align-items: center;
-    gap: 3rem;
-    border-bottom: 1px solid ${({ theme }) => theme.colors.gray_shade};
-    box-sizing: content-box;
-    height: 5rem;
+    /* border-bottom: 1px solid ${({ theme }) => theme.colors.gray_shade}; */
 
-    &__item {
-      height: 100%;
-      box-sizing: content-box;
-      position: relative;
-
-      &::after {
-        content: "";
-        position: absolute;
-        background: ${({ theme }) =>
-          theme.mode === "dark" ? theme.colors.brown : theme.colors.gray_dark};
-        height: 3px;
-        left: 0;
-        right: 0;
-        width: 0%;
-        transform: translateY(-50%);
-        transition: width 1s ease;
-      }
-
-      &.active {
-        font-weight: 600;
-
-        &::after {
-          animation: ${borderTransition} 1s ease forwards;
-        }
-      }
-    }
-
-    &__item-wrapper {
+    ul {
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 0 2rem;
-      height: 100%;
+      gap: 3rem;
+      height: 5rem;
+      width: 100%;
+      box-sizing: content-box;
+
+      .react-multi-carousel-item {
+        width: max-content !important;
+        position: unset !important;
+        flex: 0 !important;
+        height: 100%;
+      }
+
+      .profile-nav--list__item {
+        height: 100%;
+        width: max-content;
+        box-sizing: content-box;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 2rem;
+        height: 100%;
+
+        &::after {
+          content: "";
+          position: absolute;
+          background: ${({ theme }) =>
+            theme.mode === "dark"
+              ? theme.colors.brown
+              : theme.colors.gray_dark};
+          height: 3px;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 0%;
+          transform: translateY(60%);
+          transition: width 1s ease;
+          box-sizing: content-box;
+        }
+
+        &.active {
+          font-weight: 600;
+
+          &::after {
+            animation: ${borderTransition} 1s ease forwards;
+          }
+        }
+      }
+
+      @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
+        gap: 1rem;
+      }
+
+      @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+        font-size: ${({ theme }) => theme.fontSize.sm};
+        gap: 0;
+      }
     }
   }
 `;

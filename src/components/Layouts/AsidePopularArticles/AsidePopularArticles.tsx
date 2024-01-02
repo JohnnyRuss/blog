@@ -1,5 +1,6 @@
 import { useTheme } from "styled-components";
 import { animateLeft } from "@/styles/animations";
+import { motion } from "framer-motion";
 
 import {
   LineClamp,
@@ -15,8 +16,11 @@ const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
 
   return (
     <AsideBlockItemContainer title="Most Popular" subTitle="What's hot">
-      <Styled.PopularArticles {...animateLeft({ inView: true, once: true })}>
-        <li className="popular-item">
+      <Styled.PopularArticles>
+        <motion.li
+          className="popular-item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <CategoryChip bgColor="#FFAE00" title="Travel" size="sm" />
 
           <LineClamp
@@ -36,9 +40,12 @@ const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
             &mdash;
             <span className="popular-item__footer-date">27.12.2023</span>
           </div>
-        </li>
+        </motion.li>
 
-        <li className="popular-item">
+        <motion.li
+          className="popular-item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <CategoryChip bgColor="#B33F00" title="Culture" size="sm" />
 
           <LineClamp
@@ -58,9 +65,12 @@ const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
             &mdash;
             <span className="popular-item__footer-date">27.12.2023</span>
           </div>
-        </li>
+        </motion.li>
 
-        <li className="popular-item">
+        <motion.li
+          className="popular-item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <CategoryChip bgColor="#D92525" title="Coding" size="sm" />
 
           <LineClamp
@@ -80,9 +90,12 @@ const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
             &mdash;
             <span className="popular-item__footer-date">27.12.2023</span>
           </div>
-        </li>
+        </motion.li>
 
-        <li className="popular-item">
+        <motion.li
+          className="popular-item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <CategoryChip bgColor="#005148" title="Fashion" size="sm" />
 
           <LineClamp
@@ -102,7 +115,7 @@ const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
             &mdash;
             <span className="popular-item__footer-date">27.12.2023</span>
           </div>
-        </li>
+        </motion.li>
       </Styled.PopularArticles>
     </AsideBlockItemContainer>
   );

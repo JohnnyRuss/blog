@@ -26,6 +26,7 @@ const ForYou: React.FC<ForYouT> = () => {
             </motion.div>
           ))}
         </div>
+
         <aside className="for-you__aside">
           <AsideCategories />
 

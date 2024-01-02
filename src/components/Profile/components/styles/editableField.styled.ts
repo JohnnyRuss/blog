@@ -15,6 +15,7 @@ export const EditableField = styled.div`
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+      width: 100%;
 
       &-label {
         color: ${({ theme }) => theme.colors.gray_shade};
@@ -23,15 +24,8 @@ export const EditableField = styled.div`
 
       &-detail {
         font-size: ${({ theme }) => theme.fontSize.base};
-        font-weight: 600;
+        font-weight: 500;
       }
-    }
-
-    &__edit-btn {
-      font-size: 22px;
-      color: ${({ theme }) => theme.colors.gray_shade};
-      align-self: flex-start;
-      margin-top: 3rem;
     }
   }
 
@@ -56,6 +50,20 @@ export const EditableField = styled.div`
       border-radius: 0.5rem;
       background-color: ${({ theme }) => theme.colors.gray};
       color: ${({ theme }) => theme.colors.gray_dark};
+    }
+  }
+
+  &.long {
+    .details-block {
+      &__content {
+        &-detail {
+          font-weight: 400;
+        }
+      }
+    }
+
+    .details-block__content-edit {
+      width: 100%;
     }
   }
 `;

@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
 
-export const AsideWhoToFollow = styled(motion.div)`
+export const AsideWhoToFollow = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;

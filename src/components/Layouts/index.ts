@@ -13,6 +13,7 @@ export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
 export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";
 // FORM
 export { default as TextField } from "./Form/TextField";
+export { default as TextareaField } from "./Form/TextareaField";
 // OTHERS
 export { default as AuthorIdentifier } from "./AuthorIdentifier/AuthorIdentifier";
 export { default as Container } from "./Container/Container";
@@ -23,3 +24,4 @@ export { default as CategoryChip } from "./CategoryChip/CategoryChip";
 export { default as Text } from "./Text/Text";
 export { default as QuillEditor } from "./QuillEditor/QuillEditor";
 export { default as FollowCard } from "./FollowCard/FollowCard";
+export { default as EditButton } from "./EditButton/EditButton";

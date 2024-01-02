@@ -1,6 +1,7 @@
-import { v4 as uuid } from "uuid";
 import moment from "moment";
+import { v4 as uuid } from "uuid";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { animateLeft } from "@/styles/animations";
 
@@ -12,14 +13,14 @@ type AsideRecentlySavedT = {};
 const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = () => {
   return (
     <AsideBlockItemContainer title="Recently Saved" subTitle="Your bookmarks">
-      <Styled.RecentlySaved
-        data-recently-saved
-        {...animateLeft({ inView: true, once: true })}
-      >
+      <Styled.RecentlySaved data-recently-saved>
         <ul className="saved-list">
           {Array.from(new Array(4)).map(() => (
             <Link to="/saved/123" key={uuid()}>
-              <li className="saved-list__card">
+              <motion.li
+                className="saved-list__card"
+                {...animateLeft({ inView: true, once: true })}
+              >
                 <div className="saved-list__card-user">
                   <figure className="saved-list__card-user--fig">
                     <img
@@ -48,7 +49,7 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = () => {
                     {moment().format("MMM-DD-YYYY")}
                   </span>
                 </div>
-              </li>
+              </motion.li>
             </Link>
           ))}
         </ul>

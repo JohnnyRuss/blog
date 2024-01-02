@@ -1,5 +1,6 @@
 import { animateLeft } from "@/styles/animations";
 import { useTheme } from "styled-components";
+import { motion } from "framer-motion";
 
 import {
   CategoryChip,
@@ -18,11 +19,11 @@ const AsideEditorPick: React.FC<AsideEditorPickT> = () => {
       title="Editors Pick"
       subTitle="Chosen by the editor"
     >
-      <Styled.EditorPick
-        data-editors-pick
-        {...animateLeft({ inView: true, once: true })}
-      >
-        <li className="editor-pick__item">
+      <Styled.EditorPick data-editors-pick>
+        <motion.li
+          className="editor-pick__item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <figure className="editor-pick__item-fig">
             <img
               width={70}
@@ -55,9 +56,12 @@ const AsideEditorPick: React.FC<AsideEditorPickT> = () => {
               <span className="editor-pick__item-footer--date">20.11.2023</span>
             </div>
           </div>
-        </li>
+        </motion.li>
 
-        <li className="editor-pick__item">
+        <motion.li
+          className="editor-pick__item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <figure className="editor-pick__item-fig">
             <img
               width={70}
@@ -90,9 +94,12 @@ const AsideEditorPick: React.FC<AsideEditorPickT> = () => {
               <span className="editor-pick__item-footer--date">27.12.2023</span>
             </div>
           </div>
-        </li>
+        </motion.li>
 
-        <li className="editor-pick__item">
+        <motion.li
+          className="editor-pick__item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <figure className="editor-pick__item-fig">
             <img
               width={70}
@@ -125,9 +132,12 @@ const AsideEditorPick: React.FC<AsideEditorPickT> = () => {
               <span className="editor-pick__item-footer--date">13.10.2023</span>
             </div>
           </div>
-        </li>
+        </motion.li>
 
-        <li className="editor-pick__item">
+        <motion.li
+          className="editor-pick__item"
+          {...animateLeft({ inView: true, once: true })}
+        >
           <figure className="editor-pick__item-fig">
             <img
               width={70}
@@ -160,7 +170,7 @@ const AsideEditorPick: React.FC<AsideEditorPickT> = () => {
               <span className="editor-pick__item-footer--date">28.12.2023</span>
             </div>
           </div>
-        </li>
+        </motion.li>
       </Styled.EditorPick>
     </AsideBlockItemContainer>
   );

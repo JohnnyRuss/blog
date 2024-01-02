@@ -14,4 +14,16 @@ export const Profile = styled.section`
   .profile__child-wrapper {
     padding: 2rem 0.5rem 0 0.75rem;
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    flex-direction: column;
+
+    .profile__main-thread {
+      order: 2;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 0 0 1.5rem 0;
+  }
 `;

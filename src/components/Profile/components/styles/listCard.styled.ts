@@ -76,4 +76,19 @@ export const ListCard = styled.li`
       flex: 1;
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    flex-direction: column;
+    gap: 1rem;
+
+    .list-card__content {
+      width: 100%;
+      order: 2;
+    }
+
+    .list-card__assets {
+      width: 100%;
+      order: 1;
+    }
+  }
 `;

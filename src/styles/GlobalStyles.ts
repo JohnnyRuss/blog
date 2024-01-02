@@ -1,5 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-import { themeTransition } from "./utils";
+import { themeTransition, scrollbar } from "./utils";
 
 const GlobalStyles = createGlobalStyle`
   *,
@@ -22,6 +22,11 @@ const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }) => theme.colors.bg};
     color: ${({ theme }) => theme.colors.text};
     ${themeTransition};
+    ${scrollbar};
+  }
+
+  body:has(.scroll-block){
+    overflow: hidden;
   }
 
   a {
@@ -42,30 +47,14 @@ const GlobalStyles = createGlobalStyle`
   }
 
   a,
-  button{
+  button,
+  input,
+  textarea{
     color: inherit;
     font-size: inherit;
+    font-family: inherit;
   }
 
-  body::-webkit-scrollbar {
-    width: 0.8rem;
-  }
-
-  body::-webkit-scrollbar-thumb {
-    background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.colors.gray_dark : theme.colors.brown};
-    border-radius: 2rem;
-  }
-
-  body::-webkit-scrollbar-track {
-    border-radius: 2rem;
-    background-color: ${({ theme }) =>
-      theme.mode === "light" ? theme.colors.gray : theme.colors.gray_dark};
-  }
-
-  body:has(.scroll-block){
-    overflow: hidden;
-  }
 `;
 
 export { GlobalStyles };

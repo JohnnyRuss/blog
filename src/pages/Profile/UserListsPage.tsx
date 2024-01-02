@@ -1,8 +1,13 @@
 import { lazy } from "react";
+import { SuspenseContainer } from "@/components/Layouts";
 const UserLists = lazy(() => import("@/components/Profile/UserLists"));
 
 const UserListsPage: React.FC = () => {
-  return <UserLists />;
+  return (
+    <SuspenseContainer>
+      <UserLists />
+    </SuspenseContainer>
+  );
 };
 
 export default UserListsPage;

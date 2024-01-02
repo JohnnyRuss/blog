@@ -71,5 +71,13 @@ export const ProfileAside = styled.aside`
     gap: 2rem;
     position: unset;
     width: 100%;
+
+    .user-details {
+      border: none;
+    }
+
+    [data-aside-block] {
+      display: none;
+    }
   }
 `;

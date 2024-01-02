@@ -1,10 +1,11 @@
-import { PATHS } from "@/config/paths";
+import { memo } from "react";
 import { Link } from "react-router-dom";
+import { PATHS } from "@/config/paths";
 
 import * as Styled from "./styles/profileAside.styled";
 import { AsideWhoToFollow } from "@/components/Layouts";
 
-const ProfileAside: React.FC = () => {
+const ProfileAside: React.FC = memo(() => {
   return (
     <Styled.ProfileAside>
       <div className="user-details">
@@ -49,6 +50,6 @@ const ProfileAside: React.FC = () => {
       <AsideWhoToFollow />
     </Styled.ProfileAside>
   );
-};
+});
 
 export default ProfileAside;

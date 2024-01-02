@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { SuspenseContainer, Container } from "@/components/Layouts";
+import { Container } from "@/components/Layouts";
 import Navigation from "@/components/Navigation/Navigation";
 
 type AppLayoutT = {
@@ -7,12 +6,10 @@ type AppLayoutT = {
 };
 
 const AppLayout: React.FC<AppLayoutT> = ({ children }) => {
-  const [showNav, setShowNav] = useState(true);
-
   return (
     <Container>
-      {showNav && <Navigation />}
-      <SuspenseContainer>{children}</SuspenseContainer>
+      <Navigation />
+      {children}
     </Container>
   );
 };

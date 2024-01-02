@@ -8,21 +8,28 @@ const Edit: React.FC = () => {
       <UpdateImageField />
 
       <div className="user-settings__details-block">
-        <EditableField title="Full Name" value="Tom Odell" />
+        <EditableField title="Full Name" value="Tom Odell" name="full_name" />
 
-        <EditableField title="Email Address" value="email@io.com" />
+        <EditableField
+          title="Email Address"
+          value="email@io.com"
+          name="email"
+        />
 
         <EditableField
           title="Username"
           value="T.Odell"
           showCounter={true}
           max={16}
+          name="username"
         />
 
         <EditableField
+          name="bio"
           title="Bio"
           showCounter={true}
           max={160}
+          type="textarea"
           value="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni, nemo voluptate assumenda velit rerum blanditiis non, fugit quibusdam recusandae, quisquam cum!"
         />
       </div>
