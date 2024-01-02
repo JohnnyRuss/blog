@@ -32,6 +32,7 @@ export const Hero = styled.section`
       overflow: hidden;
 
       img {
+        margin-bottom: -1rem;
         object-fit: cover;
         object-position: center;
       }
@@ -45,6 +46,16 @@ export const Hero = styled.section`
       justify-content: space-between;
       align-items: flex-start;
       padding: 4rem;
+
+      h3[data-line-clamp] {
+        font-size: ${({ theme }) => theme.fontSize.xl};
+      }
+
+      div[data-line-clamp] {
+        color: ${({ theme }) =>
+          theme.mode === "dark" ? theme.colors.gray : theme.colors.gray_dark};
+        font-size: ${({ theme }) => theme.fontSize.base};
+      }
     }
   }
 
@@ -77,7 +88,7 @@ export const Hero = styled.section`
       height: 30vw;
 
       div[data-line-clamp] {
-        -webkit-line-clamp: 7;
+        -webkit-line-clamp: 5;
       }
 
       &-content {
@@ -105,8 +116,12 @@ export const Hero = styled.section`
         gap: 1.5rem;
         padding: 0;
 
+        h3[data-line-clamp] {
+          font-size: ${({ theme }) => theme.fontSize.lg};
+        }
+
         div[data-line-clamp] {
-          -webkit-line-clamp: 5;
+          font-size: ${({ theme }) => theme.fontSize.sm};
         }
       }
     }

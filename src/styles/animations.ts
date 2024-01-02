@@ -152,6 +152,37 @@ const animateFadeIn = (args?: AnimateMotionT): MotionProps => {
   return config;
 };
 
+const animateTopStagger = () => {
+  const container: MotionProps = {
+    initial: "hidden",
+    animate: "show",
+    variants: {
+      show: {
+        transition: {
+          delayChildren: 0.3,
+          staggerChildren: 0.3,
+        },
+      },
+    },
+  };
+
+  const child: MotionProps = {
+    variants: {
+      hidden: {
+        opacity: 0,
+        y: 25,
+      },
+      show: {
+        y: 0,
+        opacity: 1,
+        transition: { type: "spring", damping: 24, stiffness: 300 },
+      },
+    },
+  };
+
+  return { container, child };
+};
+
 const animateLogo: MotionProps = {
   initial: { rotate: -135, y: -20 },
   animate: { rotate: 0, y: 0 },
@@ -164,6 +195,7 @@ export {
   animateBottom,
   animateLeft,
   animateTop,
+  animateTopStagger,
   animateLogo,
   animateFadeIn,
 };

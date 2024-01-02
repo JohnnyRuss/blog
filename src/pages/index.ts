@@ -11,3 +11,4 @@ export { default as UserSavedListsPage } from "./Profile/UserSavedListsPage";
 export { default as UserReadingHistoryPage } from "./Profile/UserReadingHistoryPage";
 export { default as UserProfileSettingsPage } from "./Profile/UserProfileSettingsPage";
 export { default as UserFollowingPage } from "./Profile/UserFollowingPage";
+export { default as ProfileReviewPage } from "./Profile/ProfileReviewPage";

@@ -2,14 +2,19 @@ import { memo } from "react";
 import { Link } from "react-router-dom";
 import { PATHS } from "@/config/paths";
 
+import { motion } from "framer-motion";
+import { animateTopStagger } from "@/styles/animations";
+
 import * as Styled from "./styles/profileAside.styled";
 import { AsideWhoToFollow } from "@/components/Layouts";
+
+const { container, child } = animateTopStagger();
 
 const ProfileAside: React.FC = memo(() => {
   return (
     <Styled.ProfileAside>
-      <div className="user-details">
-        <figure className="user-details__fig">
+      <motion.div className="user-details" {...container}>
+        <motion.figure className="user-details__fig" {...child}>
           <img
             width={95}
             height={95}
@@ -17,12 +22,14 @@ const ProfileAside: React.FC = memo(() => {
             alt="user"
             loading="eager"
           />
-        </figure>
+        </motion.figure>
 
         <div className="user-details__info">
-          <span className="user-details__info-username">Tom Odell</span>
+          <motion.span className="user-details__info-username" {...child}>
+            Tom Odell
+          </motion.span>
 
-          <button className="user-details__info-write--btn">
+          <motion.button className="user-details__info-write--btn" {...child}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="1em"
@@ -35,17 +42,19 @@ const ProfileAside: React.FC = memo(() => {
               />
             </svg>
 
-            <span>Write</span>
-          </button>
+            <motion.span {...child}>Write</motion.span>
+          </motion.button>
 
-          <Link
-            to={PATHS.profile_settings}
-            className="user-details__info-edit--btn"
-          >
-            Edit Profile
-          </Link>
+          <motion.div {...child}>
+            <Link
+              to={PATHS.profile_settings}
+              className="user-details__info-edit--btn"
+            >
+              Edit Profile
+            </Link>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       <AsideWhoToFollow />
     </Styled.ProfileAside>

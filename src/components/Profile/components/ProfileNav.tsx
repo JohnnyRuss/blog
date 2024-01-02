@@ -33,6 +33,15 @@ const ProfileNav: React.FC = memo(() => {
         removeArrowOnDeviceType={["desktop", "mobile"]}
       >
         <NavLink
+          to={PATHS.profile_review}
+          className={({ isActive }) =>
+            `profile-nav--list__item ${isActive ? "active" : ""}`
+          }
+        >
+          Review
+        </NavLink>
+
+        <NavLink
           to={PATHS.profile_lists}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`

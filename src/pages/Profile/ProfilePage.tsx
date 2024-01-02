@@ -1,6 +1,6 @@
 import { lazy, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Outlet } from "react-router-dom";
+import { useLocation, useNavigate, Outlet } from "react-router-dom";
+import { SuspenseContainer } from "@/components/Layouts";
 
 import { PATHS } from "@/config/paths";
 
@@ -11,14 +11,16 @@ const ProfilePage: React.FC = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0 });
-    if (pathname === PATHS.profile_page) navigate(PATHS.profile_lists);
+    if (window) window.scrollTo({ top: 0, left: 0 });
+    if (pathname === PATHS.profile_page) navigate(PATHS.profile_review);
   }, [pathname, navigate]);
 
   return (
-    <ProfileEl>
-      <Outlet />
-    </ProfileEl>
+    <SuspenseContainer>
+      <ProfileEl>
+        <Outlet />
+      </ProfileEl>
+    </SuspenseContainer>
   );
 };
 

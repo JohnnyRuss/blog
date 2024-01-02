@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const UpdateImageField = styled.div`
+export const UpdateImageField = styled(motion.div)`
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
-import { animateTop } from "@/styles/animations";
+import { animateTop, animateRight } from "@/styles/animations";
 
 import { ArticleCardSmall } from "@/components/Layouts";
 import * as Styled from "./styles/history.styled";
@@ -8,11 +8,14 @@ import * as Styled from "./styles/history.styled";
 const History: React.FC = () => {
   return (
     <Styled.History>
-      <div className="reading-history__header">
+      <motion.div
+        className="reading-history__header"
+        {...animateRight({ once: true })}
+      >
         <p>You can clear your reading history for a fresh start.</p>
 
         <button>Clear history</button>
-      </div>
+      </motion.div>
 
       <ul className="reading-history__list">
         {Array.from(new Array(10)).map(() => (

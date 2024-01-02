@@ -1,11 +1,14 @@
 import Routes from "./Routes";
 import { AppLayout } from "./components/Layouts";
+import ErrorBoundary from "./ErrorBoundary";
 
 const App: React.FC = () => {
   return (
-    <AppLayout>
-      <Routes />
-    </AppLayout>
+    <ErrorBoundary fallback={<div>Ocurred Error</div>}>
+      <AppLayout>
+        <Routes />
+      </AppLayout>
+    </ErrorBoundary>
   );
 };
 

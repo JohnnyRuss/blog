@@ -1,5 +1,4 @@
 import { Typewriter } from "react-simple-typewriter";
-import { useTheme } from "styled-components";
 
 import {
   animateRight,
@@ -13,8 +12,6 @@ import * as Styled from "./hero.styled";
 import { LineClamp } from "@/components/Layouts";
 
 const Hero: React.FC = () => {
-  const theme = useTheme();
-
   return (
     <Styled.Hero>
       <h2 className="hero__intro-txt">
@@ -48,22 +45,13 @@ const Hero: React.FC = () => {
             <LineClamp
               clamp={2}
               component="h3"
-              text=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-              consequatur labore, quidem laboriosam voluptatum et eaque ea ipsa
-              perferendis, nesciunt porro quia, soluta quos."
+              text=" Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi consequatur labore, quidem laboriosam voluptatum et eaque ea ipsa perferendis, nesciunt porro quia, soluta quos."
             />
           </motion.div>
 
           <motion.div {...animateLeft({ inView: true, once: false })}>
             <LineClamp
-              clamp={10}
-              sx={{
-                color:
-                  theme.mode === "dark"
-                    ? theme.colors.gray
-                    : theme.colors.gray_dark,
-                fontSize: theme.fontSize.sm,
-              }}
+              clamp={8}
               text="Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Corrupti nam facilis, laborum magni sunt, fuga illo voluptatem
                 fugit sequi aperiam quidem reiciendis repellat quia
