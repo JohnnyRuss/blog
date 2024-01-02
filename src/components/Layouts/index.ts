@@ -25,3 +25,4 @@ export { default as Text } from "./Text/Text";
 export { default as QuillEditor } from "./QuillEditor/QuillEditor";
 export { default as FollowCard } from "./FollowCard/FollowCard";
 export { default as EditButton } from "./EditButton/EditButton";
+export { default as WriteButton } from "./WriteButton/WriteButton";

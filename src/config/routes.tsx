@@ -34,6 +34,12 @@ const Routes: Array<RouteT> = [
     element: <Pages.ForYouPage />,
     children: [],
   },
+  {
+    path: PATHS.write,
+    title: "write-page",
+    element: <Pages.WritePage />,
+    children: [],
+  },
   // PROFILE
   {
     path: PATHS.profile_page,

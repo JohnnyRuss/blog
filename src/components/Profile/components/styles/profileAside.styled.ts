@@ -43,23 +43,6 @@ export const ProfileAside = styled.aside`
         font-size: ${({ theme }) => theme.fontSize.lg};
       }
 
-      &-write--btn {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        color: ${({ theme }) => theme.colors.gray_shade};
-
-        svg {
-          font-size: 24px;
-          line-height: 1;
-        }
-
-        span {
-          line-height: 1;
-          padding-top: 0.5rem;
-        }
-      }
-
       &-edit--btn {
         color: ${({ theme }) => theme.colors.green};
         text-decoration: underline;

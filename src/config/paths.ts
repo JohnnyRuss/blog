@@ -4,6 +4,7 @@ const PATHS = {
   blog_page: "/blog",
   article_page: "/blog/:blogId",
   for_you_page: "/for-you",
+  write: "/write",
   // PROFILE
   profile_page: "/profile",
   profile_review: "/profile/review",
