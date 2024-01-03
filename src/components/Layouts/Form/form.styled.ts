@@ -3,6 +3,22 @@ import { scrollbar } from "@/styles/utils";
 
 const commonStyles = css`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  label {
+    font-weight: 600;
+    cursor: pointer;
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    letter-spacing: 0.3px;
+  }
+
+  p {
+    color: ${({ theme }) => theme.colors.brown};
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    padding-left: 0.75rem;
+  }
 
   .text-field__input {
     border-radius: 0.5rem;
@@ -24,5 +40,27 @@ export const TextareaField = styled.div`
   .text-field__input {
     resize: none;
     ${scrollbar};
+  }
+`;
+
+export const OTPField = styled.div`
+  ${commonStyles};
+
+  .otp-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+
+    input {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 5rem !important;
+      height: 5rem;
+      border-radius: 0.5rem;
+      outline: none;
+      border: 1px solid ${({ theme }) => theme.colors.gray_shade};
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
   }
 `;

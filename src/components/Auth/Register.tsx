@@ -1,16 +1,17 @@
-import { useSignInQuery } from "@/hooks/api/auth";
-import { Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { Controller } from "react-hook-form";
+
 import { PATHS } from "@/config/paths";
-import AuthLayout from "./components/AuthLayout";
+import useRegistrationQuery from "@/hooks/api/auth/useRegistrationQuery";
 
 import * as Form from "@/components/Layouts/Form";
+import AuthLayout from "./components/AuthLayout";
 
-const Auth: React.FC = () => {
-  const { form, onAuth } = useSignInQuery();
+const Register: React.FC = () => {
+  const { form, onRegistration } = useRegistrationQuery();
 
   return (
-    <AuthLayout onSubmit={onAuth}>
+    <AuthLayout onSubmit={onRegistration}>
       <Controller
         control={form.control}
         name="email"
@@ -38,25 +39,33 @@ const Auth: React.FC = () => {
         )}
       />
 
-      <p className="forgot-password">
-        <strong>
-          <Link to={PATHS.forgot_password_page}>Forgot password ?</Link>
-        </strong>
-      </p>
+      <Controller
+        control={form.control}
+        name="confirm_password"
+        render={({ field, fieldState: { error } }) => (
+          <Form.TextField
+            fieldProps={field}
+            label="Confirm Password"
+            type="password"
+            hasError={error ? true : false}
+            message={error?.message || ""}
+          />
+        )}
+      />
 
       <button className="submit-btn" type="submit">
-        Sign In
+        Register
       </button>
 
       <p className="have-an--account">
-        <span> Don't have an account ?</span>
+        <span>Have an account ?</span>
         &nbsp;
         <strong>
-          <Link to={PATHS.register_page}>Register</Link>
+          <Link to={PATHS.auth_page}>Sign In</Link>
         </strong>
       </p>
     </AuthLayout>
   );
 };
 
-export default Auth;
+export default Register;

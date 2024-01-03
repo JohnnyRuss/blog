@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { Container } from "@/components/Layouts";
 import Navigation from "@/components/Navigation/Navigation";
 
@@ -6,9 +7,13 @@ type AppLayoutT = {
 };
 
 const AppLayout: React.FC<AppLayoutT> = ({ children }) => {
+  const { pathname } = useLocation();
+
+  const showNav = !pathname.includes("auth");
+
   return (
     <Container>
-      <Navigation />
+      {showNav && <Navigation />}
       {children}
     </Container>
   );

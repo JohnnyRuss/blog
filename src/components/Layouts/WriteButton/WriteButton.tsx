@@ -30,7 +30,7 @@ const WriteButton: React.FC<WriteButtonT> = ({ showTitle = true }) => {
   const onWrite = () => navigate(PATHS.write);
 
   return (
-    <Button onClick={onWrite}>
+    <Button onClick={onWrite} data-write-btn title="Write Post">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="1em"

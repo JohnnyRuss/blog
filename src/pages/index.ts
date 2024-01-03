@@ -2,9 +2,14 @@ export { default as HomePage } from "./Home/HomePage";
 export { default as UnknownPage } from "./UnknownPage";
 export { default as BlogPage } from "./Blog/BlogPage";
 export { default as ArticlePage } from "./Article/ArticlePage";
-export { default as AuthPage } from "./Auth/AuthPage";
 export { default as ForYouPage } from "./ForYou/ForYouPage";
 export { default as WritePage } from "./Write/WritePage";
+// AUTH
+export { default as AuthPage } from "./Auth/AuthPage";
+export { default as RegisterPage } from "./Auth/RegisterPage";
+export { default as ForgotPasswordPage } from "./Auth/ForgotPasswordPage";
+export { default as ConfirmEmailPage } from "./Auth/ConfirmEmailPage";
+export { default as UpdatePasswordPage } from "./Auth/UpdatePasswordPage";
 // PROFILE
 export { default as ProfilePage } from "./Profile/ProfilePage";
 export { default as UserListsPage } from "./Profile/UserListsPage";

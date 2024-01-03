@@ -25,6 +25,14 @@ export const Article = styled.article`
         background: none !important;
       }
 
+      pre {
+        color: #fff;
+        background-color: #1b2024;
+        border: 1px solid ${({ theme }) => theme.colors.gray_shade};
+        padding: 2rem;
+        border-radius: 0.5rem;
+      }
+
       p:has(img) {
         display: flex;
         justify-content: center;

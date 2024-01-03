@@ -2,7 +2,15 @@ import { QuillOptions } from "react-quill";
 import hljs from "highlight.js";
 
 hljs.configure({
-  languages: ["javascript", "html", "css", "scss", "typescript"],
+  languages: [
+    "javascript",
+    "html",
+    "css",
+    "scss",
+    "typescript",
+    "bash",
+    "json",
+  ],
 });
 
 const quillConfig: QuillOptions = {

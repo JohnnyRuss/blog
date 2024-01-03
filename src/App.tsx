@@ -4,7 +4,7 @@ import ErrorBoundary from "./ErrorBoundary";
 
 const App: React.FC = () => {
   return (
-    <ErrorBoundary fallback={<div>Ocurred Error</div>}>
+    <ErrorBoundary>
       <AppLayout>
         <Routes />
       </AppLayout>

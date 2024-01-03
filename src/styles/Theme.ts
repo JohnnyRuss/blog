@@ -25,6 +25,11 @@ const Theme: DefaultTheme = {
     green: "#2B8C44",
     green_shade: "#1F7334",
     green_tint: "#658C6F",
+    blue: "#1E6FD9",
+    blue_shade: "#0D65D9",
+    blue_tint: "#5C9DF2",
+    red: "#D90D1E",
+    red_shade: "#BF0426",
   },
 
   fontSize: {

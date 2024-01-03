@@ -14,15 +14,20 @@ declare module "styled-components" {
     bg: "#F2F2F2" | "#070A0D";
     text: "#F2F2F2" | "#070A0D";
     black: "#070A0D";
+    white: "#F2F2F2";
     soft_black: "#24272C";
     gray: "#D9D9D9";
     gray_shade: "#8C8C8C";
     gray_dark: "#404040";
-    white: "#F2F2F2";
     brown: "#B33F00";
     green: "#2B8C44";
     green_shade: "#1F7334";
     green_tint: "#658C6F";
+    red: "#D90D1E";
+    red_shade: "#BF0426";
+    blue: "#1E6FD9";
+    blue_shade: "#0D65D9";
+    blue_tint: "#5C9DF2";
   }
 
   interface FontSizeT {

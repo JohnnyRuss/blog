@@ -1,21 +1,34 @@
+import { HookFormTextFieldT } from "@/interface/form.types";
+
 import * as Styled from "./form.styled";
 
 type TextFieldT = {
-  name: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  message: string;
+  label?: string;
+  hasError: boolean;
+  type?: "text" | "password";
+  fieldProps: HookFormTextFieldT;
 };
 
-const TextField: React.FC<TextFieldT> = ({ name, value, onChange }) => {
+const TextField: React.FC<TextFieldT> = ({
+  label,
+  message,
+  hasError,
+  fieldProps,
+  type = "text",
+}) => {
   return (
     <Styled.TextField>
+      {label && <label htmlFor={fieldProps.name}>{label}</label>}
+
       <input
-        type="text"
-        name={name}
-        value={value}
-        onChange={onChange}
+        type={type}
+        {...fieldProps}
+        id={fieldProps.name}
         className="text-field__input"
       />
+
+      {hasError && <p>{message}</p>}
     </Styled.TextField>
   );
 };

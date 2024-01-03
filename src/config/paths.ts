@@ -13,7 +13,12 @@ const PATHS = {
   profile_history: "/profile/history",
   profile_following: "/profile/following",
   profile_settings: "/profile/settings",
+  // AUTH
   auth_page: "/auth",
+  register_page: "/auth/register",
+  forgot_password_page: "/auth/forgot_password",
+  confirm_email_page: "/auth/confirm_email",
+  update_password_page: "/auth/update_password",
   unknown_page: "*",
 };
 

@@ -15,7 +15,7 @@ const QuillEditor: React.FC<QuillEditorT> = ({
   setValue,
 }) => {
   const onChange = (value: string) => {
-    setValue(value);
+    setValue && setValue(value);
   };
 
   return (

@@ -91,6 +91,30 @@ const Routes: Array<RouteT> = [
     element: <Pages.AuthPage />,
     children: [],
   },
+  {
+    path: PATHS.register_page,
+    title: "auth-register-page",
+    element: <Pages.RegisterPage />,
+    children: [],
+  },
+  {
+    path: PATHS.forgot_password_page,
+    title: "auth-forgot-password-page",
+    element: <Pages.ForgotPasswordPage />,
+    children: [],
+  },
+  {
+    path: PATHS.confirm_email_page,
+    title: "auth-confirm-email-page",
+    element: <Pages.ConfirmEmailPage />,
+    children: [],
+  },
+  {
+    path: PATHS.update_password_page,
+    title: "auth-update-password-page",
+    element: <Pages.UpdatePasswordPage />,
+    children: [],
+  },
   // 404
   {
     path: PATHS.unknown_page,

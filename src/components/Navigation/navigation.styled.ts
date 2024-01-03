@@ -13,28 +13,6 @@ export const Navigation = styled(motion.nav)`
   background-color: ${({ theme }) => theme.colors.bg};
   ${themeTransition};
 
-  .nav-socials__list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 2rem;
-
-    &--item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: ${({ theme }) => theme.colors.white};
-      width: 3rem;
-      height: 3rem;
-      border-radius: 100%;
-
-      img {
-        width: 65%;
-        object-fit: contain;
-      }
-    }
-  }
-
   .nav-logo {
   }
 
@@ -95,6 +73,10 @@ export const Navigation = styled(motion.nav)`
         left: calc(100% - 23px);
       }
     }
+  }
+
+  [data-write-btn] {
+    margin-right: 3rem;
   }
 
   .nav-routes__block {

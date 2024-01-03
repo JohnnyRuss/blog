@@ -1,7 +1,11 @@
 import * as Styled from "./article.styled";
 import ArticleHead from "./components/ArticleHead";
 import RelatedArticles from "./components/RelatedArticles";
-import { QuillEditor, PopularArticles, Categories } from "@/components/Layouts";
+import {
+  QuillEditor,
+  AsidePopularArticles,
+  AsideCategories,
+} from "@/components/Layouts";
 
 type ArticleT = {};
 
@@ -15,13 +19,13 @@ const Article: React.FC<ArticleT> = () => {
 
       <div className="article-body">
         <div className="editor-box">
-          <QuillEditor readonly={true} defaultValue={quillValue} />
+          <QuillEditor readonly={true} value={quillValue} />
         </div>
 
         <aside className="article-aside">
-          <PopularArticles />
+          <AsidePopularArticles />
 
-          <Categories />
+          <AsideCategories />
         </aside>
       </div>
 
