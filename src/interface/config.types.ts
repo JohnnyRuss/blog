@@ -5,4 +5,11 @@ type RouteT = {
   children: Array<RouteT>;
 };
 
-export type { RouteT };
+type DecodedUserT = {
+  _id: string;
+  email: string;
+  exp: number;
+  iat: number;
+};
+
+export type { RouteT, DecodedUserT };
