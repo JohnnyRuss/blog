@@ -13,9 +13,9 @@ const UpdatePassword: React.FC = () => {
         control={form.control}
         name="password"
         render={({ field, fieldState: { error } }) => (
-          <Form.TextField
-            fieldProps={field}
+          <Form.TextFieldPassword
             label="Password"
+            fieldProps={field}
             hasError={error ? true : false}
             message={error?.message || ""}
           />
@@ -26,7 +26,7 @@ const UpdatePassword: React.FC = () => {
         control={form.control}
         name="confirm_password"
         render={({ field, fieldState: { error } }) => (
-          <Form.TextField
+          <Form.TextFieldPassword
             fieldProps={field}
             label="Confirm Password"
             hasError={error ? true : false}

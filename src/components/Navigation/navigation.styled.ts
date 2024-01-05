@@ -107,6 +107,64 @@ export const Navigation = styled(motion.nav)`
     font-size: ${({ theme }) => theme.fontSize.xxl};
   }
 
+  .logout-btn__dropdown-wall {
+    inset: 0;
+    z-index: 2;
+
+    &.active {
+      position: fixed;
+    }
+  }
+
+  .logout-btn__box {
+    position: relative;
+    margin-left: 3rem;
+
+    figure {
+      width: 4rem;
+      height: 4rem;
+      border-radius: 100%;
+      overflow: hidden;
+      position: relative;
+      z-index: 9;
+      cursor: pointer;
+      box-shadow: ${({ theme }) => theme.boxShadow.radial_sm};
+      border: 1px solid ${({ theme }) => theme.colors.gray};
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        border-radius: inherit;
+      }
+    }
+
+    .logout-btn__dropdown {
+      position: absolute;
+      z-index: 9;
+      border: 1px solid ${({ theme }) => theme.colors.gray};
+      min-width: 20rem;
+      right: -2rem;
+      top: calc(100% + 1rem);
+      padding: 0.5rem;
+      border-radius: 0.5rem;
+      background: ${({ theme }) => theme.colors.bg};
+      box-shadow: ${({ theme }) => theme.boxShadow.space_sm};
+
+      &-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.5rem;
+        transition: all 0.3s ease;
+
+        &:hover {
+          color: ${({ theme }) => theme.colors.red};
+        }
+      }
+    }
+  }
+
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
     .nav__burger-btn {
       display: flex;

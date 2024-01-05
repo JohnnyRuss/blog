@@ -3,12 +3,15 @@ import { useLocation, useNavigate, Outlet } from "react-router-dom";
 import { SuspenseContainer } from "@/components/Layouts";
 
 import { PATHS } from "@/config/paths";
+import { useRedirectUnAuthorized } from "@/hooks/auth";
 
 const ProfileEl = lazy(() => import("@/components/Profile/Profile"));
 
 const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  const { loading } = useRedirectUnAuthorized();
 
   useEffect(() => {
     if (window) window.scrollTo({ top: 0, left: 0 });
@@ -17,9 +20,11 @@ const ProfilePage: React.FC = () => {
 
   return (
     <SuspenseContainer>
-      <ProfileEl>
-        <Outlet />
-      </ProfileEl>
+      {!loading && (
+        <ProfileEl>
+          <Outlet />
+        </ProfileEl>
+      )}
     </SuspenseContainer>
   );
 };

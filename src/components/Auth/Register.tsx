@@ -14,6 +14,19 @@ const Register: React.FC = () => {
     <AuthLayout onSubmit={onRegistration}>
       <Controller
         control={form.control}
+        name="username"
+        render={({ field, fieldState: { error } }) => (
+          <Form.TextField
+            fieldProps={field}
+            label="Username"
+            hasError={error ? true : false}
+            message={error?.message || ""}
+          />
+        )}
+      />
+
+      <Controller
+        control={form.control}
         name="email"
         render={({ field, fieldState: { error } }) => (
           <Form.TextField
@@ -29,10 +42,9 @@ const Register: React.FC = () => {
         control={form.control}
         name="password"
         render={({ field, fieldState: { error } }) => (
-          <Form.TextField
+          <Form.TextFieldPassword
             fieldProps={field}
             label="Password"
-            type="password"
             hasError={error ? true : false}
             message={error?.message || ""}
           />
@@ -43,10 +55,9 @@ const Register: React.FC = () => {
         control={form.control}
         name="confirm_password"
         render={({ field, fieldState: { error } }) => (
-          <Form.TextField
+          <Form.TextFieldPassword
             fieldProps={field}
             label="Confirm Password"
-            type="password"
             hasError={error ? true : false}
             message={error?.message || ""}
           />

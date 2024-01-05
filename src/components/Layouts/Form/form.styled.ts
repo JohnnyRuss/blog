@@ -34,6 +34,31 @@ export const TextField = styled.div`
   ${commonStyles};
 `;
 
+export const TextFieldPassword = styled.div`
+  ${commonStyles};
+
+  input.text-field__input {
+    border: none;
+    border-radius: none;
+  }
+
+  .password-field__wrapper {
+    border-radius: 0.5rem;
+    border: 1px solid ${({ theme }) => theme.colors.gray_shade};
+    padding-right: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .password-field__eye-btn {
+    font-size: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+`;
+
 export const TextareaField = styled.div`
   ${commonStyles};
 

@@ -1,18 +1,20 @@
-import { lazy } from "react";
-import { SuspenseContainer } from "@/components/Layouts";
+import { useEffect } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
-import { useScrollTop } from "@/hooks/utils";
-
-const Auth = lazy(() => import("@/components/Auth/Auth"));
+import { PATHS } from "@/config/paths";
+import { useRedirectAuthorized } from "@/hooks/auth";
 
 const AuthPage: React.FC = () => {
-  useScrollTop();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  return (
-    <SuspenseContainer>
-      <Auth />
-    </SuspenseContainer>
-  );
+  const { loading } = useRedirectAuthorized();
+
+  useEffect(() => {
+    if (pathname === PATHS.auth_page) navigate(PATHS.login_page);
+  }, [pathname, navigate]);
+
+  return loading ? <></> : <Outlet />;
 };
 
 export default AuthPage;

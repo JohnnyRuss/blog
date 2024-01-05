@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { jwtDecode as decode } from "jwt-decode";
 import { useEffect, useState } from "react";
+import { jwtDecode as decode } from "jwt-decode";
 
+import { authStore } from "@/store";
 import { LocaleStorage } from "@/utils";
 
 import { DecodedUserT } from "@/interface/config.types";
@@ -9,7 +10,7 @@ import { DecodedUserT } from "@/interface/config.types";
 export default function useCheckIsAuthenticatedUser(
   runOnMount: boolean = false
 ) {
-  const user = { _id: "" };
+  const user = authStore.use.user();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   async function check() {

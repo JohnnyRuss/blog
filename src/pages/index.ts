@@ -6,6 +6,7 @@ export { default as ForYouPage } from "./ForYou/ForYouPage";
 export { default as WritePage } from "./Write/WritePage";
 // AUTH
 export { default as AuthPage } from "./Auth/AuthPage";
+export { default as LoginPage } from "./Auth/LoginPage";
 export { default as RegisterPage } from "./Auth/RegisterPage";
 export { default as ForgotPasswordPage } from "./Auth/ForgotPasswordPage";
 export { default as ConfirmEmailPage } from "./Auth/ConfirmEmailPage";

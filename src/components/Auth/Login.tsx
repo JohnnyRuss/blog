@@ -1,13 +1,17 @@
-import { useSignInQuery } from "@/hooks/api/auth";
-import { Controller } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { PATHS } from "@/config/paths";
-import AuthLayout from "./components/AuthLayout";
+import { Controller } from "react-hook-form";
 
+import { authStore } from "@/store";
+import { PATHS } from "@/config/paths";
+import { useSignInQuery } from "@/hooks/api/auth";
+
+import AuthLayout from "./components/AuthLayout";
 import * as Form from "@/components/Layouts/Form";
 
-const Auth: React.FC = () => {
+const Login: React.FC = () => {
   const { form, onAuth } = useSignInQuery();
+
+  const status = authStore.use.status();
 
   return (
     <AuthLayout onSubmit={onAuth}>
@@ -28,15 +32,16 @@ const Auth: React.FC = () => {
         control={form.control}
         name="password"
         render={({ field, fieldState: { error } }) => (
-          <Form.TextField
+          <Form.TextFieldPassword
             fieldProps={field}
             label="Password"
-            type="password"
             hasError={error ? true : false}
             message={error?.message || ""}
           />
         )}
       />
+
+      {status.error && <p>{status.message}</p>}
 
       <p className="forgot-password">
         <strong>
@@ -59,4 +64,4 @@ const Auth: React.FC = () => {
   );
 };
 
-export default Auth;
+export default Login;

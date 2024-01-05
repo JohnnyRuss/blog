@@ -1,3 +1,5 @@
+import { NavigateFunction, Location } from "react-router-dom";
+
 type RouteT = {
   path: string;
   title: string;
@@ -12,4 +14,11 @@ type DecodedUserT = {
   iat: number;
 };
 
-export type { RouteT, DecodedUserT };
+type RouterHistoryT = {
+  navigate:
+    | NavigateFunction
+    | ((path: string, state?: { [key: string]: any }) => void);
+  location: Location;
+};
+
+export type { RouteT, DecodedUserT, RouterHistoryT };

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegistrationSchema = z.object({
+  username: z.string(),
   email: z.string().email(),
   password: z.string(),
   confirm_password: z.string(),
@@ -14,6 +15,7 @@ const useRegistrationForm = () =>
   useForm<RegistrationFormT>({
     resolver: zodResolver(RegistrationSchema),
     defaultValues: {
+      username: "",
       email: "",
       password: "",
       confirm_password: "",
