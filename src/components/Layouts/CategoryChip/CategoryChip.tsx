@@ -24,7 +24,7 @@ const CategoryChip: React.FC<CategoryChipT> = ({
 
   return (
     <Styled.CategoryChip
-      bg_color={bgColor}
+      $bg_color={bgColor}
       className={sizeClass}
       title={title}
       data-category-chip

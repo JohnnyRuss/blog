@@ -1,4 +1,5 @@
 import { MotionProps } from "framer-motion";
+import { css } from "styled-components";
 
 type AnimateMotionT = {
   once: boolean;
@@ -190,6 +191,22 @@ const animateLogo: MotionProps = {
   style: { transformOrigin: "0% 0%" },
 };
 
+const animateY_k = (args?: { initialY?: number; duration?: number }) => css`
+  @keyframes animateY {
+    0% {
+      transform: translateY(${args.initialY ? `${args.initialY}rem` : "5rem"});
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  animation: animateY ${args.duration ? `${args.duration}s` : "0.3s"} ease
+    forwards;
+`;
+
 export {
   animateRight,
   animateBottom,
@@ -198,4 +215,5 @@ export {
   animateTopStagger,
   animateLogo,
   animateFadeIn,
+  animateY_k,
 };

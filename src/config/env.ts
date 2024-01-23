@@ -1,5 +1,7 @@
 const env = import.meta.env;
 
+const NODE_MODE = env.VITE_ENV_MODE || "";
+
 const API_ORIGIN = env.VITE_API_ORIGIN || "";
 const API_ENDPOINT = env.VITE_API_ENDPOINT || "";
 
@@ -15,6 +17,7 @@ const FIREBASE_APP_ID = env.VITE_FIREBASE_APP_ID || "";
 const FIREBASE_MEASUREMENT_ID = env.VITE_FIREBASE_MEASUREMENT_ID || "";
 
 export {
+  NODE_MODE,
   API_ORIGIN,
   API_ENDPOINT,
   APP_ORIGIN,

@@ -1,12 +1,18 @@
 import { useState } from "react";
-import { MultiSelect } from "react-multi-select-component";
 
-import { QuillEditor } from "@/components/Layouts";
+import randomColor from "randomcolor";
+
+import { textCapitalize } from "@/utils";
+
 import * as Styled from "./write.styled";
+import { QuillEditor, MultiSelect } from "@/components/Layouts";
 
-type WriteT = {
-  defaultValue?: string;
-};
+import {
+  MultiSelectOptionT,
+  OnMultipleSelectT,
+} from "@/interface/ui/commons.types";
+
+type CategoryItemT = MultiSelectOptionT<{ color: string }>;
 
 const options = [
   { label: "Fashion", value: "grapes", color: "2" },
@@ -14,26 +20,58 @@ const options = [
   { label: "Coding", value: "strawberry", color: "3", disabled: false },
 ];
 
-const Write: React.FC<WriteT> = ({ defaultValue }) => {
-  const [value, setValue] = useState(defaultValue || "");
-  const [selected, setSelected] = useState([]);
+const Write: React.FC = () => {
+  const [title, setTitle] = useState("");
+  const [quillBody, setQuillBody] = useState("");
+  const [categories, setCategories] = useState<Array<CategoryItemT>>([]);
+
+  const onSelectCategory: OnMultipleSelectT<CategoryItemT> = ({
+    isNew,
+    values,
+    lastIndex,
+  }) => {
+    if (isNew && !values[lastIndex].color) {
+      const clr = randomColor({ luminosity: "dark", alpha: 1 });
+      values[lastIndex] = {
+        ...values[lastIndex],
+        isNew,
+        color: clr,
+        label: textCapitalize(values[lastIndex].label),
+      };
+
+      setCategories(() => values);
+    } else setCategories(() => values);
+  };
+
+  const onPublish = () => {
+    console.log({
+      title,
+      quillBody,
+      categories,
+    });
+  };
 
   return (
     <Styled.write>
-      <textarea placeholder="Title" className="title-input" rows={2} />
+      <textarea
+        placeholder="Title"
+        className="title-input"
+        rows={2}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
 
       <MultiSelect
         options={options}
-        value={selected}
-        onChange={setSelected}
-        labelledBy="Categories"
-        hasSelectAll={false}
-        isCreatable={true}
+        value={categories}
+        onSelect={onSelectCategory}
       />
 
-      <QuillEditor value={value} setValue={setValue} />
+      <QuillEditor value={quillBody} setValue={setQuillBody} />
 
-      <button className="publish-btn">Publish</button>
+      <button className="publish-btn" onClick={onPublish}>
+        Publish
+      </button>
     </Styled.write>
   );
 };

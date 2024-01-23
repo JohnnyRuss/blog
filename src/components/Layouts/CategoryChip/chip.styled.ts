@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { hexToRGBA } from "@/utils";
 
-export const CategoryChip = styled.div<{ bg_color: string }>`
+export const CategoryChip = styled.div<{ $bg_color: string }>`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -12,7 +12,7 @@ export const CategoryChip = styled.div<{ bg_color: string }>`
   &.size-sm {
     border-radius: 5rem;
     padding: 0.2rem 1.8rem;
-    background-color: ${({ bg_color }) => bg_color};
+    background-color: ${({ $bg_color }) => $bg_color};
     color: ${({ theme }) => theme.colors.white};
   }
 
@@ -22,8 +22,8 @@ export const CategoryChip = styled.div<{ bg_color: string }>`
 
   &.size-md,
   &.size-lg {
-    background-color: ${({ bg_color, theme }) =>
-      theme.mode === "light" ? hexToRGBA(bg_color, "0.4") : bg_color};
+    background-color: ${({ $bg_color, theme }) =>
+      theme.mode === "light" ? hexToRGBA($bg_color, "0.4") : $bg_color};
     color: ${({ theme }) =>
       theme.mode === "light" ? theme.colors.gray_dark : theme.colors.white};
   }

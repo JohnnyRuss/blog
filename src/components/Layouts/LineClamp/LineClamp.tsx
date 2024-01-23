@@ -9,12 +9,12 @@ type LineClampT = {
   component?: keyof JSX.IntrinsicElements;
 };
 
-const LineClampedBox = styled.div<{ clamp: number }>`
+const LineClampedBox = styled.div<{ $clamp: number }>`
   display: -webkit-box;
   box-orient: vertical;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  -webkit-line-clamp: ${({ clamp }) => clamp};
+  -webkit-line-clamp: ${({ $clamp }) => $clamp};
   width: 100%;
 `;
 
@@ -26,7 +26,7 @@ const LineClamp: React.FC<LineClampT> = ({
   showEmptyLines = false,
 }) => {
   return (
-    <LineClampedBox as={component} clamp={clamp} style={sx} data-line-clamp>
+    <LineClampedBox as={component} $clamp={clamp} style={sx} data-line-clamp>
       <Text text={text} showEmptyLines={showEmptyLines} />
     </LineClampedBox>
   );

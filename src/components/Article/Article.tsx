@@ -11,7 +11,7 @@ type ArticleT = {};
 
 const Article: React.FC<ArticleT> = () => {
   const x = localStorage.getItem("post");
-  const quillValue = x ? JSON.parse(x) : "";
+  const quillValue = x ? JSON.parse(JSON.parse(x)) : "";
 
   return (
     <Styled.Article>
@@ -19,7 +19,7 @@ const Article: React.FC<ArticleT> = () => {
 
       <div className="article-body">
         <div className="editor-box">
-          <QuillEditor readonly={true} value={quillValue} />
+          <QuillEditor readonly={true} value={quillValue.body} />
         </div>
 
         <aside className="article-aside">

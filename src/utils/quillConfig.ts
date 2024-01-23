@@ -20,8 +20,6 @@ const quillConfig: QuillOptions = {
     },
     toolbar: [
       [{ header: [1, 2, 3, 4, false] }],
-      [{ size: ["small", false, "large", "huge"] }],
-      // [{ font: [] }],
       ["blockquote", "code-block"],
       ["link", "image", "video"],
       ["bold", "italic", "underline", "strike"],
@@ -54,6 +52,10 @@ const quillConfig: QuillOptions = {
     "link",
     "image",
     "video",
+    "align",
+    "color",
+    "background",
+    "script",
   ],
 };
 

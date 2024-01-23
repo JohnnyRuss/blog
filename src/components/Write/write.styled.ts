@@ -18,18 +18,27 @@ export const write = styled.div`
     }
   }
 
-  .multi-select {
-    margin: 3rem 0;
+  .quill {
+    border-radius: 1rem;
+  }
 
-    .dropdown-content {
-      input[type="checkbox"] {
-        display: none;
-      }
+  .quill .ql-toolbar.ql-snow,
+  .quill .ql-container.ql-snow {
+    border: 1px solid ${({ theme }) => theme.colors.gray};
+    border-radius: 0.5rem;
+
+    &:focus,
+    &:focus-within {
+      border-color: #4285f4;
     }
   }
 
-  .quill .ql-editor {
-    min-height: 30vh;
+  .quill .ql-container.ql-snow {
+    margin-top: 3rem;
+
+    .ql-editor {
+      min-height: 45vh;
+    }
   }
 
   .publish-btn {

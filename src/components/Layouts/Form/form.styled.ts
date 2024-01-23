@@ -27,6 +27,7 @@ const commonStyles = css`
     padding: 1rem 0.75rem;
     width: 100%;
     font-size: ${({ theme }) => theme.fontSize.sm};
+    color: ${({ theme }) => theme.colors.gray_dark};
   }
 `;
 

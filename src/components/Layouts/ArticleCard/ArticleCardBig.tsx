@@ -15,10 +15,10 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = () => {
   const theme = useTheme();
 
   const x = localStorage.getItem("post");
-  const quillValue = x ? JSON.parse(x) : "";
+  const quillValue = x ? JSON.parse(JSON.parse(x)) : "";
 
-  const { getText } = useQuill();
-  const text = getText(quillValue);
+  const { getShortContent } = useQuill();
+  const { description } = getShortContent(quillValue.body);
 
   return (
     <Styled.ArticleCardBig to="/blog/123">
@@ -49,7 +49,7 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = () => {
 
           <LineClamp
             clamp={7}
-            text={text}
+            text={description}
             sx={{
               fontSize: theme.fontSize.sm,
               color:

@@ -1,9 +1,14 @@
 export default function useQuill() {
-  const getText = (quillValue: string) => {
+  const getShortContent = (quillValue: string) => {
     const container = document.createElement("div");
     container.innerHTML = quillValue;
 
     const textElements = container.querySelectorAll("p");
+    const thumbnail =
+      Array.from(container.querySelectorAll("img"))?.[0]
+        ?.getAttribute("src")
+        ?.replace(/"/g, "")
+        ?.replace(/\\/g, "") || "";
 
     const description =
       textElements.length > 0
@@ -12,8 +17,8 @@ export default function useQuill() {
             .join("\n")
         : "";
 
-    return description;
+    return { description, thumbnail };
   };
 
-  return { getText };
+  return { getShortContent };
 }
