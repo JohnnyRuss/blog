@@ -1,8 +1,10 @@
 import { useTheme } from "styled-components";
 
+import { DYNAMIC_ROUTES } from "@/config/paths";
+
 import * as Styled from "./article.styled";
-import CardFooter from "./components/CardFooter";
 import CardHead from "./components/CardHead";
+import CardFooter from "./components/CardFooter";
 import { LineClamp } from "@/components/Layouts";
 
 type ArticleCardSmallT = {};
@@ -11,7 +13,7 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
   const theme = useTheme();
 
   return (
-    <Styled.ArticleCardSmall to="/blog/123">
+    <Styled.ArticleCardSmall to={DYNAMIC_ROUTES.article_page("some_post")}>
       <li className="article-sm__body">
         <div className="article-sm__body-content">
           <CardHead />

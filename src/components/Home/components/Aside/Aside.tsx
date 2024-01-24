@@ -1,14 +1,17 @@
+import { homeStore } from "@/store";
+
 import * as Styled from "./aside.styled";
 import { AsidePopularArticles, AsideEditorPick } from "@/components/Layouts";
 
-type AsideT = {};
+const Aside: React.FC = () => {
+  const popularArticles = homeStore.use.popularArticles();
+  const editorPickedArticles = homeStore.use.editorsPick();
 
-const Aside: React.FC<AsideT> = () => {
   return (
     <Styled.Aside>
-      <AsidePopularArticles />
+      <AsidePopularArticles articles={popularArticles} />
 
-      <AsideEditorPick />
+      <AsideEditorPick articles={editorPickedArticles} />
     </Styled.Aside>
   );
 };

@@ -28,5 +28,6 @@ export { default as FollowCard } from "./FollowCard/FollowCard";
 export { default as EditButton } from "./EditButton/EditButton";
 export { default as WriteButton } from "./WriteButton/WriteButton";
 export { default as MultiSelect } from "./MultiSelect/MultiSelect";
+export { default as ErrorMessage } from "./ErrorMessage/ErrorMessage";
 // SPINNERS
 export { default as StandSpinner } from "./Spinner/StandSpinner";

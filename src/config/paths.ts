@@ -2,7 +2,7 @@ const PATHS = {
   root_page: "/",
   home_page: "/home",
   blog_page: "/blog",
-  article_page: "/blog/:blogId",
+  article_page: "/:slug",
   for_you_page: "/for-you",
   write: "/write",
   // PROFILE
@@ -23,6 +23,10 @@ const PATHS = {
   unknown_page: "*",
 };
 
+const DYNAMIC_ROUTES = {
+  article_page: (slug: string) => PATHS.article_page.replace(":slug", slug),
+};
+
 const PRIVATE_ROUTES = ["/for-you", "/write", "/profile"];
 
-export { PATHS, PRIVATE_ROUTES };
+export { PATHS, DYNAMIC_ROUTES, PRIVATE_ROUTES };

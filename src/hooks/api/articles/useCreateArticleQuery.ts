@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -24,6 +25,8 @@ export default function useCreateArticleQuery(articleId?: string) {
   const status = articleStore.use.createStatus();
   const create = articleStore.use.create();
   const update = articleStore.use.update();
+  const getCategorySuggestions = articleStore.use.getCategorySuggestions();
+  const categorySuggestions = articleStore.use.categorySuggestions();
 
   const onPublish = form.handleSubmit(async (values) => {
     try {
@@ -41,5 +44,9 @@ export default function useCreateArticleQuery(articleId?: string) {
     }
   });
 
-  return { status, onPublish, onStartUpdate, form };
+  useEffect(() => {
+    getCategorySuggestions();
+  }, []);
+
+  return { status, onPublish, onStartUpdate, form, categorySuggestions };
 }

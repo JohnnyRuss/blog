@@ -15,6 +15,8 @@ type MultiSelectPropsT<T> = {
   options: Array<MultiSelectOptionT<T>>;
   value: Array<MultiSelectOptionT<T>>;
   onSelect: OnMultipleSelectT<T>;
+  error?: boolean;
+  message?: string;
 };
 
 export type { MultiSelectOptionT, MultiSelectPropsT, OnMultipleSelectT };

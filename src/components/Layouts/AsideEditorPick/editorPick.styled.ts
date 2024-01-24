@@ -44,6 +44,7 @@ export const EditorPick = styled.ul`
 
     &--author {
       font-weight: 600;
+      text-transform: capitalize;
     }
 
     &--date {

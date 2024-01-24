@@ -1,6 +1,7 @@
 import { MultiSelect as Select } from "react-multi-select-component";
 
 import * as Styled from "./multiSelect.styled";
+import { ErrorMessage } from "@/components/Layouts";
 
 import {
   MultiSelectOptionT,
@@ -11,6 +12,8 @@ const MultiSelect = <T,>({
   value,
   options,
   onSelect,
+  error,
+  message,
 }: MultiSelectPropsT<T>) => {
   const handleSelect = (
     values: Array<MultiSelectOptionT<T> & { __isNew__?: boolean }>
@@ -30,6 +33,8 @@ const MultiSelect = <T,>({
         hasSelectAll={false}
         isCreatable={true}
       />
+
+      {error && <ErrorMessage message={message || ""} />}
     </Styled.SelectContainer>
   );
 };

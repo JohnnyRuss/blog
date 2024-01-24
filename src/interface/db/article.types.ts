@@ -3,6 +3,7 @@ import { ArticleSchemaT } from "@/utils/validations/articleSchema";
 
 type ArticleT = {
   _id: string;
+  slug: string;
   author: ArticleAuthorT;
   title: string;
   categories: Array<CategoryT>;
@@ -21,6 +22,7 @@ type ArticleAuthorT = {
 
 type ArticleShortT = {
   _id: string;
+  slug: string;
   title: string;
   body: string;
   author: ArticleAuthorT;
@@ -42,12 +44,18 @@ type DeleteArticleArgsT = {
 };
 
 type GetArticleArgsT = {
-  articleId: string;
+  slug: string;
 };
 
 type GetAllArticlesArgsT = {
   query: string;
   page: number;
+};
+
+type GetAllArticlesResponseT = {
+  data: Array<ArticleShortT>;
+  currentPage: number;
+  hasMore: boolean;
 };
 
 type LikeArticleArgsT = {
@@ -69,6 +77,7 @@ export type {
   DeleteArticleArgsT,
   GetArticleArgsT,
   GetAllArticlesArgsT,
+  GetAllArticlesResponseT,
   LikeArticleArgsT,
   SaveArticleArgsT,
 };

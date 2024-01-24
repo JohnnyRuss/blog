@@ -1,77 +1,131 @@
-import { useState } from "react";
-
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useMemo } from "react";
+import { useLocation } from "react-router-dom";
+import { Controller } from "react-hook-form";
 import randomColor from "randomcolor";
 
 import { textCapitalize } from "@/utils";
-
-import * as Styled from "./write.styled";
-import { QuillEditor, MultiSelect } from "@/components/Layouts";
+import { useCreateArticleQuery } from "@/hooks/api/articles";
 
 import {
-  MultiSelectOptionT,
-  OnMultipleSelectT,
-} from "@/interface/ui/commons.types";
+  QuillEditor,
+  MultiSelect,
+  TextareaField,
+  StandSpinner,
+} from "@/components/Layouts";
+import * as Styled from "./write.styled";
 
-type CategoryItemT = MultiSelectOptionT<{ color: string }>;
+import {
+  OnSelectCategoryArgsT,
+  CategoryDropdownOptionT,
+  OnSelectCategoryReturnT,
+  CategoryDropdownInvertedOptionT,
+} from "./index.types";
+import { ArticleSchemaT } from "@/utils/validations/articleSchema";
 
-const options = [
-  { label: "Fashion", value: "grapes", color: "2" },
-  { label: "WebDev", value: "mango", color: "1" },
-  { label: "Coding", value: "strawberry", color: "3", disabled: false },
-];
+const fitCategoryData = (v: CategoryDropdownInvertedOptionT) => ({
+  color: v.color,
+  label: v.title,
+  value: v.query,
+  isNew: v.isNew || false,
+});
+
+const invertCategoryData = (v: CategoryDropdownOptionT) => ({
+  color: v.color,
+  title: v.label,
+  query: v.value,
+  isNew: v.isNew || false,
+});
 
 const Write: React.FC = () => {
-  const [title, setTitle] = useState("");
-  const [quillBody, setQuillBody] = useState("");
-  const [categories, setCategories] = useState<Array<CategoryItemT>>([]);
+  const { state } = useLocation();
+  const updateAbleArticle: undefined | ArticleSchemaT = state?.article;
 
-  const onSelectCategory: OnMultipleSelectT<CategoryItemT> = ({
-    isNew,
-    values,
-    lastIndex,
-  }) => {
+  const { form, status, onPublish, onStartUpdate, categorySuggestions } =
+    useCreateArticleQuery();
+
+  const onSelectCategory = ({
+    fieldChangeHandler,
+    value: { isNew, lastIndex, values },
+  }: OnSelectCategoryArgsT) => {
     if (isNew && !values[lastIndex].color) {
-      const clr = randomColor({ luminosity: "dark", alpha: 1 });
+      const newCategory = values[lastIndex];
+      const color = randomColor({ luminosity: "dark", alpha: 1 });
+
       values[lastIndex] = {
-        ...values[lastIndex],
+        ...newCategory,
         isNew,
-        color: clr,
-        label: textCapitalize(values[lastIndex].label),
+        color,
+        label: textCapitalize(newCategory.label),
       };
+    }
 
-      setCategories(() => values);
-    } else setCategories(() => values);
+    fieldChangeHandler(values.map(invertCategoryData));
   };
 
-  const onPublish = () => {
-    console.log({
-      title,
-      quillBody,
-      categories,
-    });
-  };
+  useEffect(() => {
+    if (!updateAbleArticle) return;
+    onStartUpdate(updateAbleArticle);
+  }, [updateAbleArticle]);
+
+  const options = useMemo(
+    () => categorySuggestions.map(fitCategoryData),
+    [categorySuggestions]
+  );
 
   return (
     <Styled.write>
-      <textarea
-        placeholder="Title"
-        className="title-input"
-        rows={2}
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+      <Controller
+        control={form.control}
+        name="title"
+        render={({ field, fieldState: { error } }) => (
+          <TextareaField
+            rows={2}
+            placeholder="Title"
+            className="title-input"
+            error={error ? true : false}
+            message={error?.message}
+            name={field.name}
+            value={field.value}
+            onChange={field.onChange}
+          />
+        )}
       />
 
-      <MultiSelect
-        options={options}
-        value={categories}
-        onSelect={onSelectCategory}
+      <Controller
+        control={form.control}
+        name="categories"
+        render={({ field, fieldState: { error } }) => (
+          <MultiSelect
+            options={options}
+            error={error ? true : false}
+            message={error?.message}
+            value={field.value.map(fitCategoryData)}
+            onSelect={(value: OnSelectCategoryReturnT) =>
+              onSelectCategory({ fieldChangeHandler: field.onChange, value })
+            }
+          />
+        )}
       />
 
-      <QuillEditor value={quillBody} setValue={setQuillBody} />
+      <Controller
+        control={form.control}
+        name="body"
+        render={({ field, fieldState: { error } }) => (
+          <QuillEditor
+            value={field.value}
+            setValue={field.onChange}
+            error={error ? true : false}
+            message={error?.message}
+          />
+        )}
+      />
 
       <button className="publish-btn" onClick={onPublish}>
         Publish
       </button>
+
+      {status.loading && <StandSpinner />}
     </Styled.write>
   );
 };

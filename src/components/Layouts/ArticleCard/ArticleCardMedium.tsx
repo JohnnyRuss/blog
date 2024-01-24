@@ -1,10 +1,12 @@
 import moment from "moment";
 import { useTheme } from "styled-components";
 
-import { LineClamp } from "@/components/Layouts";
+import { DYNAMIC_ROUTES } from "@/config/paths";
+
 import * as Styled from "./article.styled";
-import CardFooter from "./components/CardFooter";
 import CardHead from "./components/CardHead";
+import CardFooter from "./components/CardFooter";
+import { LineClamp } from "@/components/Layouts";
 
 type ArticleCardMediumT = {};
 
@@ -12,7 +14,7 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = () => {
   const theme = useTheme();
 
   return (
-    <Styled.ArticleCardMedium to="/blog/123">
+    <Styled.ArticleCardMedium to={DYNAMIC_ROUTES.article_page("some_post")}>
       <li className="article-md__body">
         <figure className="article-md__body-fig">
           <img

@@ -2,9 +2,11 @@ import styled from "styled-components";
 import { animateY_k } from "@/styles/animations";
 
 export const SelectContainer = styled.div`
-  .multi-select {
-    margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
+  .multi-select {
     * {
       transition: none;
     }

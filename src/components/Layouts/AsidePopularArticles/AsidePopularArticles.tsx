@@ -1,121 +1,22 @@
-import { useTheme } from "styled-components";
-import { animateLeft } from "@/styles/animations";
-import { motion } from "framer-motion";
-
-import {
-  LineClamp,
-  CategoryChip,
-  AsideBlockItemContainer,
-} from "@/components/Layouts";
+import { AsideBlockItemContainer } from "@/components/Layouts";
 import * as Styled from "./populars.styled";
+import PopularArticleCard from "./PopularArticleCard";
 
-type AsidePopularArticlesT = {};
+import { ArticleShortT } from "@/interface/db/article.types";
 
-const AsidePopularArticles: React.FC<AsidePopularArticlesT> = () => {
-  const theme = useTheme();
+type AsidePopularArticlesT = {
+  articles: Array<ArticleShortT>;
+};
 
+const AsidePopularArticles: React.FC<AsidePopularArticlesT> = ({
+  articles,
+}) => {
   return (
     <AsideBlockItemContainer title="Most Popular" subTitle="What's hot">
       <Styled.PopularArticles>
-        <motion.li
-          className="popular-item"
-          {...animateLeft({ inView: true, once: true })}
-        >
-          <CategoryChip bgColor="#FFAE00" title="Travel" size="sm" />
-
-          <LineClamp
-            clamp={2}
-            sx={{
-              fontSize: theme.fontSize.sm,
-              color:
-                theme.mode === "dark"
-                  ? theme.colors.gray
-                  : theme.colors.gray_dark,
-            }}
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium asperiores, accusantium quod, ea exercitationem molestiae fugit suscipit facilis, aut sunt ipsa molestias cupiditate? Perspiciatis ipsam aliquam laboriosam porro consequuntur est."
-          />
-
-          <div className="popular-item__footer">
-            <span className="popular-item__footer-author">Tom Odel</span>
-            &mdash;
-            <span className="popular-item__footer-date">27.12.2023</span>
-          </div>
-        </motion.li>
-
-        <motion.li
-          className="popular-item"
-          {...animateLeft({ inView: true, once: true })}
-        >
-          <CategoryChip bgColor="#B33F00" title="Culture" size="sm" />
-
-          <LineClamp
-            clamp={2}
-            sx={{
-              fontSize: theme.fontSize.sm,
-              color:
-                theme.mode === "dark"
-                  ? theme.colors.gray
-                  : theme.colors.gray_dark,
-            }}
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium asperiores, accusantium quod, ea exercitationem molestiae fugit suscipit facilis, aut sunt ipsa molestias cupiditate? Perspiciatis ipsam aliquam laboriosam porro consequuntur est."
-          />
-
-          <div className="popular-item__footer">
-            <span className="popular-item__footer-author">Tom Odel</span>
-            &mdash;
-            <span className="popular-item__footer-date">27.12.2023</span>
-          </div>
-        </motion.li>
-
-        <motion.li
-          className="popular-item"
-          {...animateLeft({ inView: true, once: true })}
-        >
-          <CategoryChip bgColor="#D92525" title="Coding" size="sm" />
-
-          <LineClamp
-            clamp={2}
-            sx={{
-              fontSize: theme.fontSize.sm,
-              color:
-                theme.mode === "dark"
-                  ? theme.colors.gray
-                  : theme.colors.gray_dark,
-            }}
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium asperiores, accusantium quod, ea exercitationem molestiae fugit suscipit facilis, aut sunt ipsa molestias cupiditate? Perspiciatis ipsam aliquam laboriosam porro consequuntur est."
-          />
-
-          <div className="popular-item__footer">
-            <span className="popular-item__footer-author">Tom Odel</span>
-            &mdash;
-            <span className="popular-item__footer-date">27.12.2023</span>
-          </div>
-        </motion.li>
-
-        <motion.li
-          className="popular-item"
-          {...animateLeft({ inView: true, once: true })}
-        >
-          <CategoryChip bgColor="#005148" title="Fashion" size="sm" />
-
-          <LineClamp
-            clamp={2}
-            sx={{
-              fontSize: theme.fontSize.sm,
-              color:
-                theme.mode === "dark"
-                  ? theme.colors.gray
-                  : theme.colors.gray_dark,
-            }}
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium asperiores, accusantium quod, ea exercitationem molestiae fugit suscipit facilis, aut sunt ipsa molestias cupiditate? Perspiciatis ipsam aliquam laboriosam porro consequuntur est."
-          />
-
-          <div className="popular-item__footer">
-            <span className="popular-item__footer-author">Tom Odel</span>
-            &mdash;
-            <span className="popular-item__footer-date">27.12.2023</span>
-          </div>
-        </motion.li>
+        {articles.map((article) => (
+          <PopularArticleCard key={article._id} article={article} />
+        ))}
       </Styled.PopularArticles>
     </AsideBlockItemContainer>
   );

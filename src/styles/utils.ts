@@ -6,6 +6,7 @@ export const themeTransition = css`
 
 export const scrollbar = css`
   &::-webkit-scrollbar {
+    cursor: pointer;
     width: 0.8rem;
   }
 

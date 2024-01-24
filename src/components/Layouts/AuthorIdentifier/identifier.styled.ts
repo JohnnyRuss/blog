@@ -27,6 +27,11 @@ export const AuthorIdentifier = styled.div`
     &__username {
       font-weight: 600;
       line-height: 1;
+      text-transform: capitalize;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     &__date {

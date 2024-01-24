@@ -1,7 +1,10 @@
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
+import { AxiosResponse } from "axios";
 
+import { axiosPrivateQuery } from "@/services/axios";
+import { generateQueryableString } from "@/utils";
 import { ARTICLES_PER_PAGE } from "@/config/config";
 import { createSelectors, getStatus } from "./helpers";
 
@@ -9,6 +12,11 @@ import {
   ArticleStateT,
   ArticleStoreT,
 } from "@/interface/store/article.store.types";
+import {
+  ArticleT,
+  GetAllArticlesResponseT,
+} from "@/interface/db/article.types";
+import { CategoryT } from "@/interface/db/category.types";
 
 const initialState: ArticleStateT = {
   createStatus: getStatus("IDLE"),
@@ -18,12 +26,15 @@ const initialState: ArticleStateT = {
 
   lists: [],
 
+  categorySuggestions: [],
+
   hasMore: false,
   currentPage: 0,
   articles: [],
 
   article: {
     _id: "",
+    slug: "",
     author: {
       _id: "",
       avatar: "",
@@ -41,13 +52,31 @@ const initialState: ArticleStateT = {
 
 const useArticleStore = create<ArticleStoreT>()(
   devtools(
-    immer((set) => ({
+    immer((set, get) => ({
       ...initialState,
+
+      async getCategorySuggestions() {
+        const { data }: AxiosResponse<Array<CategoryT>> =
+          await axiosPrivateQuery.get("/categories");
+
+        set(() => ({ categorySuggestions: data }));
+      },
 
       async create(args) {
         try {
           set(() => ({ createStatus: getStatus("PENDING") }));
-          console.log(args);
+
+          const data = {
+            title: args.title,
+            categories: args.categories.map((category) => ({
+              ...category,
+              query: generateQueryableString(category.query),
+            })),
+            body: args.body,
+          };
+
+          await axiosPrivateQuery.post("/articles", data);
+
           set(() => ({
             createStatus: getStatus("SUCCESS"),
           }));
@@ -94,9 +123,12 @@ const useArticleStore = create<ArticleStoreT>()(
         try {
           set(() => ({ readStatus: getStatus("PENDING") }));
 
-          console.log(args);
+          const { data }: AxiosResponse<ArticleT> = await axiosPrivateQuery.get(
+            `/articles/${args.slug}`
+          );
 
           set(() => ({
+            article: data,
             readStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
@@ -121,16 +153,15 @@ const useArticleStore = create<ArticleStoreT>()(
 
           const queryStr = queryStrings.join(args.query ? "&" : "");
 
-          // const {
-          //   data: { data, currentPage, hasMore },
-          // }: AxiosResponse<GetProductsResponseT> = await axiosPrivateQuery.get(
-          //   `/dashboard/products?${queryStr}`
-          // );
+          const {
+            data: { data, currentPage, hasMore },
+          }: AxiosResponse<GetAllArticlesResponseT> =
+            await axiosPrivateQuery.get(`/articles?${queryStr}`);
 
           set(() => ({
-            // hasMore,
-            // currentPage,
-            // products: data,
+            hasMore,
+            currentPage,
+            articles: data,
             readStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
@@ -151,17 +182,16 @@ const useArticleStore = create<ArticleStoreT>()(
 
           const queryStr = queryStrings.join(args.query ? "&" : "");
 
-          // const {
-          //   data: { data, currentPage, hasMore },
-          // }: AxiosResponse<GetProductsResponseT> = await axiosPrivateQuery.get(
-          //   `/dashboard/products?${queryStr}`
-          // );
+          const {
+            data: { data, currentPage, hasMore },
+          }: AxiosResponse<GetAllArticlesResponseT> =
+            await axiosPrivateQuery.get(`/articles?${queryStr}`);
 
-          // set(() => ({
-          //   hasMore,
-          //   currentPage,
-          //   products: [...getState().products, ...data],
-          // }));
+          set(() => ({
+            hasMore,
+            currentPage,
+            articles: [...get().articles, ...data],
+          }));
         } catch (error: any) {
           const message = error.response?.data?.message || error?.message;
           set(() => ({ readStatus: getStatus("FAIL", message) }));

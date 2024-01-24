@@ -1,6 +1,7 @@
 import { useTheme } from "styled-components";
 
 import { useQuill } from "@/hooks/utils";
+import { DYNAMIC_ROUTES } from "@/config/paths";
 
 import {
   LineClamp,
@@ -9,43 +10,42 @@ import {
 } from "@/components/Layouts";
 import * as Styled from "./article.styled";
 
-type ArticleCardBigT = {};
+import { ArticleShortT } from "@/interface/db/article.types";
 
-const ArticleCardBig: React.FC<ArticleCardBigT> = () => {
+type ArticleCardBigT = {
+  article: ArticleShortT;
+};
+
+const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
   const theme = useTheme();
 
-  const x = localStorage.getItem("post");
-  const quillValue = x ? JSON.parse(JSON.parse(x)) : "";
-
-  const { getShortContent } = useQuill();
-  const { description } = getShortContent(quillValue.body);
+  const { description, thumbnail } = useQuill(article.body);
+  const category = article.categories[0];
 
   return (
-    <Styled.ArticleCardBig to="/blog/123">
+    <Styled.ArticleCardBig to={DYNAMIC_ROUTES.article_page("some_post")}>
       <li className="article-card">
         <figure className="article-card__fig">
-          <img
-            width="100%"
-            height="100%"
-            src="https://images.unsplash.com/photo-1600810457779-5250a03d83e9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="post"
-          />
+          <img width="100%" height="100%" src={thumbnail} alt="post" />
         </figure>
 
         <div className="article-card__content">
           <div className="article-card__content-header">
-            <AuthorIdentifier />
+            <AuthorIdentifier
+              date={article.createdAt}
+              userId={article.author._id}
+              avatar={article.author.avatar}
+              username={article.author.username}
+            />
 
-            <CategoryChip bgColor="#B33F00" size="md" title="Culture" />
+            <CategoryChip
+              size="md"
+              title={category?.title}
+              bgColor={category?.color}
+            />
           </div>
 
-          <LineClamp
-            clamp={2}
-            component="h3"
-            text="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt
-            velit quia ducimus error quasi harum eligendi mollitia nostrum nam
-            dolorum."
-          />
+          <LineClamp clamp={2} component="h3" text={article.title} />
 
           <LineClamp
             clamp={7}
