@@ -116,6 +116,7 @@ export const ArticleCardMedium = styled(Link)`
       display: flex;
       align-items: center;
       gap: 1rem;
+      margin-top: auto;
 
       &__date {
         font-size: ${({ theme }) => theme.fontSize.xs};

@@ -1,8 +1,12 @@
 import * as Styled from "./styles/cardHead.styled";
 
-type CardHeadT = {};
+import { ArticleAuthorT } from "@/interface/db/article.types";
 
-const CardHead: React.FC<CardHeadT> = () => {
+type CardHeadT = {
+  author: ArticleAuthorT;
+};
+
+const CardHead: React.FC<CardHeadT> = ({ author }) => {
   return (
     <Styled.CardHead>
       <figure className="card-head__fig">
@@ -11,13 +15,13 @@ const CardHead: React.FC<CardHeadT> = () => {
           height="25px"
           title="card"
           loading="lazy"
-          src="https://www.creative-tim.com/blog/content/images/2022/01/which-development-job-is-right-for-you.jpg"
-          alt="card"
+          src={author.avatar}
+          alt={author.username}
         />
       </figure>
 
       <p className="card-head__user">
-        <span className="card-head__user-name">Tom Odell</span>
+        <span className="card-head__user-name">{author.username}</span>
         <span className="card-head__user-work">
           {" "}
           <sup>

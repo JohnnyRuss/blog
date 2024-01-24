@@ -1,32 +1,41 @@
-import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
 import { animateFadeIn } from "@/styles/animations";
+import { useReadAllArticlesQuery } from "@/hooks/api/articles";
 
 import {
   AsideCategories,
   AsideWhoToFollow,
   ArticleCardMedium,
+  InfiniteScroll,
+  StandSpinner,
 } from "@/components/Layouts";
 import * as Styled from "./bog.styled";
 
 type BlogT = {};
 
 const Blog: React.FC<BlogT> = () => {
+  const { data, getArticlesQuery, hasMore, status, total } =
+    useReadAllArticlesQuery();
+
   return (
     <Styled.Blog>
       <div>Filter</div>
       <div className="blog-content__box">
-        <div className="blog-articles__list">
-          {Array.from(new Array(16)).map(() => (
+        <InfiniteScroll
+          total={total}
+          hasMore={hasMore}
+          onNext={getArticlesQuery}
+        >
+          {data.map((article) => (
             <motion.div
+              key={article._id}
               {...animateFadeIn({ once: true, inView: true })}
-              key={uuid()}
             >
-              <ArticleCardMedium />
+              <ArticleCardMedium article={article} />
             </motion.div>
           ))}
-        </div>
+        </InfiniteScroll>
 
         <aside className="blog-aside">
           <AsideCategories />
@@ -34,6 +43,8 @@ const Blog: React.FC<BlogT> = () => {
           <AsideWhoToFollow />
         </aside>
       </div>
+
+      {status.loading && <StandSpinner />}
     </Styled.Blog>
   );
 };

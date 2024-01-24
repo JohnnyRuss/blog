@@ -11,8 +11,10 @@ export const Blog = styled.section`
     gap: 3rem;
   }
 
-  .blog-articles__list {
+  .infinite-scroll-component__outerdiv {
     flex: 3;
+  }
+  .infinite-scroll-component {
     display: grid;
     gap: 5rem;
     grid-template-columns: repeat(2, 1fr);
@@ -46,7 +48,7 @@ export const Blog = styled.section`
       padding: 0;
     }
 
-    .blog-articles__list {
+    .infinite-scroll-component {
       gap: 3rem;
       grid-template-columns: repeat(1, 1fr);
       justify-items: center;
@@ -54,7 +56,7 @@ export const Blog = styled.section`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
-    .blog-articles__list {
+    .infinite-scroll-component {
       gap: 5rem;
     }
   }

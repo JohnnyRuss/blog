@@ -79,7 +79,29 @@ export const StandSpinner = styled.div`
   position: fixed;
   z-index: 9999;
   inset: 0;
-  /* background-color: rgba(0, 0, 0, 0.4); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${loader};
+`;
+
+export const Spinner = styled.div`
+  width: 100%;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${loader};
+`;
+
+export const RelativeSpinner = styled.div`
+  position: absolute;
+  z-index: 9999;
+  inset: 0;
+  width: 100%;
+  padding: 3rem;
   display: flex;
   justify-content: center;
   align-items: center;
