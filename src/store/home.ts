@@ -70,7 +70,8 @@ const useHomeStore = create<HomeStoreT>()(
           throw error;
         }
       },
-    }))
+    })),
+    { name: "home" }
   )
 );
 

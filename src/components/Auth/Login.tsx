@@ -7,6 +7,7 @@ import { useSignInQuery } from "@/hooks/api/auth";
 
 import AuthLayout from "./components/AuthLayout";
 import * as Form from "@/components/Layouts/Form";
+import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const Login: React.FC = () => {
   const { form, onAuth } = useSignInQuery();
@@ -41,7 +42,7 @@ const Login: React.FC = () => {
         )}
       />
 
-      {status.error && <p>{status.message}</p>}
+      {status.error && <ErrorMessage message={status.message} />}
 
       <p className="forgot-password">
         <strong>
@@ -60,6 +61,8 @@ const Login: React.FC = () => {
           <Link to={PATHS.register_page}>Register</Link>
         </strong>
       </p>
+
+      {status.loading && <StandSpinner />}
     </AuthLayout>
   );
 };

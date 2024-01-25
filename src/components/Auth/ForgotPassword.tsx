@@ -3,9 +3,10 @@ import useForgotPasswordQuery from "@/hooks/api/auth/useForgotPasswordQuery";
 
 import * as Form from "@/components/Layouts/Form";
 import AuthLayout from "./components/AuthLayout";
+import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const ForgotPassword: React.FC = () => {
-  const { form, onForgotPassword } = useForgotPasswordQuery();
+  const { form, onForgotPassword, status } = useForgotPasswordQuery();
 
   return (
     <AuthLayout onSubmit={onForgotPassword}>
@@ -22,9 +23,13 @@ const ForgotPassword: React.FC = () => {
         )}
       />
 
+      {status.error && <ErrorMessage message={status.message} />}
+
       <button className="submit-btn" type="submit">
         Send Email
       </button>
+
+      {status.loading && <StandSpinner />}
     </AuthLayout>
   );
 };

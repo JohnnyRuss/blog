@@ -6,13 +6,13 @@ const PATHS = {
   for_you_page: "/for-you",
   write: "/write",
   // PROFILE
-  profile_page: "/profile",
-  profile_review: "/profile/review",
-  profile_lists: "/profile/lists",
-  profile_saved_lists: "/profile/saved",
-  profile_history: "/profile/history",
-  profile_following: "/profile/following",
-  profile_settings: "/profile/settings",
+  profile_page: "/profile/:username",
+  profile_review: "/profile/:username/review",
+  profile_lists: "/profile/:username/lists",
+  profile_saved_lists: "/profile/:username/saved",
+  profile_history: "/profile/:username/history",
+  profile_following: "/profile/:username/following",
+  profile_settings: "/profile/:username/settings",
   // AUTH
   auth_page: "/auth",
   login_page: "/auth/login",
@@ -25,6 +25,20 @@ const PATHS = {
 
 const DYNAMIC_ROUTES = {
   article_page: (slug: string) => PATHS.article_page.replace(":slug", slug),
+  profile_page: (username: string) =>
+    PATHS.profile_page.replace(":username", username),
+  profile_review: (username: string) =>
+    PATHS.profile_review.replace(":username", username),
+  profile_lists: (username: string) =>
+    PATHS.profile_lists.replace(":username", username),
+  profile_saved_lists: (username: string) =>
+    PATHS.profile_saved_lists.replace(":username", username),
+  profile_history: (username: string) =>
+    PATHS.profile_history.replace(":username", username),
+  profile_following: (username: string) =>
+    PATHS.profile_following.replace(":username", username),
+  profile_settings: (username: string) =>
+    PATHS.profile_settings.replace(":username", username),
 };
 
 const PRIVATE_ROUTES = ["/for-you", "/write", "/profile"];

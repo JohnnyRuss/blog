@@ -16,7 +16,14 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
     <Styled.ArticleCardSmall to={DYNAMIC_ROUTES.article_page("some_post")}>
       <li className="article-sm__body">
         <div className="article-sm__body-content">
-          <CardHead />
+          <CardHead
+            author={{
+              _id: "123",
+              avatar:
+                "https://www.creative-tim.com/blog/content/images/2022/01/which-development-job-is-right-for-you.jpg",
+              username: "john doe",
+            }}
+          />
 
           <div className="article-sm__body-content--text">
             <LineClamp

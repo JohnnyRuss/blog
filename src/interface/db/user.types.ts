@@ -1,9 +1,8 @@
-type EditProfileFormT = {};
-
 type UserT = {
   _id: string;
   email: string;
   username: string;
+  fullname: string;
   avatar: string;
 };
 
@@ -14,13 +13,22 @@ type UserSearchT = {
   avatar: string;
 };
 
-type GetGuestArgsT = {
-  userId: string;
+type UserDetailsT = UserT & {
+  bio: string;
+};
+
+// API
+
+type GetUserDetailsArgsT = {
+  username: string;
 };
 
 type UpdateUserArgsT = {
-  userId: string;
-  data: EditProfileFormT;
+  username: string;
+  data: {
+    key: string;
+    value: string;
+  };
 };
 
 type UpdateProfileImageArgsT = {
@@ -35,7 +43,9 @@ type UpdateProfileImageResponseT = {
 export type {
   UserT,
   UserSearchT,
-  GetGuestArgsT,
+  UserDetailsT,
+  // API
+  GetUserDetailsArgsT,
   UpdateUserArgsT,
   UpdateProfileImageArgsT,
   UpdateProfileImageResponseT,

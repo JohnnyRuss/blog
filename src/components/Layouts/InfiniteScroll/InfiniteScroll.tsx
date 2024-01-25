@@ -1,4 +1,6 @@
+import styled from "styled-components";
 import Infinite from "react-infinite-scroll-component";
+
 import { Spinner } from "@/components/Layouts";
 
 type InfiniteScrollT = {
@@ -9,6 +11,16 @@ type InfiniteScrollT = {
   height?: string;
   showLastMessage?: boolean;
 };
+
+const StyledLastLine = styled.p`
+  width: 100%;
+  flex: 1;
+  grid-column: 1/-1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const InfiniteScroll: React.FC<InfiniteScrollT> = ({
   total,
@@ -23,20 +35,15 @@ const InfiniteScroll: React.FC<InfiniteScrollT> = ({
       dataLength={total}
       next={onNext}
       hasMore={hasMore}
-      loader={<Spinner />}
+      loader={
+        <StyledLastLine>
+          <Spinner />
+        </StyledLastLine>
+      }
       {...(height ? { height } : {})}
       {...(showLastMessage
         ? {
-            endMessage: (
-              <p
-                style={{
-                  textAlign: "center",
-                  width: "100%",
-                }}
-              >
-                მეტი ინფორმაცია არ მოიპოვება
-              </p>
-            ),
+            endMessage: <StyledLastLine>There are no more data</StyledLastLine>,
           }
         : {})}
     >

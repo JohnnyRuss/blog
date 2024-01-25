@@ -3,9 +3,10 @@ import useConfirmEmailQuery from "@/hooks/api/auth/useConfirmEmailQuery";
 
 import * as Form from "@/components/Layouts/Form";
 import AuthLayout from "./components/AuthLayout";
+import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const ConfirmEmail: React.FC = () => {
-  const { form, onConfirmEmail } = useConfirmEmailQuery();
+  const { form, onConfirmEmail, status } = useConfirmEmailQuery();
 
   return (
     <AuthLayout onSubmit={onConfirmEmail}>
@@ -22,9 +23,13 @@ const ConfirmEmail: React.FC = () => {
         )}
       />
 
+      {status.error && <ErrorMessage message={status.message} />}
+
       <button className="submit-btn" type="submit">
         Confirm Email
       </button>
+
+      {status.loading && <StandSpinner />}
     </AuthLayout>
   );
 };

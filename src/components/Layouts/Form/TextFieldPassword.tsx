@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import * as Styled from "./form.styled";
 import EyeButton from "./components/EyeButton";
+import { ErrorMessage } from "@/components/Layouts";
 
 import { HookFormTextFieldT } from "@/interface/form.types";
 
@@ -38,7 +39,7 @@ const TextFieldPassword: React.FC<TextFieldPasswordT> = ({
         <EyeButton shown={inputType === "password"} toggleType={onToggleType} />
       </div>
 
-      {hasError && <p>{message}</p>}
+      {hasError && <ErrorMessage message={message} />}
     </Styled.TextFieldPassword>
   );
 };

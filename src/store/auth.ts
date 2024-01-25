@@ -25,6 +25,7 @@ const initialState: AuthStateT = {
     avatar: "",
     email: "",
     username: "",
+    fullname: "",
   },
 };
 
@@ -105,7 +106,8 @@ const useAuthStore = create<AuthStoreT>()(
           partialize: (state) => ({ user: state.user }),
         }
       )
-    )
+    ),
+    { name: "authentication" }
   )
 );
 

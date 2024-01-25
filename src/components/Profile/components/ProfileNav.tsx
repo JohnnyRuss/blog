@@ -1,10 +1,11 @@
 import { memo } from "react";
-import { NavLink } from "react-router-dom";
-
-import { PATHS } from "@/config/paths";
-
+import { NavLink, useParams } from "react-router-dom";
 import Carousel from "react-multi-carousel";
+
 import "react-multi-carousel/lib/styles.css";
+
+import { DYNAMIC_ROUTES } from "@/config/paths";
+
 import * as Styled from "./styles/nav.styled";
 
 const responsive = {
@@ -21,6 +22,7 @@ const responsive = {
 };
 
 const ProfileNav: React.FC = memo(() => {
+  const { username } = useParams();
   return (
     <Styled.ProfileNav>
       <Carousel
@@ -33,7 +35,7 @@ const ProfileNav: React.FC = memo(() => {
         removeArrowOnDeviceType={["desktop", "mobile"]}
       >
         <NavLink
-          to={PATHS.profile_review}
+          to={DYNAMIC_ROUTES.profile_review(username || "")}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
@@ -42,7 +44,7 @@ const ProfileNav: React.FC = memo(() => {
         </NavLink>
 
         <NavLink
-          to={PATHS.profile_lists}
+          to={DYNAMIC_ROUTES.profile_lists(username || "")}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
@@ -51,7 +53,7 @@ const ProfileNav: React.FC = memo(() => {
         </NavLink>
 
         <NavLink
-          to={PATHS.profile_saved_lists}
+          to={DYNAMIC_ROUTES.profile_saved_lists(username || "")}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
@@ -60,7 +62,7 @@ const ProfileNav: React.FC = memo(() => {
         </NavLink>
 
         <NavLink
-          to={PATHS.profile_history}
+          to={DYNAMIC_ROUTES.profile_history(username || "")}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
@@ -69,7 +71,7 @@ const ProfileNav: React.FC = memo(() => {
         </NavLink>
 
         <NavLink
-          to={PATHS.profile_following}
+          to={DYNAMIC_ROUTES.profile_following(username || "")}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }

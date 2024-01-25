@@ -231,7 +231,8 @@ const useArticleStore = create<ArticleStoreT>()(
           throw error;
         }
       },
-    }))
+    })),
+    { name: "articles" }
   )
 );
 

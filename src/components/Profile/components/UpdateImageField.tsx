@@ -1,13 +1,16 @@
 import { useState, useRef } from "react";
-import { useSearchParams } from "@/hooks/utils";
 
+import { USER_DEFAULT_AVATAR } from "@/config/config";
+import { useSearchParams } from "@/hooks/utils";
 import { animateBottom } from "@/styles/animations";
 
 import * as Styled from "./styles/updateImage.styled";
 
-type UpdateImageFieldT = {};
+type UpdateImageFieldT = {
+  existingImage: string;
+};
 
-const UpdateImageField: React.FC<UpdateImageFieldT> = () => {
+const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
   const { getParam, setParam, removeParam } = useSearchParams();
 
   const currentTarget = getParam("edit");
@@ -50,11 +53,7 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = () => {
         <img
           width={120}
           height={120}
-          src={
-            file
-              ? URL.createObjectURL(file)
-              : "https://images.unsplash.com/photo-1492681290082-e932832941e6?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          }
+          src={file ? URL.createObjectURL(file) : existingImage}
           alt="user"
           loading="eager"
         />
@@ -108,7 +107,7 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = () => {
           </label>
         )}
 
-        {!file && (
+        {!file && existingImage !== USER_DEFAULT_AVATAR && (
           <button
             className="user-settings__img-block--actions__btn remove"
             disabled={disabled}

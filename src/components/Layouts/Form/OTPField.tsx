@@ -1,5 +1,7 @@
 import OtpInput from "react-otp-input";
+
 import * as Styled from "./form.styled";
+import { ErrorMessage } from "@/components/Layouts";
 
 import { HookFormTextFieldT } from "@/interface/form.types";
 
@@ -29,7 +31,7 @@ const OTPField: React.FC<OTPFieldT> = ({
         renderInput={(props) => <input {...props} placeholder="*" />}
       />
 
-      {hasError && <p>{message}</p>}
+      {hasError && <ErrorMessage message={message} />}
     </Styled.OTPField>
   );
 };

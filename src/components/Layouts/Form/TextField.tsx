@@ -1,6 +1,7 @@
 import { HookFormTextFieldT } from "@/interface/form.types";
 
 import * as Styled from "./form.styled";
+import { ErrorMessage } from "@/components/Layouts";
 
 type TextFieldT = {
   message: string;
@@ -28,7 +29,7 @@ const TextField: React.FC<TextFieldT> = ({
         className="text-field__input"
       />
 
-      {hasError && <p>{message}</p>}
+      {hasError && <ErrorMessage message={message} />}
     </Styled.TextField>
   );
 };

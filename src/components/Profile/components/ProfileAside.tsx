@@ -1,8 +1,9 @@
 import { memo } from "react";
-import { Link } from "react-router-dom";
-import { PATHS } from "@/config/paths";
-
+import { Link, useParams } from "react-router-dom";
 import { motion } from "framer-motion";
+
+import { userStore } from "@/store";
+import { DYNAMIC_ROUTES } from "@/config/paths";
 import { animateTopStagger } from "@/styles/animations";
 
 import * as Styled from "./styles/profileAside.styled";
@@ -11,6 +12,9 @@ import { AsideWhoToFollow, WriteButton } from "@/components/Layouts";
 const { container, child } = animateTopStagger();
 
 const ProfileAside: React.FC = memo(() => {
+  const { username } = useParams();
+  const userDetails = userStore.use.userDetails();
+
   return (
     <Styled.ProfileAside>
       <motion.div className="user-details" {...container}>
@@ -18,15 +22,16 @@ const ProfileAside: React.FC = memo(() => {
           <img
             width={95}
             height={95}
-            src="https://images.unsplash.com/photo-1492681290082-e932832941e6?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt="user"
             loading="eager"
+            alt={userDetails.fullname}
+            title={userDetails.fullname}
+            src={userDetails.avatar}
           />
         </motion.figure>
 
         <div className="user-details__info">
           <motion.span className="user-details__info-username" {...child}>
-            Tom Odell
+            {userDetails.fullname}
           </motion.span>
 
           <motion.div className="user-details__info-write--btn" {...child}>
@@ -35,7 +40,7 @@ const ProfileAside: React.FC = memo(() => {
 
           <motion.div {...child}>
             <Link
-              to={PATHS.profile_settings}
+              to={username ? DYNAMIC_ROUTES.profile_settings(username) : ""}
               className="user-details__info-edit--btn"
             >
               Edit Profile

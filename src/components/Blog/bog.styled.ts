@@ -11,7 +11,7 @@ export const Blog = styled.section`
     gap: 3rem;
   }
 
-  .infinite-scroll-component__outerdiv {
+  .blog-list__wrapper {
     flex: 3;
   }
   .infinite-scroll-component {

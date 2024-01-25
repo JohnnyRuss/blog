@@ -6,19 +6,20 @@ import useRegistrationQuery from "@/hooks/api/auth/useRegistrationQuery";
 
 import * as Form from "@/components/Layouts/Form";
 import AuthLayout from "./components/AuthLayout";
+import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const Register: React.FC = () => {
-  const { form, onRegistration } = useRegistrationQuery();
+  const { form, onRegistration, status } = useRegistrationQuery();
 
   return (
     <AuthLayout onSubmit={onRegistration}>
       <Controller
         control={form.control}
-        name="username"
+        name="fullname"
         render={({ field, fieldState: { error } }) => (
           <Form.TextField
             fieldProps={field}
-            label="Username"
+            label="fullname"
             hasError={error ? true : false}
             message={error?.message || ""}
           />
@@ -64,6 +65,8 @@ const Register: React.FC = () => {
         )}
       />
 
+      {status.error && <ErrorMessage message={status.message} />}
+
       <button className="submit-btn" type="submit">
         Register
       </button>
@@ -75,6 +78,8 @@ const Register: React.FC = () => {
           <Link to={PATHS.auth_page}>Sign In</Link>
         </strong>
       </p>
+
+      {status.loading && <StandSpinner />}
     </AuthLayout>
   );
 };

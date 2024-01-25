@@ -12,7 +12,7 @@ type SignInArgsT = {
 };
 
 type SignUpArgsT = {
-  username: string;
+  fullname: string;
   email: string;
   password: string;
   confirm_password: string;

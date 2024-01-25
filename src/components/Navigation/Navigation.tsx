@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import { PATHS } from "@/config/paths";
+import { PATHS, DYNAMIC_ROUTES } from "@/config/paths";
 import { animateBottom } from "@/styles/animations";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 
@@ -13,7 +13,7 @@ const Navigation: React.FC = () => {
   const [openNav, setOpenNav] = useState(false);
   const onOpenNav = () => setOpenNav((prev) => !prev);
 
-  const { isAuthenticated } = useCheckIsAuthenticatedUser(true);
+  const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
 
   return (
     <Styled.Navigation
@@ -52,7 +52,7 @@ const Navigation: React.FC = () => {
               </NavLink>
 
               <NavLink
-                to={PATHS.profile_page}
+                to={DYNAMIC_ROUTES.profile_page(user.username)}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
                 <li className="nav-routes__block-list--item">Profile</li>

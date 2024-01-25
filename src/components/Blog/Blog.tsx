@@ -8,7 +8,6 @@ import {
   AsideWhoToFollow,
   ArticleCardMedium,
   InfiniteScroll,
-  StandSpinner,
 } from "@/components/Layouts";
 import * as Styled from "./bog.styled";
 
@@ -22,20 +21,24 @@ const Blog: React.FC<BlogT> = () => {
     <Styled.Blog>
       <div>Filter</div>
       <div className="blog-content__box">
-        <InfiniteScroll
-          total={total}
-          hasMore={hasMore}
-          onNext={getArticlesQuery}
-        >
-          {data.map((article) => (
-            <motion.div
-              key={article._id}
-              {...animateFadeIn({ once: true, inView: true })}
+        <div className="blog-list__wrapper">
+          {status.status === "SUCCESS" && (
+            <InfiniteScroll
+              total={total}
+              hasMore={hasMore}
+              onNext={getArticlesQuery}
             >
-              <ArticleCardMedium article={article} />
-            </motion.div>
-          ))}
-        </InfiniteScroll>
+              {data.map((article) => (
+                <motion.div
+                  key={article._id}
+                  {...animateFadeIn({ once: true, inView: true })}
+                >
+                  <ArticleCardMedium article={article} />
+                </motion.div>
+              ))}
+            </InfiniteScroll>
+          )}
+        </div>
 
         <aside className="blog-aside">
           <AsideCategories />
@@ -43,8 +46,6 @@ const Blog: React.FC<BlogT> = () => {
           <AsideWhoToFollow />
         </aside>
       </div>
-
-      {status.loading && <StandSpinner />}
     </Styled.Blog>
   );
 };

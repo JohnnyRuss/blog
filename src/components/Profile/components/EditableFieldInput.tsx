@@ -22,7 +22,17 @@ const EditableFieldInput: React.FC<EditableFieldInputT> = ({
       {type === "textarea" ? (
         <TextareaField name={name} value={value} onChange={onChangeValue} />
       ) : (
-        <TextField name={name} value={value} onChange={onChangeValue} />
+        <TextField
+          fieldProps={{
+            name,
+            value,
+            onBlur: () => {},
+            onChange: () => {},
+            ref: null,
+          }}
+          hasError={false}
+          message=""
+        />
       )}
 
       <button onClick={onCancelEdit}>Cancel</button>
