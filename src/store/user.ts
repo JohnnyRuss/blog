@@ -3,10 +3,11 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 
+import { authStore } from "@/store";
 import { createSelectors, getStatus } from "./helpers";
-import { axiosPrivateQuery } from "@/services/axios";
+import { axiosPrivateQuery, axiosPrivateFormDataQuery } from "@/services/axios";
 
-import { UserDetailsT } from "@/interface/db/user.types";
+import { UserDetailsT, UpdateUserResponseT } from "@/interface/db/user.types";
 import { UserStateT, UserStoreT } from "@/interface/store/user.store.types";
 
 const initialState: UserStateT = {
@@ -18,7 +19,7 @@ const initialState: UserStateT = {
 
 const useUserStore = create<UserStoreT>()(
   devtools(
-    immer((set) => ({
+    immer((set, get) => ({
       ...initialState,
 
       async getUserDetails(args) {
@@ -36,13 +37,26 @@ const useUserStore = create<UserStoreT>()(
         }
       },
 
-      async updateUserDetail() {
+      async updateUserDetail(args) {
         try {
           set(() => ({ updateDetailStatus: getStatus("PENDING") }));
 
-          // const { data }: AxiosResponse<any> = await axiosPrivateQuery.get();
+          const {
+            data: { key, value },
+          }: AxiosResponse<UpdateUserResponseT> = await axiosPrivateQuery.patch(
+            `/users/${args.username}`,
+            args.data
+          );
 
-          set(() => ({ updateDetailStatus: getStatus("SUCCESS") }));
+          if (args.data.key !== "bio") {
+            const updateUser = authStore.getState().updateUser;
+            updateUser({ key, value });
+          }
+
+          set(() => ({
+            userDetails: { ...get().userDetails, [key]: value },
+            updateDetailStatus: getStatus("SUCCESS"),
+          }));
         } catch (error: any) {
           const message = error.response?.data?.message || error?.message;
           set(() => ({ updateDetailStatus: getStatus("FAIL", message) }));
@@ -50,13 +64,23 @@ const useUserStore = create<UserStoreT>()(
         }
       },
 
-      async changeProfilePicture() {
+      async changeProfilePicture(args) {
         try {
           set(() => ({ updateDetailStatus: getStatus("PENDING") }));
 
-          // const { data }: AxiosResponse<any> = await axiosPrivateQuery.get();
+          const { data }: AxiosResponse<{ url: string }> =
+            await axiosPrivateFormDataQuery.post(
+              `/users/${args.username}/profile`,
+              { file: args.file }
+            );
 
-          set(() => ({ updateDetailStatus: getStatus("SUCCESS") }));
+          const updateUser = authStore.getState().updateUser;
+          updateUser({ key: "avatar", value: data.url });
+
+          set(() => ({
+            userDetails: { ...get().userDetails, avatar: data.url },
+            updateDetailStatus: getStatus("SUCCESS"),
+          }));
         } catch (error: any) {
           const message = error.response?.data?.message || error?.message;
           set(() => ({ updateDetailStatus: getStatus("FAIL", message) }));

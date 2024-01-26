@@ -1,27 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { UseFormReturn } from "react-hook-form";
+
 import { useSearchParams } from "@/hooks/utils";
 
-import * as Styled from "./styles/editableField.styled";
 import { EditButton } from "@/components/Layouts";
 import EditableFieldInput from "./EditableFieldInput";
+import * as Styled from "./styles/editableField.styled";
+
+import { LoadingStatusT } from "@/interface/store/common.types";
 
 type EditableFieldT = {
-  title: string;
-  value: string;
-  name: string;
-  type?: "text" | "textarea";
-  showCounter?: boolean;
   max?: number;
+  name: string;
+  title: string;
+  showCounter?: boolean;
+  status: LoadingStatusT;
+  type?: "text" | "textarea";
+  form: UseFormReturn<{ [key: string]: string }>;
+  onSave: (e: React.BaseSyntheticEvent<object, any, any>) => Promise<void>;
 };
 
 const EditableField: React.FC<EditableFieldT> = ({
   title,
-  value,
   name,
   max,
+  form,
+  onSave,
+  status,
   type = "text",
   showCounter = false,
 }) => {
+  const formControl = form.control;
+  const formValue = form.getValues(name);
+
   const { getParam, setParam, removeParam } = useSearchParams();
 
   const currentTarget = getParam("edit");
@@ -37,51 +48,41 @@ const EditableField: React.FC<EditableFieldT> = ({
   const onCancelEdit = () => {
     setIsEditing(false);
     removeParam("edit");
-    setInputValue(value);
+    form.reset({ [name]: formValue });
   };
 
-  const [inputValue, setInputValue] = useState(value);
-
-  const onChangeValue = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const newValue = e.target.value;
-    if (newValue.length > max) return;
-
-    setInputValue(newValue);
-  };
-
-  const isTextarea = type === "textarea";
+  useEffect(() => {
+    if (!currentTarget) setIsEditing(false);
+  }, [currentTarget]);
 
   return (
-    <Styled.EditableField className={isTextarea ? "long" : ""}>
+    <Styled.EditableField>
       <div className="details-block">
         <div className="details-block__content">
           <span className="details-block__content-label">{title}</span>
 
           {!isEditing && (
-            <span className="details-block__content-detail">{value}</span>
+            <span className={`details-block__content-detail ${name}`}>
+              {formValue}
+            </span>
           )}
 
           {isEditing && (
             <EditableFieldInput
+              max={max}
               name={name}
               type={type}
-              value={inputValue}
+              onSave={onSave}
+              status={status}
+              showCounter={showCounter}
+              formControl={formControl}
               onCancelEdit={onCancelEdit}
-              onChangeValue={onChangeValue}
             />
           )}
         </div>
 
         {!currentTarget && <EditButton onClick={onStartEdit} />}
       </div>
-
-      {showCounter && (
-        <span className="details-block__counter">
-          {inputValue.length}/{max}
-        </span>
-      )}
     </Styled.EditableField>
   );
 };

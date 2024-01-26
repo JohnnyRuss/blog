@@ -1,33 +1,29 @@
 import * as Styled from "./form.styled";
 import { ErrorMessage } from "@/components/Layouts";
 
+import { HookFormTextFieldT } from "@/interface/form.types";
+
 type TextareaFieldT = {
-  name: string;
-  value: string;
-  error?: boolean;
-  message?: string;
-  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  message: string;
+  hasError: boolean;
+  fieldProps: HookFormTextFieldT;
 } & React.ComponentProps<"textarea">;
 
 const TextareaField: React.FC<TextareaFieldT> = ({
-  name,
-  onChange,
-  value,
-  error,
   message,
+  hasError,
+  fieldProps,
   ...props
 }) => {
   return (
     <Styled.TextareaField>
       <textarea
         {...props}
-        name={name}
-        value={value}
-        onChange={onChange}
+        {...fieldProps}
         className={`text-field__input ${props.className || ""}`}
       />
 
-      {error && <ErrorMessage message={message || ""} />}
+      {hasError && <ErrorMessage message={message || ""} />}
     </Styled.TextareaField>
   );
 };

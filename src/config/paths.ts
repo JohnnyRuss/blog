@@ -43,4 +43,21 @@ const DYNAMIC_ROUTES = {
 
 const PRIVATE_ROUTES = ["/for-you", "/write", "/profile"];
 
-export { PATHS, DYNAMIC_ROUTES, PRIVATE_ROUTES };
+const getNativeLocation = (currentLocation: string) => {
+  let originalPath = "";
+
+  for (const key in PATHS) {
+    const pattern = PATHS[key];
+    const regex = new RegExp("^" + pattern.replace(/:[^/]+/g, "([^/]+)") + "$");
+
+    if (regex.test(currentLocation)) {
+      originalPath = PATHS[key];
+
+      break;
+    }
+  }
+
+  return originalPath;
+};
+
+export { PATHS, DYNAMIC_ROUTES, PRIVATE_ROUTES, getNativeLocation };

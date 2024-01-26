@@ -11,6 +11,7 @@ type AuthActionsT = {
   login: (args: SignInArgsT) => Promise<void>;
   register: (args: SignUpArgsT) => Promise<void>;
   logout: () => Promise<void>;
+  updateUser: (args: { key: string; value: string }) => void;
 };
 
 type AuthStoreT = AuthStateT & AuthActionsT;

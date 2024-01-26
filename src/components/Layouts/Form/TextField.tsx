@@ -1,7 +1,7 @@
-import { HookFormTextFieldT } from "@/interface/form.types";
-
 import * as Styled from "./form.styled";
 import { ErrorMessage } from "@/components/Layouts";
+
+import { HookFormTextFieldT } from "@/interface/form.types";
 
 type TextFieldT = {
   message: string;
@@ -9,7 +9,7 @@ type TextFieldT = {
   hasError: boolean;
   type?: "text" | "password";
   fieldProps: HookFormTextFieldT;
-};
+} & React.ComponentProps<"input">;
 
 const TextField: React.FC<TextFieldT> = ({
   label,
@@ -17,12 +17,14 @@ const TextField: React.FC<TextFieldT> = ({
   hasError,
   fieldProps,
   type = "text",
+  ...props
 }) => {
   return (
     <Styled.TextField>
       {label && <label htmlFor={fieldProps.name}>{label}</label>}
 
       <input
+        {...props}
         type={type}
         {...fieldProps}
         id={fieldProps.name}

@@ -1,12 +1,17 @@
 import { lazy } from "react";
+
+import ProfileProvider from "@/Providers/ProfileProvider";
+
 import { SuspenseContainer } from "@/components/Layouts";
 const History = lazy(() => import("@/components/Profile/History"));
 
 const UserReadingHistoryPage: React.FC = () => {
   return (
-    <SuspenseContainer>
-      <History />
-    </SuspenseContainer>
+    <ProfileProvider>
+      <SuspenseContainer>
+        <History />
+      </SuspenseContainer>
+    </ProfileProvider>
   );
 };
 

@@ -1,15 +1,17 @@
 import { lazy } from "react";
+
+import ProfileProvider from "@/Providers/ProfileProvider";
+
 import { SuspenseContainer } from "@/components/Layouts";
-
-type ProfileReviewPageT = {};
-
 const Review = lazy(() => import("@/components/Profile/Review"));
 
-const ProfileReviewPage: React.FC<ProfileReviewPageT> = () => {
+const ProfileReviewPage: React.FC = () => {
   return (
-    <SuspenseContainer>
-      <Review />
-    </SuspenseContainer>
+    <ProfileProvider>
+      <SuspenseContainer>
+        <Review />
+      </SuspenseContainer>
+    </ProfileProvider>
   );
 };
 

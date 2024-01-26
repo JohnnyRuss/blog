@@ -31,9 +31,14 @@ type UpdateUserArgsT = {
   };
 };
 
+type UpdateUserResponseT = {
+  key: string;
+  value: string;
+};
+
 type UpdateProfileImageArgsT = {
   file: File;
-  userId: string;
+  username: string;
 };
 
 type UpdateProfileImageResponseT = {
@@ -47,6 +52,7 @@ export type {
   // API
   GetUserDetailsArgsT,
   UpdateUserArgsT,
+  UpdateUserResponseT,
   UpdateProfileImageArgsT,
   UpdateProfileImageResponseT,
 };

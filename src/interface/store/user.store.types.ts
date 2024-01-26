@@ -3,6 +3,7 @@ import {
   // API
   GetUserDetailsArgsT,
   UpdateUserArgsT,
+  UpdateProfileImageArgsT,
 } from "@/interface/db/user.types";
 import { LoadingStatusT } from "./common.types";
 
@@ -15,7 +16,7 @@ type UserStateT = {
 type UserActionsT = {
   getUserDetails: (args: GetUserDetailsArgsT) => Promise<void>;
   updateUserDetail: (args: UpdateUserArgsT) => Promise<void>;
-  changeProfilePicture: (file: File) => Promise<void>;
+  changeProfilePicture: (file: UpdateProfileImageArgsT) => Promise<void>;
   deleteProfilePicture: (url: string) => Promise<void>;
 };
 

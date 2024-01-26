@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 import { getTimeString } from "@/utils";
 
 import * as Styled from "./identifier.styled";
@@ -14,7 +12,7 @@ type AuthorIdentifierT = {
 const AuthorIdentifier: React.FC<AuthorIdentifierT> = ({
   date,
   avatar,
-  userId,
+  // userId,
   username,
 }) => {
   return (
@@ -24,9 +22,7 @@ const AuthorIdentifier: React.FC<AuthorIdentifierT> = ({
       </figure>
 
       <div className="user-avatar--details">
-        <Link to={userId} className="user-avatar--details__username">
-          {username}
-        </Link>
+        <button className="user-avatar--details__username">{username}</button>
 
         {date && (
           <span className="user-avatar--details__date">

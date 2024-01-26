@@ -23,15 +23,15 @@ const ProfileAside: React.FC = memo(() => {
             width={95}
             height={95}
             loading="eager"
-            alt={userDetails.fullname}
-            title={userDetails.fullname}
-            src={userDetails.avatar}
+            alt={userDetails?.fullname || ""}
+            title={userDetails?.fullname || ""}
+            src={userDetails?.avatar || ""}
           />
         </motion.figure>
 
         <div className="user-details__info">
           <motion.span className="user-details__info-username" {...child}>
-            {userDetails.fullname}
+            {userDetails?.fullname || ""}
           </motion.span>
 
           <motion.div className="user-details__info-write--btn" {...child}>

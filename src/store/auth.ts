@@ -2,7 +2,7 @@ import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 
-import { PATHS, PRIVATE_ROUTES } from "@/config/paths";
+import { PATHS, PRIVATE_ROUTES, getNativeLocation } from "@/config/paths";
 import { RouterHistory } from "@/config/config";
 import * as AuthAPI_T from "@/interface/db/auth.types";
 import { AuthStoreT, AuthStateT } from "@/interface/store/auth.store.types";
@@ -33,7 +33,7 @@ const useAuthStore = create<AuthStoreT>()(
   devtools(
     immer(
       persist(
-        (set) => ({
+        (set, get) => ({
           ...initialState,
 
           login: async (args: AuthAPI_T.SignInArgsT) => {
@@ -99,6 +99,20 @@ const useAuthStore = create<AuthStoreT>()(
               const message = error.response?.data?.message || error?.message;
               set(() => ({ status: getStatus("FAIL", message) }));
             }
+          },
+
+          updateUser(args) {
+            if (args.key === "username") {
+              const currentLocation = RouterHistory.location.pathname;
+              const revalidatePath = getNativeLocation(currentLocation);
+
+              RouterHistory.navigate(
+                revalidatePath.replace(":username", args.value),
+                { replace: true }
+              );
+            }
+
+            set(() => ({ user: { ...get().user, [args.key]: args.value } }));
           },
         }),
         {

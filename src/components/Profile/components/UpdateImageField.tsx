@@ -1,10 +1,13 @@
 import { useState, useRef } from "react";
 
-import { USER_DEFAULT_AVATAR } from "@/config/config";
 import { useSearchParams } from "@/hooks/utils";
 import { animateBottom } from "@/styles/animations";
+import { USER_DEFAULT_AVATAR } from "@/config/config";
+import ProfileImageActions from "./ProfileImageActions";
+import { useProfileImageQuery } from "@/hooks/api/user";
 
 import * as Styled from "./styles/updateImage.styled";
+import ProfileImageCameraLabel from "./ProfileImageCameraLabel";
 
 type UpdateImageFieldT = {
   existingImage: string;
@@ -13,9 +16,13 @@ type UpdateImageFieldT = {
 const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
   const { getParam, setParam, removeParam } = useSearchParams();
 
+  const { onChangeImage, status } = useProfileImageQuery();
+
   const currentTarget = getParam("edit");
+  const isEditingProfileImage = currentTarget === "profile_image";
+
   const disabled =
-    currentTarget && currentTarget !== "profile_image" ? true : false;
+    (currentTarget && !isEditingProfileImage) || status.loading ? true : false;
 
   const fileRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -33,6 +40,11 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
     removeParam("edit");
     setFile(null);
     fileRef.current.value = null;
+  };
+
+  const onSave = () => {
+    if (!file) return;
+    onChangeImage(file);
   };
 
   return (
@@ -58,64 +70,17 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
           loading="eager"
         />
 
-        {!currentTarget && (
-          <label htmlFor="profile-change">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.574 4.336A3 3 0 0 1 10.07 3h3.86a3 3 0 0 1 2.496 1.336l.812 1.219A1 1 0 0 0 18.07 6H19a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3h.93a1 1 0 0 0 .832-.445l.812-1.22zM10 13a2 2 0 1 1 4 0a2 2 0 0 1-4 0m2-4a4 4 0 1 0 0 8a4 4 0 0 0 0-8"
-                clipRule="evenodd"
-              />
-            </svg>
-          </label>
-        )}
+        {!currentTarget && <ProfileImageCameraLabel />}
       </figure>
 
-      <div className="user-settings__img-block--actions">
-        {file && (
-          <button
-            className="user-settings__img-block--actions__btn save"
-            disabled={disabled}
-          >
-            Save
-          </button>
-        )}
-
-        {file && (
-          <button
-            disabled={disabled}
-            onClick={onCancel}
-            className="user-settings__img-block--actions__btn cancel"
-          >
-            Cancel
-          </button>
-        )}
-
-        {!file && (
-          <label
-            htmlFor={disabled ? "" : "profile-change"}
-            className={`user-settings__img-block--actions__btn update ${
-              disabled ? "disabled" : ""
-            }`}
-          >
-            Update
-          </label>
-        )}
-
-        {!file && existingImage !== USER_DEFAULT_AVATAR && (
-          <button
-            className="user-settings__img-block--actions__btn remove"
-            disabled={disabled}
-          >
-            Remove
-          </button>
-        )}
-      </div>
+      <ProfileImageActions
+        disabled={disabled}
+        onCancel={onCancel}
+        onRemove={() => {}}
+        onSave={onSave}
+        fileExists={file && isEditingProfileImage ? true : false}
+        differentFromDefault={existingImage !== USER_DEFAULT_AVATAR}
+      />
     </Styled.UpdateImageField>
   );
 };
