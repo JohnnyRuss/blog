@@ -10,6 +10,7 @@ type InfiniteScrollT = {
   children: React.ReactNode;
   height?: string;
   showLastMessage?: boolean;
+  fallBack?: React.ReactNode;
 };
 
 const StyledLastLine = styled.p`
@@ -28,6 +29,7 @@ const InfiniteScroll: React.FC<InfiniteScrollT> = ({
   hasMore,
   children,
   height,
+  fallBack,
   showLastMessage = true,
 }) => {
   return (
@@ -36,9 +38,13 @@ const InfiniteScroll: React.FC<InfiniteScrollT> = ({
       next={onNext}
       hasMore={hasMore}
       loader={
-        <StyledLastLine>
-          <Spinner />
-        </StyledLastLine>
+        fallBack ? (
+          fallBack
+        ) : (
+          <StyledLastLine>
+            <Spinner />
+          </StyledLastLine>
+        )
       }
       {...(height ? { height } : {})}
       {...(showLastMessage

@@ -1,5 +1,7 @@
 import ReactDOM from "react-dom/client";
 
+import "react-loading-skeleton/dist/skeleton.css";
+
 import { BrowserRouter } from "react-router-dom";
 import ThemeProvider from "@/Providers/ThemeProvider.tsx";
 import AppProvider from "@/Providers/AppProvider.tsx";

@@ -14,6 +14,8 @@ export const Blog = styled.section`
   .blog-list__wrapper {
     flex: 3;
   }
+
+  .loading-skeleton,
   .infinite-scroll-component {
     display: grid;
     gap: 5rem;
@@ -48,6 +50,7 @@ export const Blog = styled.section`
       padding: 0;
     }
 
+    .loading-skeleton,
     .infinite-scroll-component {
       gap: 3rem;
       grid-template-columns: repeat(1, 1fr);
@@ -56,6 +59,7 @@ export const Blog = styled.section`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+    .loading-skeleton,
     .infinite-scroll-component {
       gap: 5rem;
     }

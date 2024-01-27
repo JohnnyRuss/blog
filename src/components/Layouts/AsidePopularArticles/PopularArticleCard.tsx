@@ -39,7 +39,7 @@ const PopularArticleCard: React.FC<PopularArticleCardT> = ({ article }) => {
 
       <div className="popular-item__footer">
         <span className="popular-item__footer-author">
-          {article.author.username}
+          {article.author.fullname}
         </span>
         &mdash;
         <span className="popular-item__footer-date">

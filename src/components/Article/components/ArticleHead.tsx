@@ -1,29 +1,37 @@
 import * as Styled from "./styles/articleHead.styled";
 import ArticleHeadActions from "./ArticleHeadActions";
+
 import { AuthorIdentifier, CategoryChip } from "@/components/Layouts";
 
-type ArticleSubHeadT = {};
+import { ArticleAuthorT } from "@/interface/db/article.types";
 
-const ArticleSubHead: React.FC<ArticleSubHeadT> = () => {
+type ArticleSubHeadT = {
+  author: ArticleAuthorT;
+  title: string;
+  createdAt: string;
+};
+
+const ArticleSubHead: React.FC<ArticleSubHeadT> = ({
+  author,
+  title,
+  createdAt,
+}) => {
   return (
     <Styled.ArticleHead>
-      <figure className="article-head__fig">
-        <img
-          width="100%"
-          src="https://ik.imagekit.io/ably/ghost/prod/2021/03/socket-io-logo-1.jpeg?tr=w-1728,q-50"
-          alt="socket io"
-        />
-      </figure>
-
       <div className="article-head__sub">
-        <AuthorIdentifier />
+        <AuthorIdentifier
+          date={createdAt}
+          userId={author._id}
+          avatar={author.avatar}
+          fullname={author.fullname}
+        />
 
         <CategoryChip bgColor="#D92525" title="Coding" size="md" />
 
         <ArticleHeadActions />
       </div>
 
-      <h3 className="article-head__title">How to use WebSockets in REST API</h3>
+      <h3 className="article-head__title">{title}</h3>
     </Styled.ArticleHead>
   );
 };

@@ -26,6 +26,7 @@
     "react-helmet-async": "^2.0.4",
     "react-hook-form": "^7.49.2",
     "react-infinite-scroll-component": "^6.1.0",
+    "react-loading-skeleton": "^3.3.1",
     "react-multi-carousel": "^2.8.4",
     "react-multi-select-component": "^4.3.4",
     "react-otp-input": "^3.1.1",

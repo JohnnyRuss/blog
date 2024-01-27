@@ -10,6 +10,7 @@ export const CardHead = styled.div`
     height: 2.5rem;
     border-radius: 100%;
     overflow: hidden;
+    background-color: green;
 
     img {
       border-radius: inherit;
@@ -22,9 +23,13 @@ export const CardHead = styled.div`
 
   .card-head__user {
     font-size: ${({ theme }) => theme.fontSize.sm};
+    display: flex;
+    align-items: center;
 
     &-name {
       font-weight: 600;
+      text-transform: capitalize;
+      padding-top: 2px;
     }
 
     &-work {

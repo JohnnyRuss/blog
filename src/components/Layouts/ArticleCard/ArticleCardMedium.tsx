@@ -31,7 +31,7 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
   const { description, thumbnail } = useQuill(article.body);
 
   return (
-    <Styled.ArticleCardMedium to={DYNAMIC_ROUTES.article_page("some_post")}>
+    <Styled.ArticleCardMedium to={DYNAMIC_ROUTES.article_page(article.slug)}>
       <li className="article-md__body">
         <figure className="article-md__body-fig">
           <img

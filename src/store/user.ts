@@ -88,13 +88,22 @@ const useUserStore = create<UserStoreT>()(
         }
       },
 
-      async deleteProfilePicture() {
+      async deleteProfilePicture(args) {
         try {
           set(() => ({ updateDetailStatus: getStatus("PENDING") }));
 
-          // const { data }: AxiosResponse<any> = await axiosPrivateQuery.get();
+          const { data }: AxiosResponse<{ url: string }> =
+            await axiosPrivateQuery.patch(`/users/${args.username}/profile`, {
+              url: args.url,
+            });
 
-          set(() => ({ updateDetailStatus: getStatus("SUCCESS") }));
+          const updateUser = authStore.getState().updateUser;
+          updateUser({ key: "avatar", value: data.url });
+
+          set(() => ({
+            userDetails: { ...get().userDetails, avatar: data.url },
+            updateDetailStatus: getStatus("SUCCESS"),
+          }));
         } catch (error: any) {
           const message = error.response?.data?.message || error?.message;
           set(() => ({ updateDetailStatus: getStatus("FAIL", message) }));

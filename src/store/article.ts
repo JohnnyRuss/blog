@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 
+import { NODE_MODE } from "@/config/env";
 import { axiosPrivateQuery } from "@/services/axios";
 import { generateQueryableString } from "@/utils";
 import { ARTICLES_PER_PAGE } from "@/config/config";
@@ -13,25 +14,25 @@ import {
   ArticleStoreT,
 } from "@/interface/store/article.store.types";
 import {
+  ArticleShortT,
   ArticleT,
   GetAllArticlesResponseT,
 } from "@/interface/db/article.types";
 import { CategoryT } from "@/interface/db/category.types";
 
 const initialState: ArticleStateT = {
+  categorySuggestions: [],
   createStatus: getStatus("IDLE"),
   deleteStatus: getStatus("IDLE"),
-  readStatus: getStatus("IDLE"),
-  saveStatus: getStatus("IDLE"),
 
-  lists: [],
-
-  categorySuggestions: [],
-
+  // Articles
   hasMore: false,
   currentPage: 0,
   articles: [],
+  readAllStatus: getStatus("IDLE"),
 
+  // Article
+  readStatus: getStatus("IDLE"),
   article: {
     _id: "",
     slug: "",
@@ -39,15 +40,53 @@ const initialState: ArticleStateT = {
       _id: "",
       avatar: "",
       username: "",
+      fullname: "",
     },
     body: "",
     categories: [],
     title: "",
     likes: [],
-    views: [],
+    views: 0,
     createdAt: "",
     updatedAt: "",
   },
+
+  // Top Article
+  topArticleStatus: getStatus("IDLE"),
+  topArticle: {
+    _id: "",
+    author: {
+      _id: "",
+      avatar: "",
+      fullname: "",
+      username: "",
+    },
+    body: "",
+    categories: [],
+    createdAt: "",
+    slug: "",
+    title: "",
+  },
+
+  // Related Articles
+  relatedStatus: getStatus("IDLE"),
+  relatedArticles: [],
+
+  // Popular Articles
+  popularStatus: getStatus("IDLE"),
+  popularArticles: [],
+
+  // EditorPick Articles
+  editorPickedStatus: getStatus("IDLE"),
+  editorPickedArticles: [],
+
+  // Recent Articles
+  recentStatus: getStatus("IDLE"),
+  recentArticles: [],
+
+  // Others
+  lists: [],
+  saveStatus: getStatus("IDLE"),
 };
 
 const useArticleStore = create<ArticleStoreT>()(
@@ -55,6 +94,7 @@ const useArticleStore = create<ArticleStoreT>()(
     immer((set, get) => ({
       ...initialState,
 
+      // CUD
       async getCategorySuggestions() {
         const { data }: AxiosResponse<Array<CategoryT>> =
           await axiosPrivateQuery.get("/categories");
@@ -119,6 +159,58 @@ const useArticleStore = create<ArticleStoreT>()(
         }
       },
 
+      // Articles
+      async getAll(args) {
+        try {
+          set(() => ({ readAllStatus: getStatus("PENDING") }));
+
+          const { currentPage, hasMore, data } = await getArticlesQuery({
+            page: 1,
+            queryStr: args.query,
+            limit: ARTICLES_PER_PAGE,
+          });
+
+          set(() => ({
+            hasMore,
+            currentPage,
+            articles: data,
+            readAllStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = error.response?.data?.message || error?.message;
+          set(() => ({ readAllStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      async getAllPaginated(args) {
+        try {
+          const { currentPage, hasMore, data } = await getArticlesQuery({
+            page: args.page,
+            queryStr: args.query,
+            limit: ARTICLES_PER_PAGE,
+          });
+
+          set(() => ({
+            hasMore,
+            currentPage,
+            articles: [...get().articles, ...data],
+          }));
+        } catch (error: any) {
+          const message = error.response?.data?.message || error?.message;
+          set(() => ({ readStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      cleanUpArticles() {
+        set(() => ({
+          articles: initialState.articles,
+          readAllStatus: getStatus("IDLE"),
+        }));
+      },
+
+      // Article
       async get(args) {
         try {
           set(() => ({ readStatus: getStatus("PENDING") }));
@@ -138,30 +230,44 @@ const useArticleStore = create<ArticleStoreT>()(
         }
       },
 
-      cleanUpArticle() {},
+      cleanUpArticle() {
+        set(() => ({
+          article: initialState.article,
+          readStatus: getStatus("IDLE"),
+        }));
+      },
 
-      async getAll(args) {
+      // Top Article
+      async getTopArticle() {
         try {
-          set(() => ({ readStatus: getStatus("PENDING") }));
+          set(() => ({ topArticleStatus: getStatus("PENDING") }));
 
-          console.log(args);
-
-          const queryStrings = [
-            args.query.replace("?", ""),
-            `page=${1}&limit=${ARTICLES_PER_PAGE}`,
-          ];
-
-          const queryStr = queryStrings.join(args.query ? "&" : "");
-
-          const {
-            data: { data, currentPage, hasMore },
-          }: AxiosResponse<GetAllArticlesResponseT> =
-            await axiosPrivateQuery.get(`/articles?${queryStr}`);
+          const { data }: AxiosResponse<ArticleShortT> =
+            await axiosPrivateQuery.get("/articles/top");
 
           set(() => ({
-            hasMore,
-            currentPage,
-            articles: data,
+            topArticle: data,
+            topArticleStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = error.response?.data?.message || error?.message;
+          set(() => ({ topArticleStatus: getStatus("FAIL", message) }));
+          NODE_MODE === "DEV" && console.log(error);
+        }
+      },
+
+      cleanUpTopArticle() {
+        set(() => ({
+          topArticle: initialState.topArticle,
+          topArticleStatus: getStatus("IDLE"),
+        }));
+      },
+
+      // Related Articles
+      async getRelatedArticles() {
+        try {
+          set(() => ({ readStatus: getStatus("PENDING") }));
+          set(() => ({
             readStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
@@ -171,36 +277,96 @@ const useArticleStore = create<ArticleStoreT>()(
         }
       },
 
-      async getAllPaginated(args) {
+      cleanUpRelatedArticles() {},
+
+      // Popular Articles
+      async getPopularArticles() {
         try {
-          console.log(args);
+          set(() => ({ popularStatus: getStatus("PENDING") }));
 
-          const queryStrings = [
-            args.query.replace("?", ""),
-            `page=${args.page}&limit=${ARTICLES_PER_PAGE}`,
-          ];
-
-          const queryStr = queryStrings.join(args.query ? "&" : "");
-
-          const {
-            data: { data, currentPage, hasMore },
-          }: AxiosResponse<GetAllArticlesResponseT> =
-            await axiosPrivateQuery.get(`/articles?${queryStr}`);
+          const { data } = await getArticlesQuery({
+            page: 1,
+            limit: 4,
+            queryStr: "sort=-views",
+          });
 
           set(() => ({
-            hasMore,
-            currentPage,
-            articles: [...get().articles, ...data],
+            popularArticles: data,
+            popularStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
           const message = error.response?.data?.message || error?.message;
-          set(() => ({ readStatus: getStatus("FAIL", message) }));
-          throw error;
+          set(() => ({ popularStatus: getStatus("FAIL", message) }));
+          NODE_MODE === "DEV" && console.log(error);
         }
       },
 
-      cleanUpArticles() {},
+      cleanUpPopularArticles() {
+        set(() => ({
+          popularArticles: initialState.popularArticles,
+          popularStatus: getStatus("IDLE"),
+        }));
+      },
 
+      // Editor Picked Articles
+      async getEditorPickedArticles() {
+        try {
+          set(() => ({ editorPickedStatus: getStatus("PENDING") }));
+
+          const { data } = await getArticlesQuery({
+            page: 1,
+            limit: 4,
+            queryStr: "picked=1",
+          });
+
+          set(() => ({
+            editorPickedArticles: data,
+            editorPickedStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = error.response?.data?.message || error?.message;
+          set(() => ({ editorPickedStatus: getStatus("FAIL", message) }));
+          NODE_MODE === "DEV" && console.log(error);
+        }
+      },
+
+      cleanUpEditorPickedArticles() {
+        set(() => ({
+          editorPickedArticles: initialState.editorPickedArticles,
+          editorPickedStatus: getStatus("IDLE"),
+        }));
+      },
+
+      // Recent Articles
+      async getRecentArticles() {
+        try {
+          set(() => ({ recentStatus: getStatus("PENDING") }));
+
+          const { data } = await getArticlesQuery({
+            page: 1,
+            limit: 4,
+            queryStr: "sort=-createdAt",
+          });
+
+          set(() => ({
+            recentArticles: data,
+            recentStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = error.response?.data?.message || error?.message;
+          set(() => ({ recentStatus: getStatus("FAIL", message) }));
+          NODE_MODE === "DEV" && console.log(error);
+        }
+      },
+
+      cleanUpRecentArticles() {
+        set(() => ({
+          recentArticles: initialState.recentArticles,
+          recentStatus: getStatus("IDLE"),
+        }));
+      },
+
+      // Others
       async like(args) {
         console.log(args);
       },
@@ -237,3 +403,21 @@ const useArticleStore = create<ArticleStoreT>()(
 );
 
 export default createSelectors(useArticleStore);
+
+async function getArticlesQuery(params: {
+  queryStr: string;
+  page: number;
+  limit: number;
+}): Promise<GetAllArticlesResponseT> {
+  const queryStrings = [
+    params.queryStr.replace("?", ""),
+    `page=${params.page}&limit=${params.limit}`,
+  ];
+
+  const queryStr = queryStrings.join(params.queryStr ? "&" : "");
+
+  const { data }: AxiosResponse<GetAllArticlesResponseT> =
+    await axiosPrivateQuery.get(`/articles?${queryStr}`);
+
+  return data;
+}

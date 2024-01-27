@@ -9,12 +9,13 @@ export default function useProfileImageQuery() {
 
   const { removeParam } = useSearchParams();
 
-  const changeProfilePicture = userStore.use.changeProfilePicture();
   const status = userStore.use.updateDetailStatus();
+  const changeProfilePicture = userStore.use.changeProfilePicture();
+  const deleteProfilePicture = userStore.use.deleteProfilePicture();
 
   const onChangeImage = async (file: File) => {
     try {
-      if (!username) return;
+      if (!username || !file) return;
 
       await changeProfilePicture({ file, username });
       removeParam("edit");
@@ -23,5 +24,15 @@ export default function useProfileImageQuery() {
     }
   };
 
-  return { onChangeImage, status };
+  const onDeleteImage = async (url: string) => {
+    try {
+      if (!username || !url) return;
+
+      await deleteProfilePicture({ url, username });
+    } catch (error) {
+      NODE_MODE === "DEV" && console.log(error);
+    }
+  };
+
+  return { onChangeImage, onDeleteImage, status };
 }

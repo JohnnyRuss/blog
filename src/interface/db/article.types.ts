@@ -8,7 +8,7 @@ type ArticleT = {
   title: string;
   categories: Array<CategoryT>;
   body: string;
-  views: Array<string>;
+  views: number;
   likes: Array<string>;
   updatedAt: string;
   createdAt: string;
@@ -17,6 +17,7 @@ type ArticleT = {
 type ArticleAuthorT = {
   _id: string;
   username: string;
+  fullname: string;
   avatar: string;
 };
 

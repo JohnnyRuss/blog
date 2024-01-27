@@ -17,25 +17,79 @@ type ArticleStateT = {
   categorySuggestions: Array<CategoryT>;
   createStatus: LoadingStatusT;
   deleteStatus: LoadingStatusT;
-  readStatus: LoadingStatusT;
+
   saveStatus: LoadingStatusT;
+
+  // Articles
+  readAllStatus: LoadingStatusT;
   hasMore: boolean;
   currentPage: number;
   articles: Array<ArticleShortT>;
+
+  // Article
   article: ArticleT;
+  readStatus: LoadingStatusT;
+
+  // Top Article
+  topArticleStatus: LoadingStatusT;
+  topArticle: ArticleShortT;
+
+  // Related Articles
+  relatedStatus: LoadingStatusT;
+  relatedArticles: Array<ArticleShortT>;
+
+  // Popular Articles
+  popularStatus: LoadingStatusT;
+  popularArticles: Array<ArticleShortT>;
+
+  // EditorPick Articles
+  editorPickedStatus: LoadingStatusT;
+  editorPickedArticles: Array<ArticleShortT>;
+
+  // Recent Articles
+  recentStatus: LoadingStatusT;
+  recentArticles: Array<ArticleShortT>;
+
   lists: Array<{}>;
 };
 
 type ArticleActionsT = {
+  // CUD
   getCategorySuggestions: () => Promise<void>;
   create: (args: CreateArticleArgsT) => Promise<void>;
   update: (args: UpdateArticleArgsT) => Promise<void>;
   delete: (args: DeleteArticleArgsT) => Promise<void>;
-  get: (args: GetArticleArgsT) => Promise<void>;
-  cleanUpArticle: () => void;
+
+  // Articles
+  cleanUpArticles: () => void;
   getAll: (args: GetAllArticlesArgsT) => Promise<void>;
   getAllPaginated: (args: GetAllArticlesArgsT) => Promise<void>;
-  cleanUpArticles: () => void;
+
+  // Article
+  get: (args: GetArticleArgsT) => Promise<void>;
+  cleanUpArticle: () => void;
+
+  // Top Article
+  getTopArticle: () => Promise<void>;
+  cleanUpTopArticle: () => void;
+
+  // Related Articles
+  cleanUpRelatedArticles: () => void;
+  getRelatedArticles: (args: GetAllArticlesArgsT) => Promise<void>;
+
+  // Popular Articles
+  cleanUpPopularArticles: () => void;
+  getPopularArticles: () => Promise<void>;
+
+  // Editor Picked Articles
+  cleanUpEditorPickedArticles: () => void;
+  getEditorPickedArticles: () => Promise<void>;
+
+  // Recent Articles
+  cleanUpRecentArticles: () => void;
+  getRecentArticles: () => Promise<void>;
+
+  // Others
   like: (args: LikeArticleArgsT) => Promise<void>;
   getLists: () => Promise<void>;
   save: (args: SaveArticleArgsT) => Promise<void>;

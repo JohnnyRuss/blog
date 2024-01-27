@@ -23,7 +23,7 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
   const category = article.categories[0];
 
   return (
-    <Styled.ArticleCardBig to={DYNAMIC_ROUTES.article_page("some_post")}>
+    <Styled.ArticleCardBig to={DYNAMIC_ROUTES.article_page(article.slug)}>
       <li className="article-card">
         <figure className="article-card__fig">
           <img width="100%" height="100%" src={thumbnail} alt="post" />
@@ -35,7 +35,7 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
               date={article.createdAt}
               userId={article.author._id}
               avatar={article.author.avatar}
-              username={article.author.username}
+              fullname={article.author.fullname}
             />
 
             <CategoryChip

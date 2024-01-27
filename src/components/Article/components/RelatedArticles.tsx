@@ -9,10 +9,10 @@ const RelatedArticles: React.FC<RelatedArticlesT> = () => {
       <SectionTitle title="Related Articles" />
 
       <div className="articles-container">
+        {/* <ArticleCardBig />
         <ArticleCardBig />
         <ArticleCardBig />
-        <ArticleCardBig />
-        <ArticleCardBig />
+        <ArticleCardBig /> */}
       </div>
     </Styled.RelatedArticles>
   );

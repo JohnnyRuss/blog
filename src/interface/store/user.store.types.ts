@@ -4,6 +4,7 @@ import {
   GetUserDetailsArgsT,
   UpdateUserArgsT,
   UpdateProfileImageArgsT,
+  DeleteProfileImageArgsT,
 } from "@/interface/db/user.types";
 import { LoadingStatusT } from "./common.types";
 
@@ -17,7 +18,7 @@ type UserActionsT = {
   getUserDetails: (args: GetUserDetailsArgsT) => Promise<void>;
   updateUserDetail: (args: UpdateUserArgsT) => Promise<void>;
   changeProfilePicture: (file: UpdateProfileImageArgsT) => Promise<void>;
-  deleteProfilePicture: (url: string) => Promise<void>;
+  deleteProfilePicture: (url: DeleteProfileImageArgsT) => Promise<void>;
 };
 
 type UserStoreT = UserStateT & UserActionsT;

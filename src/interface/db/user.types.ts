@@ -41,6 +41,11 @@ type UpdateProfileImageArgsT = {
   username: string;
 };
 
+type DeleteProfileImageArgsT = {
+  url: string;
+  username: string;
+};
+
 type UpdateProfileImageResponseT = {
   url: string;
 };
@@ -54,5 +59,6 @@ export type {
   UpdateUserArgsT,
   UpdateUserResponseT,
   UpdateProfileImageArgsT,
+  DeleteProfileImageArgsT,
   UpdateProfileImageResponseT,
 };

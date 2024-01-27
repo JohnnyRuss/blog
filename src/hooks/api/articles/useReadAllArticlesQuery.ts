@@ -11,7 +11,7 @@ export default function useReadAllArticlesQuery() {
   const getAllArticles = articleStore.use.getAll();
   const getPaginatedArticles = articleStore.use.getAllPaginated();
 
-  const status = articleStore.use.readStatus();
+  const status = articleStore.use.readAllStatus();
 
   const hasMore = articleStore.use.hasMore();
   const currentPage = articleStore.use.currentPage();

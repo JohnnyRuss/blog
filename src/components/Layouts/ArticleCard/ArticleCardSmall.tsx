@@ -21,7 +21,8 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
               _id: "123",
               avatar:
                 "https://www.creative-tim.com/blog/content/images/2022/01/which-development-job-is-right-for-you.jpg",
-              username: "john doe",
+              fullname: "john doe",
+              username: "j.doe",
             }}
           />
 

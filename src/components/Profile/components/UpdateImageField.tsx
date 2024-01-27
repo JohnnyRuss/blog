@@ -16,7 +16,7 @@ type UpdateImageFieldT = {
 const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
   const { getParam, setParam, removeParam } = useSearchParams();
 
-  const { onChangeImage, status } = useProfileImageQuery();
+  const { onChangeImage, onDeleteImage, status } = useProfileImageQuery();
 
   const currentTarget = getParam("edit");
   const isEditingProfileImage = currentTarget === "profile_image";
@@ -24,8 +24,8 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
   const disabled =
     (currentTarget && !isEditingProfileImage) || status.loading ? true : false;
 
-  const fileRef = useRef<HTMLInputElement | null>(null);
   const [file, setFile] = useState<File | null>(null);
+  const fileRef = useRef<HTMLInputElement | null>(null);
 
   const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files[0];
@@ -46,6 +46,8 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
     if (!file) return;
     onChangeImage(file);
   };
+
+  const onRemove = () => onDeleteImage(existingImage);
 
   return (
     <Styled.UpdateImageField
@@ -76,7 +78,7 @@ const UpdateImageField: React.FC<UpdateImageFieldT> = ({ existingImage }) => {
       <ProfileImageActions
         disabled={disabled}
         onCancel={onCancel}
-        onRemove={() => {}}
+        onRemove={onRemove}
         onSave={onSave}
         fileExists={file && isEditingProfileImage ? true : false}
         differentFromDefault={existingImage !== USER_DEFAULT_AVATAR}

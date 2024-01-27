@@ -53,7 +53,7 @@ const EditorPickedArticleCard: React.FC<EditorPickedArticleCardT> = ({
 
         <div className="editor-pick__item-footer">
           <span className="editor-pick__item-footer--author">
-            {article.author.username}
+            {article.author.fullname}
           </span>
           &mdash;
           <span className="editor-pick__item-footer--date">

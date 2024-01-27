@@ -21,14 +21,14 @@ const CardHead: React.FC<CardHeadT> = ({ author }) => {
       </figure>
 
       <p className="card-head__user">
-        <span className="card-head__user-name">{author.username}</span>
-        <span className="card-head__user-work">
+        <span className="card-head__user-name">{author.fullname}</span>
+        {/* <span className="card-head__user-work">
           {" "}
           <sup>
             <small>in</small>
           </sup>{" "}
           <span>Towards Data Science</span>
-        </span>
+        </span> */}
       </p>
     </Styled.CardHead>
   );

@@ -1,31 +1,37 @@
+import { memo } from "react";
+import Skeleton from "react-loading-skeleton";
+import { v4 as uuid } from "uuid";
+
 import { animateLeft } from "@/styles/animations";
+import { useGetCategoriesQuery } from "@/hooks/api/categories";
 
 import * as Styled from "./categories.styled";
 import { CategoryChip, AsideBlockItemContainer } from "@/components/Layouts";
 
-type AsideCategoriesT = {};
+const AsideCategories: React.FC = memo(() => {
+  const { data, status } = useGetCategoriesQuery();
 
-const AsideCategories: React.FC<AsideCategoriesT> = () => {
   return (
     <AsideBlockItemContainer title="Categories" subTitle="Discover by topics">
       <Styled.Categories
         data-aside-categories
         {...animateLeft({ inView: true, once: true })}
       >
-        <CategoryChip bgColor="#01415B" title="Style" size="md" />
-
-        <CategoryChip bgColor="#005148" title="Fashion" size="md" />
-
-        <CategoryChip bgColor="#019587" title="Food" size="md" />
-
-        <CategoryChip bgColor="#FFAE00" title="Travel" size="md" />
-
-        <CategoryChip bgColor="#B33F00" title="Culture" size="md" />
-
-        <CategoryChip bgColor="#D92525" title="Coding" size="md" />
+        {status.loading
+          ? Array.from(new Array(6)).map(() => (
+              <Skeleton width="150px" height="40px" key={uuid()} />
+            ))
+          : data.map((category) => (
+              <CategoryChip
+                key={category._id}
+                bgColor={category.color}
+                title={category.title}
+                size="md"
+              />
+            ))}
       </Styled.Categories>
     </AsideBlockItemContainer>
   );
-};
+});
 
 export default AsideCategories;
