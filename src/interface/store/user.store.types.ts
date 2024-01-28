@@ -19,6 +19,7 @@ type UserActionsT = {
   updateUserDetail: (args: UpdateUserArgsT) => Promise<void>;
   changeProfilePicture: (file: UpdateProfileImageArgsT) => Promise<void>;
   deleteProfilePicture: (url: DeleteProfileImageArgsT) => Promise<void>;
+  cleanUpUserDetails: () => void;
 };
 
 type UserStoreT = UserStateT & UserActionsT;

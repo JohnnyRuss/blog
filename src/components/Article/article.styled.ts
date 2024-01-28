@@ -31,30 +31,49 @@ export const Article = styled.article`
         border: 1px solid ${({ theme }) => theme.colors.gray_shade};
         padding: 2rem;
         border-radius: 0.5rem;
+        margin: 2rem 0;
       }
 
       p:has(img) {
+        width: 100%;
+        height: 100%;
+        border-radius: 0.5rem;
+        margin: 3rem auto;
         display: flex;
         justify-content: center;
-        padding: 2rem 0;
+        align-items: center;
+
+        img {
+          box-shadow: ${({ theme }) => theme.boxShadow.radial_lg};
+          object-fit: contain;
+          max-width: 100%;
+          max-height: 50rem;
+          border-radius: inherit;
+          display: inline-block;
+          margin: 0 auto;
+        }
       }
 
-      p:has(img) img {
+      iframe {
+        border-radius: 0.5rem;
+        margin: 3rem auto;
+        width: 90%;
+        aspect-ratio: 16/9;
         box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.4);
-        border-radius: 1rem;
       }
     }
   }
 
-  .article-body {
+  .flex-container {
     padding: 4rem 0;
     display: flex;
     align-items: flex-start;
     gap: 3rem;
   }
 
-  .editor-box {
+  .article-body {
     flex: 3;
+    max-width: 70%;
   }
 
   .article-aside {
@@ -67,7 +86,7 @@ export const Article = styled.article`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
-    .article-body {
+    .flex-container {
       flex-direction: column;
     }
 
@@ -79,7 +98,7 @@ export const Article = styled.article`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
-    .article-body {
+    .flex-container {
       padding: 0;
     }
   }

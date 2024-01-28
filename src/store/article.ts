@@ -206,7 +206,7 @@ const useArticleStore = create<ArticleStoreT>()(
       cleanUpArticles() {
         set(() => ({
           articles: initialState.articles,
-          readAllStatus: getStatus("IDLE"),
+          readAllStatus: initialState.readAllStatus,
         }));
       },
 
@@ -233,7 +233,7 @@ const useArticleStore = create<ArticleStoreT>()(
       cleanUpArticle() {
         set(() => ({
           article: initialState.article,
-          readStatus: getStatus("IDLE"),
+          readStatus: initialState.readStatus,
         }));
       },
 
@@ -259,25 +259,38 @@ const useArticleStore = create<ArticleStoreT>()(
       cleanUpTopArticle() {
         set(() => ({
           topArticle: initialState.topArticle,
-          topArticleStatus: getStatus("IDLE"),
+          topArticleStatus: initialState.topArticleStatus,
         }));
       },
 
       // Related Articles
       async getRelatedArticles() {
         try {
-          set(() => ({ readStatus: getStatus("PENDING") }));
+          set(() => ({ relatedStatus: getStatus("PENDING") }));
+
+          const { data } = await getArticlesQuery({
+            page: 1,
+            limit: 4,
+            queryStr: "sort=-views",
+          });
+
           set(() => ({
-            readStatus: getStatus("SUCCESS"),
+            relatedArticles: data,
+            relatedStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
           const message = error.response?.data?.message || error?.message;
-          set(() => ({ readStatus: getStatus("FAIL", message) }));
+          set(() => ({ relatedStatus: getStatus("FAIL", message) }));
           throw error;
         }
       },
 
-      cleanUpRelatedArticles() {},
+      cleanUpRelatedArticles() {
+        set(() => ({
+          relatedArticles: initialState.relatedArticles,
+          relatedStatus: initialState.relatedStatus,
+        }));
+      },
 
       // Popular Articles
       async getPopularArticles() {
@@ -287,7 +300,7 @@ const useArticleStore = create<ArticleStoreT>()(
           const { data } = await getArticlesQuery({
             page: 1,
             limit: 4,
-            queryStr: "sort=-views",
+            queryStr: "sort=-views&userbased=1",
           });
 
           set(() => ({
@@ -304,7 +317,7 @@ const useArticleStore = create<ArticleStoreT>()(
       cleanUpPopularArticles() {
         set(() => ({
           popularArticles: initialState.popularArticles,
-          popularStatus: getStatus("IDLE"),
+          popularStatus: initialState.popularStatus,
         }));
       },
 
@@ -316,7 +329,7 @@ const useArticleStore = create<ArticleStoreT>()(
           const { data } = await getArticlesQuery({
             page: 1,
             limit: 4,
-            queryStr: "picked=1",
+            queryStr: "picked=1&userbased=1",
           });
 
           set(() => ({
@@ -333,7 +346,7 @@ const useArticleStore = create<ArticleStoreT>()(
       cleanUpEditorPickedArticles() {
         set(() => ({
           editorPickedArticles: initialState.editorPickedArticles,
-          editorPickedStatus: getStatus("IDLE"),
+          editorPickedStatus: initialState.editorPickedStatus,
         }));
       },
 
@@ -345,7 +358,7 @@ const useArticleStore = create<ArticleStoreT>()(
           const { data } = await getArticlesQuery({
             page: 1,
             limit: 4,
-            queryStr: "sort=-createdAt",
+            queryStr: "sort=-createdAt&userbased=1",
           });
 
           set(() => ({
@@ -362,7 +375,7 @@ const useArticleStore = create<ArticleStoreT>()(
       cleanUpRecentArticles() {
         set(() => ({
           recentArticles: initialState.recentArticles,
-          recentStatus: getStatus("IDLE"),
+          recentStatus: initialState.recentStatus,
         }));
       },
 

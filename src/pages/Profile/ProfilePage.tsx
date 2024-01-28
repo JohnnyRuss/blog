@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { lazy, useEffect } from "react";
 import { useLocation, useNavigate, Outlet, useParams } from "react-router-dom";
 import { SuspenseContainer } from "@/components/Layouts";
 
+import { userStore } from "@/store";
 import { DYNAMIC_ROUTES } from "@/config/paths";
 import { useRedirectUnAuthorized } from "@/hooks/auth";
 
@@ -24,6 +26,14 @@ const ProfilePage: React.FC = () => {
     if (pathname.match(regex))
       navigate(DYNAMIC_ROUTES.profile_review(username));
   }, [pathname, navigate, username]);
+
+  const cleanUpUserDetails = userStore.use.cleanUpUserDetails();
+
+  useEffect(() => {
+    return () => {
+      cleanUpUserDetails();
+    };
+  }, []);
 
   return (
     <SuspenseContainer>

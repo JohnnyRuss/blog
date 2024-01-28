@@ -6,13 +6,17 @@ export const ArticleHead = styled.div`
   gap: 2rem;
 
   .article-head__sub {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 3rem;
     padding: 0 1.5rem;
   }
 
-  &__title {
-    font-size: ${({ theme }) => theme.fontSize.h2};
+  [data-category-chip] {
+    justify-self: flex-end;
+  }
+
+  .article-head__title {
+    font-size: ${({ theme }) => theme.fontSize.h3};
   }
 `;

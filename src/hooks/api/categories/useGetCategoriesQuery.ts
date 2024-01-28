@@ -21,7 +21,7 @@ export default function useGetCategoriesQuery() {
       setStatus((prev) => ({ ...prev, status: "PENDING", loading: true }));
 
       const { data }: AxiosResponse<Array<CategoryT>> =
-        await axiosPrivateQuery.get("/categories");
+        await axiosPrivateQuery.get("/categories?limit=6");
 
       setData(data);
 

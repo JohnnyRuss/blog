@@ -110,6 +110,13 @@ const useUserStore = create<UserStoreT>()(
           throw error;
         }
       },
+
+      cleanUpUserDetails() {
+        set(() => ({
+          detailsStatus: initialState.detailsStatus,
+          userDetails: initialState.userDetails,
+        }));
+      },
     })),
     { name: "user" }
   )

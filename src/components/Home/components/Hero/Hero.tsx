@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 import {
   animateRight,
@@ -10,11 +11,13 @@ import { useQuill } from "@/hooks/utils";
 import { useGetTopArticleQuery } from "@/hooks/api/articles";
 
 import * as Styled from "./hero.styled";
-import HeroTypewriter from "./HeroTypewriter";
 import HeroSkeleton from "./HeroSkeleton";
+import HeroTypewriter from "./HeroTypewriter";
 import { LineClamp } from "@/components/Layouts";
 
 const Hero: React.FC = () => {
+  const navigate = useNavigate();
+
   const { data, status } = useGetTopArticleQuery();
   const { description, thumbnail } = useQuill(data?.body);
 
@@ -43,6 +46,7 @@ const Hero: React.FC = () => {
             </motion.div>
 
             <motion.button
+              onClick={() => navigate(`/${data.slug}`)}
               className="hero__post-content--more__btn"
               {...animateTop({ inView: true, once: false })}
             >

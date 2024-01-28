@@ -66,16 +66,16 @@ type ArticleActionsT = {
   getAllPaginated: (args: GetAllArticlesArgsT) => Promise<void>;
 
   // Article
-  get: (args: GetArticleArgsT) => Promise<void>;
   cleanUpArticle: () => void;
+  get: (args: GetArticleArgsT) => Promise<void>;
 
   // Top Article
-  getTopArticle: () => Promise<void>;
   cleanUpTopArticle: () => void;
+  getTopArticle: () => Promise<void>;
 
   // Related Articles
   cleanUpRelatedArticles: () => void;
-  getRelatedArticles: (args: GetAllArticlesArgsT) => Promise<void>;
+  getRelatedArticles: () => Promise<void>;
 
   // Popular Articles
   cleanUpPopularArticles: () => void;

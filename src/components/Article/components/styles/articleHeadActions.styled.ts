@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const ArticleHeadActions = styled.div`
   margin-left: auto;
+  grid-column: span 2;
   display: flex;
   align-items: center;
   gap: 3rem;

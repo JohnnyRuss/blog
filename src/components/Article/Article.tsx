@@ -1,3 +1,7 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+
+import { useUserTraceQuery } from "@/hooks/api/userTrace";
 import { useReadArticleQuery } from "@/hooks/api/articles";
 
 import * as Styled from "./article.styled";
@@ -12,17 +16,23 @@ import {
 
 const Article: React.FC = () => {
   const { data } = useReadArticleQuery();
+  const updateTrace = useUserTraceQuery();
+
+  useEffect(() => {
+    if (!data.slug) return;
+    updateTrace(data.slug);
+  }, [data.slug]);
 
   return (
     <Styled.Article>
-      <ArticleHead
-        author={data.author}
-        title={data.title}
-        createdAt={data.createdAt}
-      />
+      <div className="flex-container">
+        <div className="article-body">
+          <ArticleHead
+            author={data.author}
+            title={data.title}
+            createdAt={data.createdAt}
+          />
 
-      <div className="article-body">
-        <div className="editor-box">
           <QuillEditor readonly={true} value={data.body} />
         </div>
 

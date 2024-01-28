@@ -8,6 +8,7 @@ export const CategoryChip = styled.div<{ $bg_color: string }>`
   padding: 1.2rem 4.5rem;
   border-radius: 0.5rem;
   width: max-content;
+  cursor: pointer;
 
   &.size-sm {
     border-radius: 5rem;
