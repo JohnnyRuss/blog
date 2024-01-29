@@ -1,5 +1,6 @@
 import { useTheme } from "styled-components";
 
+import { useQuill } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
 
 import * as Styled from "./article.styled";
@@ -7,10 +8,16 @@ import CardHead from "./components/CardHead";
 import CardFooter from "./components/CardFooter";
 import { LineClamp } from "@/components/Layouts";
 
-type ArticleCardSmallT = {};
+import { ArticleShortT } from "@/interface/db/article.types";
 
-const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
+type ArticleCardSmallT = {
+  article: ArticleShortT;
+};
+
+const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({ article }) => {
   const theme = useTheme();
+
+  const { description, thumbnail } = useQuill(article.body);
 
   return (
     <Styled.ArticleCardSmall to={DYNAMIC_ROUTES.article_page("some_post")}>
@@ -18,20 +25,15 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
         <div className="article-sm__body-content">
           <CardHead
             author={{
-              _id: "123",
-              avatar:
-                "https://www.creative-tim.com/blog/content/images/2022/01/which-development-job-is-right-for-you.jpg",
-              fullname: "john doe",
-              username: "j.doe",
+              _id: article.author._id,
+              avatar: article.author.avatar,
+              fullname: article.author.fullname,
+              username: article.author.username,
             }}
           />
 
           <div className="article-sm__body-content--text">
-            <LineClamp
-              clamp={2}
-              component="h3"
-              text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum doloribus error nihil fugit tenetur accusantium repellendus, quae rerum ad corporis."
-            />
+            <LineClamp clamp={2} component="h3" text={article.title} />
 
             <LineClamp
               clamp={2}
@@ -42,7 +44,7 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
                     ? theme.colors.gray
                     : theme.colors.gray_dark,
               }}
-              text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum doloribus error nihil fugit tenetur accusantium repellendus, quae rerum ad corporis."
+              text={description}
             />
           </div>
 
@@ -54,7 +56,7 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = () => {
             width="100%"
             title="card"
             loading="lazy"
-            src="https://www.creative-tim.com/blog/content/images/2022/01/which-development-job-is-right-for-you.jpg"
+            src={thumbnail}
             alt="card"
           />
         </figure>

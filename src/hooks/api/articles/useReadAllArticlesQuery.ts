@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { NODE_MODE } from "@/config/env";
 import { articleStore } from "@/store";
 
-export default function useReadAllArticlesQuery() {
+export default function useReadAllArticlesQuery(defaultQuery?: string) {
   const { search } = useLocation();
 
   const getAllArticles = articleStore.use.getAll();
@@ -24,8 +24,8 @@ export default function useReadAllArticlesQuery() {
   const getArticlesQuery = async () => {
     try {
       await getPaginatedArticles({
-        query: search || "",
         page: currentPage + 1,
+        query: `${search || ""}${defaultQuery || ""}`,
       });
     } catch (error) {
       NODE_MODE === "DEV" && console.log(error);
@@ -35,7 +35,10 @@ export default function useReadAllArticlesQuery() {
   useEffect(() => {
     const timeoutId = setTimeout(async () => {
       try {
-        await getAllArticles({ query: search || "", page: 1 });
+        await getAllArticles({
+          query: `${search || ""}${defaultQuery || ""}`,
+          page: 1,
+        });
       } catch (error) {
         NODE_MODE === "DEV" && console.log(error);
       }

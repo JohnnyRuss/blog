@@ -51,7 +51,7 @@ const Review: React.FC<ReviewT> = () => {
         </Link>
       </div>
 
-      <div className="review-block">
+      {/* <div className="review-block">
         <motion.span
           {...animateLeft({ once: true, inView: true })}
           className="review-block__title"
@@ -73,9 +73,9 @@ const Review: React.FC<ReviewT> = () => {
         <Link to="" className="review-block__more">
           Show All
         </Link>
-      </div>
+      </div> */}
 
-      <div className="review-block">
+      {/* <div className="review-block">
         <motion.span
           {...animateLeft({ once: true, inView: true })}
           className="review-block__title"
@@ -97,7 +97,7 @@ const Review: React.FC<ReviewT> = () => {
         <Link to="" className="review-block__more">
           Show All
         </Link>
-      </div>
+      </div> */}
     </Styled.Review>
   );
 };

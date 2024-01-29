@@ -10,6 +10,8 @@ type RouteT = {
 type DecodedUserT = {
   _id: string;
   email: string;
+  role: string;
+  username: string;
   exp: number;
   iat: number;
 };

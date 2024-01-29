@@ -3,6 +3,7 @@ type CategoryT = {
   title: string;
   query: string;
   color: string;
+  thumbnail?: string;
 };
 
 export type { CategoryT };

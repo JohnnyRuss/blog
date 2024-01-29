@@ -4,7 +4,8 @@ import Carousel from "react-multi-carousel";
 
 import "react-multi-carousel/lib/styles.css";
 
-import { DYNAMIC_ROUTES } from "@/config/paths";
+import { DYNAMIC_ROUTES, PATHS } from "@/config/paths";
+import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 
 import * as Styled from "./styles/nav.styled";
 
@@ -23,6 +24,8 @@ const responsive = {
 
 const ProfileNav: React.FC = memo(() => {
   const { username } = useParams();
+  const { decodedUser } = useCheckIsAuthenticatedUser(true);
+
   return (
     <Styled.ProfileNav>
       <Carousel
@@ -78,6 +81,17 @@ const ProfileNav: React.FC = memo(() => {
         >
           Following
         </NavLink>
+
+        {decodedUser?.role === "ADMIN" && (
+          <NavLink
+            to={PATHS.dashboard_page}
+            className={({ isActive }) =>
+              `profile-nav--list__item ${isActive ? "active" : ""}`
+            }
+          >
+            Dashboard
+          </NavLink>
+        )}
       </Carousel>
     </Styled.ProfileNav>
   );

@@ -300,7 +300,7 @@ const useArticleStore = create<ArticleStoreT>()(
           const { data } = await getArticlesQuery({
             page: 1,
             limit: 4,
-            queryStr: "sort=-views&userbased=1",
+            queryStr: "sort=-common,-views&userbased=1",
           });
 
           set(() => ({
@@ -329,7 +329,7 @@ const useArticleStore = create<ArticleStoreT>()(
           const { data } = await getArticlesQuery({
             page: 1,
             limit: 4,
-            queryStr: "picked=1&userbased=1",
+            queryStr: "picked=1&userbased=1&sort=-common",
           });
 
           set(() => ({
@@ -358,7 +358,7 @@ const useArticleStore = create<ArticleStoreT>()(
           const { data } = await getArticlesQuery({
             page: 1,
             limit: 4,
-            queryStr: "sort=-createdAt&userbased=1",
+            queryStr: "sort=-createdAt,-common&userbased=1",
           });
 
           set(() => ({

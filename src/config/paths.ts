@@ -20,6 +20,11 @@ const PATHS = {
   forgot_password_page: "/auth/forgot_password",
   confirm_email_page: "/auth/confirm_email",
   update_password_page: "/auth/update_password",
+  // DASHBOARD
+  dashboard_page: "/dashboard",
+  dashboard_pick_articles_page: "/dashboard/pick-articles",
+  dashboard_categories_page: "/dashboard/categories",
+  // UNKNOWN
   unknown_page: "*",
 };
 

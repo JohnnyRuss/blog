@@ -13,6 +13,9 @@ export const ForYou = styled.section`
 
   .for-you__articles-list {
     flex: 3;
+  }
+
+  .infinite-scroll-component {
     display: flex;
     flex-direction: column;
     gap: 5rem;

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { AxiosResponse } from "axios";
 
@@ -7,7 +8,7 @@ import { LoadingStatusT } from "@/interface/store/common.types";
 import { NODE_MODE } from "@/config/env";
 import { axiosPrivateQuery } from "@/services/axios";
 
-export default function useGetCategoriesQuery() {
+export default function useGetCategoriesQuery(userbased: "1" | "-1" = "1") {
   const [data, setData] = useState<Array<CategoryT>>([]);
   const [status, setStatus] = useState<LoadingStatusT>({
     error: false,
@@ -21,7 +22,9 @@ export default function useGetCategoriesQuery() {
       setStatus((prev) => ({ ...prev, status: "PENDING", loading: true }));
 
       const { data }: AxiosResponse<Array<CategoryT>> =
-        await axiosPrivateQuery.get("/categories?limit=6");
+        await axiosPrivateQuery.get(
+          `/categories?userbased=${userbased}&limit=6`
+        );
 
       setData(data);
 

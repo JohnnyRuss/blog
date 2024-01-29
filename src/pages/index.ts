@@ -19,3 +19,8 @@ export { default as UserReadingHistoryPage } from "./Profile/UserReadingHistoryP
 export { default as UserProfileSettingsPage } from "./Profile/UserProfileSettingsPage";
 export { default as UserFollowingPage } from "./Profile/UserFollowingPage";
 export { default as ProfileReviewPage } from "./Profile/ProfileReviewPage";
+
+// DASHBOARD
+export { default as DashboardPage } from "./Dashboard/DashboardPage";
+export { default as ManageCategoriesPage } from "./Dashboard/ManageCategoriesPage";
+export { default as PickArticlesPage } from "./Dashboard/PickArticlesPage";

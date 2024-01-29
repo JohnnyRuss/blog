@@ -6,7 +6,7 @@ const USER_DEFAULT_AVATAR =
 const BLOG_THEME_KEY = "BLOG_THEME";
 const BLOG_PASSPORT_KEY = "BLOG_PASSPORT";
 
-const ARTICLES_PER_PAGE = 5;
+const ARTICLES_PER_PAGE = 6;
 
 const RouterHistory: RouterHistoryT = {
   navigate: () => {},

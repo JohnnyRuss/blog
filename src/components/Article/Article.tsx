@@ -39,7 +39,7 @@ const Article: React.FC = () => {
         <aside className="article-aside">
           <AsidePopularArticles />
 
-          <AsideCategories />
+          <AsideCategories userbased="-1" />
         </aside>
       </div>
 

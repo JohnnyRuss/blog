@@ -4,7 +4,6 @@ import { jwtDecode as decode } from "jwt-decode";
 
 import { authStore } from "@/store";
 import { LocaleStorage } from "@/utils";
-
 import { DecodedUserT } from "@/interface/config.types";
 
 export default function useCheckIsAuthenticatedUser(
@@ -12,6 +11,13 @@ export default function useCheckIsAuthenticatedUser(
 ) {
   const user = authStore.use.user();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const [decodedUser, setDecodedUser] = useState<{
+    _id: string;
+    email: string;
+    role: string;
+    username: string;
+  } | null>(null);
 
   async function check() {
     let isAuthenticatedUser = false;
@@ -22,7 +28,14 @@ export default function useCheckIsAuthenticatedUser(
     if (token && decodedUser && user && decodedUser._id === user._id)
       isAuthenticatedUser = true;
 
-    return { isAuthenticatedUser };
+    setDecodedUser(() => ({
+      _id: decodedUser?._id || "",
+      email: decodedUser?.email || "",
+      role: decodedUser?.role || "",
+      username: decodedUser?.username || "",
+    }));
+
+    return { isAuthenticatedUser, decodedUser };
   }
 
   useEffect(() => {
@@ -34,5 +47,5 @@ export default function useCheckIsAuthenticatedUser(
     })();
   }, [runOnMount, user]);
 
-  return { check, user, isAuthenticated };
+  return { check, user, isAuthenticated, decodedUser };
 }

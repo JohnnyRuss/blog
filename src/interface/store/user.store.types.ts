@@ -12,6 +12,8 @@ type UserStateT = {
   detailsStatus: LoadingStatusT;
   updateDetailStatus: LoadingStatusT;
   userDetails: null | UserDetailsT;
+  usersToFollowStatus: LoadingStatusT;
+  usersToFollow: Array<UserDetailsT>;
 };
 
 type UserActionsT = {
@@ -20,6 +22,8 @@ type UserActionsT = {
   changeProfilePicture: (file: UpdateProfileImageArgsT) => Promise<void>;
   deleteProfilePicture: (url: DeleteProfileImageArgsT) => Promise<void>;
   cleanUpUserDetails: () => void;
+  getUsersToFollow: () => Promise<void>;
+  cleanUpUsersToFollow: () => void;
 };
 
 type UserStoreT = UserStateT & UserActionsT;

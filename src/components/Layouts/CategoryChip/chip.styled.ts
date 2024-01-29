@@ -44,6 +44,10 @@ export const CategoryChip = styled.div<{ $bg_color: string }>`
     height: 4rem;
     border-radius: 100%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: ${({ theme }) => theme.colors.gray_dark};
 
     img {
       width: 100%;

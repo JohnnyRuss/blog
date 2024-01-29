@@ -15,6 +15,9 @@ const initialState: UserStateT = {
   updateDetailStatus: getStatus("IDLE"),
 
   userDetails: null,
+
+  usersToFollow: [],
+  usersToFollowStatus: getStatus("IDLE"),
 };
 
 const useUserStore = create<UserStoreT>()(
@@ -115,6 +118,35 @@ const useUserStore = create<UserStoreT>()(
         set(() => ({
           detailsStatus: initialState.detailsStatus,
           userDetails: initialState.userDetails,
+        }));
+      },
+
+      async getUsersToFollow() {
+        try {
+          set(() => ({ usersToFollowStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<Array<UserDetailsT>> =
+            await axiosPrivateQuery.get(`/follow`);
+
+          set(() => ({
+            usersToFollow: data,
+            usersToFollowStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = error.response?.data?.message || error?.message;
+
+          set(() => ({
+            usersToFollowStatus: getStatus("FAIL", message),
+          }));
+
+          throw error;
+        }
+      },
+
+      cleanUpUsersToFollow() {
+        set(() => ({
+          usersToFollow: initialState.usersToFollow,
+          usersToFollowStatus: initialState.usersToFollowStatus,
         }));
       },
     })),

@@ -122,6 +122,26 @@ const Routes: Array<RouteT> = [
       },
     ],
   },
+  // DASHBOARD
+  {
+    path: PATHS.dashboard_page,
+    title: "dashboard-page",
+    element: <Pages.DashboardPage />,
+    children: [
+      {
+        path: PATHS.dashboard_pick_articles_page,
+        title: "dashboard-pick-articles-page",
+        element: <Pages.PickArticlesPage />,
+        children: [],
+      },
+      {
+        path: PATHS.dashboard_categories_page,
+        title: "dashboard-categories-page",
+        element: <Pages.ManageCategoriesPage />,
+        children: [],
+      },
+    ],
+  },
   // 404
   {
     path: PATHS.unknown_page,

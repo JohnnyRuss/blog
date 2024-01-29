@@ -12,7 +12,7 @@ const Categories: React.FC = () => {
 
   return (
     <Styled.Categories>
-      <SectionTitle title="Categories" />
+      <SectionTitle title="Topics" />
 
       {status.loading ? (
         <CategoriesSkeleton />
@@ -25,11 +25,7 @@ const Categories: React.FC = () => {
                 ? animateBottom({ inView: true, once: true })
                 : animateTop({ inView: true, once: true }))}
             >
-              <CategoryChip
-                bgColor={category?.color}
-                title={category?.title}
-                img="https://images.unsplash.com/photo-1479064555552-3ef4979f8908?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              />
+              <CategoryChip category={category} />
             </motion.li>
           ))}
         </ul>

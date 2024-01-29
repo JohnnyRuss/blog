@@ -15,6 +15,8 @@ export { default as ArticleCardBigSkeleton } from "./ArticleCard/ArticleCardBigS
 export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
 export { default as ArticleCardMediumSkeleton } from "./ArticleCard/ArticleCardMediumSkeleton";
 export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";
+export { default as FollowCard } from "./FollowCard/FollowCard";
+export { default as FollowCardSkeleton } from "./FollowCard/FollowCardSkeleton";
 
 // FORM
 export { default as TextField } from "./Form/TextField";
@@ -33,7 +35,6 @@ export { default as SectionTitle } from "./SectionTitle/SectionTitle";
 export { default as CategoryChip } from "./CategoryChip/CategoryChip";
 export { default as Text } from "./Text/Text";
 export { default as QuillEditor } from "./QuillEditor/QuillEditor";
-export { default as FollowCard } from "./FollowCard/FollowCard";
 export { default as EditButton } from "./EditButton/EditButton";
 export { default as WriteButton } from "./WriteButton/WriteButton";
 export { default as MultiSelect } from "./MultiSelect/MultiSelect";

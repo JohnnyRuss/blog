@@ -1,18 +1,13 @@
 import * as Styled from "./chip.styled";
 
+import { CategoryT } from "@/interface/db/category.types";
+
 type CategoryChipT = {
-  img?: string;
-  title: string;
-  bgColor: string;
+  category: CategoryT;
   size?: "sm" | "md" | "lg";
 };
 
-const CategoryChip: React.FC<CategoryChipT> = ({
-  img,
-  title,
-  bgColor,
-  size = "lg",
-}) => {
+const CategoryChip: React.FC<CategoryChipT> = ({ category, size = "lg" }) => {
   const sizeClass =
     size === "sm"
       ? "size-sm"
@@ -24,25 +19,29 @@ const CategoryChip: React.FC<CategoryChipT> = ({
 
   return (
     <Styled.CategoryChip
-      $bg_color={bgColor}
-      className={sizeClass}
-      title={title}
       data-category-chip
+      className={sizeClass}
+      title={category?.title}
+      $bg_color={category?.color}
     >
-      {img && (
+      {size === "lg" && (
         <figure className="categories__list-item--fig">
-          <img
-            width={40}
-            height={40}
-            src={img}
-            alt={title}
-            title={title}
-            loading="eager"
-          />
+          {category.thumbnail ? (
+            <img
+              width={40}
+              height={40}
+              src={category?.thumbnail}
+              alt={category?.title}
+              title={category?.title}
+              loading="eager"
+            />
+          ) : (
+            <span>{category?.title?.[0]?.toLocaleUpperCase()}</span>
+          )}
         </figure>
       )}
 
-      <span className="categories__list-item--label">{title}</span>
+      <span className="categories__list-item--label">{category?.title}</span>
     </Styled.CategoryChip>
   );
 };
