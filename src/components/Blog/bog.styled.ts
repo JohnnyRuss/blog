@@ -20,6 +20,10 @@ export const Blog = styled.section`
     display: grid;
     gap: 5rem;
     grid-template-columns: repeat(2, 1fr);
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .blog-aside {

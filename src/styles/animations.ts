@@ -1,5 +1,5 @@
 import { MotionProps } from "framer-motion";
-import { css } from "styled-components";
+import { css, keyframes } from "styled-components";
 
 type AnimateMotionT = {
   once: boolean;
@@ -184,6 +184,36 @@ const animateTopStagger = () => {
   return { container, child };
 };
 
+const scaleDown = () => {
+  const frame = keyframes`
+    from{
+      opacity: 1;
+      transform: scale(1);
+    }
+    to{
+      opacity: 0;
+      transform: scale(0);
+    }
+  `;
+
+  return frame;
+};
+
+const scaleUp = () => {
+  const frame = keyframes`
+    from{
+      opacity: 0;
+      transform: scale(0);
+    }
+    to{
+      opacity: 1;
+      transform: scale(1);
+    }
+  `;
+
+  return frame;
+};
+
 const animateLogo: MotionProps = {
   initial: { rotate: -135, y: -20 },
   animate: { rotate: 0, y: 0 },
@@ -216,4 +246,6 @@ export {
   animateLogo,
   animateFadeIn,
   animateY_k,
+  scaleDown,
+  scaleUp,
 };

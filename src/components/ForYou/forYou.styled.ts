@@ -19,6 +19,10 @@ export const ForYou = styled.section`
     display: flex;
     flex-direction: column;
     gap: 5rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 
   .for-you__aside {

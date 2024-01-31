@@ -29,6 +29,7 @@ type ArticleShortT = {
   author: ArticleAuthorT;
   categories: Array<CategoryT>;
   createdAt: string;
+  picked: boolean;
 };
 
 // API

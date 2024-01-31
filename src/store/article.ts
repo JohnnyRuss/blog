@@ -66,6 +66,7 @@ const initialState: ArticleStateT = {
     createdAt: "",
     slug: "",
     title: "",
+    picked: false,
   },
 
   // Related Articles

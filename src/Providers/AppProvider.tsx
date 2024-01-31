@@ -3,8 +3,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { RouterHistory } from "@/config/config";
 
-// import { StandSpinner } from "@/components/Layouts";
-
 type AppProviderT = {
   children: React.ReactNode;
 };
@@ -20,12 +18,7 @@ const AppProvider: React.FC<AppProviderT> = ({ children }) => {
   RouterHistory.navigate = navigate;
   RouterHistory.location = location;
 
-  return (
-    <AppContext.Provider value={{}}>
-      {/* <StandSpinner /> */}
-      {children}
-    </AppContext.Provider>
-  );
+  return <AppContext.Provider value={{}}>{children}</AppContext.Provider>;
 };
 
 export default AppProvider;
