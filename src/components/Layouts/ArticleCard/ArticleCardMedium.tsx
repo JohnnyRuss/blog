@@ -19,7 +19,7 @@ type ArticleCardMediumT = {
 
 const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
   const theme = useTheme();
-
+  console.log(article);
   const descriptionStyles = useMemo(
     () => ({
       fontSize: theme.fontSize.sm,
@@ -58,7 +58,7 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
             </span>
           </div>
 
-          <CardFooter />
+          <CardFooter articleId={article._id} />
         </div>
       </li>
     </Styled.ArticleCardMedium>

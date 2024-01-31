@@ -48,7 +48,7 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({ article }) => {
             />
           </div>
 
-          <CardFooter />
+          <CardFooter articleId={article._id} />
         </div>
 
         <figure className="article-sm__body-fig">

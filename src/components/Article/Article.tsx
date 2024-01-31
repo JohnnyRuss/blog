@@ -4,9 +4,8 @@ import { useEffect } from "react";
 import { useUserTraceQuery } from "@/hooks/api/userTrace";
 import { useReadArticleQuery } from "@/hooks/api/articles";
 
+import * as UI from "./components";
 import * as Styled from "./article.styled";
-import ArticleHead from "./components/ArticleHead";
-import RelatedArticles from "./components/RelatedArticles";
 
 import {
   QuillEditor,
@@ -15,7 +14,7 @@ import {
 } from "@/components/Layouts";
 
 const Article: React.FC = () => {
-  const { data } = useReadArticleQuery();
+  const { data, status } = useReadArticleQuery();
   const updateTrace = useUserTraceQuery();
 
   useEffect(() => {
@@ -27,13 +26,13 @@ const Article: React.FC = () => {
     <Styled.Article>
       <div className="flex-container">
         <div className="article-body">
-          <ArticleHead
-            author={data.author}
-            title={data.title}
-            createdAt={data.createdAt}
-          />
+          {status.loading ? <UI.ArticleHeadSkeleton /> : <UI.ArticleHead />}
 
-          <QuillEditor readonly={true} value={data.body} />
+          {status.loading ? (
+            <UI.ArticleBodySkeleton />
+          ) : (
+            <QuillEditor readonly={true} value={data.body} />
+          )}
         </div>
 
         <aside className="article-aside">
@@ -43,7 +42,7 @@ const Article: React.FC = () => {
         </aside>
       </div>
 
-      <RelatedArticles />
+      <UI.RelatedArticles />
     </Styled.Article>
   );
 };

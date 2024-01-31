@@ -1,3 +1,4 @@
+import { memo } from "react";
 import moment from "moment";
 import { v4 as uuid } from "uuid";
 import { Link } from "react-router-dom";
@@ -10,7 +11,7 @@ import { AsideBlockItemContainer, LineClamp } from "@/components/Layouts";
 
 type AsideRecentlySavedT = {};
 
-const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = () => {
+const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
   return (
     <AsideBlockItemContainer title="Recently Saved" subTitle="Your bookmarks">
       <Styled.RecentlySaved data-recently-saved>
@@ -58,6 +59,6 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = () => {
       </Styled.RecentlySaved>
     </AsideBlockItemContainer>
   );
-};
+});
 
 export default AsideRecentlySaved;

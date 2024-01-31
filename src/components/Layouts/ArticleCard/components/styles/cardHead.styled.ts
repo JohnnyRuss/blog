@@ -10,7 +10,6 @@ export const CardHead = styled.div`
     height: 2.5rem;
     border-radius: 100%;
     overflow: hidden;
-    background-color: green;
 
     img {
       border-radius: inherit;

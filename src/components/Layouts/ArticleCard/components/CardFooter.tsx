@@ -1,8 +1,23 @@
+import { useSearchParams } from "@/hooks/utils";
+
 import * as Styled from "./styles/cardFooter.styled";
 
-type CardFooterT = {};
+type CardFooterT = {
+  articleId: string;
+};
 
-const CardFooter: React.FC<CardFooterT> = () => {
+const CardFooter: React.FC<CardFooterT> = ({ articleId }) => {
+  const { setParam } = useSearchParams();
+
+  const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!articleId) return;
+
+    setParam("save", articleId);
+  };
+
   return (
     <Styled.CardFooter>
       <button className="card-footer__btn heart">
@@ -45,7 +60,7 @@ const CardFooter: React.FC<CardFooterT> = () => {
         <span>7</span>
       </button>
 
-      <button className="card-footer__btn save">
+      <button className="card-footer__btn save" onClick={onSave}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"

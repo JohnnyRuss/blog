@@ -265,15 +265,12 @@ const useArticleStore = create<ArticleStoreT>()(
       },
 
       // Related Articles
-      async getRelatedArticles() {
+      async getRelatedArticles(args) {
         try {
           set(() => ({ relatedStatus: getStatus("PENDING") }));
 
-          const { data } = await getArticlesQuery({
-            page: 1,
-            limit: 4,
-            queryStr: "sort=-views",
-          });
+          const { data }: AxiosResponse<Array<ArticleShortT>> =
+            await axiosPrivateQuery.get(`/articles/related/${args.slug}`);
 
           set(() => ({
             relatedArticles: data,

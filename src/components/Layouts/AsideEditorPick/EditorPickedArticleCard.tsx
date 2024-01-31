@@ -33,11 +33,7 @@ const EditorPickedArticleCard: React.FC<EditorPickedArticleCardT> = ({
       </figure>
 
       <div className="editor-pick__item-content">
-        <CategoryChip
-          size="sm"
-          title={category?.title}
-          bgColor={category?.color}
-        />
+        <CategoryChip size="sm" category={category} />
 
         <LineClamp
           clamp={2}

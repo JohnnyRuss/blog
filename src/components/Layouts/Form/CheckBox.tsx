@@ -2,10 +2,10 @@ import * as Styed from "./checkBox.styled";
 
 type CheckBoxT = {
   checked: boolean;
-  onCheck: () => void;
+  onCheck?: () => void;
 };
 
-const CheckBox: React.FC<CheckBoxT> = ({ checked, onCheck }) => {
+const CheckBox: React.FC<CheckBoxT> = ({ checked, onCheck = () => {} }) => {
   return (
     <Styed.CheckBox
       data-checkbox

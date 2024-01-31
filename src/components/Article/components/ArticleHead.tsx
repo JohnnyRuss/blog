@@ -1,37 +1,28 @@
+import { articleStore } from "@/store";
+
 import * as Styled from "./styles/articleHead.styled";
 import ArticleHeadActions from "./ArticleHeadActions";
-
 import { AuthorIdentifier, CategoryChip } from "@/components/Layouts";
 
-import { ArticleAuthorT } from "@/interface/db/article.types";
+const ArticleSubHead: React.FC = () => {
+  const article = articleStore.use.article();
 
-type ArticleSubHeadT = {
-  author: ArticleAuthorT;
-  title: string;
-  createdAt: string;
-};
-
-const ArticleSubHead: React.FC<ArticleSubHeadT> = ({
-  author,
-  title,
-  createdAt,
-}) => {
   return (
     <Styled.ArticleHead>
       <div className="article-head__sub">
         <AuthorIdentifier
-          date={createdAt}
-          userId={author._id}
-          avatar={author.avatar}
-          fullname={author.fullname}
+          date={article.createdAt}
+          userId={article.author._id}
+          avatar={article.author.avatar}
+          fullname={article.author.fullname}
         />
 
-        <CategoryChip bgColor="#D92525" title="Coding" size="md" />
+        <CategoryChip category={article.categories[0]} size="md" />
 
         <ArticleHeadActions />
       </div>
 
-      <h3 className="article-head__title">{title}</h3>
+      <h3 className="article-head__title">{article.title}</h3>
     </Styled.ArticleHead>
   );
 };

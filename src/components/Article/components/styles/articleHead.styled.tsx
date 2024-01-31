@@ -6,6 +6,7 @@ export const ArticleHead = styled.div`
   gap: 2rem;
 
   .article-head__sub {
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 3rem;

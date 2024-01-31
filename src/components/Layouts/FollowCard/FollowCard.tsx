@@ -1,7 +1,7 @@
 import { useTheme } from "styled-components";
 
 import * as Styled from "./followCard.styled";
-import { LineClamp } from "@/components/Layouts";
+import { LineClamp, FollowButton } from "@/components/Layouts";
 
 import { UserDetailsT } from "@/interface/db/user.types";
 
@@ -41,7 +41,7 @@ const FollowCard: React.FC<FollowCardT> = ({ user }) => {
         />
       </div>
 
-      <button className="follow-card__btn">Follow</button>
+      <FollowButton />
     </Styled.FollowCard>
   );
 };

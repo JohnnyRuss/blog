@@ -75,7 +75,7 @@ type ArticleActionsT = {
 
   // Related Articles
   cleanUpRelatedArticles: () => void;
-  getRelatedArticles: () => Promise<void>;
+  getRelatedArticles: (args: GetArticleArgsT) => Promise<void>;
 
   // Popular Articles
   cleanUpPopularArticles: () => void;

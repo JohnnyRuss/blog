@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ArticleHeadActions = styled.div`
-  margin-left: auto;
   grid-column: span 2;
   display: flex;
+  justify-content: flex-start;
   align-items: center;
   gap: 3rem;
 
@@ -19,6 +19,10 @@ export const ArticleHeadActions = styled.div`
     svg {
       font-size: 28px;
       line-height: 1;
+    }
+
+    &.views {
+      margin-left: auto;
     }
 
     &.bookmark svg,

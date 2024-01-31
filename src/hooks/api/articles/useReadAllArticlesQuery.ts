@@ -47,7 +47,7 @@ export default function useReadAllArticlesQuery(defaultQuery?: string) {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [search]);
+  }, []);
 
   useEffect(() => {
     return () => {

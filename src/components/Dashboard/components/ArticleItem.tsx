@@ -1,7 +1,6 @@
 import { dashboardStore } from "@/store";
 
-import CheckBox from "./CheckBox";
-import { ArticleCardMedium } from "@/components/Layouts";
+import { ArticleCardMedium, CheckBox } from "@/components/Layouts";
 
 import { ArticleShortT } from "@/interface/db/article.types";
 

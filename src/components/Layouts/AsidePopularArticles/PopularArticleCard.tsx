@@ -21,11 +21,7 @@ const PopularArticleCard: React.FC<PopularArticleCardT> = ({ article }) => {
       className="popular-item"
       {...animateLeft({ inView: true, once: true })}
     >
-      <CategoryChip
-        size="sm"
-        title={category?.title}
-        bgColor={category?.color}
-      />
+      <CategoryChip size="sm" category={category} />
 
       <LineClamp
         clamp={2}
