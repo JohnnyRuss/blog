@@ -8,6 +8,7 @@ const ArticleCardMediumSkeleton: React.FC = () => {
   return (
     <Styled.ArticleCardMedium
       to=""
+      as="div"
       style={{ minWidth: "100%", minHeight: "400px" }}
     >
       <li className="article-md__body">

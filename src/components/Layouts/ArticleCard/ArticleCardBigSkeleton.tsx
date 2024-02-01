@@ -7,7 +7,7 @@ const ArticleCardBigSkeleton: React.FC<{ size?: "small" | "normal" }> = ({
   size = "normal",
 }) => {
   return (
-    <Styled.ArticleCardBig to={""} style={{ overflow: "hidden" }}>
+    <Styled.ArticleCardBig as="div" to="" style={{ overflow: "hidden" }}>
       <li className="article-card">
         <figure className="article-card__fig">
           <Skeleton width="100%" height="100%" style={{ minHeight: "100%" }} />

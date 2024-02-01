@@ -3,9 +3,8 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 
-import { NODE_MODE } from "@/config/env";
 import { axiosPrivateQuery } from "@/services/axios";
-import { generateQueryableString } from "@/utils";
+import { generateQueryableString, logger } from "@/utils";
 import { ARTICLES_PER_PAGE } from "@/config/config";
 import { createSelectors, getStatus } from "./helpers";
 
@@ -87,7 +86,6 @@ const initialState: ArticleStateT = {
 
   // Others
   lists: [],
-  saveStatus: getStatus("IDLE"),
 };
 
 const useArticleStore = create<ArticleStoreT>()(
@@ -122,7 +120,7 @@ const useArticleStore = create<ArticleStoreT>()(
             createStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ createStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -138,7 +136,7 @@ const useArticleStore = create<ArticleStoreT>()(
             createStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ createStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -154,7 +152,7 @@ const useArticleStore = create<ArticleStoreT>()(
             deleteStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ deleteStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -178,7 +176,7 @@ const useArticleStore = create<ArticleStoreT>()(
             readAllStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ readAllStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -198,7 +196,7 @@ const useArticleStore = create<ArticleStoreT>()(
             articles: [...get().articles, ...data],
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ readStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -225,7 +223,7 @@ const useArticleStore = create<ArticleStoreT>()(
             readStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ readStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -251,9 +249,8 @@ const useArticleStore = create<ArticleStoreT>()(
             topArticleStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ topArticleStatus: getStatus("FAIL", message) }));
-          NODE_MODE === "DEV" && console.log(error);
         }
       },
 
@@ -277,7 +274,7 @@ const useArticleStore = create<ArticleStoreT>()(
             relatedStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ relatedStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -306,9 +303,8 @@ const useArticleStore = create<ArticleStoreT>()(
             popularStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ popularStatus: getStatus("FAIL", message) }));
-          NODE_MODE === "DEV" && console.log(error);
         }
       },
 
@@ -335,9 +331,8 @@ const useArticleStore = create<ArticleStoreT>()(
             editorPickedStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ editorPickedStatus: getStatus("FAIL", message) }));
-          NODE_MODE === "DEV" && console.log(error);
         }
       },
 
@@ -364,9 +359,8 @@ const useArticleStore = create<ArticleStoreT>()(
             recentStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ recentStatus: getStatus("FAIL", message) }));
-          NODE_MODE === "DEV" && console.log(error);
         }
       },
 
@@ -380,33 +374,6 @@ const useArticleStore = create<ArticleStoreT>()(
       // Others
       async like(args) {
         console.log(args);
-      },
-
-      async getLists() {
-        try {
-          set(() => ({ saveStatus: getStatus("PENDING") }));
-          set(() => ({
-            saveStatus: getStatus("SUCCESS"),
-          }));
-        } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
-          set(() => ({ saveStatus: getStatus("FAIL", message) }));
-          throw error;
-        }
-      },
-
-      async save(args) {
-        try {
-          set(() => ({ saveStatus: getStatus("PENDING") }));
-          console.log(args);
-          set(() => ({
-            saveStatus: getStatus("SUCCESS"),
-          }));
-        } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
-          set(() => ({ saveStatus: getStatus("FAIL", message) }));
-          throw error;
-        }
       },
     })),
     { name: "articles" }

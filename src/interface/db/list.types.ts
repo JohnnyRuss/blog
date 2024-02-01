@@ -1,12 +1,13 @@
 import { UserT } from "./user.types";
 import { ArticleShortT } from "./article.types";
+import { CreateListSchemaT } from "@/utils/validations/createListSchema";
 
 type ListT = {
   _id: string;
   author: UserT;
   title: string;
   description: string;
-  articles: Array<ArticleShortT>;
+  articles: Array<{ savedAt: string; article: ArticleShortT }>;
   privacy: string;
 };
 
@@ -14,7 +15,7 @@ type ListShortT = {
   author: string;
   title: string;
   description: string;
-  articles: Array<string>;
+  articles: Array<{ savedAt: string; article: string }>;
   privacy: string;
   _id: string;
 };
@@ -24,7 +25,7 @@ type GetListsAgsT = { userId: string };
 
 type AddToListAgsT = { listId: string; articleId: string };
 
-type CreateListAgsT = { title: string; description: string };
+type CreateListAgsT = CreateListSchemaT;
 
 export type {
   ListT,

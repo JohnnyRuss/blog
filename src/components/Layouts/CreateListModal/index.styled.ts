@@ -43,6 +43,7 @@ export const CreateListModal = styled.div`
     margin-top: auto;
     display: flex;
     justify-content: flex-end;
+    gap: 2rem;
     color: ${({ theme }) => theme.colors.green};
   }
 

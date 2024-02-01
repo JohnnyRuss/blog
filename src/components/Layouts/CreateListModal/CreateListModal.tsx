@@ -1,17 +1,18 @@
 import { useState } from "react";
 
 import { useSearchParams } from "@/hooks/utils";
-import { useGetListsToAddQuery } from "@/hooks/api/lists";
+import { useGetListsToAddQuery, useAddToListQuery } from "@/hooks/api/lists";
 
-import * as Styled from "./index.styled";
-import { Modal, RelativeSpinner } from "@/components/Layouts";
 import ListItem from "./ListItem";
 import CreateListForm from "./CreateListForm";
+import { Modal, RelativeSpinner } from "@/components/Layouts";
+import * as Styled from "./index.styled";
 
 type CreateListModalT = {};
 
 const CreateListModal: React.FC<CreateListModalT> = () => {
   const { data, status } = useGetListsToAddQuery();
+  const { add } = useAddToListQuery();
 
   const { getParam, removeParam } = useSearchParams();
   const isAddingToListId = getParam("save") || "";
@@ -33,8 +34,14 @@ const CreateListModal: React.FC<CreateListModalT> = () => {
                 <div className="lists-row">
                   {data.map((list) => (
                     <ListItem
-                      key={list._id}
                       list={list}
+                      key={list._id}
+                      onAddToList={() =>
+                        add({
+                          listId: list._id,
+                          articleId: isAddingToListId || "",
+                        })
+                      }
                       articleId={isAddingToListId}
                     />
                   ))}

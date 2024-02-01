@@ -1,11 +1,15 @@
 import { memo } from "react";
-// import { v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
 import { animateTop } from "@/styles/animations";
 import { useReadAllArticlesQuery } from "@/hooks/api/articles";
 
-import { InfiniteScroll, ArticleCardSmall } from "@/components/Layouts";
+import {
+  InfiniteScroll,
+  ArticleCardSmall,
+  ArticleCardSmallSkeleton,
+} from "@/components/Layouts";
 
 const ArticlesList: React.FC = memo(() => {
   const { data, getArticlesQuery, hasMore, status, total } =
@@ -13,22 +17,22 @@ const ArticlesList: React.FC = memo(() => {
 
   return (
     <div className="for-you__articles-list">
-      {/* {status.loading && (
+      {status.loading && (
         <div className="loading-skeleton">
           {Array.from(new Array(6)).map(() => (
-            <ArticleCardMediumSkeleton key={uuid()} />
+            <ArticleCardSmallSkeleton key={uuid()} />
           ))}
         </div>
-      )} */}
+      )}
 
       {status.status === "SUCCESS" && (
         <InfiniteScroll
           total={total}
           hasMore={hasMore}
           onNext={getArticlesQuery}
-          // fallBack={Array.from(new Array(2)).map(() => (
-          //   <ArticleCardMediumSkeleton key={uuid()} />
-          // ))}
+          fallBack={Array.from(new Array(2)).map(() => (
+            <ArticleCardSmallSkeleton key={uuid()} />
+          ))}
         >
           {data.map((article) => (
             <motion.div

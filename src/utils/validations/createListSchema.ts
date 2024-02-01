@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 const CreateListSchema = z.object({
-  title: z.string(),
+  title: z.string().min(2, "Please fill up title field"),
   description: z.string(),
   privacy: z.enum(["PRIVATE", "PUBLIC"]),
 });

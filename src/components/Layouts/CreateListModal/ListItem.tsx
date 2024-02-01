@@ -7,13 +7,18 @@ import { ListShortT } from "@/interface/db/list.types";
 type ListItemT = {
   list: ListShortT;
   articleId: string;
+  onAddToList: () => void;
 };
 
-const ListItem: React.FC<ListItemT> = ({ list, articleId }) => {
+const ListItem: React.FC<ListItemT> = ({ list, articleId, onAddToList }) => {
   return (
-    <li className="lists-row__item">
+    <li className="lists-row__item" onClick={onAddToList}>
       <label htmlFor="">
-        <CheckBox checked={list.articles.includes(articleId)} />
+        <CheckBox
+          checked={list.articles.some(
+            (article) => article.article === articleId
+          )}
+        />
         <span>{list.title}</span>
         <span className="privacy-icon">
           <img

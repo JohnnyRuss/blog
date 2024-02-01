@@ -10,7 +10,7 @@ type CreateListFormT = {
 };
 
 const CreateListForm: React.FC<CreateListFormT> = ({ onCancel }) => {
-  const { form } = useCreateListQuery();
+  const { form, onCreate } = useCreateListQuery(onCancel);
 
   return (
     <div className="create-list__box">
@@ -74,6 +74,7 @@ const CreateListForm: React.FC<CreateListFormT> = ({ onCancel }) => {
 
       <div className="create-list__footer">
         <button onClick={onCancel}>Cancel</button>
+        <button onClick={onCreate}>Create</button>
       </div>
     </div>
   );

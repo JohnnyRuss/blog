@@ -15,6 +15,7 @@ export { default as ArticleCardBigSkeleton } from "./ArticleCard/ArticleCardBigS
 export { default as ArticleCardMedium } from "./ArticleCard/ArticleCardMedium";
 export { default as ArticleCardMediumSkeleton } from "./ArticleCard/ArticleCardMediumSkeleton";
 export { default as ArticleCardSmall } from "./ArticleCard/ArticleCardSmall";
+export { default as ArticleCardSmallSkeleton } from "./ArticleCard/ArticleCardSmallSkeleton";
 export { default as FollowCard } from "./FollowCard/FollowCard";
 export { default as FollowCardSkeleton } from "./FollowCard/FollowCardSkeleton";
 

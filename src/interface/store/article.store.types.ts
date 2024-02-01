@@ -8,7 +8,6 @@ import {
   GetArticleArgsT,
   GetAllArticlesArgsT,
   LikeArticleArgsT,
-  SaveArticleArgsT,
 } from "@/interface/db/article.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
 import { CategoryT } from "@/interface/db/category.types";
@@ -17,8 +16,6 @@ type ArticleStateT = {
   categorySuggestions: Array<CategoryT>;
   createStatus: LoadingStatusT;
   deleteStatus: LoadingStatusT;
-
-  saveStatus: LoadingStatusT;
 
   // Articles
   readAllStatus: LoadingStatusT;
@@ -91,8 +88,6 @@ type ArticleActionsT = {
 
   // Others
   like: (args: LikeArticleArgsT) => Promise<void>;
-  getLists: () => Promise<void>;
-  save: (args: SaveArticleArgsT) => Promise<void>;
 };
 
 type ArticleStoreT = ArticleStateT & ArticleActionsT;

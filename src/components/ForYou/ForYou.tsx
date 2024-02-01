@@ -2,8 +2,8 @@ import { useSearchParams } from "@/hooks/utils";
 
 import {
   AsideCategories,
-  AsideRecentlySaved,
   CreateListModal,
+  AsideRecentlySaved,
 } from "@/components/Layouts";
 import ArticlesList from "./ArticlesList";
 import * as Styled from "./forYou.styled";
@@ -29,6 +29,7 @@ const ForYou: React.FC<ForYouT> = () => {
           </aside>
         </div>
       </Styled.ForYou>
+
       {isAddingToList && <CreateListModal />}
     </>
   );
