@@ -1,13 +1,17 @@
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 import * as Styled from "./styles/savedLists.styled";
-import ListCard from "./components/ListCard";
+// import ListCard from "./components/ListCard";
 
-const SavedLists: React.FC = () => {
+type SavedListsT = {
+  limit?: number;
+};
+
+const SavedLists: React.FC<SavedListsT> = ({ limit }) => {
   return (
     <Styled.SavedLists>
-      {Array.from(new Array(10)).map(() => (
+      {/* {Array.from(new Array(limit || 10)).map(() => (
         <ListCard key={uuid()} />
-      ))}
+      ))} */}
     </Styled.SavedLists>
   );
 };

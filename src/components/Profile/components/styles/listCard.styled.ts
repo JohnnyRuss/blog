@@ -32,6 +32,7 @@ export const ListCard = styled.li`
       }
 
       &--username {
+        text-transform: capitalize;
         font-weight: 600;
         font-size: ${({ theme }) => theme.fontSize.sm};
       }

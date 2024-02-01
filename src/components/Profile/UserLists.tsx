@@ -1,12 +1,21 @@
-import { v4 as uuid } from "uuid";
-import * as Styled from "./styles/userLists.styled";
-import ListCard from "./components/ListCard";
+// import { v4 as uuid } from "uuid";
 
-const UserLists: React.FC = () => {
+import { useGetListsQuery } from "@/hooks/api/lists";
+
+import ListCard from "./components/ListCard";
+import * as Styled from "./styles/userLists.styled";
+
+type UserListsT = {
+  limit?: number;
+};
+
+const UserLists: React.FC<UserListsT> = ({ limit }) => {
+  const { data, status } = useGetListsQuery(limit);
+
   return (
     <Styled.UserLists>
-      {Array.from(new Array(10)).map(() => (
-        <ListCard key={uuid()} />
+      {data.map((list) => (
+        <ListCard key={list._id} list={list} />
       ))}
     </Styled.UserLists>
   );

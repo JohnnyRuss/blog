@@ -64,11 +64,6 @@ type LikeArticleArgsT = {
   articleId: string;
 };
 
-type SaveArticleArgsT = {
-  articleId: string;
-  listId: string;
-};
-
 export type {
   ArticleT,
   ArticleAuthorT,
@@ -81,5 +76,4 @@ export type {
   GetAllArticlesArgsT,
   GetAllArticlesResponseT,
   LikeArticleArgsT,
-  SaveArticleArgsT,
 };

@@ -21,7 +21,7 @@ type ListShortT = {
 };
 
 // API
-type GetListsAgsT = { userId: string };
+type GetListsAgsT = { userId: string; limit?: number };
 
 type AddToListAgsT = { listId: string; articleId: string };
 

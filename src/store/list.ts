@@ -90,7 +90,11 @@ const useListStore = create<ListStoreT>()(
           set(() => ({ listsStatus: getStatus("PENDING") }));
 
           const { data }: AxiosResponse<Array<ListT>> =
-            await axiosPrivateQuery.get(`/lists/user/${args.userId}`);
+            await axiosPrivateQuery.get(
+              `/lists/user/${args.userId}${
+                args.limit ? `?limit=${args.limit}` : ""
+              }`
+            );
 
           set(() => ({ lists: data, listsStatus: getStatus("SUCCESS") }));
         } catch (error: any) {

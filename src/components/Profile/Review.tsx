@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 
 import { motion } from "framer-motion";
-import { animateLeft, animateTop } from "@/styles/animations";
+import {
+  animateLeft,
+  //  animateTop
+} from "@/styles/animations";
 
 import * as Styled from "./styles/review.styled";
-import ListCard from "./components/ListCard";
-import { FollowCard, ArticleCardSmall } from "@/components/Layouts";
+import UserLists from "./UserLists";
+// import ListCard from "./components/ListCard";
+import SavedLists from "./SavedLists";
+// import { FollowCard, ArticleCardSmall } from "@/components/Layouts";
 
 type ReviewT = {};
 
@@ -21,11 +26,7 @@ const Review: React.FC<ReviewT> = () => {
           Your Lists
         </motion.span>
 
-        <div className="review-block__list">
-          {Array.from(new Array(3)).map(() => (
-            <ListCard key={uuid()} />
-          ))}
-        </div>
+        <UserLists limit={3} />
 
         <Link to="" className="review-block__more">
           Show All
@@ -40,18 +41,14 @@ const Review: React.FC<ReviewT> = () => {
           Saved Lists
         </motion.span>
 
-        <div className="review-block__list">
-          {Array.from(new Array(3)).map(() => (
-            <ListCard key={uuid()} />
-          ))}
-        </div>
+        <SavedLists limit={3} />
 
         <Link to="" className="review-block__more">
           Show All
         </Link>
       </div>
 
-      {/* <div className="review-block">
+      <div className="review-block">
         <motion.span
           {...animateLeft({ once: true, inView: true })}
           className="review-block__title"
@@ -59,7 +56,7 @@ const Review: React.FC<ReviewT> = () => {
           Reading History
         </motion.span>
 
-        <div className="review-block__list">
+        {/* <div className="review-block__list">
           {Array.from(new Array(5)).map(() => (
             <motion.div
               {...animateTop({ once: true, inView: true })}
@@ -68,14 +65,14 @@ const Review: React.FC<ReviewT> = () => {
               <ArticleCardSmall />
             </motion.div>
           ))}
-        </div>
+        </div> */}
 
         <Link to="" className="review-block__more">
           Show All
         </Link>
-      </div> */}
+      </div>
 
-      {/* <div className="review-block">
+      <div className="review-block">
         <motion.span
           {...animateLeft({ once: true, inView: true })}
           className="review-block__title"
@@ -83,7 +80,7 @@ const Review: React.FC<ReviewT> = () => {
           Following
         </motion.span>
 
-        <div className="review-block__list">
+        {/* <div className="review-block__list">
           {Array.from(new Array(6)).map(() => (
             <motion.div
               {...animateTop({ once: true, inView: true })}
@@ -92,12 +89,12 @@ const Review: React.FC<ReviewT> = () => {
               <FollowCard />
             </motion.div>
           ))}
-        </div>
+        </div> */}
 
         <Link to="" className="review-block__more">
           Show All
         </Link>
-      </div> */}
+      </div>
     </Styled.Review>
   );
 };
