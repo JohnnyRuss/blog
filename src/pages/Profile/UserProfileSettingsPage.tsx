@@ -4,13 +4,13 @@ import ProfileProvider from "@/Providers/ProfileProvider";
 
 import { SuspenseContainer } from "@/components/Layouts";
 
-const Edit = lazy(() => import("@/components/Profile/Edit"));
+const EditProfile = lazy(() => import("@/components/Profile/EditProfile"));
 
 const UserProfileSettingsPage: React.FC = () => {
   return (
     <ProfileProvider>
       <SuspenseContainer>
-        <Edit />
+        <EditProfile />
       </SuspenseContainer>
     </ProfileProvider>
   );

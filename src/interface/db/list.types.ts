@@ -9,6 +9,7 @@ type ListT = {
   description: string;
   articles: Array<{ savedAt: string; article: ArticleShortT }>;
   privacy: string;
+  createdAt: string;
 };
 
 type ListShortT = {

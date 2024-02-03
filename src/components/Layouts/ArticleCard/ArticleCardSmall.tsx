@@ -20,7 +20,7 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({ article }) => {
   const { description, thumbnail } = useQuill(article.body);
 
   return (
-    <Styled.ArticleCardSmall to={DYNAMIC_ROUTES.article_page("some_post")}>
+    <Styled.ArticleCardSmall to={DYNAMIC_ROUTES.article_page(article.slug)}>
       <li className="article-sm__body">
         <div className="article-sm__body-content">
           <CardHead

@@ -4,32 +4,91 @@ import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 import { produce } from "immer";
 
+import { logger } from "@/utils";
+import { ARTICLES_PER_PAGE } from "@/config/config";
 import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
 
 import { ListT, ListShortT } from "@/interface/db/list.types";
 import { ListStateT, ListStoreT } from "@/interface/store/list.store.types";
-import { logger } from "@/utils";
-import { ArticleShortT } from "@/interface/db/article.types";
+import {
+  ArticleShortT,
+  GetAllArticlesResponseT,
+} from "@/interface/db/article.types";
 
 const initialState: ListStateT = {
-  // Lists
-  lists: [],
-  listsStatus: getStatus("IDLE"),
-  // Add To List
+  // ========== CREATE ==========
+  createListStatus: getStatus("IDLE"),
+
+  // ========== Add To List ==========
   listsToAdd: [],
   listsToAddStatus: getStatus("IDLE"),
-  createListStatus: getStatus("IDLE"),
-  // Saved Articles
+
+  // ========== Lists ==========
+  lists: [],
+  listsStatus: getStatus("IDLE"),
+
+  // ========== List Details ==========
+  listDetails: {
+    _id: "",
+    author: {
+      _id: "",
+      avatar: "",
+      email: "",
+      fullname: "",
+      username: "",
+    },
+    createdAt: "",
+    description: "",
+    privacy: "",
+    title: "",
+  },
+  listDetailsStatus: getStatus("IDLE"),
+
+  // ========== List Articles ==========
+  hasMore: false,
+  currentPage: 0,
+  listArticles: [],
+  listArticlesStatus: getStatus("IDLE"),
+
+  // ========== Saved Articles ==========
   savedStatus: getStatus("IDLE"),
   savedArticles: [],
 };
 
 const useListStore = create<ListStoreT>()(
   devtools(
-    immer((set) => ({
+    immer((set, get) => ({
       ...initialState,
-      // Add To List
+
+      // ========== CREATE ==========
+      async createList(args) {
+        try {
+          set(() => ({ createListStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<ListShortT> =
+            await axiosPrivateQuery.post(`/lists`, {
+              title: args.title,
+              description: args.description,
+              privacy: args.privacy,
+            });
+
+          set((state) => {
+            return {
+              ...produce(state, (draft) => {
+                draft.listsToAdd.push(data);
+              }),
+              createListStatus: getStatus("SUCCESS"),
+            };
+          });
+        } catch (error: any) {
+          const message = logger(error);
+          set(() => ({ createListStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      // ========== Add To List ==========
       async getListsToAdd() {
         try {
           set(() => ({ listsToAddStatus: getStatus("PENDING") }));
@@ -84,7 +143,7 @@ const useListStore = create<ListStoreT>()(
         }));
       },
 
-      // Lists
+      // ========== Lists ==========
       async getLists(args) {
         try {
           set(() => ({ listsStatus: getStatus("PENDING") }));
@@ -110,33 +169,83 @@ const useListStore = create<ListStoreT>()(
         }));
       },
 
-      async createList(args) {
+      // ========== List Details ==========
+      async getListDetails(listId) {
         try {
-          set(() => ({ createListStatus: getStatus("PENDING") }));
+          set(() => ({ listDetailsStatus: getStatus("PENDING") }));
 
-          const { data }: AxiosResponse<ListShortT> =
-            await axiosPrivateQuery.post(`/lists`, {
-              title: args.title,
-              description: args.description,
-              privacy: args.privacy,
-            });
+          const { data }: AxiosResponse<Omit<ListT, "articles">> =
+            await axiosPrivateQuery.get(`/lists/${listId}/details`);
 
-          set((state) => {
-            return {
-              ...produce(state, (draft) => {
-                draft.listsToAdd.push(data);
-              }),
-              createListStatus: getStatus("SUCCESS"),
-            };
-          });
+          set(() => ({
+            listDetails: data,
+            listDetailsStatus: getStatus("SUCCESS"),
+          }));
         } catch (error: any) {
           const message = logger(error);
-          set(() => ({ createListStatus: getStatus("FAIL", message) }));
-          throw error;
+          set(() => ({ listDetailsStatus: getStatus("FAIL", message) }));
         }
       },
 
-      //  Saved Articles
+      cleanUpListDetails() {
+        set(() => ({
+          listDetails: initialState.listDetails,
+          listDetailsStatus: initialState.listDetailsStatus,
+        }));
+      },
+
+      // ========== List Articles ==========
+      async getListArticles(listId) {
+        try {
+          set(() => ({ listArticlesStatus: getStatus("PENDING") }));
+
+          const {
+            data: { currentPage, data, hasMore },
+          }: AxiosResponse<GetAllArticlesResponseT> =
+            await axiosPrivateQuery.get(
+              `/lists/${listId}/articles?page=1&limit=${ARTICLES_PER_PAGE}`
+            );
+
+          set(() => ({
+            hasMore,
+            listArticles: data,
+            currentPage,
+            listArticlesStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = logger(error);
+          set(() => ({ listArticlesStatus: getStatus("FAIL", message) }));
+        }
+      },
+
+      async getPaginatedListArticles(args) {
+        try {
+          const {
+            data: { currentPage, data, hasMore },
+          }: AxiosResponse<GetAllArticlesResponseT> =
+            await axiosPrivateQuery.get(
+              `/lists/${args.listId}/articles?page=${args.page}&limit=${ARTICLES_PER_PAGE}`
+            );
+
+          set(() => ({
+            hasMore,
+            currentPage,
+            listArticles: [...get().listArticles, ...data],
+          }));
+        } catch (error: any) {
+          const message = logger(error);
+          set(() => ({ listArticlesStatus: getStatus("FAIL", message) }));
+        }
+      },
+
+      cleanUpListArticles() {
+        set(() => ({
+          listArticles: initialState.listArticles,
+          listArticlesStatus: initialState.listArticlesStatus,
+        }));
+      },
+
+      // ========== Saved Articles ==========
       async getRecentlySavedArticles() {
         try {
           set(() => ({ savedStatus: getStatus("PENDING") }));

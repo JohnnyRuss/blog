@@ -59,6 +59,12 @@ const Routes: Array<RouteT> = [
         children: [],
       },
       {
+        path: PATHS.profile_list,
+        title: "profile-list-page",
+        element: <Pages.ListPage />,
+        children: [],
+      },
+      {
         path: PATHS.profile_saved_lists,
         title: "profile-saved-lists-page",
         element: <Pages.UserSavedListsPage />,

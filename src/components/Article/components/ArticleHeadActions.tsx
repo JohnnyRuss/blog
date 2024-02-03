@@ -1,10 +1,22 @@
 import { articleStore } from "@/store";
+import { useSearchParams } from "@/hooks/utils";
 
 import * as Styled from "./styles/articleHeadActions.styled";
 import { FollowButton } from "@/components/Layouts";
 
 const ArticleHeadActions: React.FC = () => {
+  const { setParam } = useSearchParams();
+
   const article = articleStore.use.article();
+
+  const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!article._id) return;
+
+    setParam("save", article._id);
+  };
 
   return (
     <Styled.ArticleHeadActions>
@@ -45,7 +57,7 @@ const ArticleHeadActions: React.FC = () => {
         <span>{article.likes.length}</span>
       </button>
 
-      <button className="actions-item bookmark">
+      <button className="actions-item bookmark" onClick={onSave}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="1em"

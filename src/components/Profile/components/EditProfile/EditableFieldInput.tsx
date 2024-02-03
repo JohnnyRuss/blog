@@ -1,8 +1,8 @@
-import { Controller, Control, FieldValues } from "react-hook-form";
+import { Control, FieldValues } from "react-hook-form";
 
+import FieldController from "./FieldController";
 import { TextField, TextareaField } from "@/components/Layouts";
 
-import { HookFormTextFieldT } from "@/interface/form.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
 
 type EditableFieldInputT = {
@@ -64,50 +64,3 @@ const EditableFieldInput: React.FC<EditableFieldInputT> = ({
 };
 
 export default EditableFieldInput;
-
-type RenderArgsT = {
-  message: string;
-  hasError: boolean;
-  fieldProps: HookFormTextFieldT;
-};
-
-function FieldController(props: {
-  max?: number;
-  name: string;
-  showCounter?: boolean;
-  formControl: Control<FieldValues>;
-  render: (args: RenderArgsT) => React.ReactNode;
-}) {
-  return (
-    <Controller
-      name={props.name}
-      control={props.formControl}
-      render={({ field, fieldState: { error } }) => (
-        <>
-          {props.render({
-            fieldProps: {
-              ...field,
-              onChange: (
-                e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-              ) => {
-                const value =
-                  props.max && e.target.value.length > props.max
-                    ? field.value
-                    : e.target.value;
-                field.onChange(value);
-              },
-            },
-            message: error?.message || "",
-            hasError: error ? true : false,
-          })}
-
-          {props.showCounter && (
-            <span className="details-block__counter">
-              {field.value.length}/{props.max}
-            </span>
-          )}
-        </>
-      )}
-    />
-  );
-}

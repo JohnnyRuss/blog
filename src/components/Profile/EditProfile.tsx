@@ -4,14 +4,13 @@ import { userStore } from "@/store";
 import { useUpdateUserQuery } from "@/hooks/api/user";
 import { animateTopStagger } from "@/styles/animations";
 
+import * as UI from "./components";
 import * as Styled from "./styles/edit.styled";
-import EditableField from "./components/EditableField";
-import UpdateImageField from "./components/UpdateImageField";
 import { StandSpinner } from "@/components/Layouts";
 
 const { container, child } = animateTopStagger();
 
-const Edit: React.FC = () => {
+const EditProfile: React.FC = () => {
   const userDetails = userStore.use.userDetails();
 
   const { fullnameForm, emailForm, usernameForm, bioForm, onSaveData, status } =
@@ -19,11 +18,11 @@ const Edit: React.FC = () => {
 
   return (
     <Styled.Edit>
-      <UpdateImageField existingImage={userDetails.avatar} />
+      <UI.UpdateImageField existingImage={userDetails.avatar} />
 
       <motion.div className="user-settings__details-block" {...container}>
         <motion.div {...child}>
-          <EditableField
+          <UI.EditableField
             name="fullname"
             title="Full Name"
             form={fullnameForm}
@@ -33,7 +32,7 @@ const Edit: React.FC = () => {
         </motion.div>
 
         <motion.div {...child}>
-          <EditableField
+          <UI.EditableField
             name="email"
             title="Email Address"
             status={status}
@@ -43,7 +42,7 @@ const Edit: React.FC = () => {
         </motion.div>
 
         <motion.div {...child}>
-          <EditableField
+          <UI.EditableField
             max={16}
             title="Username"
             showCounter={true}
@@ -55,7 +54,7 @@ const Edit: React.FC = () => {
         </motion.div>
 
         <motion.div {...child}>
-          <EditableField
+          <UI.EditableField
             max={160}
             name="bio"
             title="Bio"
@@ -73,4 +72,4 @@ const Edit: React.FC = () => {
   );
 };
 
-export default Edit;
+export default EditProfile;

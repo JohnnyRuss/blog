@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 
+import { useSearchParams } from "@/hooks/utils";
 import { useUserTraceQuery } from "@/hooks/api/userTrace";
 import { useReadArticleQuery } from "@/hooks/api/articles";
 
@@ -9,11 +10,15 @@ import * as Styled from "./article.styled";
 
 import {
   QuillEditor,
-  AsidePopularArticles,
+  CreateListModal,
   AsideCategories,
+  AsidePopularArticles,
 } from "@/components/Layouts";
 
 const Article: React.FC = () => {
+  const { getParam } = useSearchParams();
+  const isAddingToList = getParam("save") || "";
+
   const { data, status } = useReadArticleQuery();
   const updateTrace = useUserTraceQuery();
 
@@ -23,27 +28,31 @@ const Article: React.FC = () => {
   }, [data.slug]);
 
   return (
-    <Styled.Article>
-      <div className="flex-container">
-        <div className="article-body">
-          {status.loading ? <UI.ArticleHeadSkeleton /> : <UI.ArticleHead />}
+    <>
+      <Styled.Article>
+        <div className="flex-container">
+          <div className="article-body">
+            {status.loading ? <UI.ArticleHeadSkeleton /> : <UI.ArticleHead />}
 
-          {status.loading ? (
-            <UI.ArticleBodySkeleton />
-          ) : (
-            <QuillEditor readonly={true} value={data.body} />
-          )}
+            {status.loading ? (
+              <UI.ArticleBodySkeleton />
+            ) : (
+              <QuillEditor readonly={true} value={data.body} />
+            )}
+          </div>
+
+          <aside className="article-aside">
+            <AsidePopularArticles />
+
+            <AsideCategories userbased="-1" />
+          </aside>
         </div>
 
-        <aside className="article-aside">
-          <AsidePopularArticles />
+        <UI.RelatedArticles />
+      </Styled.Article>
 
-          <AsideCategories userbased="-1" />
-        </aside>
-      </div>
-
-      <UI.RelatedArticles />
-    </Styled.Article>
+      {isAddingToList && <CreateListModal />}
+    </>
   );
 };
 

@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
 import { animateLeft } from "@/styles/animations";
-import { useWhoToFollowQuery } from "@/hooks/api/user";
+import { useWhoToFollowQuery } from "@/hooks/api/userFollow";
 
 import {
   FollowCard,

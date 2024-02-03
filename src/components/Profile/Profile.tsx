@@ -1,6 +1,6 @@
 import * as Styled from "./styles/profile.styled";
-import ProfileNav from "./components/ProfileNav";
-import ProfileAside from "./components/ProfileAside";
+import ProfileNav from "./components/ProfileNav/ProfileNav";
+import ProfileAside from "./components/ProfileAside/ProfileAside";
 
 type ProfileT = {
   children: React.ReactNode;

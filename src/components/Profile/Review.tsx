@@ -1,101 +1,58 @@
-import { Link } from "react-router-dom";
-// import { v4 as uuid } from "uuid";
+import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
-import { motion } from "framer-motion";
-import {
-  animateLeft,
-  //  animateTop
-} from "@/styles/animations";
+import { useSearchParams } from "@/hooks/utils";
+import { DYNAMIC_ROUTES } from "@/config/paths";
 
-import * as Styled from "./styles/review.styled";
-import UserLists from "./UserLists";
-// import ListCard from "./components/ListCard";
-import SavedLists from "./SavedLists";
-// import { FollowCard, ArticleCardSmall } from "@/components/Layouts";
+import * as UI from "./components";
+import { CreateListModal } from "@/components/Layouts";
 
-type ReviewT = {};
+export const StyledReview = styled.section`
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+`;
 
-const Review: React.FC<ReviewT> = () => {
+const Review: React.FC = () => {
+  const { username } = useParams();
+
+  const { getParam } = useSearchParams();
+  const isAddingToList = getParam("save") || "";
+
   return (
-    <Styled.Review>
-      <div className="review-block">
-        <motion.span
-          {...animateLeft({ once: true, inView: true })}
-          className="review-block__title"
+    <>
+      <StyledReview>
+        <UI.ReviewBlock
+          title="Your Lists"
+          redirectPath={DYNAMIC_ROUTES.profile_lists(username || "")}
         >
-          Your Lists
-        </motion.span>
+          <UI.UserLists limit={3} />
+        </UI.ReviewBlock>
 
-        <UserLists limit={3} />
-
-        <Link to="" className="review-block__more">
-          Show All
-        </Link>
-      </div>
-
-      <div className="review-block">
-        <motion.span
-          {...animateLeft({ once: true, inView: true })}
-          className="review-block__title"
+        <UI.ReviewBlock
+          title="Saved Lists"
+          redirectPath={DYNAMIC_ROUTES.profile_saved_lists(username || "")}
         >
-          Saved Lists
-        </motion.span>
+          <UI.SavedLists limit={3} />
+        </UI.ReviewBlock>
 
-        <SavedLists limit={3} />
-
-        <Link to="" className="review-block__more">
-          Show All
-        </Link>
-      </div>
-
-      <div className="review-block">
-        <motion.span
-          {...animateLeft({ once: true, inView: true })}
-          className="review-block__title"
+        <UI.ReviewBlock
+          title="Reading History"
+          redirectPath={DYNAMIC_ROUTES.profile_history(username || "")}
         >
-          Reading History
-        </motion.span>
+          <UI.HistoryList limit={4} />
+        </UI.ReviewBlock>
 
-        {/* <div className="review-block__list">
-          {Array.from(new Array(5)).map(() => (
-            <motion.div
-              {...animateTop({ once: true, inView: true })}
-              key={uuid()}
-            >
-              <ArticleCardSmall />
-            </motion.div>
-          ))}
-        </div> */}
-
-        <Link to="" className="review-block__more">
-          Show All
-        </Link>
-      </div>
-
-      <div className="review-block">
-        <motion.span
-          {...animateLeft({ once: true, inView: true })}
-          className="review-block__title"
+        <UI.ReviewBlock
+          title="Following"
+          redirectPath={DYNAMIC_ROUTES.profile_following(username || "")}
         >
-          Following
-        </motion.span>
+          <UI.FollowingList />
+        </UI.ReviewBlock>
+      </StyledReview>
 
-        {/* <div className="review-block__list">
-          {Array.from(new Array(6)).map(() => (
-            <motion.div
-              {...animateTop({ once: true, inView: true })}
-              key={uuid()}
-            >
-              <FollowCard />
-            </motion.div>
-          ))}
-        </div> */}
-
-        <Link to="" className="review-block__more">
-          Show All
-        </Link>
-      </div>
-    </Styled.Review>
+      {isAddingToList && <CreateListModal />}
+    </>
   );
 };
 

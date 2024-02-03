@@ -50,7 +50,7 @@ type GetArticleArgsT = {
 };
 
 type GetAllArticlesArgsT = {
-  query: string;
+  query?: string;
   page: number;
 };
 

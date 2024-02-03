@@ -25,7 +25,7 @@ export const FollowCard = styled.li`
   .follow-card__content {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 100%;
 
     &-username {
       text-transform: capitalize;

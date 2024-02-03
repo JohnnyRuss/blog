@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { useTheme } from "styled-components";
 import { motion } from "framer-motion";
+import { useTheme } from "styled-components";
+
+import { DYNAMIC_ROUTES } from "@/config/paths";
 
 import ListCardFig from "./ListCardFig";
 import { animateTop } from "@/styles/animations";
@@ -18,7 +20,7 @@ const ListCard: React.FC<ListCardT> = ({ list }) => {
 
   return (
     <motion.div {...animateTop({ once: true, inView: true })}>
-      <Link to="/123">
+      <Link to={DYNAMIC_ROUTES.profile_list(list.author.username, list._id)}>
         <Styled.ListCard>
           <div className="list-card__content">
             <div className="list-card__content-user">

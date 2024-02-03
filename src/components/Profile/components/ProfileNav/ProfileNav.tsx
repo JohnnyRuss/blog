@@ -7,7 +7,7 @@ import "react-multi-carousel/lib/styles.css";
 import { DYNAMIC_ROUTES, PATHS } from "@/config/paths";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 
-import * as Styled from "./styles/nav.styled";
+import * as Styled from "./nav.styled";
 
 const responsive = {
   desktop: {
