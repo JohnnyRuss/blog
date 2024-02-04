@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { animateRight } from "@/styles/animations";
 
-import { HistoryList } from "./components";
+import { HistoryList } from "./components/History";
 import * as Styled from "./styles/history.styled";
 
 const ReadingHistory: React.FC = () => {

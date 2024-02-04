@@ -39,6 +39,10 @@ export const RecentlySaved = styled.div`
         font-weight: 600;
         text-transform: capitalize;
         font-size: ${({ theme }) => theme.fontSize.sm};
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 

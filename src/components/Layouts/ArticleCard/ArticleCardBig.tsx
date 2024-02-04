@@ -33,16 +33,10 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
           <div className="article-card__content-header">
             <AuthorIdentifier
               date={article.createdAt}
-              userId={article.author._id}
-              avatar={article.author.avatar}
-              fullname={article.author.fullname}
+              author={article.author}
             />
 
-            <CategoryChip
-              size="md"
-              title={category?.title}
-              bgColor={category?.color}
-            />
+            <CategoryChip size="md" category={category} />
           </div>
 
           <LineClamp clamp={2} component="h3" text={article.title} />

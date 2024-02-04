@@ -173,10 +173,10 @@ const useListStore = create<ListStoreT>()(
       async getListDetails(listId) {
         try {
           set(() => ({ listDetailsStatus: getStatus("PENDING") }));
-
+          console.log("runs");
           const { data }: AxiosResponse<Omit<ListT, "articles">> =
             await axiosPrivateQuery.get(`/lists/${listId}/details`);
-
+          console.log(data);
           set(() => ({
             listDetails: data,
             listDetailsStatus: getStatus("SUCCESS"),

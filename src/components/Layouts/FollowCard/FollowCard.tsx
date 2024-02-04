@@ -1,4 +1,7 @@
 import { useTheme } from "styled-components";
+import { Link } from "react-router-dom";
+
+import { DYNAMIC_ROUTES } from "@/config/paths";
 
 import * as Styled from "./followCard.styled";
 import { LineClamp, FollowButton } from "@/components/Layouts";
@@ -26,7 +29,12 @@ const FollowCard: React.FC<FollowCardT> = ({ user }) => {
       </figure>
 
       <div className="follow-card__content">
-        <p className="follow-card__content-username">{user.fullname}</p>
+        <Link
+          className="follow-card__content-username"
+          to={DYNAMIC_ROUTES.profile_page(user.username)}
+        >
+          {user.fullname}
+        </Link>
 
         <LineClamp
           clamp={2}

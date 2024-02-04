@@ -1,10 +1,12 @@
 import Skeleton from "react-loading-skeleton";
 import * as Styled from "./identifier.styled";
 
-const AuthorIdentifierSkeleton: React.FC = ({
-  showDateSkeleton = true,
-}: {
+type AuthorIdentifierSkeletonT = {
   showDateSkeleton?: boolean;
+};
+
+const AuthorIdentifierSkeleton: React.FC<AuthorIdentifierSkeletonT> = ({
+  showDateSkeleton = true,
 }) => {
   return (
     <Styled.AuthorIdentifier>

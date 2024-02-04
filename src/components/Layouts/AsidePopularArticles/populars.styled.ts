@@ -20,6 +20,10 @@ export const PopularArticles = styled.ul`
     &-author {
       font-weight: 600;
       text-transform: capitalize;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     &-date {

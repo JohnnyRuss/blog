@@ -19,6 +19,7 @@ type ArticleAuthorT = {
   username: string;
   fullname: string;
   avatar: string;
+  email: string;
 };
 
 type ArticleShortT = {

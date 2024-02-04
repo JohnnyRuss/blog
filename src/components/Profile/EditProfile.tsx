@@ -4,7 +4,7 @@ import { userStore } from "@/store";
 import { useUpdateUserQuery } from "@/hooks/api/user";
 import { animateTopStagger } from "@/styles/animations";
 
-import * as UI from "./components";
+import * as UI from "./components/EditProfile";
 import * as Styled from "./styles/edit.styled";
 import { StandSpinner } from "@/components/Layouts";
 

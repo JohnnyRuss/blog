@@ -15,14 +15,12 @@ export const ProfileContext = createContext<ProfileContextT>({});
 const ProfileProvider: React.FC<ProfileProviderT> = ({ children }) => {
   const { username } = useParams();
 
-  const userDetails = userStore.use.userDetails();
   const getUserDetails = userStore.use.getUserDetails();
 
   useEffect(() => {
     if (!username) return;
-
-    if (!userDetails) getUserDetails({ username });
-  }, [userDetails, username]);
+    getUserDetails({ username });
+  }, [username]);
 
   return (
     <ProfileContext.Provider value={{}}>{children}</ProfileContext.Provider>

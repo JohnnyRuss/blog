@@ -1,6 +1,6 @@
 import { memo } from "react";
-import { NavLink, useParams } from "react-router-dom";
 import Carousel from "react-multi-carousel";
+import { NavLink, useParams } from "react-router-dom";
 
 import "react-multi-carousel/lib/styles.css";
 
@@ -25,6 +25,8 @@ const responsive = {
 const ProfileNav: React.FC = memo(() => {
   const { username } = useParams();
   const { decodedUser } = useCheckIsAuthenticatedUser(true);
+
+  const isActiveUserProfile = username === decodedUser?.username;
 
   return (
     <Styled.ProfileNav>
@@ -64,25 +66,29 @@ const ProfileNav: React.FC = memo(() => {
           Saved lists
         </NavLink>
 
-        <NavLink
-          to={DYNAMIC_ROUTES.profile_history(username || "")}
-          className={({ isActive }) =>
-            `profile-nav--list__item ${isActive ? "active" : ""}`
-          }
-        >
-          Reading History
-        </NavLink>
+        {isActiveUserProfile && (
+          <>
+            <NavLink
+              to={DYNAMIC_ROUTES.profile_history(username || "")}
+              className={({ isActive }) =>
+                `profile-nav--list__item ${isActive ? "active" : ""}`
+              }
+            >
+              Reading History
+            </NavLink>
 
-        <NavLink
-          to={DYNAMIC_ROUTES.profile_following(username || "")}
-          className={({ isActive }) =>
-            `profile-nav--list__item ${isActive ? "active" : ""}`
-          }
-        >
-          Following
-        </NavLink>
+            <NavLink
+              to={DYNAMIC_ROUTES.profile_following(username || "")}
+              className={({ isActive }) =>
+                `profile-nav--list__item ${isActive ? "active" : ""}`
+              }
+            >
+              Following
+            </NavLink>
+          </>
+        )}
 
-        {decodedUser?.role === "ADMIN" && (
+        {decodedUser?.role === "ADMIN" && isActiveUserProfile && (
           <NavLink
             to={PATHS.dashboard_page}
             className={({ isActive }) =>

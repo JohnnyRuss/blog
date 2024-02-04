@@ -1,10 +1,16 @@
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 
+import { userStore } from "@/store";
+import { extractUserFirstName } from "@/utils";
 import { useSearchParams } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
+import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 
-import * as UI from "./components";
+import { ReviewBlock } from "./components/Review";
+import { HistoryList } from "./components/History";
+import { FollowingList } from "./components/Following";
+import { UserLists, SavedLists } from "./components/UserLists";
 import { CreateListModal } from "@/components/Layouts";
 
 export const StyledReview = styled.section`
@@ -19,36 +25,56 @@ const Review: React.FC = () => {
   const { getParam } = useSearchParams();
   const isAddingToList = getParam("save") || "";
 
+  const user = userStore.use.userDetails();
+  const userFirstName = extractUserFirstName(user.fullname);
+
+  const { user: activeUser } = useCheckIsAuthenticatedUser();
+  const isActiveUserProfile = username === activeUser?.username;
+
+  const emptyMessage = isActiveUserProfile
+    ? "You haven't lists yet"
+    : `${userFirstName} hasn't Public lists`;
+
   return (
     <>
       <StyledReview>
-        <UI.ReviewBlock
-          title="Your Lists"
+        <ReviewBlock
+          title={
+            isActiveUserProfile ? "Your Lists" : `${userFirstName}'s Lists`
+          }
           redirectPath={DYNAMIC_ROUTES.profile_lists(username || "")}
         >
-          <UI.UserLists limit={3} />
-        </UI.ReviewBlock>
+          <UserLists limit={3} emptyMessage={emptyMessage} />
+        </ReviewBlock>
 
-        <UI.ReviewBlock
-          title="Saved Lists"
+        <ReviewBlock
+          title={
+            isActiveUserProfile
+              ? "Saved Lists"
+              : `${extractUserFirstName(user.fullname)}'s Saved Lists`
+          }
           redirectPath={DYNAMIC_ROUTES.profile_saved_lists(username || "")}
         >
-          <UI.SavedLists limit={3} />
-        </UI.ReviewBlock>
+          <SavedLists limit={3} />
+        </ReviewBlock>
 
-        <UI.ReviewBlock
-          title="Reading History"
-          redirectPath={DYNAMIC_ROUTES.profile_history(username || "")}
-        >
-          <UI.HistoryList limit={4} />
-        </UI.ReviewBlock>
+        {isActiveUserProfile && (
+          <>
+            <ReviewBlock
+              title="Reading History"
+              redirectPath={DYNAMIC_ROUTES.profile_history(username || "")}
+            >
+              <HistoryList limit={4} />
+            </ReviewBlock>
 
-        <UI.ReviewBlock
-          title="Following"
-          redirectPath={DYNAMIC_ROUTES.profile_following(username || "")}
-        >
-          <UI.FollowingList />
-        </UI.ReviewBlock>
+            <ReviewBlock
+              title="Following"
+              redirectPath={DYNAMIC_ROUTES.profile_following(username || "")}
+            >
+              <FollowingList />
+            </ReviewBlock>
+          </>
+        )}
       </StyledReview>
 
       {isAddingToList && <CreateListModal />}

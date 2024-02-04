@@ -51,6 +51,7 @@ export { default as CategoryChip } from "./CategoryChip/CategoryChip";
 export { default as QuillEditor } from "./QuillEditor/QuillEditor";
 export { default as ErrorMessage } from "./ErrorMessage/ErrorMessage";
 export { default as InfiniteScroll } from "./InfiniteScroll/InfiniteScroll";
+export { default as EmptyMessage } from "./EmptyMessage/EmptyMessage";
 
 // SPINNERS
 export { default as Spinner } from "./Spinner/Spinner";

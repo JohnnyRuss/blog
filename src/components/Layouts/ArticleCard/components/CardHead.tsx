@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+
+import { DYNAMIC_ROUTES } from "@/config/paths";
+
 import * as Styled from "./styles/cardHead.styled";
 
 import { ArticleAuthorT } from "@/interface/db/article.types";
@@ -21,7 +25,12 @@ const CardHead: React.FC<CardHeadT> = ({ author }) => {
       </figure>
 
       <p className="card-head__user">
-        <span className="card-head__user-name">{author.fullname}</span>
+        <Link
+          to={DYNAMIC_ROUTES.profile_page(author.username)}
+          className="card-head__user-name"
+        >
+          {author.fullname}
+        </Link>
         {/* <span className="card-head__user-work">
           {" "}
           <sup>

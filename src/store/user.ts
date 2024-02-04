@@ -13,7 +13,14 @@ import { UserStateT, UserStoreT } from "@/interface/store/user.store.types";
 const initialState: UserStateT = {
   detailsStatus: getStatus("IDLE"),
   updateDetailStatus: getStatus("IDLE"),
-  userDetails: null,
+  userDetails: {
+    _id: "",
+    avatar: "",
+    bio: "",
+    email: "",
+    fullname: "",
+    username: "",
+  },
 };
 
 const useUserStore = create<UserStoreT>()(

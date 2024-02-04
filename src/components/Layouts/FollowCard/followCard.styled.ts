@@ -31,6 +31,10 @@ export const FollowCard = styled.li`
       text-transform: capitalize;
       font-weight: 600;
       font-size: ${({ theme }) => theme.fontSize.sm};
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 `;

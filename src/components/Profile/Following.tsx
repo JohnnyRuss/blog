@@ -1,4 +1,4 @@
-import { FollowingList } from "./components";
+import { FollowingList } from "./components/Following";
 import * as Styled from "./styles/following.styled";
 
 type FollowingT = {};

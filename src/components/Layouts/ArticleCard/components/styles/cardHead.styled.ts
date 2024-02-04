@@ -29,6 +29,10 @@ export const CardHead = styled.div`
       font-weight: 600;
       text-transform: capitalize;
       padding-top: 2px;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     &-work {

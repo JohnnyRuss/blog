@@ -2,6 +2,8 @@ import moment from "moment";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
+import { DYNAMIC_ROUTES } from "@/config/paths";
+
 import { animateLeft } from "@/styles/animations";
 import { LineClamp } from "@/components/Layouts";
 
@@ -13,7 +15,7 @@ type RecentlySavedCardT = {
 
 const RecentlySavedCard: React.FC<RecentlySavedCardT> = ({ article }) => {
   return (
-    <Link to="/saved/123">
+    <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>
       <motion.li
         className="saved-list__card"
         {...animateLeft({ inView: true, once: true })}
@@ -30,9 +32,12 @@ const RecentlySavedCard: React.FC<RecentlySavedCardT> = ({ article }) => {
             />
           </figure>
 
-          <span className="saved-list__card-user--username">
+          <Link
+            className="saved-list__card-user--username"
+            to={DYNAMIC_ROUTES.profile_page(article.author.username)}
+          >
             {article.author.fullname}
-          </span>
+          </Link>
         </div>
 
         <LineClamp component="h3" clamp={2} text={article.title} />

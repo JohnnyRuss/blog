@@ -10,12 +10,7 @@ const ArticleSubHead: React.FC = () => {
   return (
     <Styled.ArticleHead>
       <div className="article-head__sub">
-        <AuthorIdentifier
-          date={article.createdAt}
-          userId={article.author._id}
-          avatar={article.author.avatar}
-          fullname={article.author.fullname}
-        />
+        <AuthorIdentifier date={article.createdAt} author={article.author} />
 
         <CategoryChip category={article.categories[0]} size="md" />
 
