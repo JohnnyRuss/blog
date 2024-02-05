@@ -54,7 +54,7 @@ const ProfileNav: React.FC = memo(() => {
             `profile-nav--list__item ${isActive ? "active" : ""}`
           }
         >
-          Your lists
+          {isActiveUserProfile ? "Your lists" : "Lists"}
         </NavLink>
 
         <NavLink

@@ -2,9 +2,11 @@ import {
   ListShortT,
   ListT,
   // API
-  GetListsAgsT,
-  AddToListAgsT,
-  CreateListAgsT,
+  GetListsArgsT,
+  AddToListArgsT,
+  CreateListArgsT,
+  UpdateListArgsT,
+  DeleteListArgsT,
 } from "@/interface/db/list.types";
 import { ArticleShortT } from "@/interface/db/article.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
@@ -12,12 +14,14 @@ import { LoadingStatusT } from "@/interface/store/common.types";
 type ListStateT = {
   // ========== CREATE ==========
   createListStatus: LoadingStatusT;
+  // ========== DELETE ==========
+  deleteListStatus: LoadingStatusT;
   // ========== Add To List ==========
-  listsToAddStatus: LoadingStatusT;
   listsToAdd: Array<ListShortT>;
+  listsToAddStatus: LoadingStatusT;
   // ========== Lists ==========
-  listsStatus: LoadingStatusT;
   lists: Array<ListT>;
+  listsStatus: LoadingStatusT;
   // ========== List Details ==========
   listDetails: Omit<ListT, "articles">;
   listDetailsStatus: LoadingStatusT;
@@ -33,13 +37,16 @@ type ListStateT = {
 
 type ListActionsT = {
   // ========== CREATE ==========
-  createList: (args: CreateListAgsT) => Promise<void>;
+  createList: (args: CreateListArgsT) => Promise<void>;
+  updateList: (args: UpdateListArgsT) => Promise<void>;
+  // ========== DELETE ==========
+  deleteList: (args: DeleteListArgsT) => Promise<void>;
   // ========== Add To List ==========
   getListsToAdd: () => Promise<void>;
-  addToList: (args: AddToListAgsT) => Promise<void>;
+  addToList: (args: AddToListArgsT) => Promise<void>;
   cleanUpListsToAdd: () => void;
   // ========== Lists ==========
-  getLists: (args: GetListsAgsT) => Promise<void>;
+  getLists: (args: GetListsArgsT) => Promise<void>;
   cleanUpLists: () => void;
   // ========== List Details ==========
   getListDetails: (listId: string) => Promise<void>;

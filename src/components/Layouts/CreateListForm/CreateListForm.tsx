@@ -1,19 +1,24 @@
-import { Controller } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 
-import { useCreateListQuery } from "@/hooks/api/lists";
-
+import * as Styled from "./createList.styled";
 import PrivateIcon from "@/assets/icons/private.svg";
 import { TextField, TextareaField, CheckBox } from "@/components/Layouts";
 
+import { CreateListSchemaT } from "@/utils/validations/createListSchema";
+
 type CreateListFormT = {
   onCancel: () => void;
+  onCreate: () => Promise<void>;
+  form: UseFormReturn<CreateListSchemaT>;
 };
 
-const CreateListForm: React.FC<CreateListFormT> = ({ onCancel }) => {
-  const { form, onCreate } = useCreateListQuery(onCancel);
-
+const CreateListForm: React.FC<CreateListFormT> = ({
+  form,
+  onCreate,
+  onCancel,
+}) => {
   return (
-    <div className="create-list__box">
+    <Styled.CreateList>
       <form className="create-list__form">
         <Controller
           control={form.control}
@@ -76,7 +81,7 @@ const CreateListForm: React.FC<CreateListFormT> = ({ onCancel }) => {
         <button onClick={onCancel}>Cancel</button>
         <button onClick={onCreate}>Create</button>
       </div>
-    </div>
+    </Styled.CreateList>
   );
 };
 

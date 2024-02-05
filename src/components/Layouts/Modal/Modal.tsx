@@ -52,7 +52,7 @@ const Modal: React.FC<ModalT> = ({ children, onClose, open, showCloseBtn }) => {
   const stopPropagation = (e: React.MouseEvent) => e.stopPropagation();
 
   return createPortal(
-    <AppModal className="scroll-block">
+    <AppModal className={open ? "scroll-block" : ""}>
       {open && (
         <div className="modal-box" onClick={onClose}>
           <div className="modal-window" onClick={stopPropagation}>

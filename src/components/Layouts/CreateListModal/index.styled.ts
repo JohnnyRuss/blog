@@ -46,16 +46,4 @@ export const CreateListModal = styled.div`
     gap: 2rem;
     color: ${({ theme }) => theme.colors.green};
   }
-
-  .create-list__box {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .create-list__form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
 `;

@@ -1,26 +1,34 @@
 import { useState } from "react";
 
+import {
+  useGetListsToAddQuery,
+  useAddToListQuery,
+  useCreateListQuery,
+} from "@/hooks/api/lists";
 import { useSearchParams } from "@/hooks/utils";
-import { useGetListsToAddQuery, useAddToListQuery } from "@/hooks/api/lists";
 
 import ListItem from "./ListItem";
-import CreateListForm from "./CreateListForm";
-import { Modal, RelativeSpinner } from "@/components/Layouts";
 import * as Styled from "./index.styled";
+import { Modal, RelativeSpinner, CreateListForm } from "@/components/Layouts";
 
 type CreateListModalT = {};
 
 const CreateListModal: React.FC<CreateListModalT> = () => {
+  // ========== Candidate Lists ==========
   const { data, status } = useGetListsToAddQuery();
+
+  // ========== Add To List ==========
   const { add } = useAddToListQuery();
 
   const { getParam, removeParam } = useSearchParams();
   const isAddingToListId = getParam("save") || "";
+  const onCloseModal = () => removeParam("save");
 
+  // ========== Create Lists ==========
   const [isCreatingList, setIsCreatingList] = useState(false);
   const onCancelListCreation = () => setIsCreatingList(false);
 
-  const onCloseModal = () => removeParam("save");
+  const { form, onCreate } = useCreateListQuery(onCancelListCreation);
 
   return (
     <div>
@@ -56,7 +64,13 @@ const CreateListModal: React.FC<CreateListModalT> = () => {
             </>
           )}
 
-          {isCreatingList && <CreateListForm onCancel={onCancelListCreation} />}
+          {isCreatingList && (
+            <CreateListForm
+              form={form}
+              onCreate={onCreate}
+              onCancel={onCancelListCreation}
+            />
+          )}
         </Styled.CreateListModal>
       </Modal>
     </div>

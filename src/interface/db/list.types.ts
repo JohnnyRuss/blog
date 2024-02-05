@@ -22,17 +22,23 @@ type ListShortT = {
 };
 
 // API
-type GetListsAgsT = { userId: string; limit?: number };
+type CreateListArgsT = CreateListSchemaT;
 
-type AddToListAgsT = { listId: string; articleId: string };
+type UpdateListArgsT = { listId: string; data: CreateListSchemaT };
 
-type CreateListAgsT = CreateListSchemaT;
+type DeleteListArgsT = { listId: string };
+
+type GetListsArgsT = { userId: string; limit?: number };
+
+type AddToListArgsT = { listId: string; articleId: string };
 
 export type {
   ListT,
   ListShortT,
   // API
-  AddToListAgsT,
-  GetListsAgsT,
-  CreateListAgsT,
+  CreateListArgsT,
+  UpdateListArgsT,
+  DeleteListArgsT,
+  AddToListArgsT,
+  GetListsArgsT,
 };

@@ -5,20 +5,26 @@ import { AxiosResponse } from "axios";
 import { produce } from "immer";
 
 import { logger } from "@/utils";
+import { userStore } from "@/store";
+import { RouterHistory } from "@/config/config";
+import { DYNAMIC_ROUTES } from "@/config/paths";
 import { ARTICLES_PER_PAGE } from "@/config/config";
 import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
 
-import { ListT, ListShortT } from "@/interface/db/list.types";
-import { ListStateT, ListStoreT } from "@/interface/store/list.store.types";
 import {
   ArticleShortT,
   GetAllArticlesResponseT,
 } from "@/interface/db/article.types";
+import { ListT, ListShortT } from "@/interface/db/list.types";
+import { ListStateT, ListStoreT } from "@/interface/store/list.store.types";
 
 const initialState: ListStateT = {
   // ========== CREATE ==========
   createListStatus: getStatus("IDLE"),
+
+  // ========== DELETE ==========
+  deleteListStatus: getStatus("IDLE"),
 
   // ========== Add To List ==========
   listsToAdd: [],
@@ -84,6 +90,53 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ createListStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      async updateList(args) {
+        try {
+          set(() => ({ createListStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<ListShortT> =
+            await axiosPrivateQuery.put(`/lists/${args.listId}`, args.data);
+
+          set((state) => {
+            return {
+              ...produce(state, (draft) => {
+                if (args.listId === draft.listDetails._id) {
+                  draft.listDetails.title = data.title;
+                  draft.listDetails.description = data.description;
+                  draft.listDetails.privacy = data.privacy;
+                }
+              }),
+
+              createListStatus: getStatus("SUCCESS"),
+            };
+          });
+        } catch (error: any) {
+          const message = logger(error);
+          set(() => ({ createListStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      // ========== DELETE ==========
+      async deleteList(args) {
+        try {
+          set(() => ({ deleteListStatus: getStatus("PENDING") }));
+
+          await axiosPrivateQuery.delete(`/lists/${args.listId}`);
+
+          const { username } = userStore.getState().userDetails;
+          RouterHistory.navigate(DYNAMIC_ROUTES.profile_lists(username), {
+            replace: true,
+          });
+
+          set(() => ({ deleteListStatus: getStatus("SUCCESS") }));
+        } catch (error: any) {
+          const message = logger(error);
+          set(() => ({ deleteListStatus: getStatus("FAIL", message) }));
           throw error;
         }
       },
@@ -154,7 +207,7 @@ const useListStore = create<ListStoreT>()(
                 args.limit ? `?limit=${args.limit}` : ""
               }`
             );
-
+          console.log(data);
           set(() => ({ lists: data, listsStatus: getStatus("SUCCESS") }));
         } catch (error: any) {
           const message = logger(error);
@@ -173,10 +226,10 @@ const useListStore = create<ListStoreT>()(
       async getListDetails(listId) {
         try {
           set(() => ({ listDetailsStatus: getStatus("PENDING") }));
-          console.log("runs");
+
           const { data }: AxiosResponse<Omit<ListT, "articles">> =
             await axiosPrivateQuery.get(`/lists/${listId}/details`);
-          console.log(data);
+
           set(() => ({
             listDetails: data,
             listDetailsStatus: getStatus("SUCCESS"),

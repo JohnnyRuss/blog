@@ -1,4 +1,5 @@
 import { useTheme } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { useQuill } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
@@ -15,22 +16,22 @@ type ArticleCardSmallT = {
 };
 
 const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({ article }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
 
   const { description, thumbnail } = useQuill(article.body);
 
+  const onNavigateToArticle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(DYNAMIC_ROUTES.article_page(article.slug));
+  };
+
   return (
-    <Styled.ArticleCardSmall to={DYNAMIC_ROUTES.article_page(article.slug)}>
+    <Styled.ArticleCardSmall onClick={onNavigateToArticle}>
       <li className="article-sm__body">
         <div className="article-sm__body-content">
-          <CardHead
-            author={{
-              _id: article.author._id,
-              avatar: article.author.avatar,
-              fullname: article.author.fullname,
-              username: article.author.username,
-            }}
-          />
+          <CardHead author={article.author} />
 
           <div className="article-sm__body-content--text">
             <LineClamp clamp={2} component="h3" text={article.title} />

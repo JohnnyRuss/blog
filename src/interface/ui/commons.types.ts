@@ -19,4 +19,20 @@ type MultiSelectPropsT<T> = {
   message?: string;
 };
 
-export type { MultiSelectOptionT, MultiSelectPropsT, OnMultipleSelectT };
+type DialogT = {
+  open: boolean;
+  title?: string;
+  subTitle?: string;
+  message: string;
+  target: string;
+  type?: "warning" | "detailed" | "danger";
+  onClose: () => void;
+  onConfirm: () => void;
+};
+
+export type {
+  MultiSelectOptionT,
+  MultiSelectPropsT,
+  OnMultipleSelectT,
+  DialogT,
+};

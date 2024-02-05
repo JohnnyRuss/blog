@@ -1,10 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-
 import { listsStore, userStore } from "@/store";
 
 export default function useGetListsQuery(limit?: number) {
-  const user = userStore.use.userDetails();
+  const { _id: userId } = userStore.use.userDetails();
 
   const data = listsStore.use.lists();
   const get = listsStore.use.getLists();
@@ -12,14 +11,14 @@ export default function useGetListsQuery(limit?: number) {
   const cleanUpLists = listsStore.use.cleanUpLists();
 
   useEffect(() => {
-    if (!user?._id) return;
+    if (!userId) return;
 
-    get({ userId: user._id, limit });
+    get({ userId, limit });
 
     return () => {
       cleanUpLists();
     };
-  }, [user?._id, limit]);
+  }, [userId, limit]);
 
   return { data, status };
 }

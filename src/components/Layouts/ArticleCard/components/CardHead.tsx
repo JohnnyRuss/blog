@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { DYNAMIC_ROUTES } from "@/config/paths";
 
@@ -11,6 +11,14 @@ type CardHeadT = {
 };
 
 const CardHead: React.FC<CardHeadT> = ({ author }) => {
+  const navigate = useNavigate();
+
+  const onRedirectToAuthor = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(DYNAMIC_ROUTES.profile_page(author.username));
+  };
+
   return (
     <Styled.CardHead>
       <figure className="card-head__fig">
@@ -25,19 +33,9 @@ const CardHead: React.FC<CardHeadT> = ({ author }) => {
       </figure>
 
       <p className="card-head__user">
-        <Link
-          to={DYNAMIC_ROUTES.profile_page(author.username)}
-          className="card-head__user-name"
-        >
+        <span onClick={onRedirectToAuthor} className="card-head__user-name">
           {author.fullname}
-        </Link>
-        {/* <span className="card-head__user-work">
-          {" "}
-          <sup>
-            <small>in</small>
-          </sup>{" "}
-          <span>Towards Data Science</span>
-        </span> */}
+        </span>
       </p>
     </Styled.CardHead>
   );

@@ -50,10 +50,10 @@ const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
             <ArticleCardSmallSkeleton key={uuid()} />
           ))}
         >
-          {data.map((article) => (
+          {data.map((article, index) => (
             <motion.div
               {...animateTop({ inView: true, once: true })}
-              key={article._id}
+              key={`history-${article._id}--${index}`}
             >
               <ArticleCardSmall article={article} />
             </motion.div>

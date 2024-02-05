@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useMemo } from "react";
 import moment from "moment";
+import { useMemo } from "react";
 import { useTheme } from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 import { useQuill } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
@@ -18,6 +19,7 @@ type ArticleCardMediumT = {
 };
 
 const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
+  const navigate = useNavigate();
   const theme = useTheme();
 
   const descriptionStyles = useMemo(
@@ -30,8 +32,14 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
 
   const { description, thumbnail } = useQuill(article.body);
 
+  const onNavigateToArticle = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(DYNAMIC_ROUTES.article_page(article.slug));
+  };
+
   return (
-    <Styled.ArticleCardMedium to={DYNAMIC_ROUTES.article_page(article.slug)}>
+    <Styled.ArticleCardMedium onClick={onNavigateToArticle}>
       <li className="article-md__body">
         <figure className="article-md__body-fig">
           <img

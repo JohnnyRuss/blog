@@ -29,14 +29,11 @@ export const CardHead = styled.div`
       font-weight: 600;
       text-transform: capitalize;
       padding-top: 2px;
+      cursor: pointer;
 
       &:hover {
         text-decoration: underline;
       }
-    }
-
-    &-work {
-      color: ${({ theme }) => theme.colors.gray_shade};
     }
   }
 `;

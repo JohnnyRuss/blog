@@ -73,7 +73,7 @@ export const ArticleCardBig = styled(Link)`
   }
 `;
 
-export const ArticleCardMedium = styled(Link)`
+export const ArticleCardMedium = styled.div`
   max-width: 37rem;
 
   .article-md__body {
@@ -134,7 +134,7 @@ export const ArticleCardMedium = styled(Link)`
   }
 `;
 
-export const ArticleCardSmall = styled(Link)`
+export const ArticleCardSmall = styled.div`
   width: 100%;
 
   .article-sm__body {

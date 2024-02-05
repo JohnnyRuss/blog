@@ -2,10 +2,10 @@ import { useContext } from "react";
 
 import { AppContext } from "./AppProvider";
 import { ThemeContext } from "./ThemeProvider";
-import { ProfileContext } from "./ProfileProvider";
+import { AppUIContext } from "./AppUIProvider";
 
-const useThemeContext = () => useContext(ThemeContext);
 const useAppContext = () => useContext(AppContext);
-const useProfileContext = () => useContext(ProfileContext);
+const useAppUIContext = () => useContext(AppUIContext);
+const useThemeContext = () => useContext(ThemeContext);
 
-export { useThemeContext, useAppContext, useProfileContext };
+export { useThemeContext, useAppContext, useAppUIContext };
