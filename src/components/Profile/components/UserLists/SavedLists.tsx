@@ -1,5 +1,7 @@
 import styled from "styled-components";
-// import { v4 as uuid } from "uuid";
+
+// import { generateArray } from "@/utils";
+
 // import ListCard from "./components/ListCard";
 
 type SavedListsT = {
@@ -12,11 +14,11 @@ const StyledList = styled.div`
   gap: 3rem;
 `;
 
-const SavedLists: React.FC<SavedListsT> = () => {
+const SavedLists: React.FC<SavedListsT> = ({ limit }) => {
   return (
     <StyledList>
-      {/* {Array.from(new Array(limit || 10)).map(() => (
-        <ListCard key={uuid()} />
+      {/* {generateArray(limit || 10).map((id) => (
+        <ListCard key={id} />
       ))} */}
     </StyledList>
   );

@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 
 import { historyStore } from "@/store";
-import { logger } from "@/utils";
 
 export default function useGetUserHistoryQuery(sizeOnMount?: number) {
   const get = historyStore.use.getHistory();
@@ -16,18 +15,11 @@ export default function useGetUserHistoryQuery(sizeOnMount?: number) {
   const hasMore = historyStore.use.hasMore();
   const currentPage = historyStore.use.currentPage();
 
-  const getHistoryQuery = async () => {
-    try {
-      await getPaginated({
-        page: currentPage + 1,
-      });
-    } catch (error) {
-      logger(error);
-    }
-  };
+  const getHistoryQuery = async () =>
+    await getPaginated({ page: currentPage + 1 });
 
   useEffect(() => {
-    get(sizeOnMount);
+    (async () => await get(sizeOnMount))();
 
     return () => {
       cleanUpHistory();

@@ -7,8 +7,8 @@ export default function useRegistrationQuery() {
   const status = authStore.use.status();
   const register = authStore.use.register();
 
-  const onRegistration = form.handleSubmit((values) => {
-    register({
+  const onRegistration = form.handleSubmit(async (values) => {
+    await register({
       fullname: values.fullname,
       email: values.email,
       password: values.password,

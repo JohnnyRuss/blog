@@ -1,4 +1,4 @@
-import { NODE_MODE } from "@/config/env";
+import { logger } from "@/utils";
 import { axiosPrivateQuery } from "@/services/axios";
 
 export default function useUserTraceQuery() {
@@ -7,7 +7,7 @@ export default function useUserTraceQuery() {
       if (!target) return;
       await axiosPrivateQuery.post(`/trace?target=${target}`);
     } catch (error) {
-      NODE_MODE === "DEV" && console.log(error);
+      logger(error);
     }
   };
 

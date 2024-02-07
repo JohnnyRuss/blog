@@ -13,80 +13,83 @@ import { LoadingStatusT } from "@/interface/store/common.types";
 import { CategoryT } from "@/interface/db/category.types";
 
 type ArticleStateT = {
+  // ========== CUD ==========
   categorySuggestions: Array<CategoryT>;
   createStatus: LoadingStatusT;
   deleteStatus: LoadingStatusT;
 
-  // Articles
+  // ========== Articles ==========
   readAllStatus: LoadingStatusT;
   hasMore: boolean;
   currentPage: number;
   articles: Array<ArticleShortT>;
 
-  // Article
+  // ========== Article ==========
   article: ArticleT;
   readStatus: LoadingStatusT;
 
-  // Top Article
+  // ========== Top Article ==========
   topArticleStatus: LoadingStatusT;
   topArticle: ArticleShortT;
 
-  // Related Articles
+  // ========== Related Articles ==========
   relatedStatus: LoadingStatusT;
   relatedArticles: Array<ArticleShortT>;
 
-  // Popular Articles
+  // ========== Popular Articles ==========
   popularStatus: LoadingStatusT;
   popularArticles: Array<ArticleShortT>;
 
-  // EditorPick Articles
+  // ========== Editor Picked Articles ==========
   editorPickedStatus: LoadingStatusT;
   editorPickedArticles: Array<ArticleShortT>;
 
-  // Recent Articles
+  // ========== Recent Articles ==========
   recentStatus: LoadingStatusT;
   recentArticles: Array<ArticleShortT>;
 
+  // ========== Others ==========
   lists: Array<{}>;
 };
 
 type ArticleActionsT = {
-  // CUD
+  // ========== CUD ==========
   getCategorySuggestions: () => Promise<void>;
+  cleanUpSuggestions: () => void;
   create: (args: CreateArticleArgsT) => Promise<void>;
   update: (args: UpdateArticleArgsT) => Promise<void>;
   delete: (args: DeleteArticleArgsT) => Promise<void>;
 
-  // Articles
+  // ========== Articles ==========
   cleanUpArticles: () => void;
   getAll: (args: GetAllArticlesArgsT) => Promise<void>;
   getAllPaginated: (args: GetAllArticlesArgsT) => Promise<void>;
 
-  // Article
+  // ========== Article ==========
   cleanUpArticle: () => void;
   get: (args: GetArticleArgsT) => Promise<void>;
 
-  // Top Article
+  // ========== Top Article ==========
   cleanUpTopArticle: () => void;
   getTopArticle: () => Promise<void>;
 
-  // Related Articles
+  // ========== Related Articles ==========
   cleanUpRelatedArticles: () => void;
   getRelatedArticles: (args: GetArticleArgsT) => Promise<void>;
 
-  // Popular Articles
+  // ========== Popular Articles ==========
   cleanUpPopularArticles: () => void;
   getPopularArticles: () => Promise<void>;
 
-  // Editor Picked Articles
+  // ========== Editor Picked Articles ==========
   cleanUpEditorPickedArticles: () => void;
   getEditorPickedArticles: () => Promise<void>;
 
-  // Recent Articles
+  // ========== Recent Articles ==========
   cleanUpRecentArticles: () => void;
   getRecentArticles: () => Promise<void>;
 
-  // Others
+  // ========== Others ==========
   like: (args: LikeArticleArgsT) => Promise<void>;
 };
 

@@ -5,7 +5,7 @@ import { AxiosResponse } from "axios";
 import { CategoryT } from "@/interface/db/category.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
 
-import { NODE_MODE } from "@/config/env";
+import { logger } from "@/utils";
 import { axiosPrivateQuery } from "@/services/axios";
 
 export default function useGetCategoriesQuery(userbased: "1" | "-1" = "1") {
@@ -30,7 +30,7 @@ export default function useGetCategoriesQuery(userbased: "1" | "-1" = "1") {
 
       setStatus((prev) => ({ ...prev, status: "SUCCESS", loading: false }));
     } catch (error: any) {
-      const message = error?.response?.data?.message || error?.message;
+      const message = logger(error);
 
       setStatus((prev) => ({
         ...prev,
@@ -39,8 +39,6 @@ export default function useGetCategoriesQuery(userbased: "1" | "-1" = "1") {
         error: true,
         message,
       }));
-
-      NODE_MODE === "DEV" && console.log(error);
     }
   };
 

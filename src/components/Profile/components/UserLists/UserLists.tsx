@@ -1,7 +1,7 @@
 import { memo } from "react";
 import styled from "styled-components";
-import { v4 as uuid } from "uuid";
 
+import { generateArray } from "@/utils";
 import { useGetListsQuery } from "@/hooks/api/lists";
 
 import ListCard from "./ListCard";
@@ -25,9 +25,7 @@ const UserLists: React.FC<UserListsT> = memo(({ limit, emptyMessage }) => {
   return (
     <StyledList>
       {status.loading
-        ? Array.from(new Array(limit || 6)).map(() => (
-            <ListCardSkeleton key={uuid()} />
-          ))
+        ? generateArray(limit || 6).map((id) => <ListCardSkeleton key={id} />)
         : data.map((list) => <ListCard key={list._id} list={list} />)}
 
       {data.length <= 0 && <EmptyMessage message={emptyMessage} />}

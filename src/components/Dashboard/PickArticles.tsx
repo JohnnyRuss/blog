@@ -1,5 +1,4 @@
-import { v4 as uuid } from "uuid";
-
+import { generateArray } from "@/utils";
 import { useArticlesQuery } from "@/hooks/api/dashboard";
 
 import * as Styled from "./styles/articles.styled";
@@ -12,9 +11,7 @@ const PickArticles: React.FC = () => {
   return (
     <Styled.Articles>
       {status.loading
-        ? Array.from(new Array(6)).map(() => (
-            <ArticleCardMediumSkeleton key={uuid()} />
-          ))
+        ? generateArray(6).map((id) => <ArticleCardMediumSkeleton key={id} />)
         : data.map((article) => (
             <ArticleItem key={article._id} article={article} />
           ))}

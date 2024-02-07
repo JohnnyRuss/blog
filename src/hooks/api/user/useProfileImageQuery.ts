@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 
 import { userStore } from "@/store";
-import { NODE_MODE } from "@/config/env";
 import { useSearchParams } from "@/hooks/utils";
 
 export default function useProfileImageQuery() {
@@ -14,24 +13,15 @@ export default function useProfileImageQuery() {
   const deleteProfilePicture = userStore.use.deleteProfilePicture();
 
   const onChangeImage = async (file: File) => {
-    try {
-      if (!username || !file) return;
+    if (!username || !file) return;
 
-      await changeProfilePicture({ file, username });
-      removeParam("edit");
-    } catch (error) {
-      NODE_MODE === "DEV" && console.log(error);
-    }
+    await changeProfilePicture({ file, username });
+    removeParam("edit");
   };
 
   const onDeleteImage = async (url: string) => {
-    try {
-      if (!username || !url) return;
-
-      await deleteProfilePicture({ url, username });
-    } catch (error) {
-      NODE_MODE === "DEV" && console.log(error);
-    }
+    if (!username || !url) return;
+    await deleteProfilePicture({ url, username });
   };
 
   return { onChangeImage, onDeleteImage, status };

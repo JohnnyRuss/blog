@@ -1,5 +1,6 @@
-import { v4 as uuid } from "uuid";
 import Skeleton from "react-loading-skeleton";
+
+import { generateArray } from "@/utils";
 
 import * as Styled from "./styles/listCard.styled";
 
@@ -21,8 +22,8 @@ const ListCardSkeleton: React.FC = () => {
       </div>
 
       <div className="list-card__assets">
-        {Array.from(new Array(3)).map(() => (
-          <figure className="list-card__assets-fig" key={uuid()}>
+        {generateArray(3).map((id) => (
+          <figure className="list-card__assets-fig" key={id}>
             <Skeleton
               width="100%"
               height="100%"

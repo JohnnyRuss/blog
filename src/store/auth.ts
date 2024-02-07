@@ -1,16 +1,17 @@
 import { create } from "zustand";
-import { devtools, persist } from "zustand/middleware";
+import { AxiosResponse } from "axios";
 import { immer } from "zustand/middleware/immer";
+import { devtools, persist } from "zustand/middleware";
 
-import { PATHS, PRIVATE_ROUTES, getNativeLocation } from "@/config/paths";
+import { logger } from "@/utils";
+import { LocaleStorage as s } from "@/utils";
 import { RouterHistory } from "@/config/config";
+import { createSelectors, getStatus } from "./helpers";
+import { axiosPublicQuery, axiosPrivateQuery } from "@/services/axios";
+import { PATHS, PRIVATE_ROUTES, getNativeLocation } from "@/config/paths";
+
 import * as AuthAPI_T from "@/interface/db/auth.types";
 import { AuthStoreT, AuthStateT } from "@/interface/store/auth.store.types";
-
-import { AxiosResponse } from "axios";
-import { LocaleStorage as s } from "@/utils";
-import { axiosPublicQuery, axiosPrivateQuery } from "@/services/axios";
-import { createSelectors, getStatus } from "./helpers";
 
 const initialState: AuthStateT = {
   status: {
@@ -51,8 +52,9 @@ const useAuthStore = create<AuthStoreT>()(
 
               RouterHistory.navigate(PATHS.root_page);
             } catch (error) {
-              const message = error.response?.data?.message || error?.message;
+              const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
             }
           },
 
@@ -71,8 +73,9 @@ const useAuthStore = create<AuthStoreT>()(
 
               RouterHistory.navigate(PATHS.root_page);
             } catch (error: any) {
-              const message = error.response?.data?.message || error?.message;
+              const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
             }
           },
 
@@ -96,8 +99,9 @@ const useAuthStore = create<AuthStoreT>()(
               )
                 RouterHistory.navigate(PATHS.root_page);
             } catch (error: any) {
-              const message = error.response?.data?.message || error?.message;
+              const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
             }
           },
 

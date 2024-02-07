@@ -1,5 +1,4 @@
 import { memo } from "react";
-import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
 import { generateArray } from "@/utils";
@@ -21,8 +20,8 @@ const ListArticles: React.FC = memo(() => {
     <Styled.ListArticles>
       {status.loading && (
         <div className="loading-skeleton">
-          {generateArray(6).map(() => (
-            <ArticleCardSmallSkeleton key={uuid()} />
+          {generateArray(6).map((id) => (
+            <ArticleCardSmallSkeleton key={id} />
           ))}
         </div>
       )}
@@ -32,8 +31,8 @@ const ListArticles: React.FC = memo(() => {
           total={total}
           hasMore={hasMore}
           onNext={getPaginatedData}
-          fallBack={generateArray(2).map(() => (
-            <ArticleCardSmallSkeleton key={uuid()} />
+          fallBack={generateArray(2).map((id) => (
+            <ArticleCardSmallSkeleton key={id} />
           ))}
         >
           {data.map((article) => (

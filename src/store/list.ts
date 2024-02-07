@@ -129,6 +129,7 @@ const useListStore = create<ListStoreT>()(
           await axiosPrivateQuery.delete(`/lists/${args.listId}`);
 
           const { username } = userStore.getState().userDetails;
+
           RouterHistory.navigate(DYNAMIC_ROUTES.profile_lists(username), {
             replace: true,
           });
@@ -156,6 +157,7 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listsToAddStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -186,6 +188,7 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listsStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -207,11 +210,12 @@ const useListStore = create<ListStoreT>()(
                 args.limit ? `?limit=${args.limit}` : ""
               }`
             );
-          console.log(data);
+
           set(() => ({ lists: data, listsStatus: getStatus("SUCCESS") }));
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listsStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -237,6 +241,7 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listDetailsStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -268,6 +273,7 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listArticlesStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -288,6 +294,7 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listArticlesStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -313,6 +320,7 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ savedStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 

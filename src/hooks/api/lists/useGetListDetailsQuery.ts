@@ -15,7 +15,7 @@ export default function useGetListDetailsQuery() {
   useEffect(() => {
     if (!listId || !username) return;
 
-    get(listId);
+    (async () => await get(listId))();
 
     return () => {
       cleanUp();

@@ -3,10 +3,10 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 
-import { axiosPrivateQuery } from "@/services/axios";
-import { generateQueryableString, logger } from "@/utils";
 import { ARTICLES_PER_PAGE } from "@/config/config";
+import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
+import { generateQueryableString, logger } from "@/utils";
 
 import {
   ArticleStateT,
@@ -20,17 +20,18 @@ import {
 import { CategoryT } from "@/interface/db/category.types";
 
 const initialState: ArticleStateT = {
+  // ========== CUD ==========
   categorySuggestions: [],
   createStatus: getStatus("IDLE"),
   deleteStatus: getStatus("IDLE"),
 
-  // Articles
+  // ========== Articles ==========
   hasMore: false,
   currentPage: 0,
   articles: [],
   readAllStatus: getStatus("IDLE"),
 
-  // Article
+  // ========== Article ==========
   readStatus: getStatus("IDLE"),
   article: {
     _id: "",
@@ -51,7 +52,7 @@ const initialState: ArticleStateT = {
     updatedAt: "",
   },
 
-  // Top Article
+  // ========== Top Article ==========
   topArticleStatus: getStatus("IDLE"),
   topArticle: {
     _id: "",
@@ -70,23 +71,23 @@ const initialState: ArticleStateT = {
     picked: false,
   },
 
-  // Related Articles
+  // ========== Related Articles ==========
   relatedStatus: getStatus("IDLE"),
   relatedArticles: [],
 
-  // Popular Articles
+  // ========== Popular Articles ==========
   popularStatus: getStatus("IDLE"),
   popularArticles: [],
 
-  // EditorPick Articles
+  // ========== Editor Picked Articles ==========
   editorPickedStatus: getStatus("IDLE"),
   editorPickedArticles: [],
 
-  // Recent Articles
+  // ========== Recent Articles ==========
   recentStatus: getStatus("IDLE"),
   recentArticles: [],
 
-  // Others
+  // ========== Others ==========
   lists: [],
 };
 
@@ -95,12 +96,21 @@ const useArticleStore = create<ArticleStoreT>()(
     immer((set, get) => ({
       ...initialState,
 
-      // CUD
+      // ========== CUD ==========
       async getCategorySuggestions() {
-        const { data }: AxiosResponse<Array<CategoryT>> =
-          await axiosPrivateQuery.get("/categories");
+        try {
+          const { data }: AxiosResponse<Array<CategoryT>> =
+            await axiosPrivateQuery.get("/categories");
 
-        set(() => ({ categorySuggestions: data }));
+          set(() => ({ categorySuggestions: data }));
+        } catch (error) {
+          logger(error);
+          throw error;
+        }
+      },
+
+      cleanUpSuggestions() {
+        set(() => ({ categorySuggestions: initialState.categorySuggestions }));
       },
 
       async create(args) {
@@ -160,7 +170,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }
       },
 
-      // Articles
+      // ========== Articles ==========
       async getAll(args) {
         try {
           set(() => ({ readAllStatus: getStatus("PENDING") }));
@@ -211,7 +221,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Article
+      // ========== Article ==========
       async get(args) {
         try {
           set(() => ({ readStatus: getStatus("PENDING") }));
@@ -238,7 +248,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Top Article
+      // ========== Top Article ==========
       async getTopArticle() {
         try {
           set(() => ({ topArticleStatus: getStatus("PENDING") }));
@@ -253,6 +263,7 @@ const useArticleStore = create<ArticleStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ topArticleStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -263,7 +274,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Related Articles
+      // ========== Related Articles ==========
       async getRelatedArticles(args) {
         try {
           set(() => ({ relatedStatus: getStatus("PENDING") }));
@@ -289,7 +300,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Popular Articles
+      // ========== Popular Articles ==========
       async getPopularArticles() {
         try {
           set(() => ({ popularStatus: getStatus("PENDING") }));
@@ -307,6 +318,7 @@ const useArticleStore = create<ArticleStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ popularStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -317,7 +329,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Editor Picked Articles
+      // ========== Editor Picked Articles ==========
       async getEditorPickedArticles() {
         try {
           set(() => ({ editorPickedStatus: getStatus("PENDING") }));
@@ -335,6 +347,7 @@ const useArticleStore = create<ArticleStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ editorPickedStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -345,7 +358,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Recent Articles
+      // ========== Recent Articles ==========
       async getRecentArticles() {
         try {
           set(() => ({ recentStatus: getStatus("PENDING") }));
@@ -363,6 +376,7 @@ const useArticleStore = create<ArticleStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ recentStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -373,7 +387,7 @@ const useArticleStore = create<ArticleStoreT>()(
         }));
       },
 
-      // Others
+      // ========== Others ==========
       async like(args) {
         console.log(args);
       },
@@ -389,15 +403,20 @@ async function getArticlesQuery(params: {
   page: number;
   limit: number;
 }): Promise<GetAllArticlesResponseT> {
-  const queryStrings = [
-    params.queryStr.replace("?", ""),
-    `page=${params.page}&limit=${params.limit}`,
-  ];
+  try {
+    const queryStrings = [
+      params.queryStr.replace("?", ""),
+      `page=${params.page}&limit=${params.limit}`,
+    ];
 
-  const queryStr = queryStrings.join(params.queryStr ? "&" : "");
+    const queryStr = queryStrings.join(params.queryStr ? "&" : "");
 
-  const { data }: AxiosResponse<GetAllArticlesResponseT> =
-    await axiosPrivateQuery.get(`/articles?${queryStr}`);
+    const { data }: AxiosResponse<GetAllArticlesResponseT> =
+      await axiosPrivateQuery.get(`/articles?${queryStr}`);
 
-  return data;
+    return data;
+  } catch (error: any) {
+    const message = logger(error);
+    throw new Error(message);
+  }
 }

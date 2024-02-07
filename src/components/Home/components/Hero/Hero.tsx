@@ -2,10 +2,10 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
 import {
+  animateTop,
+  animateLeft,
   animateRight,
   animateBottom,
-  animateLeft,
-  animateTop,
 } from "@/styles/animations";
 import { useQuill } from "@/hooks/utils";
 import { useGetTopArticleQuery } from "@/hooks/api/articles";
@@ -13,7 +13,7 @@ import { useGetTopArticleQuery } from "@/hooks/api/articles";
 import * as Styled from "./hero.styled";
 import HeroSkeleton from "./HeroSkeleton";
 import HeroTypewriter from "./HeroTypewriter";
-import { LineClamp } from "@/components/Layouts";
+import { LineClamp, ErrorMessage } from "@/components/Layouts";
 
 const Hero: React.FC = () => {
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Hero: React.FC = () => {
 
       {status.loading ? (
         <HeroSkeleton />
-      ) : (
+      ) : status.status === "SUCCESS" ? (
         <article className="hero__post">
           <motion.figure
             className="hero__post-fig"
@@ -56,6 +56,8 @@ const Hero: React.FC = () => {
             </motion.button>
           </div>
         </article>
+      ) : (
+        <ErrorMessage message={status.message} align="center" size="md" />
       )}
     </Styled.Hero>
   );

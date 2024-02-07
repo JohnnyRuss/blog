@@ -41,6 +41,7 @@ const useDashboardStore = create<DashboardStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ categoriesStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -92,6 +93,7 @@ const useDashboardStore = create<DashboardStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ articlesStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -120,6 +122,7 @@ const useDashboardStore = create<DashboardStoreT>()(
           );
         } catch (error) {
           logger(error);
+          throw error;
         }
       },
     })),

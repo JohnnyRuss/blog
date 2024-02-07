@@ -1,7 +1,6 @@
 import { memo } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { v4 as uuid } from "uuid";
 
 import { generateArray } from "@/utils";
 import { animateTop } from "@/styles/animations";
@@ -21,7 +20,7 @@ const FollowingList: React.FC = memo(() => {
   return (
     <StyledList>
       {status.loading
-        ? generateArray(5).map(() => <FollowCardSkeleton key={uuid()} />)
+        ? generateArray(5).map((id) => <FollowCardSkeleton key={id} />)
         : data.map((user) => (
             <motion.div
               key={user._id}

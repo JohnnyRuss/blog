@@ -3,6 +3,7 @@ import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 
+import { logger } from "@/utils";
 import { authStore } from "@/store";
 import { createSelectors, getStatus } from "./helpers";
 import { axiosPrivateQuery, axiosPrivateFormDataQuery } from "@/services/axios";
@@ -37,7 +38,7 @@ const useUserStore = create<UserStoreT>()(
 
           set(() => ({ userDetails: data, status: getStatus("SUCCESS") }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ status: getStatus("FAIL", message) }));
           throw error;
         }
@@ -64,7 +65,7 @@ const useUserStore = create<UserStoreT>()(
             updateDetailStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ updateDetailStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -88,7 +89,7 @@ const useUserStore = create<UserStoreT>()(
             updateDetailStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ updateDetailStatus: getStatus("FAIL", message) }));
           throw error;
         }
@@ -111,7 +112,7 @@ const useUserStore = create<UserStoreT>()(
             updateDetailStatus: getStatus("SUCCESS"),
           }));
         } catch (error: any) {
-          const message = error.response?.data?.message || error?.message;
+          const message = logger(error);
           set(() => ({ updateDetailStatus: getStatus("FAIL", message) }));
           throw error;
         }

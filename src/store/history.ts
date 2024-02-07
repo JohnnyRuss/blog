@@ -47,6 +47,7 @@ const useHistoryStore = create<HistoryStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ status: getStatus("FAIL", message) }));
+          throw error;
         }
       },
 
@@ -71,7 +72,12 @@ const useHistoryStore = create<HistoryStoreT>()(
         }
       },
 
-      cleanUpHistory() {},
+      cleanUpHistory() {
+        set(() => ({
+          status: initialState.status,
+          history: initialState.history,
+        }));
+      },
 
       async clearHistory() {
         try {
@@ -83,6 +89,7 @@ const useHistoryStore = create<HistoryStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ clearStatus: getStatus("FAIL", message) }));
+          throw error;
         }
       },
     })),

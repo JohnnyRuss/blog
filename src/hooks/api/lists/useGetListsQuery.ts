@@ -8,15 +8,15 @@ export default function useGetListsQuery(limit?: number) {
   const data = listsStore.use.lists();
   const get = listsStore.use.getLists();
   const status = listsStore.use.listsStatus();
-  const cleanUpLists = listsStore.use.cleanUpLists();
+  const cleanUp = listsStore.use.cleanUpLists();
 
   useEffect(() => {
     if (!userId) return;
 
-    get({ userId, limit });
+    (async () => await get({ userId, limit }))();
 
     return () => {
-      cleanUpLists();
+      cleanUp();
     };
   }, [userId, limit]);
 

@@ -6,14 +6,14 @@ import { articleStore } from "@/store";
 export default function useGetTopArticleQuery() {
   const status = articleStore.use.topArticleStatus();
   const data = articleStore.use.topArticle();
-  const getTopArticle = articleStore.use.getTopArticle();
-  const cleanUpTopArticle = articleStore.use.cleanUpTopArticle();
+  const get = articleStore.use.getTopArticle();
+  const cleanUp = articleStore.use.cleanUpTopArticle();
 
   useEffect(() => {
-    getTopArticle();
+    (async () => await get())();
 
     return () => {
-      cleanUpTopArticle();
+      cleanUp();
     };
   }, []);
 

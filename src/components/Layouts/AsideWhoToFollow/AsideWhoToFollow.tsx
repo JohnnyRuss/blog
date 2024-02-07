@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
+import { generateArray } from "@/utils";
 import { animateLeft } from "@/styles/animations";
 import { useWhoToFollowQuery } from "@/hooks/api/userFollow";
 
@@ -22,9 +22,7 @@ const AsideWhoToFollow: React.FC<AsideWhoToFollowT> = memo(() => {
       <Styled.AsideWhoToFollow data-who-to-follow>
         <ul className="follow-list">
           {status.loading
-            ? Array.from(new Array(6)).map(() => (
-                <FollowCardSkeleton key={uuid()} />
-              ))
+            ? generateArray(6).map((id) => <FollowCardSkeleton key={id} />)
             : data.map((user) => (
                 <motion.div
                   key={user._id}

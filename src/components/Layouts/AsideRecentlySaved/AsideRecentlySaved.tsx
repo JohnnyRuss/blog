@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo, useEffect } from "react";
-import { v4 as uuid } from "uuid";
 
+import { generateArray } from "@/utils";
 import { useGetSavedArticlesQuery } from "@/hooks/api/lists";
 
 import * as Styled from "./recentlySaved.styled";
@@ -28,8 +28,8 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
       <Styled.RecentlySaved data-recently-saved>
         <ul className="saved-list">
           {status.loading
-            ? Array.from(new Array(4)).map(() => (
-                <RecentlySavedCardSkeleton key={uuid()} />
+            ? generateArray(4).map((id) => (
+                <RecentlySavedCardSkeleton key={id} />
               ))
             : data.map((article) => (
                 <RecentlySavedCard article={article} key={article._id} />

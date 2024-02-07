@@ -5,7 +5,8 @@ export default function useDeleteListQuery() {
   const status = listsStore.use.deleteListStatus();
   const deleteList = listsStore.use.deleteList();
 
-  const deleteListQuery = (args: DeleteListArgsT) => deleteList(args);
+  const deleteListQuery = async (args: DeleteListArgsT) =>
+    await deleteList(args);
 
   return { deleteListQuery, status };
 }

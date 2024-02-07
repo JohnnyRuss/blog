@@ -1,16 +1,16 @@
-import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
+import { generateArray } from "@/utils";
 import { animateTop } from "@/styles/animations";
 import { useGetRecentArticlesQuery } from "@/hooks/api/articles";
 
-import * as Styled from "./articles.styled";
-
 import {
+  ErrorMessage,
   SectionTitle,
   ArticleCardBig,
   ArticleCardBigSkeleton,
 } from "@/components/Layouts";
+import * as Styled from "./articles.styled";
 
 const Articles: React.FC = () => {
   const { data, status } = useGetRecentArticlesQuery();
@@ -20,18 +20,20 @@ const Articles: React.FC = () => {
       <SectionTitle title="Recent Posts" />
 
       <ul className="posts-list">
-        {status.loading
-          ? Array.from(new Array(4)).map(() => (
-              <ArticleCardBigSkeleton key={uuid()} />
-            ))
-          : data.map((article) => (
-              <motion.div
-                key={article._id}
-                {...animateTop({ inView: true, once: false })}
-              >
-                <ArticleCardBig article={article} />
-              </motion.div>
-            ))}
+        {status.loading ? (
+          generateArray(4).map((id) => <ArticleCardBigSkeleton key={id} />)
+        ) : status.status === "SUCCESS" ? (
+          data.map((article) => (
+            <motion.div
+              key={article._id}
+              {...animateTop({ inView: true, once: false })}
+            >
+              <ArticleCardBig article={article} />
+            </motion.div>
+          ))
+        ) : (
+          <ErrorMessage message={status.message} align="center" size="md" />
+        )}
       </ul>
     </Styled.Articles>
   );

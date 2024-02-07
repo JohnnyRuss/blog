@@ -1,9 +1,10 @@
 import { memo } from "react";
-import { v4 as uuid } from "uuid";
 
+import { generateArray } from "@/utils";
 import { useGetRelatedArticles } from "@/hooks/api/articles";
 
 import {
+  ErrorMessage,
   SectionTitle,
   ArticleCardBig,
   ArticleCardBigSkeleton,
@@ -18,13 +19,17 @@ const RelatedArticles: React.FC = memo(() => {
       <SectionTitle title="Related Articles" />
 
       <div className="articles-container">
-        {status.loading
-          ? Array.from(new Array(4)).map(() => (
-              <ArticleCardBigSkeleton key={uuid()} size="small" />
-            ))
-          : data.map((article) => (
-              <ArticleCardBig key={article._id} article={article} />
-            ))}
+        {status.loading ? (
+          generateArray(4).map((id) => (
+            <ArticleCardBigSkeleton key={id} size="small" />
+          ))
+        ) : status.status === "SUCCESS" ? (
+          data.map((article) => (
+            <ArticleCardBig key={article._id} article={article} />
+          ))
+        ) : (
+          <ErrorMessage message={status.message} align="center" size="md" />
+        )}
       </div>
     </Styled.RelatedArticles>
   );

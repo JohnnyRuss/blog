@@ -6,14 +6,14 @@ import { articleStore } from "@/store";
 export default function useGetPopularArticles() {
   const data = articleStore.use.popularArticles();
   const status = articleStore.use.popularStatus();
-  const getPopularArticles = articleStore.use.getPopularArticles();
-  const cleanUpPopularArticles = articleStore.use.cleanUpPopularArticles();
+  const get = articleStore.use.getPopularArticles();
+  const cleanUp = articleStore.use.cleanUpPopularArticles();
 
   useEffect(() => {
-    getPopularArticles();
+    (async () => await get())();
 
     return () => {
-      cleanUpPopularArticles();
+      cleanUp();
     };
   }, []);
 

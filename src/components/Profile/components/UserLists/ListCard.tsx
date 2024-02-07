@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useTheme } from "styled-components";
 
+import { generateArray } from "@/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
+import { animateTop } from "@/styles/animations";
 
 import ListCardFig from "./ListCardFig";
-import { animateTop } from "@/styles/animations";
 import { LineClamp } from "@/components/Layouts";
 import * as Styled from "./styles/listCard.styled";
 
@@ -57,7 +58,7 @@ const ListCard: React.FC<ListCardT> = ({ list }) => {
           </div>
 
           <div className="list-card__assets">
-            {Array.from(new Array(3)).map((_, index) => {
+            {generateArray(3).map((_, index) => {
               const article = list.articles[index]?.article;
 
               return (

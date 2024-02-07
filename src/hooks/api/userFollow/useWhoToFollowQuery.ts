@@ -5,15 +5,16 @@ import { userFollowStore } from "@/store";
 
 export default function useWhoToFollowQuery() {
   const status = userFollowStore.use.usersToFollowStatus();
+
   const data = userFollowStore.use.usersToFollow();
-  const getUsersToFollow = userFollowStore.use.getUsersToFollow();
-  const cleanUpUsersToFollow = userFollowStore.use.cleanUpUsersToFollow();
+  const get = userFollowStore.use.getUsersToFollow();
+  const cleanUp = userFollowStore.use.cleanUpUsersToFollow();
 
   useEffect(() => {
-    getUsersToFollow();
+    (async () => get())();
 
     return () => {
-      cleanUpUsersToFollow();
+      cleanUp();
     };
   }, []);
 

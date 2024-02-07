@@ -6,15 +6,14 @@ import { articleStore } from "@/store";
 export default function useGetEditorPickedArticles() {
   const data = articleStore.use.editorPickedArticles();
   const status = articleStore.use.editorPickedStatus();
-  const getEditorPickedArticles = articleStore.use.getEditorPickedArticles();
-  const cleanUpEditorPickedArticles =
-    articleStore.use.cleanUpEditorPickedArticles();
+  const get = articleStore.use.getEditorPickedArticles();
+  const cleanUp = articleStore.use.cleanUpEditorPickedArticles();
 
   useEffect(() => {
-    getEditorPickedArticles();
+    (async () => await get())();
 
     return () => {
-      cleanUpEditorPickedArticles();
+      cleanUp();
     };
   }, []);
 

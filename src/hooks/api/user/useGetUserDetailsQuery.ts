@@ -7,15 +7,15 @@ import { userStore } from "@/store";
 export default function useGetUserDetailsQuery() {
   const { username } = useParams();
 
-  const status = userStore.use.detailsStatus();
   const data = userStore.use.userDetails();
   const get = userStore.use.getUserDetails();
+  const status = userStore.use.detailsStatus();
   const cleanUp = userStore.use.cleanUpUserDetails();
 
   useEffect(() => {
     if (!username) return;
 
-    get({ username });
+    (async () => await get({ username }))();
 
     return () => {
       cleanUp();

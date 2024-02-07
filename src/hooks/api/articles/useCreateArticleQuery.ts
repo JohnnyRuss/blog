@@ -7,7 +7,6 @@ import {
   ArticleSchemaT,
 } from "@/utils/validations/articleSchema";
 import { articleStore } from "@/store";
-import { NODE_MODE } from "@/config/env";
 import { PATHS } from "@/config/paths";
 
 export default function useCreateArticleQuery(articleId?: string) {
@@ -22,30 +21,32 @@ export default function useCreateArticleQuery(articleId?: string) {
     setIsUpdating(true);
   };
 
-  const status = articleStore.use.createStatus();
   const create = articleStore.use.create();
   const update = articleStore.use.update();
-  const getCategorySuggestions = articleStore.use.getCategorySuggestions();
+  const status = articleStore.use.createStatus();
+
   const categorySuggestions = articleStore.use.categorySuggestions();
+  const getCategorySuggestions = articleStore.use.getCategorySuggestions();
+
+  const cleanUp = articleStore.use.cleanUpSuggestions();
 
   const onPublish = form.handleSubmit(async (values) => {
-    try {
-      if (!isUpdating) {
-        await create(values);
-      } else {
-        if (!articleId) return;
-        await update({ articleId, data: values });
-      }
-
-      form.reset({ title: "", body: "", categories: [] });
-      navigate(PATHS.write);
-    } catch (error) {
-      NODE_MODE === "DEV" && console.log(error);
+    if (!isUpdating) await create(values);
+    else {
+      if (!articleId) return;
+      await update({ articleId, data: values });
     }
+
+    form.reset({ title: "", body: "", categories: [] });
+    navigate(PATHS.write);
   });
 
   useEffect(() => {
-    getCategorySuggestions();
+    (async () => await getCategorySuggestions())();
+
+    return () => {
+      cleanUp();
+    };
   }, []);
 
   return { status, onPublish, onStartUpdate, form, categorySuggestions };

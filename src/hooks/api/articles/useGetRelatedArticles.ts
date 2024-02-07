@@ -9,16 +9,16 @@ export default function useGetRelatedArticles() {
 
   const data = articleStore.use.relatedArticles();
   const status = articleStore.use.relatedStatus();
-  const getRelatedArticles = articleStore.use.getRelatedArticles();
-  const cleanUpRelatedArticles = articleStore.use.cleanUpRelatedArticles();
+  const get = articleStore.use.getRelatedArticles();
+  const cleanUp = articleStore.use.cleanUpRelatedArticles();
 
   useEffect(() => {
     if (!slug) return;
 
-    getRelatedArticles({ slug });
+    (async () => await get({ slug }))();
 
     return () => {
-      cleanUpRelatedArticles();
+      cleanUp();
     };
   }, [slug]);
 

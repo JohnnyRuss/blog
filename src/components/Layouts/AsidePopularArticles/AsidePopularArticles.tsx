@@ -1,11 +1,10 @@
-import { v4 as uuid } from "uuid";
-
+import { generateArray } from "@/utils";
 import { useGetPopularArticles } from "@/hooks/api/articles";
 
-import * as Styled from "./populars.styled";
+import * as Styled from "./popularArticles.styled";
 import PopularArticleCard from "./PopularArticleCard";
 import PopularArticleCardSkeleton from "./PopularArticleCardSkeleton";
-import { AsideBlockItemContainer } from "@/components/Layouts";
+import { AsideBlockItemContainer, ErrorMessage } from "@/components/Layouts";
 
 const AsidePopularArticles: React.FC = () => {
   const { data, status } = useGetPopularArticles();
@@ -13,13 +12,15 @@ const AsidePopularArticles: React.FC = () => {
   return (
     <AsideBlockItemContainer title="Most Popular" subTitle="What's hot">
       <Styled.PopularArticles>
-        {status.loading
-          ? Array.from(new Array(4)).map(() => (
-              <PopularArticleCardSkeleton key={uuid()} />
-            ))
-          : data.map((article) => (
-              <PopularArticleCard key={article._id} article={article} />
-            ))}
+        {status.loading ? (
+          generateArray(4).map((id) => <PopularArticleCardSkeleton key={id} />)
+        ) : status.status === "SUCCESS" ? (
+          data.map((article) => (
+            <PopularArticleCard key={article._id} article={article} />
+          ))
+        ) : (
+          <ErrorMessage message={status.message} align="center" size="md" />
+        )}
       </Styled.PopularArticles>
     </AsideBlockItemContainer>
   );

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import Skeleton from "react-loading-skeleton";
-import { v4 as uuid } from "uuid";
 
+import { generateArray } from "@/utils";
 import { animateLeft } from "@/styles/animations";
 import { useGetCategoriesQuery } from "@/hooks/api/categories";
 
@@ -24,8 +24,8 @@ const AsideCategories: React.FC<{ userbased?: "1" | "-1" }> = memo(
           {...animateLeft({ inView: true, once: true })}
         >
           {status.loading
-            ? Array.from(new Array(6)).map(() => (
-                <Skeleton width="150px" height="40px" key={uuid()} />
+            ? generateArray(6).map((id) => (
+                <Skeleton width="150px" height="40px" key={id} />
               ))
             : data.map((category) => (
                 <CategoryChip

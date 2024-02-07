@@ -1,11 +1,12 @@
 import { memo } from "react";
-import { v4 as uuid } from "uuid";
 import { motion } from "framer-motion";
 
+import { generateArray } from "@/utils";
 import { animateFadeIn } from "@/styles/animations";
 import { useReadAllArticlesQuery } from "@/hooks/api/articles";
 
 import {
+  ErrorMessage,
   InfiniteScroll,
   ArticleCardMedium,
   ArticleCardMediumSkeleton,
@@ -17,21 +18,19 @@ const ArticlesList: React.FC = memo(() => {
 
   return (
     <div className="blog-list__wrapper">
-      {status.loading && (
+      {status.loading ? (
         <div className="loading-skeleton">
-          {Array.from(new Array(6)).map(() => (
-            <ArticleCardMediumSkeleton key={uuid()} />
+          {generateArray(6).map((id) => (
+            <ArticleCardMediumSkeleton key={id} />
           ))}
         </div>
-      )}
-
-      {status.status === "SUCCESS" && (
+      ) : status.status === "SUCCESS" ? (
         <InfiniteScroll
           total={total}
           hasMore={hasMore}
           onNext={getArticlesQuery}
-          fallBack={Array.from(new Array(2)).map(() => (
-            <ArticleCardMediumSkeleton key={uuid()} />
+          fallBack={generateArray(2).map((id) => (
+            <ArticleCardMediumSkeleton key={id} />
           ))}
         >
           {data.map((article) => (
@@ -43,6 +42,8 @@ const ArticlesList: React.FC = memo(() => {
             </motion.div>
           ))}
         </InfiniteScroll>
+      ) : (
+        <ErrorMessage message={status.message} align="center" size="md" />
       )}
     </div>
   );

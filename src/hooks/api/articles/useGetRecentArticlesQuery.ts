@@ -5,14 +5,14 @@ import { articleStore } from "@/store";
 export default function useGetRecentArticlesQuery() {
   const data = articleStore.use.recentArticles();
   const status = articleStore.use.recentStatus();
-  const getRecentArticles = articleStore.use.getRecentArticles();
-  const cleanUpRecentArticles = articleStore.use.cleanUpRecentArticles();
+  const get = articleStore.use.getRecentArticles();
+  const cleanUp = articleStore.use.cleanUpRecentArticles();
 
   useEffect(() => {
-    getRecentArticles();
+    (async () => await get())();
 
     return () => {
-      cleanUpRecentArticles();
+      cleanUp();
     };
   }, []);
 

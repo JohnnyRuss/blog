@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { userStore } from "@/store";
-import { NODE_MODE } from "@/config/env";
 import { useSearchParams } from "@/hooks/utils";
 import { UpdateUserArgsT } from "@/interface/db/user.types";
 import { useEditProfileForms } from "@/utils/validations/editProfileSchemas";
@@ -13,44 +12,40 @@ export default function useUpdateUserQuery() {
 
   const { removeParam } = useSearchParams();
 
-  const status = userStore.use.updateDetailStatus();
   const userDetails = userStore.use.userDetails();
+  const status = userStore.use.updateDetailStatus();
   const updateUserDetail = userStore.use.updateUserDetail();
 
   const { fullnameForm, emailForm, usernameForm, bioForm } =
     useEditProfileForms();
 
   const onSaveData = async (args: { [key: string]: string }) => {
-    try {
-      if (!username || status.loading) return;
+    if (!username || status.loading) return;
 
-      const data: UpdateUserArgsT = {
-        username,
-        data: { key: "", value: "" },
-      };
+    const data: UpdateUserArgsT = {
+      username,
+      data: { key: "", value: "" },
+    };
 
-      let fieldKey = "";
+    let fieldKey = "";
 
-      for (const [key, value] of Object.entries(args)) {
-        data.data.key = key;
-        data.data.value = value;
+    for (const [key, value] of Object.entries(args)) {
+      data.data.key = key;
+      data.data.value = value;
 
-        fieldKey = key;
-      }
-
-      await updateUserDetail(data);
-
-      if (fieldKey !== "username") removeParam("edit");
-    } catch (error) {
-      NODE_MODE === "DEV" && console.log(error);
+      fieldKey = key;
     }
+
+    await updateUserDetail(data);
+
+    if (fieldKey !== "username") removeParam("edit");
   };
 
   useEffect(() => {
-    fullnameForm.reset({ fullname: userDetails.fullname });
-    emailForm.reset({ email: userDetails.email });
-    usernameForm.reset({ username: userDetails.username });
     bioForm.reset({ bio: userDetails.bio });
+    emailForm.reset({ email: userDetails.email });
+    fullnameForm.reset({ fullname: userDetails.fullname });
+    usernameForm.reset({ username: userDetails.username });
   }, [userDetails]);
 
   return { fullnameForm, emailForm, usernameForm, bioForm, onSaveData, status };

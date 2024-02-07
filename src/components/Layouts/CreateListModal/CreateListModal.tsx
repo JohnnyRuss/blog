@@ -32,7 +32,11 @@ const CreateListModal: React.FC<CreateListModalT> = () => {
 
   return (
     <div>
-      <Modal onClose={onCloseModal} open={true} showCloseBtn={true}>
+      <Modal
+        showCloseBtn={true}
+        onClose={onCloseModal}
+        open={isAddingToListId ? true : false}
+      >
         <Styled.CreateListModal>
           {status.loading && <RelativeSpinner />}
 
