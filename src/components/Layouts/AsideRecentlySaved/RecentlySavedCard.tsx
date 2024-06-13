@@ -15,7 +15,7 @@ type RecentlySavedCardT = {
 
 const RecentlySavedCard: React.FC<RecentlySavedCardT> = ({ article }) => {
   return (
-    <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>
+    <div>
       <motion.li
         className="saved-list__card"
         {...animateLeft({ inView: true, once: true })}
@@ -40,7 +40,9 @@ const RecentlySavedCard: React.FC<RecentlySavedCardT> = ({ article }) => {
           </Link>
         </div>
 
-        <LineClamp component="h3" clamp={2} text={article.title} />
+        <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>
+          <LineClamp component="h3" clamp={2} text={article.title} />
+        </Link>
 
         <div className="saved-list__card-footer">
           <span className="saved-list__card-footer--date">
@@ -48,7 +50,7 @@ const RecentlySavedCard: React.FC<RecentlySavedCardT> = ({ article }) => {
           </span>
         </div>
       </motion.li>
-    </Link>
+    </div>
   );
 };
 

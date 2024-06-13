@@ -22,6 +22,7 @@ export const ProfileAside = styled.aside`
       overflow: hidden;
       width: 9.5rem;
       height: 9.5rem;
+      background-color: ${({ theme }) => theme.colors.gray};
 
       img {
         width: 100%;

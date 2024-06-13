@@ -5,7 +5,7 @@ import CardFooterSkeleton from "./components/CardFooterSkeleton";
 
 const ArticleCardSmallSkeleton: React.FC = () => {
   return (
-    <Styled.ArticleCardSmall as="div" to="" style={{ marginTop: "2rem" }}>
+    <Styled.ArticleCardSmall as="div" style={{ marginTop: "2rem" }}>
       <li className="article-sm__body">
         <div className="article-sm__body-content">
           <CardHeadSkeleton />

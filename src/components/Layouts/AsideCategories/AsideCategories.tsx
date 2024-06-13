@@ -10,7 +10,7 @@ import { CategoryChip, AsideBlockItemContainer } from "@/components/Layouts";
 
 const AsideCategories: React.FC<{ userbased?: "1" | "-1" }> = memo(
   ({ userbased }) => {
-    const { data, status } = useGetCategoriesQuery(userbased);
+    const { data, status } = useGetCategoriesQuery({ userbased });
 
     return (
       <AsideBlockItemContainer

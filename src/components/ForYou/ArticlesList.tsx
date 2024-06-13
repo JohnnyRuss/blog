@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { generateArray } from "@/utils";
 import { animateTop } from "@/styles/animations";
 import { useReadAllArticlesQuery } from "@/hooks/api/articles";
+import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
 import {
   ErrorMessage,
@@ -13,6 +14,8 @@ import {
 } from "@/components/Layouts";
 
 const ArticlesList: React.FC = memo(() => {
+  useGetSavedArticlesIdsQuery();
+
   const { data, getArticlesQuery, hasMore, status, total } =
     useReadAllArticlesQuery("userbased=1&sort=-common,-views,-createdAt");
 

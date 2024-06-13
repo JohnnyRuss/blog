@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { generateArray } from "@/utils";
+import { DYNAMIC_ROUTES } from "@/config/paths";
+import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 import { useGetSavedArticlesQuery } from "@/hooks/api/lists";
 
 import * as Styled from "./recentlySaved.styled";
@@ -12,6 +15,8 @@ import { AsideBlockItemContainer } from "@/components/Layouts";
 type AsideRecentlySavedT = {};
 
 const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
+  const { user } = useCheckIsAuthenticatedUser();
+
   const { data, status, cleanUpSavedArticles, getRecentlySaved } =
     useGetSavedArticlesQuery();
 
@@ -36,7 +41,12 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
               ))}
         </ul>
 
-        <button className="more-bookmarks__btn">See More</button>
+        <Link
+          to={DYNAMIC_ROUTES.profile_saved_lists(user.username)}
+          className="more-bookmarks__btn"
+        >
+          See More
+        </Link>
       </Styled.RecentlySaved>
     </AsideBlockItemContainer>
   );

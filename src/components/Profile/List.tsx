@@ -1,9 +1,12 @@
 import { useSearchParams } from "@/hooks/utils";
+import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
-import { ListHeader, ListArticles } from "./components/List";
 import { CreateListModal } from "@/components/Layouts";
+import { ListHeader, ListArticles } from "./components/List";
 
 const List: React.FC = () => {
+  useGetSavedArticlesIdsQuery();
+
   const { getParam } = useSearchParams();
   const isAddingToList = getParam("save") || "";
 

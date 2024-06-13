@@ -15,6 +15,10 @@ export const ListActions = styled.div`
     align-items: center;
     justify-content: center;
 
+    &:disabled {
+      opacity: 0.5;
+    }
+
     &.delete {
       color: ${({ theme }) => theme.colors.red};
       border-color: ${({ theme }) => theme.colors.red};

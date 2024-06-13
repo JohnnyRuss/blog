@@ -8,7 +8,8 @@ import {
   AsidePopularArticles,
 } from "@/components/Layouts";
 import * as Styled from "./bog.styled";
-import ArticlesList from "./ArticlesList";
+import Filter from "./components/Filter";
+import ArticlesList from "./components/ArticlesList";
 
 const Blog: React.FC = () => {
   const { getParam } = useSearchParams();
@@ -19,7 +20,8 @@ const Blog: React.FC = () => {
   return (
     <>
       <Styled.Blog>
-        <div>Filter</div>
+        <Filter />
+
         <div className="blog-content__box">
           <ArticlesList />
 

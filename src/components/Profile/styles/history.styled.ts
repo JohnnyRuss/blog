@@ -4,6 +4,16 @@ export const History = styled.section`
   display: flex;
   flex-direction: column;
   gap: 4rem;
+  position: relative;
+
+  .spinner-layout {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+  }
 
   .reading-history__header {
     display: flex;

@@ -7,6 +7,8 @@ import {
   CreateListArgsT,
   UpdateListArgsT,
   DeleteListArgsT,
+  SaveListArgsT,
+  GetSavedListsArgsT,
 } from "@/interface/db/list.types";
 import { ArticleShortT } from "@/interface/db/article.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
@@ -31,8 +33,14 @@ type ListStateT = {
   listArticles: Array<ArticleShortT>;
   listArticlesStatus: LoadingStatusT;
   // ========== Saved Articles ==========
-  savedStatus: LoadingStatusT;
   savedArticles: Array<ArticleShortT>;
+  savedArticlesIds: Array<string>;
+  savedStatus: LoadingStatusT;
+  // ========== Saved Lists ==========
+  savedListsIds: Array<string>;
+  savedLists: Array<ListT>;
+  savedListsStatus: LoadingStatusT;
+  saveListStatus: LoadingStatusT;
 };
 
 type ListActionsT = {
@@ -61,6 +69,13 @@ type ListActionsT = {
   // ========== Saved Articles ==========
   cleanUpSavedArticles: () => void;
   getRecentlySavedArticles: () => Promise<void>;
+  getSavedArticlesIds: () => Promise<void>;
+  cleanUpSavedArticlesIds: () => void;
+  // ========== Saved Lists ==========
+  getSavedListsIds: () => Promise<void>;
+  getSavedLists: (args: GetSavedListsArgsT) => Promise<void>;
+  saveList: (args: SaveListArgsT) => Promise<void>;
+  removeList: (args: SaveListArgsT) => Promise<void>;
 };
 
 type ListStoreT = ListStateT & ListActionsT;

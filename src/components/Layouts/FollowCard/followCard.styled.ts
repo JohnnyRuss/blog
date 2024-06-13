@@ -12,6 +12,7 @@ export const FollowCard = styled.li`
     height: 5rem;
     border-radius: 100%;
     overflow: hidden;
+    background-color: ${({ theme }) => theme.colors.gray};
 
     img {
       width: 100%;

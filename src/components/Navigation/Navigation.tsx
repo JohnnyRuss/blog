@@ -24,7 +24,7 @@ const Navigation: React.FC = () => {
 
       <UI.ThemeButton />
 
-      <WriteButton showTitle={false} />
+      {isAuthenticated && <WriteButton showTitle={false} />}
 
       <div className="nav-routes__block">
         <ul className="nav-routes__block-list">
@@ -71,7 +71,7 @@ const Navigation: React.FC = () => {
         </ul>
       </div>
 
-      {isAuthenticated && <UI.LogoutButton />}
+      {isAuthenticated && <UI.ProfileDropdown />}
 
       <UI.BurgerButton onOpen={onOpenNav} open={openNav} />
     </Styled.Navigation>

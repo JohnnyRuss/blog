@@ -1,10 +1,15 @@
 import { motion } from "framer-motion";
 import { animateRight } from "@/styles/animations";
 
+import { useClearHistoryQuery } from "@/hooks/api/history";
+
+import { Spinner } from "@/components/Layouts";
 import { HistoryList } from "./components/History";
 import * as Styled from "./styles/history.styled";
 
 const ReadingHistory: React.FC = () => {
+  const { clearQuery, status } = useClearHistoryQuery();
+
   return (
     <Styled.History>
       <motion.div
@@ -13,10 +18,16 @@ const ReadingHistory: React.FC = () => {
       >
         <p>You can clear your reading history for a fresh start.</p>
 
-        <button>Clear history</button>
+        <button onClick={clearQuery}>Clear History</button>
       </motion.div>
 
       <HistoryList />
+
+      {status.loading && (
+        <div className="spinner-layout">
+          <Spinner />
+        </div>
+      )}
     </Styled.History>
   );
 };

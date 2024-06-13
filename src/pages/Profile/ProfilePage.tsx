@@ -3,7 +3,6 @@ import { lazy, useEffect } from "react";
 import { useLocation, useNavigate, Outlet, useParams } from "react-router-dom";
 
 import { DYNAMIC_ROUTES } from "@/config/paths";
-import { useRedirectUnAuthorized } from "@/hooks/auth";
 import { useGetUserDetailsQuery } from "@/hooks/api/user";
 
 import { SuspenseContainer } from "@/components/Layouts";
@@ -13,7 +12,6 @@ const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const { username } = useParams();
   const { pathname } = useLocation();
-  const { loading } = useRedirectUnAuthorized();
 
   useEffect(() => {
     if (!username) navigate(-1);
@@ -23,18 +21,16 @@ const ProfilePage: React.FC = () => {
     const regex = /^\/profile\/([^/]+)$/;
 
     if (pathname.match(regex))
-      navigate(DYNAMIC_ROUTES.profile_review(username));
+      navigate(DYNAMIC_ROUTES.profile_review(username), { replace: true });
   }, [pathname, navigate, username]);
 
   useGetUserDetailsQuery();
 
   return (
     <SuspenseContainer>
-      {!loading && (
-        <ProfileEl>
-          <Outlet />
-        </ProfileEl>
-      )}
+      <ProfileEl>
+        <Outlet />
+      </ProfileEl>
     </SuspenseContainer>
   );
 };

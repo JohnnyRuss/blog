@@ -2,6 +2,7 @@ import { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { DYNAMIC_ROUTES } from "@/config/paths";
+import { useFollowUserQuery } from "@/hooks/api/userFollow";
 
 import * as Styled from "./followCard.styled";
 import { LineClamp, FollowButton } from "@/components/Layouts";
@@ -10,10 +11,13 @@ import { UserDetailsT } from "@/interface/db/user.types";
 
 type FollowCardT = {
   user: UserDetailsT;
+  isFollowing: boolean;
 };
 
-const FollowCard: React.FC<FollowCardT> = ({ user }) => {
+const FollowCard: React.FC<FollowCardT> = ({ user, isFollowing }) => {
   const theme = useTheme();
+
+  const { followQuery, status } = useFollowUserQuery(user._id);
 
   return (
     <Styled.FollowCard>
@@ -36,6 +40,8 @@ const FollowCard: React.FC<FollowCardT> = ({ user }) => {
           {user.fullname}
         </Link>
 
+        <small>{user.email}</small>
+
         <LineClamp
           clamp={2}
           sx={{
@@ -49,7 +55,11 @@ const FollowCard: React.FC<FollowCardT> = ({ user }) => {
         />
       </div>
 
-      <FollowButton />
+      <FollowButton
+        onClick={followQuery}
+        isFollowing={isFollowing}
+        disabled={status.loading}
+      />
     </Styled.FollowCard>
   );
 };

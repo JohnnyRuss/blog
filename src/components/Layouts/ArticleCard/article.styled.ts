@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
-export const ArticleCardBig = styled(Link)`
+export const ArticleCardBig = styled.div`
   .article-card {
     display: flex;
     align-items: flex-start;
@@ -40,6 +39,11 @@ export const ArticleCardBig = styled(Link)`
         justify-content: space-between;
       }
     }
+
+    &:not(:has(figure.article-card__fig)) .article-card__content {
+      background-color: red;
+      width: 100%;
+    }
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
@@ -75,6 +79,8 @@ export const ArticleCardBig = styled(Link)`
 
 export const ArticleCardMedium = styled.div`
   max-width: 37rem;
+  height: 40rem;
+  display: flex;
 
   .article-md__body {
     height: 100%;
@@ -85,7 +91,7 @@ export const ArticleCardMedium = styled.div`
 
     &-fig {
       width: 100%;
-      height: 50%;
+      height: 40%;
       border-radius: 0.5rem;
       overflow: hidden;
 
@@ -100,10 +106,15 @@ export const ArticleCardMedium = styled.div`
     }
 
     &-content {
-      height: 50%;
+      height: 60%;
       display: flex;
       flex-direction: column;
       gap: 2rem;
+    }
+
+    &:not(:has(figure.article-md__body-fig)) .article-md__body-content {
+      background-color: red;
+      height: 100%;
     }
 
     &-content--text {
@@ -166,10 +177,19 @@ export const ArticleCardSmall = styled.div`
       gap: 2rem;
     }
 
+    &:not(:has(figure.article-sm__body-fig)) .article-sm__body-content {
+      background-color: red;
+      width: 100%;
+    }
+
     &-content--text {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+    }
+
+    &-content--title:hover {
+      text-decoration: underline;
     }
 
     @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {

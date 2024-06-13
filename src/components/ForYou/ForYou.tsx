@@ -17,8 +17,6 @@ const ForYou: React.FC<ForYouT> = () => {
   return (
     <>
       <Styled.ForYou>
-        <div>Filter</div>
-
         <div className="for-you__content-box">
           <ArticlesList />
 

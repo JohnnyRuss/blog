@@ -17,6 +17,12 @@ const ArticleSubHead: React.FC = () => {
         <ArticleHeadActions />
       </div>
 
+      <ul className="article-head__categories-list">
+        {article.categories.map((category) => (
+          <li key={category._id}>#{category.title}</li>
+        ))}
+      </ul>
+
       <h3 className="article-head__title">{article.title}</h3>
     </Styled.ArticleHead>
   );

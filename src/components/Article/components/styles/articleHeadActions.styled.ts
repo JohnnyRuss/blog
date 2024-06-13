@@ -28,6 +28,11 @@ export const ArticleHeadActions = styled.div`
     &.bookmark svg,
     &.heart svg {
       fill: #555;
+      font-size: ${({ theme }) => theme.fontSize.lg};
+    }
+
+    &.bookmark.active svg {
+      fill: ${({ theme }) => theme.colors.red};
     }
 
     &.heart.active svg {

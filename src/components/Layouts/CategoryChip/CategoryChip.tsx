@@ -1,6 +1,11 @@
+import { useNavigate } from "react-router-dom";
+
+import { PATHS } from "@/config/paths";
+
 import * as Styled from "./chip.styled";
 
 import { CategoryT } from "@/interface/db/category.types";
+import React from "react";
 
 type CategoryChipT = {
   category: CategoryT;
@@ -17,12 +22,21 @@ const CategoryChip: React.FC<CategoryChipT> = ({ category, size = "lg" }) => {
       ? "size-lg"
       : "";
 
+  const navigate = useNavigate();
+
+  const onCategory = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(`${PATHS.blog_page}?category=${category.query}`);
+  };
+
   return (
     <Styled.CategoryChip
       data-category-chip
       className={sizeClass}
       title={category?.title}
       $bg_color={category?.color}
+      onClick={onCategory}
     >
       {size === "lg" && (
         <figure className="categories__list-item--fig">

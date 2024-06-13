@@ -2,11 +2,13 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
+import { produce } from "immer";
 
 import { ARTICLES_PER_PAGE } from "@/config/config";
 import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
 import { generateQueryableString, logger } from "@/utils";
+import { authStore } from "@/store";
 
 import {
   ArticleStateT,
@@ -389,7 +391,36 @@ const useArticleStore = create<ArticleStoreT>()(
 
       // ========== Others ==========
       async like(args) {
-        console.log(args);
+        try {
+          await axiosPrivateQuery.post(`/articles/reaction/${args.articleId}`);
+
+          const authenticatedUser = authStore.getState().user;
+
+          const updateLikes = (likes: Array<string>) =>
+            likes.includes(authenticatedUser._id)
+              ? likes.filter((like) => like !== authenticatedUser._id)
+              : [...likes, authenticatedUser._id];
+
+          set((state) =>
+            produce(state, (draft) => {
+              const candidateArticle = draft.articles.find(
+                (article) => article._id === args.articleId
+              );
+
+              const isActiveArticle = draft.article._id === args.articleId;
+
+              if (isActiveArticle)
+                draft.article.likes = updateLikes(draft.article.likes);
+
+              if (!candidateArticle) return;
+
+              candidateArticle.likes = updateLikes(candidateArticle.likes);
+            })
+          );
+        } catch (error) {
+          const message = logger(error);
+          throw new Error(message);
+        }
       },
     })),
     { name: "articles" }

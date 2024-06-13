@@ -4,9 +4,7 @@ import styled from "styled-components";
 import { generateArray } from "@/utils";
 import { useGetListsQuery } from "@/hooks/api/lists";
 
-import ListCard from "./ListCard";
-import ListCardSkeleton from "./ListCardSkeleton";
-import { EmptyMessage } from "@/components/Layouts";
+import { EmptyMessage, ListCard, ListCardSkeleton } from "@/components/Layouts";
 
 type UserListsT = {
   limit?: number;

@@ -7,7 +7,6 @@ import CardFooterSkeleton from "./components/CardFooterSkeleton";
 const ArticleCardMediumSkeleton: React.FC = () => {
   return (
     <Styled.ArticleCardMedium
-      to=""
       as="div"
       style={{ minWidth: "100%", minHeight: "400px" }}
     >
@@ -15,7 +14,7 @@ const ArticleCardMediumSkeleton: React.FC = () => {
         <figure className="article-md__body-fig">
           <Skeleton
             width="100%"
-            height="100%"
+            height="200px"
             style={{ marginBottom: "-20px", borderRadius: "inherit" }}
           />
         </figure>

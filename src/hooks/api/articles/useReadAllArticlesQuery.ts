@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { articleStore } from "@/store";
+import { useSearchParams } from "@/hooks/utils";
 
 export default function useReadAllArticlesQuery(defaultQuery?: string) {
   const { search } = useLocation();
+  const { getParam } = useSearchParams();
 
   const get = articleStore.use.getAll();
   const getPaginated = articleStore.use.getAllPaginated();
@@ -20,10 +22,14 @@ export default function useReadAllArticlesQuery(defaultQuery?: string) {
 
   const cleanUp = articleStore.use.cleanUpArticles();
 
+  const searchQueryStr = getParam("search");
+  const categoryQueryStr = getParam("category");
+  const queryStr = search ? `${search}&` : "";
+
   const getArticlesQuery = async () => {
     await getPaginated({
       page: currentPage + 1,
-      query: `${search || ""}${defaultQuery || ""}`,
+      query: `${queryStr || ""}${defaultQuery || ""}`,
     });
   };
 
@@ -31,14 +37,14 @@ export default function useReadAllArticlesQuery(defaultQuery?: string) {
     const timeoutId = setTimeout(async () => {
       await get({
         page: 1,
-        query: `${search || ""}${defaultQuery || ""}`,
+        query: `${queryStr || ""}${defaultQuery || ""}`,
       });
     }, 800);
 
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [searchQueryStr, categoryQueryStr]);
 
   useEffect(() => {
     return () => {

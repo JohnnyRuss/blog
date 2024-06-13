@@ -1,9 +1,7 @@
 import { FollowingList } from "./components/Following";
 import * as Styled from "./styles/following.styled";
 
-type FollowingT = {};
-
-const Following: React.FC<FollowingT> = () => {
+const Following: React.FC = () => {
   return (
     <Styled.Following>
       <FollowingList />

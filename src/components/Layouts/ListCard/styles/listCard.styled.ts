@@ -6,6 +6,10 @@ export const ListCard = styled.li`
   align-items: flex-start;
   width: 100%;
 
+  a:hover {
+    text-decoration: underline;
+  }
+
   .list-card__content {
     display: flex;
     flex-direction: column;
@@ -41,6 +45,10 @@ export const ListCard = styled.li`
     &-count {
       font-size: ${({ theme }) => theme.fontSize.sm};
       color: ${({ theme }) => theme.colors.gray_shade};
+    }
+
+    &-title {
+      width: max-content;
     }
   }
 

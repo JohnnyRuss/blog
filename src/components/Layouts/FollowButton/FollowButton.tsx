@@ -10,19 +10,43 @@ const StyledFollowButton = styled.button`
   padding: 1rem 1.5rem;
   font-size: ${({ theme }) => theme.fontSize.sm};
   transition: all 0.3s ease;
+  width: 10rem;
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.green};
     border-color: ${({ theme }) => theme.colors.green};
     color: ${({ theme }) => theme.colors.white};
   }
+
+  &.following {
+    background-color: ${({ theme }) => theme.colors.green};
+    color: ${({ theme }) => theme.colors.white};
+  }
+
+  &:disabled {
+    cursor: none;
+  }
 `;
 
-type FollowButtonT = {};
+type FollowButtonT = {
+  isFollowing: boolean;
+  onClick: () => void;
+  disabled: boolean;
+};
 
-const FollowButton: React.FC<FollowButtonT> = () => {
+const FollowButton: React.FC<FollowButtonT> = ({
+  onClick,
+  disabled,
+  isFollowing,
+}) => {
   return (
-    <StyledFollowButton className="follow-card__btn">Follow</StyledFollowButton>
+    <StyledFollowButton
+      onClick={onClick}
+      disabled={disabled}
+      className={`follow-card__btn ${isFollowing ? "following" : ""}`}
+    >
+      {isFollowing ? "Following" : "Follow"}
+    </StyledFollowButton>
   );
 };
 

@@ -9,12 +9,14 @@ export default function useWhoToFollowQuery() {
   const data = userFollowStore.use.usersToFollow();
   const get = userFollowStore.use.getUsersToFollow();
   const cleanUp = userFollowStore.use.cleanUpUsersToFollow();
+  const cleanUpFollowingUsers = userFollowStore.use.cleanUpFollowingUsers();
 
   useEffect(() => {
     (async () => get())();
 
     return () => {
       cleanUp();
+      cleanUpFollowingUsers();
     };
   }, []);
 

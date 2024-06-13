@@ -116,7 +116,7 @@ export const Navigation = styled(motion.nav)`
     }
   }
 
-  .logout-btn__box {
+  .profile-dropdown__box {
     position: relative;
     margin-left: 3rem;
 
@@ -140,7 +140,7 @@ export const Navigation = styled(motion.nav)`
       }
     }
 
-    .logout-btn__dropdown {
+    .profile-dropdown__window {
       position: absolute;
       z-index: 9;
       border: 1px solid ${({ theme }) => theme.colors.gray};
@@ -157,8 +157,22 @@ export const Navigation = styled(motion.nav)`
         text-align: center;
         padding: 0.5rem;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        span:first-child {
+          display: flex;
+          align-items: center;
+          line-height: 1;
+          font-size: ${({ theme }) => theme.fontSize.lg};
+        }
 
         &:hover {
+          color: ${({ theme }) => theme.colors.blue_shade};
+        }
+
+        &.danger:hover {
           color: ${({ theme }) => theme.colors.red};
         }
       }

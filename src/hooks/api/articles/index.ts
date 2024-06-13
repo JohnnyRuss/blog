@@ -8,7 +8,7 @@ export { default as useReadArticleQuery } from "./useReadArticleQuery";
 // Top Article
 export { default as useGetTopArticleQuery } from "./useGetTopArticleQuery";
 // Related Articles
-export { default as useGetRelatedArticles } from "./useGetRelatedArticles";
+export { default as useGetRelatedArticlesQuery } from "./useGetRelatedArticlesQuery";
 // Popular Articles
 export { default as useGetPopularArticles } from "./useGetPopularArticles";
 // Editor Picked Articles

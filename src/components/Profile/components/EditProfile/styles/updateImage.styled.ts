@@ -46,7 +46,7 @@ export const UpdateImageField = styled(motion.div)`
       }
 
       svg {
-        font-size: 26px;
+        font-size: 20px;
         fill: ${({ theme }) => theme.colors.white};
         position: relative;
         z-index: 2;

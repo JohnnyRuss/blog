@@ -11,9 +11,7 @@ import ListItem from "./ListItem";
 import * as Styled from "./index.styled";
 import { Modal, RelativeSpinner, CreateListForm } from "@/components/Layouts";
 
-type CreateListModalT = {};
-
-const CreateListModal: React.FC<CreateListModalT> = () => {
+const CreateListModal: React.FC = () => {
   // ========== Candidate Lists ==========
   const { data, status } = useGetListsToAddQuery();
 
@@ -28,7 +26,9 @@ const CreateListModal: React.FC<CreateListModalT> = () => {
   const [isCreatingList, setIsCreatingList] = useState(false);
   const onCancelListCreation = () => setIsCreatingList(false);
 
-  const { form, onCreate } = useCreateListQuery(onCancelListCreation);
+  const { form, onCreate } = useCreateListQuery({
+    onFulFilled: onCancelListCreation,
+  });
 
   return (
     <div>
@@ -62,7 +62,7 @@ const CreateListModal: React.FC<CreateListModalT> = () => {
 
               <div className="list-row__footer">
                 <button onClick={() => setIsCreatingList(true)}>
-                  Create List
+                  Create New List
                 </button>
               </div>
             </>

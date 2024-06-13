@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTheme } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { getTimeString } from "@/utils";
 import { animateLeft } from "@/styles/animations";
@@ -17,6 +17,14 @@ type PopularArticleCardT = {
 const PopularArticleCard: React.FC<PopularArticleCardT> = ({ article }) => {
   const theme = useTheme();
   const category = article.categories[0];
+
+  const navigate = useNavigate();
+
+  const onGoToUser = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(DYNAMIC_ROUTES.profile_page(article.author.username));
+  };
 
   return (
     <motion.li {...animateLeft({ inView: true, once: true })}>
@@ -39,12 +47,9 @@ const PopularArticleCard: React.FC<PopularArticleCardT> = ({ article }) => {
         />
 
         <div className="popular-item__footer">
-          <Link
-            className="popular-item__footer-author"
-            to={DYNAMIC_ROUTES.profile_page(article.author.username)}
-          >
+          <div className="popular-item__footer-author" onClick={onGoToUser}>
             {article.author.fullname}
-          </Link>
+          </div>
           &mdash;
           <span className="popular-item__footer-date">
             {getTimeString(article.createdAt)}

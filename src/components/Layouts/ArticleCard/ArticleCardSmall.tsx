@@ -1,5 +1,5 @@
 import { useTheme } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useQuill } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
@@ -13,28 +13,30 @@ import { ArticleShortT } from "@/interface/db/article.types";
 
 type ArticleCardSmallT = {
   article: ArticleShortT;
+  showLikeButton?: boolean;
 };
 
-const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({ article }) => {
-  const navigate = useNavigate();
+const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({
+  article,
+  showLikeButton = true,
+}) => {
   const theme = useTheme();
 
   const { description, thumbnail } = useQuill(article.body);
 
-  const onNavigateToArticle = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate(DYNAMIC_ROUTES.article_page(article.slug));
-  };
-
   return (
-    <Styled.ArticleCardSmall onClick={onNavigateToArticle}>
+    <Styled.ArticleCardSmall>
       <li className="article-sm__body">
         <div className="article-sm__body-content">
           <CardHead author={article.author} />
 
           <div className="article-sm__body-content--text">
-            <LineClamp clamp={2} component="h3" text={article.title} />
+            <Link
+              to={DYNAMIC_ROUTES.article_page(article.slug)}
+              className="article-sm__body-content--title"
+            >
+              <LineClamp clamp={2} component="h3" text={article.title} />
+            </Link>
 
             <LineClamp
               clamp={2}
@@ -49,18 +51,24 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({ article }) => {
             />
           </div>
 
-          <CardFooter articleId={article._id} />
+          <CardFooter
+            likes={article.likes}
+            articleId={article._id}
+            showLikeButton={showLikeButton}
+          />
         </div>
 
-        <figure className="article-sm__body-fig">
-          <img
-            width="100%"
-            title="card"
-            loading="lazy"
-            src={thumbnail}
-            alt="card"
-          />
-        </figure>
+        {thumbnail && (
+          <figure className="article-sm__body-fig">
+            <img
+              width="100%"
+              title="card"
+              loading="lazy"
+              src={thumbnail}
+              alt="card"
+            />
+          </figure>
+        )}
       </li>
     </Styled.ArticleCardSmall>
   );

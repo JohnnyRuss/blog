@@ -20,6 +20,7 @@ export const EditorPick = styled.ul`
     overflow: hidden;
     border: 2px solid ${({ theme }) => theme.colors.brown};
     padding: 0.2rem;
+    background-color: ${({ theme }) => theme.colors.gray};
 
     img {
       width: 100%;

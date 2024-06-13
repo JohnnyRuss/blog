@@ -55,7 +55,7 @@ const Review: React.FC = () => {
           }
           redirectPath={DYNAMIC_ROUTES.profile_saved_lists(username || "")}
         >
-          <SavedLists limit={3} />
+          <SavedLists limit={3} userId={user._id} />
         </ReviewBlock>
 
         {isActiveUserProfile && (

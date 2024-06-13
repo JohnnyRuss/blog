@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useTheme } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { getTimeString } from "@/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
@@ -9,6 +9,7 @@ import { animateLeft } from "@/styles/animations";
 import { CategoryChip, LineClamp } from "@/components/Layouts";
 
 import { ArticleShortT } from "@/interface/db/article.types";
+import React from "react";
 
 type EditorPickedArticleCardT = {
   article: ArticleShortT;
@@ -17,8 +18,16 @@ type EditorPickedArticleCardT = {
 const EditorPickedArticleCard: React.FC<EditorPickedArticleCardT> = ({
   article,
 }) => {
+  const navigate = useNavigate();
+
   const theme = useTheme();
   const category = article.categories[0];
+
+  const onNavigateToAuthor = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate(DYNAMIC_ROUTES.profile_page(article.author.username));
+  };
 
   return (
     <motion.li {...animateLeft({ inView: true, once: true })}>
@@ -51,12 +60,12 @@ const EditorPickedArticleCard: React.FC<EditorPickedArticleCardT> = ({
           />
 
           <div className="editor-pick__item-footer">
-            <Link
+            <span
+              onClick={onNavigateToAuthor}
               className="editor-pick__item-footer--author"
-              to={DYNAMIC_ROUTES.profile_page(article.author.username)}
             >
               {article.author.fullname}
-            </Link>
+            </span>
             &mdash;
             <span className="editor-pick__item-footer--date">
               {getTimeString(article.createdAt)}

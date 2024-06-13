@@ -3,7 +3,10 @@ import useCreateListForm, {
 } from "@/utils/validations/createListSchema";
 import { listsStore } from "@/store";
 
-export default function useCreateListQuery(onFulFilled?: () => void) {
+export default function useCreateListQuery(args: {
+  listId?: string;
+  onFulFilled?: () => void;
+}) {
   const form = useCreateListForm();
 
   const createList = listsStore.use.createList();
@@ -13,17 +16,23 @@ export default function useCreateListQuery(onFulFilled?: () => void) {
   const onStartUpdate = (list: CreateListSchemaT) => form.reset(list);
 
   const onUpdate = form.handleSubmit(async (values) => {
+    if (!args.listId) return;
+
     await updateList({
-      data: { description: "", privacy: "PUBLIC", title: "" },
-      listId: "",
+      data: {
+        description: values.description,
+        privacy: values.privacy,
+        title: values.title,
+      },
+      listId: args.listId,
     });
 
-    onFulFilled();
+    args.onFulFilled();
   });
 
   const onCreate = form.handleSubmit(async (values) => {
     await createList(values);
-    onFulFilled();
+    args.onFulFilled();
   });
 
   return { form, onCreate, status, onStartUpdate, onUpdate };

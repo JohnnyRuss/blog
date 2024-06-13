@@ -6,6 +6,7 @@ type UserFollowStateT = {
   usersToFollow: Array<UserDetailsT>;
   followingUsers: Array<UserDetailsT>;
   followingUsersStatus: LoadingStatusT;
+  followUserStatus: LoadingStatusT;
 };
 
 type UserFollowActionsT = {
@@ -13,6 +14,7 @@ type UserFollowActionsT = {
   cleanUpUsersToFollow: () => void;
   getFollowingUsers: () => Promise<void>;
   cleanUpFollowingUsers: () => void;
+  followUser: (args: { userId: string }) => Promise<void>;
 };
 
 type UserFollowStoreT = UserFollowStateT & UserFollowActionsT;

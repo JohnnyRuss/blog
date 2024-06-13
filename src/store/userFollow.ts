@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
+import { produce } from "immer";
 
 import { logger } from "@/utils";
 import { axiosPrivateQuery } from "@/services/axios";
@@ -18,6 +19,7 @@ const initialState: UserFollowStateT = {
   usersToFollowStatus: getStatus("IDLE"),
   followingUsers: [],
   followingUsersStatus: getStatus("IDLE"),
+  followUserStatus: getStatus("IDLE"),
 };
 
 const useUserFollowStore = create<UserFollowStoreT>()(
@@ -81,6 +83,40 @@ const useUserFollowStore = create<UserFollowStoreT>()(
           followingUsers: initialState.followingUsers,
           followingUsersStatus: initialState.followingUsersStatus,
         }));
+      },
+
+      async followUser(args) {
+        try {
+          set(() => ({ followUserStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<UserDetailsT> =
+            await axiosPrivateQuery.post(`/follow/${args.userId}/follow`);
+
+          const updateFollowingLists = (
+            list: Array<UserDetailsT>
+          ): Array<UserDetailsT> => {
+            let shallowList = [...list];
+
+            if (shallowList.some((user) => user._id === data._id))
+              shallowList = shallowList.filter((user) => user._id !== data._id);
+            else shallowList.push(data);
+
+            return shallowList;
+          };
+
+          set((state) => ({
+            ...produce(state, (draft) => {
+              draft.followingUsers = updateFollowingLists(draft.followingUsers);
+              draft.usersToFollow = updateFollowingLists(draft.usersToFollow);
+            }),
+
+            followUserStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error) {
+          const message = logger(error);
+          set(() => ({ followUserStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
       },
     })),
     { name: "user-follow" }

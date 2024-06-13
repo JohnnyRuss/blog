@@ -5,9 +5,11 @@ import { motion } from "framer-motion";
 import { generateArray } from "@/utils";
 import { animateTop } from "@/styles/animations";
 import { useGetUserHistoryQuery } from "@/hooks/api/history";
+import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
 import {
   ErrorMessage,
+  EmptyMessage,
   InfiniteScroll,
   ArticleCardSmall,
   ArticleCardSmallSkeleton,
@@ -23,10 +25,16 @@ const StyledList = styled.div`
     display: flex;
     flex-direction: column;
     gap: 3rem;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 `;
 
 const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
+  useGetSavedArticlesIdsQuery();
+
   const { data, status, hasMore, getHistoryQuery, total } =
     useGetUserHistoryQuery(limit);
 
@@ -43,7 +51,7 @@ const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
           total={total}
           hasMore={limit ? false : hasMore}
           onNext={getHistoryQuery}
-          showLastMessage={limit ? false : true}
+          showLastMessage={limit || data.length === 0 ? false : true}
           fallBack={generateArray(2).map((id) => (
             <ArticleCardSmallSkeleton key={id} />
           ))}
@@ -53,12 +61,16 @@ const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
               {...animateTop({ inView: true, once: true })}
               key={`history-${article._id}--${index}`}
             >
-              <ArticleCardSmall article={article} />
+              <ArticleCardSmall article={article} showLikeButton={false} />
             </motion.div>
           ))}
         </InfiniteScroll>
       ) : (
         <ErrorMessage message={status.message} align="center" size="md" />
+      )}
+
+      {data.length === 0 && (
+        <EmptyMessage message="You have not read any article yet" />
       )}
     </StyledList>
   );

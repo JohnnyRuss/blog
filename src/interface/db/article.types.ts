@@ -31,6 +31,7 @@ type ArticleShortT = {
   categories: Array<CategoryT>;
   createdAt: string;
   picked: boolean;
+  likes: Array<string>;
 };
 
 // API

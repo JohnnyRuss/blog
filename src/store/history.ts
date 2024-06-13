@@ -30,7 +30,6 @@ const useHistoryStore = create<HistoryStoreT>()(
       async getHistory(limit) {
         try {
           set(() => ({ status: getStatus("PENDING") }));
-
           const {
             data: { currentPage, data, hasMore },
           }: AxiosResponse<GetAllArticlesResponseT> =
@@ -83,7 +82,7 @@ const useHistoryStore = create<HistoryStoreT>()(
         try {
           set(() => ({ clearStatus: getStatus("PENDING") }));
 
-          await axiosPrivateQuery.delete("");
+          await axiosPrivateQuery.delete("/trace/history");
 
           set(() => ({ history: [], clearStatus: getStatus("SUCCESS") }));
         } catch (error: any) {

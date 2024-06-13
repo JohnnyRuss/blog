@@ -30,7 +30,7 @@ type ArticleStateT = {
 
   // ========== Top Article ==========
   topArticleStatus: LoadingStatusT;
-  topArticle: ArticleShortT;
+  topArticle: Omit<ArticleShortT, "likes">;
 
   // ========== Related Articles ==========
   relatedStatus: LoadingStatusT;

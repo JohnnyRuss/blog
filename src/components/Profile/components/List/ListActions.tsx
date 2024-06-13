@@ -1,28 +1,26 @@
+import { useSaveListQuery } from "@/hooks/api/lists";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 import { useAppUIContext } from "@/Providers/useProviders";
 import useDeleteListQuery from "@/hooks/api/lists/useDeleteListQuery";
 
-import {
-  DeleteIcon,
-  SaveIcon,
-  RemoveIcon,
-  EditIcon,
-} from "@/components/Layouts/Icons";
-import { StandSpinner } from "@/components/Layouts";
+import { Save, Edit, Remove, Delete } from "@/components/Layouts/Icons";
 import * as Styled from "./styles/listActions.styled";
+import { StandSpinner, ErrorMessage } from "@/components/Layouts";
 
 type ListActionsT = {
-  authorId: string;
   listId: string;
+  authorId: string;
+  allowEdit: boolean;
   onStartEdit: () => void;
 };
 
 const ListActions: React.FC<ListActionsT> = ({
   listId,
   authorId,
+  allowEdit,
   onStartEdit,
 }) => {
-  const { decodedUser } = useCheckIsAuthenticatedUser(true);
+  const { decodedUser, isAuthenticated } = useCheckIsAuthenticatedUser(true);
   const belongsToActiveUser = decodedUser?._id === authorId;
 
   const { activateDialog } = useAppUIContext();
@@ -37,39 +35,60 @@ const ListActions: React.FC<ListActionsT> = ({
       type: "danger",
     });
 
+  const {
+    onSave,
+    onRemove,
+    status: saveStatus,
+    savedListsIds,
+  } = useSaveListQuery();
+
   return (
     <>
       <Styled.ListActions>
-        {!belongsToActiveUser && (
+        {!belongsToActiveUser && isAuthenticated && (
           <>
-            <button className="list-header__actions-btn save">
-              <SaveIcon />
-            </button>
-
-            <button className="list-header__actions-btn remove">
-              <RemoveIcon />
-            </button>
+            {savedListsIds.includes(listId) ? (
+              <button
+                title="remove list"
+                disabled={saveStatus.loading}
+                onClick={() => onRemove({ listId })}
+                className="list-header__actions-btn remove"
+              >
+                <Remove />
+              </button>
+            ) : (
+              <button
+                title="save list"
+                disabled={saveStatus.loading}
+                onClick={() => onSave({ listId })}
+                className="list-header__actions-btn save"
+              >
+                <Save />
+              </button>
+            )}
           </>
         )}
 
-        {belongsToActiveUser && (
+        {belongsToActiveUser && allowEdit && (
           <>
             <button
               onClick={onStartDelete}
               className="list-header__actions-btn delete"
             >
-              <DeleteIcon />
+              <Delete />
             </button>
 
             <button
               onClick={onStartEdit}
               className="list-header__actions-btn edit"
             >
-              <EditIcon />
+              <Edit />
             </button>
           </>
         )}
       </Styled.ListActions>
+
+      {saveStatus.error && <ErrorMessage message={saveStatus.message} />}
 
       {status.loading && <StandSpinner />}
     </>

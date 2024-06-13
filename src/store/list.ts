@@ -16,7 +16,7 @@ import {
   ArticleShortT,
   GetAllArticlesResponseT,
 } from "@/interface/db/article.types";
-import { ListT, ListShortT } from "@/interface/db/list.types";
+import { ListT, ListShortT, ListArticlesT } from "@/interface/db/list.types";
 import { ListStateT, ListStoreT } from "@/interface/store/list.store.types";
 
 const initialState: ListStateT = {
@@ -60,6 +60,13 @@ const initialState: ListStateT = {
   // ========== Saved Articles ==========
   savedStatus: getStatus("IDLE"),
   savedArticles: [],
+  savedArticlesIds: [],
+
+  // ========== Saved Lists ==========
+  savedLists: [],
+  savedListsStatus: getStatus("IDLE"),
+  saveListStatus: getStatus("IDLE"),
+  savedListsIds: [],
 };
 
 const useListStore = create<ListStoreT>()(
@@ -163,26 +170,53 @@ const useListStore = create<ListStoreT>()(
 
       async addToList(args) {
         try {
-          await axiosPrivateQuery.post(`/lists/${args.listId}`, {
-            articleId: args.articleId,
-          });
+          const { data }: AxiosResponse<ListArticlesT> =
+            await axiosPrivateQuery.post(`/lists/${args.listId}`, {
+              articleId: args.articleId,
+            });
 
           set((state) => {
             return produce(state, (draft) => {
-              const list = draft.listsToAdd.find(
+              // update listsToAdd
+              const listToAdd = draft.listsToAdd.find(
                 (list) => list._id === args.listId
               );
 
-              list.articles = list.articles.some(
+              listToAdd.articles = listToAdd.articles.some(
                 (article) => article.article === args.articleId
               )
-                ? list.articles.filter(
+                ? listToAdd.articles.filter(
                     (article) => article.article !== args.articleId
                   )
                 : [
-                    ...list.articles,
+                    ...listToAdd.articles,
                     { savedAt: new Date().toString(), article: args.articleId },
                   ];
+
+              // update savedArticlesIds
+              draft.savedArticlesIds = draft.savedArticlesIds.some(
+                (articleId) => articleId === args.articleId
+              )
+                ? draft.savedArticlesIds.filter(
+                    (articleId) => articleId !== args.articleId
+                  )
+                : [...draft.savedArticlesIds, args.articleId];
+
+              //update lists
+
+              if (draft.lists.length <= 0) return;
+
+              const list = draft.lists.find((list) => list._id === args.listId);
+
+              if (!list) return;
+
+              list.articles = list.articles.some(
+                (article) => article.article._id === args.articleId
+              )
+                ? list.articles.filter(
+                    (article) => article.article._id !== args.articleId
+                  )
+                : [...data];
             });
           });
         } catch (error: any) {
@@ -329,6 +363,95 @@ const useListStore = create<ListStoreT>()(
           savedArticles: initialState.savedArticles,
           savedStatus: initialState.savedStatus,
         }));
+      },
+
+      async getSavedArticlesIds() {
+        try {
+          const { data }: AxiosResponse<Array<string>> =
+            await axiosPrivateQuery("/lists/saved/articles");
+
+          set(() => ({ savedArticlesIds: data }));
+        } catch (error) {
+          logger(error);
+        }
+      },
+
+      cleanUpSavedArticlesIds() {
+        set(() => ({ savedArticlesIds: initialState.savedArticlesIds }));
+      },
+
+      // ========== Saved Lists ==========
+      async getSavedListsIds() {
+        try {
+          set(() => ({ savedStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<Array<string>> =
+            await axiosPrivateQuery.get(`/trace/lists/ids`);
+
+          set(() => ({
+            savedListsIds: data,
+            savedStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error) {
+          logger(error);
+        }
+      },
+
+      async getSavedLists(args) {
+        try {
+          set(() => ({ savedListsStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<Array<ListT>> = await axiosPrivateQuery(
+            `/trace/lists/user/${args.userId}`
+          );
+
+          set(() => ({
+            savedListsStatus: getStatus("SUCCESS"),
+            savedLists: data,
+          }));
+        } catch (error) {
+          const message = logger(error);
+          set(() => ({ savedListsStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      async saveList(args) {
+        try {
+          set(() => ({ saveListStatus: getStatus("PENDING") }));
+
+          await axiosPrivateQuery.post(`/trace/lists/${args.listId}`);
+
+          set(() => ({
+            savedListsIds: Array.from(
+              new Set([...get().savedListsIds, args.listId])
+            ),
+            saveListStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error) {
+          const message = logger(error);
+          set(() => ({ saveListStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      async removeList(args) {
+        try {
+          set(() => ({ saveListStatus: getStatus("PENDING") }));
+
+          await axiosPrivateQuery.delete(`/trace/lists/${args.listId}`);
+
+          set(() => ({
+            savedListsIds: get().savedListsIds.filter(
+              (id) => id !== args.listId
+            ),
+            saveListStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error) {
+          const message = logger(error);
+          set(() => ({ saveListStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
       },
     })),
     { name: "list" }

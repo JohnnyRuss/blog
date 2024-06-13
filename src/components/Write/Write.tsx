@@ -27,6 +27,7 @@ const fitCategoryData = (v: CategoryDropdownInvertedOptionT) => ({
   color: v.color,
   label: v.title,
   value: v.query,
+  _id: v._id,
   isNew: v.isNew || false,
 });
 
@@ -34,6 +35,7 @@ const invertCategoryData = (v: CategoryDropdownOptionT) => ({
   color: v.color,
   title: v.label,
   query: v.value,
+  _id: v._id,
   isNew: v.isNew || false,
 });
 
@@ -83,11 +85,12 @@ const Write: React.FC = () => {
             rows={2}
             placeholder="Title"
             className="title-input"
-            error={error ? true : false}
+            hasError={error ? true : false}
             message={error?.message}
             name={field.name}
             value={field.value}
             onChange={field.onChange}
+            fieldProps={field}
           />
         )}
       />

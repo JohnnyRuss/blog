@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import { generateArray } from "@/utils";
-import { useGetRelatedArticles } from "@/hooks/api/articles";
+import { useGetRelatedArticlesQuery } from "@/hooks/api/articles";
 
 import {
   ErrorMessage,
@@ -12,7 +12,7 @@ import {
 import * as Styled from "./styles/relatedArticles.styled";
 
 const RelatedArticles: React.FC = memo(() => {
-  const { data, status } = useGetRelatedArticles();
+  const { data, status } = useGetRelatedArticlesQuery();
 
   return (
     <Styled.RelatedArticles>

@@ -17,4 +17,8 @@ export const ListHeader = styled.div`
     align-items: flex-end;
     gap: 0.75rem;
   }
+
+  .privacy-icon {
+    font-size: ${({ theme }) => theme.fontSize.xl};
+  }
 `;

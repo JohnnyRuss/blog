@@ -19,7 +19,7 @@ const ListHeader: React.FC = memo(() => {
     onStartUpdate,
     onUpdate,
     status: createStatus,
-  } = useCreateListQuery(onCancelEdit);
+  } = useCreateListQuery({ onFulFilled: onCancelEdit, listId: data._id });
 
   const onStartEdit = () => {
     setIsEditingList(true);
@@ -51,6 +51,7 @@ const ListHeader: React.FC = memo(() => {
               listId={data._id}
               onStartEdit={onStartEdit}
               authorId={data.author._id}
+              allowEdit={data.title !== "reading list"}
             />
           </div>
         </div>

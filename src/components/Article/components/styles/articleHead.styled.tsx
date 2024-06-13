@@ -20,4 +20,13 @@ export const ArticleHead = styled.div`
   .article-head__title {
     font-size: ${({ theme }) => theme.fontSize.h3};
   }
+
+  .article-head__categories-list {
+    font-size: ${({ theme }) => theme.fontSize.sm};
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    color: ${({ theme }) => theme.colors.blue_tint};
+    gap: 0.3rem;
+  }
 `;

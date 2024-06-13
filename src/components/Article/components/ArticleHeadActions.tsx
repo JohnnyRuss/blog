@@ -1,13 +1,28 @@
-import { articleStore } from "@/store";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+
+import {
+  useFollowUserQuery,
+  useCheckIsFollowingUserQuery,
+} from "@/hooks/api/userFollow";
+import { articleStore, listsStore } from "@/store";
 import { useSearchParams } from "@/hooks/utils";
+import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
+import { useLikeArticleQuery } from "@/hooks/api/articles";
+import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
 import * as Styled from "./styles/articleHeadActions.styled";
 import { FollowButton } from "@/components/Layouts";
+import { EyeOpen, Heart, Bookmark } from "@/components/Layouts/Icons";
 
 const ArticleHeadActions: React.FC = () => {
   const { setParam } = useSearchParams();
 
+  useGetSavedArticlesIdsQuery();
+
   const article = articleStore.use.article();
+  const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
+  const belongsToActiveUser = article.author._id === user._id;
 
   const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -18,55 +33,64 @@ const ArticleHeadActions: React.FC = () => {
     setParam("save", article._id);
   };
 
+  const { onLike: onLikeQuery } = useLikeArticleQuery();
+
+  const onLike = async () => {
+    if (!isAuthenticated) return;
+    await onLikeQuery({ articleId: article._id });
+  };
+
+  const { followQuery, status } = useFollowUserQuery(article.author._id);
+  const { check, isFollowingUser } = useCheckIsFollowingUserQuery();
+
+  const onFollow = async () => {
+    if (belongsToActiveUser) return;
+    await followQuery();
+    await check(article.author._id);
+  };
+
+  useEffect(() => {
+    if (belongsToActiveUser) return;
+    (async () => await check(article.author._id))();
+  }, [belongsToActiveUser, article.author._id]);
+
+  const savedArticlesIds = listsStore.use.savedArticlesIds();
+
   return (
     <Styled.ArticleHeadActions>
-      <FollowButton />
+      {isAuthenticated && !belongsToActiveUser && (
+        <FollowButton
+          onClick={onFollow}
+          disabled={status.loading}
+          isFollowing={isFollowingUser}
+        />
+      )}
 
       <div className="actions-item views">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 24 24"
-        >
-          <g
-            fill="none"
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="1.5"
-          >
-            <path d="M3 13c3.6-8 14.4-8 18 0" />
-            <path d="M12 17a3 3 0 1 1 0-6a3 3 0 0 1 0 6" />
-          </g>
-        </svg>
-
+        <EyeOpen />
         <span>{article.views}</span>
       </div>
 
-      <button className="actions-item heart active">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 24 24"
-        >
-          <path d="m12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5C2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z" />
-        </svg>
-
+      <button
+        onClick={onLike}
+        className={`actions-item heart ${
+          article.likes.includes(user._id) ? "active" : ""
+        }`}
+      >
+        <Heart />
         <span>{article.likes.length}</span>
       </button>
 
-      <button className="actions-item bookmark" onClick={onSave}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1em"
-          height="1em"
-          viewBox="0 0 24 24"
+      {isAuthenticated && !belongsToActiveUser && (
+        <button
+          onClick={onSave}
+          className={`actions-item bookmark ${
+            savedArticlesIds.includes(article._id) ? "active" : ""
+          }`}
         >
-          <path d="M5 21V5q0-.825.588-1.412T7 3h10q.825 0 1.413.588T19 5v16l-7-3z" />
-        </svg>
-      </button>
+          <Bookmark />
+        </button>
+      )}
     </Styled.ArticleHeadActions>
   );
 };

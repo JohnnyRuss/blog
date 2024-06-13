@@ -14,6 +14,7 @@ const borderTransition = keyframes`
 export const ProfileNav = styled.nav`
   position: sticky;
   top: 7rem;
+  z-index: 99;
   background-color: ${({ theme }) => theme.colors.bg};
   padding-bottom: 1.5rem;
   ${themeTransition};

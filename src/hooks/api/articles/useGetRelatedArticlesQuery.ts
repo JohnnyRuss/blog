@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 import { articleStore } from "@/store";
 
-export default function useGetRelatedArticles() {
+export default function useGetRelatedArticlesQuery() {
   const { slug } = useParams();
 
   const data = articleStore.use.relatedArticles();

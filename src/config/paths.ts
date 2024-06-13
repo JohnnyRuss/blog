@@ -6,6 +6,7 @@ const PATHS = {
   for_you_page: "/for-you",
   write: "/write",
   // PROFILE
+  profile_root: "/profile",
   profile_page: "/profile/:username",
   profile_review: "/profile/:username/review",
   profile_lists: "/profile/:username/lists",
@@ -13,6 +14,7 @@ const PATHS = {
   profile_saved_lists: "/profile/:username/saved",
   profile_history: "/profile/:username/history",
   profile_following: "/profile/:username/following",
+  profile_following_suggestions: "/profile/:username/following/suggestions",
   profile_settings: "/profile/:username/settings",
   // AUTH
   auth_page: "/auth",
@@ -47,11 +49,13 @@ const DYNAMIC_ROUTES = {
     PATHS.profile_history.replace(":username", username),
   profile_following: (username: string) =>
     PATHS.profile_following.replace(":username", username),
+  profile_following_suggestions: (username: string) =>
+    PATHS.profile_following_suggestions.replace(":username", username),
   profile_settings: (username: string) =>
     PATHS.profile_settings.replace(":username", username),
 };
 
-const PRIVATE_ROUTES = ["/for-you", "/write", "/profile"];
+const PRIVATE_ROUTES = [PATHS.for_you_page, PATHS.write, PATHS.profile_root];
 
 const getNativeLocation = (currentLocation: string) => {
   let originalPath = "";

@@ -18,10 +18,15 @@ export const CardFooter = styled.footer`
     span {
       line-height: 1;
     }
+  }
 
-    svg {
-      font-size: 24px;
-      line-height: 1;
-    }
+  svg {
+    line-height: 1;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+  }
+
+  .card-footer__btn.save.active svg,
+  .card-footer__btn.heart.active svg {
+    color: ${({ theme }) => theme.colors.red};
   }
 `;

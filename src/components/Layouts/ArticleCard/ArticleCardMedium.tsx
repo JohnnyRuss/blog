@@ -2,7 +2,7 @@
 import moment from "moment";
 import { useMemo } from "react";
 import { useTheme } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useQuill } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
@@ -16,10 +16,13 @@ import { ArticleShortT } from "@/interface/db/article.types";
 
 type ArticleCardMediumT = {
   article: ArticleShortT;
+  showLikeButton?: boolean;
 };
 
-const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
-  const navigate = useNavigate();
+const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
+  article,
+  showLikeButton = false,
+}) => {
   const theme = useTheme();
 
   const descriptionStyles = useMemo(
@@ -32,30 +35,28 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
 
   const { description, thumbnail } = useQuill(article.body);
 
-  const onNavigateToArticle = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    navigate(DYNAMIC_ROUTES.article_page(article.slug));
-  };
-
   return (
-    <Styled.ArticleCardMedium onClick={onNavigateToArticle}>
+    <Styled.ArticleCardMedium>
       <li className="article-md__body">
-        <figure className="article-md__body-fig">
-          <img
-            width="100%"
-            title="card"
-            loading="lazy"
-            src={thumbnail}
-            alt={article.title}
-          />
-        </figure>
+        {thumbnail && (
+          <figure className="article-md__body-fig">
+            <img
+              width="100%"
+              title="card"
+              loading="lazy"
+              src={thumbnail}
+              alt={article.title}
+            />
+          </figure>
+        )}
 
         <div className="article-md__body-content">
           <CardHead author={article.author} />
 
           <div className="article-md__body-content--text">
-            <LineClamp clamp={2} component="h3" text={article.title} />
+            <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>
+              <LineClamp clamp={2} component="h3" text={article.title} />
+            </Link>
 
             <LineClamp clamp={2} sx={descriptionStyles} text={description} />
           </div>
@@ -66,7 +67,11 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({ article }) => {
             </span>
           </div>
 
-          <CardFooter articleId={article._id} />
+          <CardFooter
+            likes={article.likes}
+            articleId={article._id}
+            showLikeButton={showLikeButton}
+          />
         </div>
       </li>
     </Styled.ArticleCardMedium>

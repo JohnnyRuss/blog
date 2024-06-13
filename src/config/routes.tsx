@@ -82,6 +82,12 @@ const Routes: Array<RouteT> = [
         element: <Pages.UserFollowingPage />,
         children: [],
       },
+      {
+        path: PATHS.profile_following_suggestions,
+        title: "profile-following-suggestions-page",
+        element: <Pages.UserFollowingSuggestionsPage />,
+        children: [],
+      },
     ],
   },
   {

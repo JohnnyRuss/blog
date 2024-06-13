@@ -8,7 +8,15 @@ import { LoadingStatusT } from "@/interface/store/common.types";
 import { logger } from "@/utils";
 import { axiosPrivateQuery } from "@/services/axios";
 
-export default function useGetCategoriesQuery(userbased: "1" | "-1" = "1") {
+type UseGetCategoriesQueryT = {
+  setLimit?: boolean;
+  userbased?: "1" | "-1";
+};
+
+export default function useGetCategoriesQuery({
+  setLimit = true,
+  userbased = "1",
+}: UseGetCategoriesQueryT) {
   const [data, setData] = useState<Array<CategoryT>>([]);
   const [status, setStatus] = useState<LoadingStatusT>({
     error: false,
@@ -23,7 +31,7 @@ export default function useGetCategoriesQuery(userbased: "1" | "-1" = "1") {
 
       const { data }: AxiosResponse<Array<CategoryT>> =
         await axiosPrivateQuery.get(
-          `/categories?userbased=${userbased}&limit=6`
+          `/categories?userbased=${userbased}${setLimit ? "&limit=6" : ""}`
         );
 
       setData(data);

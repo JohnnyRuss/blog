@@ -1,4 +1,5 @@
 import { useTheme } from "styled-components";
+import { Link } from "react-router-dom";
 
 import { useQuill } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
@@ -23,11 +24,13 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
   const category = article.categories[0];
 
   return (
-    <Styled.ArticleCardBig to={DYNAMIC_ROUTES.article_page(article.slug)}>
+    <Styled.ArticleCardBig>
       <li className="article-card">
-        <figure className="article-card__fig">
-          <img width="100%" height="100%" src={thumbnail} alt="post" />
-        </figure>
+        {thumbnail && (
+          <figure className="article-card__fig">
+            <img width="100%" height="100%" src={thumbnail} alt="post" />
+          </figure>
+        )}
 
         <div className="article-card__content">
           <div className="article-card__content-header">
@@ -39,7 +42,9 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
             <CategoryChip size="md" category={category} />
           </div>
 
-          <LineClamp clamp={2} component="h3" text={article.title} />
+          <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>
+            <LineClamp clamp={2} component="h3" text={article.title} />
+          </Link>
 
           <LineClamp
             clamp={7}
@@ -53,11 +58,11 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
             }}
           />
 
-          <button>
+          <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>
             <strong>
               <u>View More</u>
             </strong>
-          </button>
+          </Link>
         </div>
       </li>
     </Styled.ArticleCardBig>

@@ -11,21 +11,6 @@ export const Blog = styled.section`
     gap: 3rem;
   }
 
-  .blog-list__wrapper {
-    flex: 3;
-  }
-
-  .loading-skeleton,
-  .infinite-scroll-component {
-    display: grid;
-    gap: 5rem;
-    grid-template-columns: repeat(2, 1fr);
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
   .blog-aside {
     flex: 1;
     display: flex;
@@ -52,20 +37,6 @@ export const Blog = styled.section`
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
     .blog-content__box {
       padding: 0;
-    }
-
-    .loading-skeleton,
-    .infinite-scroll-component {
-      gap: 3rem;
-      grid-template-columns: repeat(1, 1fr);
-      justify-items: center;
-    }
-  }
-
-  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
-    .loading-skeleton,
-    .infinite-scroll-component {
-      gap: 5rem;
     }
   }
 `;
