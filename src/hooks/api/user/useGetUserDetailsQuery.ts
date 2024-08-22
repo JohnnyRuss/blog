@@ -15,7 +15,7 @@ export default function useGetUserDetailsQuery() {
   useEffect(() => {
     if (!username) return;
 
-    (async () => await get({ username }))();
+    get({ username });
 
     return () => {
       cleanUp();

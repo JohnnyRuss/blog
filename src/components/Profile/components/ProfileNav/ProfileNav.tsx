@@ -49,6 +49,15 @@ const ProfileNav: React.FC = memo(() => {
         </NavLink>
 
         <NavLink
+          to={DYNAMIC_ROUTES.profile_articles(username || "")}
+          className={({ isActive }) =>
+            `profile-nav--list__item ${isActive ? "active" : ""}`
+          }
+        >
+          {isActiveUserProfile ? "Your Articles" : "Articles"}
+        </NavLink>
+
+        <NavLink
           to={DYNAMIC_ROUTES.profile_lists(username || "")}
           className={({ isActive }) =>
             `profile-nav--list__item ${isActive ? "active" : ""}`
@@ -67,25 +76,25 @@ const ProfileNav: React.FC = memo(() => {
         </NavLink>
 
         {isActiveUserProfile && (
-          <>
-            <NavLink
-              to={DYNAMIC_ROUTES.profile_history(username || "")}
-              className={({ isActive }) =>
-                `profile-nav--list__item ${isActive ? "active" : ""}`
-              }
-            >
-              Reading History
-            </NavLink>
+          <NavLink
+            to={DYNAMIC_ROUTES.profile_history(username || "")}
+            className={({ isActive }) =>
+              `profile-nav--list__item ${isActive ? "active" : ""}`
+            }
+          >
+            Reading History
+          </NavLink>
+        )}
 
-            <NavLink
-              to={DYNAMIC_ROUTES.profile_following(username || "")}
-              className={({ isActive }) =>
-                `profile-nav--list__item ${isActive ? "active" : ""}`
-              }
-            >
-              Following
-            </NavLink>
-          </>
+        {isActiveUserProfile && (
+          <NavLink
+            to={DYNAMIC_ROUTES.profile_following(username || "")}
+            className={({ isActive }) =>
+              `profile-nav--list__item ${isActive ? "active" : ""}`
+            }
+          >
+            Following Users
+          </NavLink>
         )}
 
         {decodedUser?.role === "ADMIN" && isActiveUserProfile && (

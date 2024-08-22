@@ -19,7 +19,7 @@ const Register: React.FC = () => {
         render={({ field, fieldState: { error } }) => (
           <Form.TextField
             fieldProps={field}
-            label="fullname"
+            label="Fullname"
             hasError={error ? true : false}
             message={error?.message || ""}
           />

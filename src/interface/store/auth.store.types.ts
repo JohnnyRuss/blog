@@ -1,5 +1,12 @@
+import {
+  SignInArgsT,
+  SignUpArgsT,
+  ForgotPasswordArgsT,
+  ConfirmEmailArgsT,
+  UpdatePasswordArgsT,
+  DeleteAccountArgsT,
+} from "@/interface/db/auth.types";
 import { UserT } from "@/interface/db/user.types";
-import { SignInArgsT, SignUpArgsT } from "../db/auth.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
 
 type AuthStateT = {
@@ -11,7 +18,12 @@ type AuthActionsT = {
   login: (args: SignInArgsT) => Promise<void>;
   register: (args: SignUpArgsT) => Promise<void>;
   logout: () => Promise<void>;
+  forgotPassword: (args: ForgotPasswordArgsT) => Promise<void>;
+  confirmEmail: (args: ConfirmEmailArgsT) => Promise<void>;
+  updatePassword: (args: UpdatePasswordArgsT) => Promise<void>;
+  deleteAccount: (args: DeleteAccountArgsT) => Promise<void>;
   updateUser: (args: { key: string; value: string }) => void;
+  clearUser: () => void;
 };
 
 type AuthStoreT = AuthStateT & AuthActionsT;

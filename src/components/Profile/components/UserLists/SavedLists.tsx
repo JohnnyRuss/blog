@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 import { userStore } from "@/store";
-import { generateArray, textCapitalize } from "@/utils";
 import { useGetSavedListsQuery } from "@/hooks/api/lists";
+import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
+import { generateArray, textCapitalize, extractUserFirstName } from "@/utils";
 
 import { ListCard, ListCardSkeleton, EmptyMessage } from "@/components/Layouts";
 
@@ -21,7 +22,14 @@ const SavedLists: React.FC<SavedListsT> = ({ userId, limit }) => {
   const user = userStore.use.userDetails();
   const { data, status } = useGetSavedListsQuery(userId);
 
-  const emptyMessage = `${textCapitalize(user.fullname)} has not saved lists`;
+  const { decodedUser } = useCheckIsAuthenticatedUser(true);
+
+  const emptyMessage =
+    decodedUser?._id === user._id
+      ? `You have not saved lists`
+      : `${textCapitalize(
+          extractUserFirstName(user.fullname)
+        )} has not saved lists`;
 
   return (
     <StyledList>

@@ -1,9 +1,7 @@
 import { memo } from "react";
-import styled from "styled-components";
 import { motion } from "framer-motion";
 
-import { generateArray } from "@/utils";
-import { animateTop } from "@/styles/animations";
+import { generateArray, getTimeString } from "@/utils";
 import { useGetUserHistoryQuery } from "@/hooks/api/history";
 import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
@@ -14,23 +12,12 @@ import {
   ArticleCardSmall,
   ArticleCardSmallSkeleton,
 } from "@/components/Layouts";
+import * as Styled from "./historyList.styled";
+import { animateTop } from "@/styles/animations";
 
 type HistoryListT = {
   limit?: number;
 };
-
-const StyledList = styled.div`
-  .loading-skeleton,
-  .infinite-scroll-component {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-`;
 
 const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
   useGetSavedArticlesIdsQuery();
@@ -38,8 +25,16 @@ const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
   const { data, status, hasMore, getHistoryQuery, total } =
     useGetUserHistoryQuery(limit);
 
+  const formatDate = (group: { day?: number; month: number; year: number }) =>
+    getTimeString(
+      new Date(
+        `${group.month}-${group.day ? group.day : "01"}-${group.year}`
+      ).toString(),
+      group.day ? "dayMonthConfig" : "yearMonthConfig"
+    );
+
   return (
-    <StyledList>
+    <Styled.HistoryList>
       {status.loading ? (
         <div className="loading-skeleton">
           {generateArray(limit || 6).map((id) => (
@@ -52,17 +47,39 @@ const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
           hasMore={limit ? false : hasMore}
           onNext={getHistoryQuery}
           showLastMessage={limit || data.length === 0 ? false : true}
-          fallBack={generateArray(2).map((id) => (
-            <ArticleCardSmallSkeleton key={id} />
-          ))}
+          fallBack={
+            data.length > 0 ? (
+              generateArray(2).map((id) => (
+                <ArticleCardSmallSkeleton key={id} />
+              ))
+            ) : (
+              <></>
+            )
+          }
         >
-          {data.map((article, index) => (
-            <motion.div
-              {...animateTop({ inView: true, once: true })}
-              key={`history-${article._id}--${index}`}
+          {data.map(({ group, articles }, index) => (
+            <div
+              className="history-group--box"
+              key={`${group.day}-${group.month}-${group.year}--${index}`}
             >
-              <ArticleCardSmall article={article} showLikeButton={false} />
-            </motion.div>
+              <span className="history-group--box__date">
+                {formatDate(group)}
+              </span>
+
+              <div className="history-group--box__list">
+                {articles.map((article, index) => (
+                  <motion.div
+                    {...animateTop({ inView: true, once: true })}
+                    key={`history-${article._id}--${index}`}
+                  >
+                    <ArticleCardSmall
+                      article={article}
+                      showLikeButton={false}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
           ))}
         </InfiniteScroll>
       ) : (
@@ -72,7 +89,7 @@ const HistoryList: React.FC<HistoryListT> = memo(({ limit }) => {
       {data.length === 0 && (
         <EmptyMessage message="You have not read any article yet" />
       )}
-    </StyledList>
+    </Styled.HistoryList>
   );
 });
 

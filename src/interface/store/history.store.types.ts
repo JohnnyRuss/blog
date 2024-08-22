@@ -1,15 +1,16 @@
 import { LoadingStatusT } from "@/interface/store/common.types";
-import {
-  ArticleShortT,
-  GetAllArticlesArgsT,
-} from "@/interface/db/article.types";
+import { GetAllArticlesArgsT } from "@/interface/db/article.types";
+import { HistoryGroupT, HistoryArticleT } from "@/interface/db/userTrace.types";
 
 type HistoryStateT = {
   status: LoadingStatusT;
   clearStatus: LoadingStatusT;
   hasMore: boolean;
   currentPage: number;
-  history: Array<ArticleShortT & { readAt: string }>;
+  history: Array<{
+    group: HistoryGroupT;
+    articles: Array<HistoryArticleT>;
+  }>;
 };
 
 type HistoryActionsT = {

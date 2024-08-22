@@ -39,6 +39,7 @@ export const History = styled.section`
       justify-content: center;
       transition: all 0.3s ease;
       font-size: ${({ theme }) => theme.fontSize.sm};
+      cursor: pointer;
 
       &:hover {
         transform: scale(1.1);

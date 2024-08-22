@@ -6,7 +6,15 @@ export default function useSearchParams() {
 
   const searchParams = new URLSearchParams(search);
 
-  const setParam = (key: string, value: string, isArrayParam = false) => {
+  const setParam = (
+    key: string,
+    value: string,
+    isArrayParam = false,
+    navigateParams: {
+      replace: boolean;
+      state: any;
+    } = { replace: false, state: null }
+  ) => {
     const valuesUnderKey = searchParams.get(key)?.split(",") || [];
 
     if (valuesUnderKey?.length > 0 && isArrayParam) {
@@ -19,12 +27,24 @@ export default function useSearchParams() {
       } else searchParams.set(key, valuesUnderKey.concat([value]).join(","));
     } else searchParams.set(key, value);
 
-    navigate(`${pathname}?${searchParams.toString()}`);
+    navigate(`${pathname}?${searchParams.toString()}`, {
+      replace: navigateParams.replace,
+      state: navigateParams.state,
+    });
   };
 
-  const removeParam = (key: string) => {
+  const removeParam = (
+    key: string,
+    navigateParams: {
+      replace: boolean;
+      state: any;
+    } = { replace: false, state: null }
+  ) => {
     searchParams.delete(key);
-    navigate(`${pathname}?${searchParams.toString()}`);
+    navigate(`${pathname}?${searchParams.toString()}`, {
+      replace: navigateParams.replace,
+      state: navigateParams.state,
+    });
   };
 
   const getParam = (key: string) => searchParams.get(key);

@@ -108,19 +108,17 @@ const useListStore = create<ListStoreT>()(
           const { data }: AxiosResponse<ListShortT> =
             await axiosPrivateQuery.put(`/lists/${args.listId}`, args.data);
 
-          set((state) => {
-            return {
-              ...produce(state, (draft) => {
-                if (args.listId === draft.listDetails._id) {
-                  draft.listDetails.title = data.title;
-                  draft.listDetails.description = data.description;
-                  draft.listDetails.privacy = data.privacy;
-                }
-              }),
+          set((state) =>
+            produce(state, (draft) => {
+              if (args.listId === draft.listDetails._id) {
+                draft.listDetails.title = data.title;
+                draft.listDetails.description = data.description;
+                draft.listDetails.privacy = data.privacy;
+              }
 
-              createListStatus: getStatus("SUCCESS"),
-            };
-          });
+              draft.createListStatus = getStatus("SUCCESS");
+            })
+          );
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ createListStatus: getStatus("FAIL", message) }));

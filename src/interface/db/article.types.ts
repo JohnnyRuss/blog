@@ -39,11 +39,17 @@ type ArticleShortT = {
 type CreateArticleArgsT = ArticleSchemaT;
 
 type UpdateArticleArgsT = {
-  articleId: string;
+  articleSlug: string;
   data: ArticleSchemaT;
 };
 
+type GetUserArticlesArgsT = {
+  username: string;
+  limit?: number;
+};
+
 type DeleteArticleArgsT = {
+  articleSlug: string;
   articleId: string;
 };
 
@@ -78,4 +84,5 @@ export type {
   GetAllArticlesArgsT,
   GetAllArticlesResponseT,
   LikeArticleArgsT,
+  GetUserArticlesArgsT,
 };

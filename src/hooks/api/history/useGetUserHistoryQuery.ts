@@ -11,7 +11,7 @@ export default function useGetUserHistoryQuery(sizeOnMount?: number) {
   const data = historyStore.use.history();
   const status = historyStore.use.status();
 
-  const total = data.length;
+  const total = data.reduce((acc, item) => (acc += item.articles.length), 0);
   const hasMore = historyStore.use.hasMore();
   const currentPage = historyStore.use.currentPage();
 

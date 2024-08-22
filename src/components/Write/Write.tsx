@@ -43,8 +43,14 @@ const Write: React.FC = () => {
   const { state } = useLocation();
   const updateAbleArticle: undefined | ArticleSchemaT = state?.article;
 
-  const { form, status, onPublish, onStartUpdate, categorySuggestions } =
-    useCreateArticleQuery();
+  const {
+    form,
+    status,
+    onPublish,
+    isUpdating,
+    onStartUpdate,
+    categorySuggestions,
+  } = useCreateArticleQuery(updateAbleArticle?.slug || "");
 
   const onSelectCategory = ({
     fieldChangeHandler,
@@ -76,7 +82,7 @@ const Write: React.FC = () => {
   );
 
   return (
-    <Styled.write>
+    <Styled.Write>
       <Controller
         control={form.control}
         name="title"
@@ -125,11 +131,11 @@ const Write: React.FC = () => {
       />
 
       <button className="publish-btn" onClick={onPublish}>
-        Publish
+        {isUpdating ? "Update" : "Publish"}
       </button>
 
       {status.loading && <StandSpinner />}
-    </Styled.write>
+    </Styled.Write>
   );
 };
 

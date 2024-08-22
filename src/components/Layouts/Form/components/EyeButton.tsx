@@ -12,7 +12,16 @@ const EyeButton: React.FC<EyeButtonT> = ({ shown, toggleType }) => {
   };
 
   return (
-    <button className="password-field__eye-btn" onClick={onToggle}>
+    <button
+      type="button"
+      onClick={onToggle}
+      className="password-field__eye-btn"
+      style={{
+        paddingLeft: "5px",
+        backgroundColor: "inherit",
+        borderLeft: "1px solid #999",
+      }}
+    >
       {shown ? <EyeOpen /> : <EyeClose />}
     </button>
   );

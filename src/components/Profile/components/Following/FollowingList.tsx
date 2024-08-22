@@ -8,7 +8,11 @@ import { animateTop } from "@/styles/animations";
 import { useUserFollowShallowList } from "@/hooks/utils";
 import { useGetFollowingUsersQuery } from "@/hooks/api/userFollow";
 
-import { FollowCard, FollowCardSkeleton } from "@/components/Layouts";
+import {
+  FollowCard,
+  EmptyMessage,
+  FollowCardSkeleton,
+} from "@/components/Layouts";
 
 const StyledList = styled.div`
   display: flex;
@@ -23,16 +27,20 @@ const FollowingList: React.FC = memo(() => {
 
   return (
     <StyledList>
-      {status.loading
-        ? generateArray(5).map((id) => <FollowCardSkeleton key={id} />)
-        : dataShallow.map((user) => (
-            <motion.div
-              key={user._id}
-              {...animateTop({ once: true, inView: true })}
-            >
-              <FollowCard user={user} isFollowing={checkIsFollowing(user)} />
-            </motion.div>
-          ))}
+      {status.loading ? (
+        generateArray(5).map((id) => <FollowCardSkeleton key={id} />)
+      ) : dataShallow.length === 0 ? (
+        <EmptyMessage message="You aren't following other users" />
+      ) : (
+        dataShallow.map((user) => (
+          <motion.div
+            key={user._id}
+            {...animateTop({ once: true, inView: true })}
+          >
+            <FollowCard user={user} isFollowing={checkIsFollowing(user)} />
+          </motion.div>
+        ))
+      )}
     </StyledList>
   );
 });

@@ -1,3 +1,4 @@
+import { Text } from "@/components/Layouts";
 import styled, { css } from "styled-components";
 
 type StyledMessageT = {
@@ -6,7 +7,7 @@ type StyledMessageT = {
   $align: "start" | "center";
 };
 
-const StyledMessage = styled.p<StyledMessageT>`
+const StyledMessage = styled.div<StyledMessageT>`
   color: ${({ theme }) => theme.colors.red} !important;
   width: 100%;
   text-align: ${({ $align }) => $align};
@@ -43,7 +44,7 @@ const ErrorMessage: React.FC<ErrorMessageT> = ({
 }) => {
   return (
     <StyledMessage $type={type} $align={align} $size={size} data-error-message>
-      {message}
+      <Text text={message} />
     </StyledMessage>
   );
 };

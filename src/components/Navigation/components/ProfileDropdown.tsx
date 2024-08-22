@@ -15,6 +15,7 @@ import {
   History,
   SavedLists,
   EditProfile,
+  Text,
 } from "@/components/Layouts/Icons";
 
 const ProfileDropdown: React.FC = () => {
@@ -39,6 +40,12 @@ const ProfileDropdown: React.FC = () => {
         icon: <Profile />,
         title: "Profile",
         path: DYNAMIC_ROUTES.profile_page(user.username),
+      },
+      {
+        _id: uuid(),
+        icon: <Text />,
+        title: "Your Articles",
+        path: DYNAMIC_ROUTES.profile_articles(user.username),
       },
       {
         _id: uuid(),

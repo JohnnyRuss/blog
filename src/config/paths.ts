@@ -9,12 +9,13 @@ const PATHS = {
   profile_root: "/profile",
   profile_page: "/profile/:username",
   profile_review: "/profile/:username/review",
+  profile_articles: "/profile/:username/articles",
   profile_lists: "/profile/:username/lists",
   profile_list: "/profile/:username/lists/:listId",
   profile_saved_lists: "/profile/:username/saved",
   profile_history: "/profile/:username/history",
   profile_following: "/profile/:username/following",
-  profile_following_suggestions: "/profile/:username/following/suggestions",
+  profile_following_suggestions: "/profile/:username/suggestions/following",
   profile_settings: "/profile/:username/settings",
   // AUTH
   auth_page: "/auth",
@@ -37,6 +38,8 @@ const DYNAMIC_ROUTES = {
     PATHS.profile_page.replace(":username", username),
   profile_review: (username: string) =>
     PATHS.profile_review.replace(":username", username),
+  profile_articles: (username: string) =>
+    PATHS.profile_articles.replace(":username", username),
   profile_lists: (username: string) =>
     PATHS.profile_lists.replace(":username", username),
   profile_list: (username: string, listId: string) =>

@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { quillEdit } from "@/styles/utils";
 
-export const write = styled.div`
-  padding: 2rem 0.75rem 0rem 0.75rem;
+export const Write = styled.div`
+  padding: 2rem 0.75rem 2rem 0.75rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;

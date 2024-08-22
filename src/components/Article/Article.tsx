@@ -12,8 +12,8 @@ import {
   ErrorMessage,
   QuillEditor,
   CreateListModal,
-  AsideCategories,
-  AsidePopularArticles,
+  // AsideCategories,
+  // AsidePopularArticles,
 } from "@/components/Layouts";
 
 const Article: React.FC = () => {
@@ -54,14 +54,16 @@ const Article: React.FC = () => {
             )}
           </div>
 
-          <aside className="article-aside">
+          {/* <aside className="article-aside">
             <AsidePopularArticles />
 
             <AsideCategories userbased="-1" />
-          </aside>
+          </aside> */}
         </div>
 
-        <UI.RelatedArticles />
+        <UI.Comments />
+
+        {/* <UI.RelatedArticles /> */}
       </Styled.Article>
 
       {isAddingToList && <CreateListModal />}

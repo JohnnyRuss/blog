@@ -35,11 +35,16 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({
               to={DYNAMIC_ROUTES.article_page(article.slug)}
               className="article-sm__body-content--title"
             >
-              <LineClamp clamp={2} component="h3" text={article.title} />
+              <LineClamp
+                clamp={1}
+                component="h3"
+                text={article.title}
+                showAsTitle={true}
+              />
             </Link>
 
             <LineClamp
-              clamp={2}
+              clamp={5}
               sx={{
                 fontSize: theme.fontSize.sm,
                 color:

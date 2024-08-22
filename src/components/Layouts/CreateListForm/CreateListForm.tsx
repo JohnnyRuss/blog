@@ -9,6 +9,7 @@ import { CreateListSchemaT } from "@/utils/validations/createListSchema";
 type CreateListFormT = {
   onCancel: () => void;
   onCreate: () => Promise<void>;
+  isUpdating?: boolean;
   form: UseFormReturn<CreateListSchemaT>;
 };
 
@@ -16,6 +17,7 @@ const CreateListForm: React.FC<CreateListFormT> = ({
   form,
   onCreate,
   onCancel,
+  isUpdating,
 }) => {
   return (
     <Styled.CreateList>
@@ -79,7 +81,7 @@ const CreateListForm: React.FC<CreateListFormT> = ({
 
       <div className="create-list__footer">
         <button onClick={onCancel}>Cancel</button>
-        <button onClick={onCreate}>Create</button>
+        <button onClick={onCreate}>{isUpdating ? "Update" : "Create"}</button>
       </div>
     </Styled.CreateList>
   );

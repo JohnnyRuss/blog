@@ -42,7 +42,7 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
         </ul>
 
         <Link
-          to={DYNAMIC_ROUTES.profile_saved_lists(user.username)}
+          to={DYNAMIC_ROUTES.profile_lists(user.username)}
           className="more-bookmarks__btn"
         >
           See More

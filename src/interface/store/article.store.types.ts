@@ -8,6 +8,7 @@ import {
   GetArticleArgsT,
   GetAllArticlesArgsT,
   LikeArticleArgsT,
+  GetUserArticlesArgsT,
 } from "@/interface/db/article.types";
 import { LoadingStatusT } from "@/interface/store/common.types";
 import { CategoryT } from "@/interface/db/category.types";
@@ -16,7 +17,7 @@ type ArticleStateT = {
   // ========== CUD ==========
   categorySuggestions: Array<CategoryT>;
   createStatus: LoadingStatusT;
-  deleteStatus: LoadingStatusT;
+  deleteStatus: LoadingStatusT & { articleId: string };
 
   // ========== Articles ==========
   readAllStatus: LoadingStatusT;
@@ -58,7 +59,7 @@ type ArticleActionsT = {
   cleanUpSuggestions: () => void;
   create: (args: CreateArticleArgsT) => Promise<void>;
   update: (args: UpdateArticleArgsT) => Promise<void>;
-  delete: (args: DeleteArticleArgsT) => Promise<void>;
+  delete: (args: DeleteArticleArgsT & { articleId: string }) => Promise<void>;
 
   // ========== Articles ==========
   cleanUpArticles: () => void;
@@ -88,6 +89,10 @@ type ArticleActionsT = {
   // ========== Recent Articles ==========
   cleanUpRecentArticles: () => void;
   getRecentArticles: () => Promise<void>;
+
+  // ========== User Articles ==========
+  getUserArticles: (args: GetUserArticlesArgsT) => Promise<void>;
+  cleanUpUserArticles: () => void;
 
   // ========== Others ==========
   like: (args: LikeArticleArgsT) => Promise<void>;

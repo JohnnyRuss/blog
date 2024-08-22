@@ -63,6 +63,7 @@ const ListHeader: React.FC = memo(() => {
             form={form}
             onCreate={onUpdate}
             onCancel={onCancelEdit}
+            isUpdating={isEditingList}
           />
 
           {createStatus.loading && <StandSpinner />}

@@ -14,6 +14,7 @@ export { default as UpdatePasswordPage } from "./Auth/UpdatePasswordPage";
 // PROFILE
 export { default as ProfilePage } from "./Profile/ProfilePage";
 export { default as UserListsPage } from "./Profile/UserListsPage";
+export { default as UserArticlesPage } from "./Profile/UserArticlesPage";
 export { default as ListPage } from "./Profile/ListPage";
 export { default as UserSavedListsPage } from "./Profile/UserSavedListsPage";
 export { default as UserReadingHistoryPage } from "./Profile/UserReadingHistoryPage";

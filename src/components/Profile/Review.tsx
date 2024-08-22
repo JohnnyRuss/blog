@@ -10,6 +10,7 @@ import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 import { ReviewBlock } from "./components/Review";
 import { HistoryList } from "./components/History";
 import { FollowingList } from "./components/Following";
+import { ArticlesList } from "./components/Articles";
 import { UserLists, SavedLists } from "./components/UserLists";
 import { CreateListModal } from "@/components/Layouts";
 
@@ -28,8 +29,11 @@ const Review: React.FC = () => {
   const user = userStore.use.userDetails();
   const userFirstName = extractUserFirstName(user.fullname);
 
-  const { user: activeUser } = useCheckIsAuthenticatedUser();
-  const isActiveUserProfile = username === activeUser?.username;
+  const { user: activeUser, isAuthenticated } =
+    useCheckIsAuthenticatedUser(true);
+
+  const isActiveUserProfile =
+    isAuthenticated && username === activeUser?.username;
 
   const emptyMessage = isActiveUserProfile
     ? "You haven't lists yet"
@@ -38,6 +42,17 @@ const Review: React.FC = () => {
   return (
     <>
       <StyledReview>
+        <ReviewBlock
+          title={
+            isActiveUserProfile
+              ? "Your Articles"
+              : `${userFirstName}'s Articles`
+          }
+          redirectPath={DYNAMIC_ROUTES.profile_articles(username || "")}
+        >
+          <ArticlesList limit={4} />
+        </ReviewBlock>
+
         <ReviewBlock
           title={
             isActiveUserProfile ? "Your Lists" : `${userFirstName}'s Lists`

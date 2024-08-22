@@ -13,7 +13,7 @@ const Text: React.FC<TextT> = ({ text, showEmptyLines = true }) => {
       {fragments.length > 0 ? (
         fragments.map((fragment) =>
           fragment === "" && showEmptyLines ? (
-            <br />
+            <br key={uuid()} />
           ) : (
             <p key={uuid()} style={{ width: "100%" }}>
               {fragment}

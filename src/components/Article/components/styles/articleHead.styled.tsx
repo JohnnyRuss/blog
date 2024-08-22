@@ -7,10 +7,34 @@ export const ArticleHead = styled.div`
 
   .article-head__sub {
     width: 100%;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+    display: flex;
+    flex-direction: column;
     padding: 0 1.5rem;
+    gap: 2rem;
+  }
+
+  .article-head__sub-box {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .article-head__author-actions {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    font-size: ${({ theme }) => theme.fontSize.xl};
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button:last-child {
+      color: ${({ theme }) => theme.colors.red};
+    }
   }
 
   [data-category-chip] {
@@ -28,5 +52,10 @@ export const ArticleHead = styled.div`
     flex-wrap: wrap;
     color: ${({ theme }) => theme.colors.blue_tint};
     gap: 0.3rem;
+    padding: 0 1.5rem;
+
+    a:hover {
+      text-decoration: underline;
+    }
   }
 `;

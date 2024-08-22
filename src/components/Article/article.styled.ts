@@ -32,6 +32,12 @@ export const Article = styled.article`
       flex-direction: column;
     }
 
+    .article-body {
+      flex: 1;
+      max-width: 100%;
+      width: 100%;
+    }
+
     .article-aside {
       gap: 2rem;
       position: unset;

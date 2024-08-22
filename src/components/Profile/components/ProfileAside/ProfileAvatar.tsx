@@ -59,7 +59,7 @@ const ProfileAvatar: React.FC = () => {
           {userDetails?.fullname || ""}
         </motion.span>
 
-        {isActiveUserProfile && (
+        {isActiveUserProfile && isAuthenticated && (
           <>
             <motion.div className="user-details__info-write--btn" {...child}>
               <WriteButton />

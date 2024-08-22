@@ -29,7 +29,7 @@ const SectionTitleEl = styled.div`
 
 const SectionTitle: React.FC<SectionTitleT> = ({ title, subTitle }) => {
   return (
-    <SectionTitleEl>
+    <SectionTitleEl data-section-title>
       {subTitle && <span className="sub-title">{subTitle}</span>}
       <span className="title">{title}</span>
     </SectionTitleEl>

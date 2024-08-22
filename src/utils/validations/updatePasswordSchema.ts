@@ -2,10 +2,28 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const UpdatePasswordSchema = z.object({
-  password: z.string(),
-  confirm_password: z.string(),
-});
+import {
+  isValidPassword,
+  confirmPasswordValidation,
+} from "./utils/customValidators";
+
+const UpdatePasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .trim()
+      .min(8)
+      .refine(isValidPassword.validator, { message: isValidPassword.message }),
+    confirm_password: z.string().trim(),
+  })
+  .refine(
+    (data) =>
+      confirmPasswordValidation.validator(data.password, data.confirm_password),
+    {
+      message: confirmPasswordValidation.message,
+      path: ["confirm_password"],
+    }
+  );
 
 export type UpdatePasswordFormT = z.infer<typeof UpdatePasswordSchema>;
 

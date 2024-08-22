@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 
 import { userStore } from "@/store";
-import { useUpdateUserQuery } from "@/hooks/api/user";
 import { animateTopStagger } from "@/styles/animations";
+import { useUpdateUserQuery, useGetUserDetailsQuery } from "@/hooks/api/user";
 
 import * as UI from "./components/EditProfile";
 import * as Styled from "./styles/edit.styled";
@@ -11,6 +11,8 @@ import { StandSpinner } from "@/components/Layouts";
 const { container, child } = animateTopStagger();
 
 const EditProfile: React.FC = () => {
+  useGetUserDetailsQuery();
+
   const userDetails = userStore.use.userDetails();
 
   const { fullnameForm, emailForm, usernameForm, bioForm, onSaveData, status } =
@@ -24,7 +26,7 @@ const EditProfile: React.FC = () => {
         <motion.div {...child}>
           <UI.EditableField
             name="fullname"
-            title="Full Name"
+            title="Fullname"
             form={fullnameForm}
             status={status}
             onSave={fullnameForm.handleSubmit(onSaveData)}

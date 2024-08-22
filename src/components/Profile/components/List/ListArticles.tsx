@@ -8,6 +8,7 @@ import { useGetListArticlesQuery } from "@/hooks/api/lists";
 import {
   InfiniteScroll,
   ArticleCardSmall,
+  ErrorMessage,
   ArticleCardSmallSkeleton,
 } from "@/components/Layouts";
 import * as Styled from "./styles/listArticles.styled";
@@ -25,8 +26,7 @@ const ListArticles: React.FC = memo(() => {
           ))}
         </div>
       )}
-
-      {status.status === "SUCCESS" && (
+      {status.status === "SUCCESS" ? (
         <InfiniteScroll
           total={total}
           hasMore={hasMore}
@@ -44,6 +44,10 @@ const ListArticles: React.FC = memo(() => {
             </motion.div>
           ))}
         </InfiniteScroll>
+      ) : status.status === "FAIL" ? (
+        <ErrorMessage message={status.message} align="center" />
+      ) : (
+        <></>
       )}
     </Styled.ListArticles>
   );

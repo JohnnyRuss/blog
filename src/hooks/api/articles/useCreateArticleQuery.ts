@@ -9,7 +9,7 @@ import {
 import { articleStore } from "@/store";
 import { PATHS } from "@/config/paths";
 
-export default function useCreateArticleQuery(articleId?: string) {
+export default function useCreateArticleQuery(articleSlug?: string) {
   const navigate = useNavigate();
 
   const form = useArticleForm();
@@ -17,7 +17,13 @@ export default function useCreateArticleQuery(articleId?: string) {
   const [isUpdating, setIsUpdating] = useState(false);
 
   const onStartUpdate = (values: ArticleSchemaT) => {
-    form.reset(values);
+    form.reset({
+      _id: values._id,
+      slug: values.slug,
+      title: values.title,
+      body: values.body,
+      categories: values.categories,
+    });
     setIsUpdating(true);
   };
 
@@ -33,11 +39,11 @@ export default function useCreateArticleQuery(articleId?: string) {
   const onPublish = form.handleSubmit(async (values) => {
     if (!isUpdating) await create(values);
     else {
-      if (!articleId) return;
-      await update({ articleId, data: values });
+      if (!articleSlug) return;
+      await update({ articleSlug, data: values });
     }
 
-    form.reset({ title: "", body: "", categories: [] });
+    form.reset({ _id: "", slug: "", title: "", body: "", categories: [] });
     navigate(PATHS.write);
   });
 
@@ -49,5 +55,12 @@ export default function useCreateArticleQuery(articleId?: string) {
     };
   }, []);
 
-  return { status, onPublish, onStartUpdate, form, categorySuggestions };
+  return {
+    status,
+    onPublish,
+    onStartUpdate,
+    form,
+    categorySuggestions,
+    isUpdating,
+  };
 }

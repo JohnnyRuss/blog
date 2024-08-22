@@ -15,8 +15,9 @@ export const Dialog = styled.div<{ $type: DialogT["type"] }>`
   }
 
   .dialog-subtitle {
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.sm};
     margin-top: 1rem;
+    color: ${({ theme }) => theme.colors.gray_shade};
   }
 
   .dialog-message {

@@ -31,16 +31,18 @@ const useUserStore = create<UserStoreT>()(
 
       async getUserDetails(args) {
         try {
-          set(() => ({ status: getStatus("PENDING") }));
+          set(() => ({ detailsStatus: getStatus("PENDING") }));
 
           const { data }: AxiosResponse<UserDetailsT> =
             await axiosPrivateQuery.get(`/users/${args.username}`);
 
-          set(() => ({ userDetails: data, status: getStatus("SUCCESS") }));
+          set(() => ({
+            userDetails: data,
+            detailsStatus: getStatus("SUCCESS"),
+          }));
         } catch (error: any) {
           const message = logger(error);
-          set(() => ({ status: getStatus("FAIL", message) }));
-          throw error;
+          set(() => ({ detailsStatus: getStatus("FAIL", message) }));
         }
       },
 

@@ -11,11 +11,17 @@ import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 import { useLikeArticleQuery } from "@/hooks/api/articles";
 import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
-import * as Styled from "./styles/articleHeadActions.styled";
 import { FollowButton } from "@/components/Layouts";
-import { EyeOpen, Heart, Bookmark } from "@/components/Layouts/Icons";
+import * as Styled from "./styles/articleHeadActions.styled";
+import { EyeOpen, Heart, Bookmark, Comment } from "@/components/Layouts/Icons";
 
-const ArticleHeadActions: React.FC = () => {
+type ArticleHeadActionsT = {
+  showFollowButton?: boolean;
+};
+
+const ArticleHeadActions: React.FC<ArticleHeadActionsT> = ({
+  showFollowButton = true,
+}) => {
   const { setParam } = useSearchParams();
 
   useGetSavedArticlesIdsQuery();
@@ -40,6 +46,8 @@ const ArticleHeadActions: React.FC = () => {
     await onLikeQuery({ articleId: article._id });
   };
 
+  const onShowComments = () => setParam("comments", "1");
+
   const { followQuery, status } = useFollowUserQuery(article.author._id);
   const { check, isFollowingUser } = useCheckIsFollowingUserQuery();
 
@@ -58,7 +66,7 @@ const ArticleHeadActions: React.FC = () => {
 
   return (
     <Styled.ArticleHeadActions>
-      {isAuthenticated && !belongsToActiveUser && (
+      {isAuthenticated && !belongsToActiveUser && showFollowButton && (
         <FollowButton
           onClick={onFollow}
           disabled={status.loading}
@@ -79,6 +87,16 @@ const ArticleHeadActions: React.FC = () => {
       >
         <Heart />
         <span>{article.likes.length}</span>
+      </button>
+
+      <button
+        onClick={onShowComments}
+        className={`actions-item heart ${
+          article.likes.includes(user._id) ? "active" : ""
+        }`}
+      >
+        <Comment />
+        <span>{16}</span>
       </button>
 
       {isAuthenticated && !belongsToActiveUser && (

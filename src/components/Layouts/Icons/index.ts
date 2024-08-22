@@ -6,8 +6,14 @@ import {
   MdLockOutline,
   MdHistory,
 } from "react-icons/md";
+// pi
+import {
+  PiArticle,
+  PiListStarLight,
+  PiNotePencilDuotone,
+} from "react-icons/pi";
 // io
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward, IoIosArrowBack, IoMdSend } from "react-icons/io";
 // io5
 import { IoListSharp } from "react-icons/io5";
 // ci
@@ -19,13 +25,13 @@ import { VscEye, VscEyeClosed } from "react-icons/vsc";
 //bs
 import { BsFillHeartFill } from "react-icons/bs";
 // fa
-import { FaBookmark, FaUserEdit } from "react-icons/fa";
+import { FaBookmark } from "react-icons/fa";
 // fa6
 import { FaRegCommentDots, FaCheck, FaCamera } from "react-icons/fa6";
-// pi
-import { PiNotePencilDuotone, PiListStarLight } from "react-icons/pi";
 // gi
 import { GiHamburgerMenu } from "react-icons/gi";
+// lia
+import { LiaUserEditSolid } from "react-icons/lia";
 
 // A
 const ArrowTriangleRight = IoIosArrowForward;
@@ -43,10 +49,9 @@ const LogOut = CiLogout;
 const Delete = MdDelete;
 // E
 const Edit = CiEdit;
-const EditProfile = FaUserEdit;
+const EditProfile = LiaUserEditSolid;
 const EyeOpen = VscEye;
 const EyeClose = VscEyeClosed;
-
 // H
 const Heart = BsFillHeartFill;
 const History = MdHistory;
@@ -63,6 +68,9 @@ const Remove = CiSaveUp1;
 // S
 const Save = CiSaveDown1;
 const SavedLists = PiListStarLight;
+const Send = IoMdSend;
+// T
+const Text = PiArticle;
 
 export {
   ArrowTriangleLeft,
@@ -89,4 +97,6 @@ export {
   Remove,
   Save,
   SavedLists,
+  Send,
+  Text,
 };

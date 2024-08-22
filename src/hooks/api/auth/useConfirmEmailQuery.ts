@@ -5,9 +5,10 @@ export default function useConfirmEmailQuery() {
   const form = useConfirmEmailForm();
 
   const status = authStore.use.status();
+  const confirmEmailQuery = authStore.use.confirmEmail();
 
-  const onConfirmEmail = form.handleSubmit((values) => {
-    console.log(values);
+  const onConfirmEmail = form.handleSubmit(async (values) => {
+    await confirmEmailQuery({ pin: +values.pin });
   });
 
   return { form, onConfirmEmail, status };

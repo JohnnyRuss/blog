@@ -8,6 +8,8 @@ export default function useGetSavedListsQuery(userId: string) {
   const status = listsStore.use.savedListsStatus();
 
   useEffect(() => {
+    if (!userId) return;
+
     get({ userId });
   }, [userId]);
 

@@ -50,6 +50,7 @@ export const TextFieldPassword = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+    background-color: #fff;
   }
 
   .password-field__eye-btn {

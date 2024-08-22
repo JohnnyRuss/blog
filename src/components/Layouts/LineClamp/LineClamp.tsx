@@ -7,6 +7,7 @@ type LineClampT = {
   showEmptyLines?: boolean;
   sx?: React.CSSProperties;
   component?: keyof JSX.IntrinsicElements;
+  showAsTitle?: boolean;
 };
 
 const LineClampedBox = styled.div<{ $clamp: number }>`
@@ -24,9 +25,16 @@ const LineClamp: React.FC<LineClampT> = ({
   clamp = 1,
   component = "div",
   showEmptyLines = false,
+  showAsTitle = false,
 }) => {
   return (
-    <LineClampedBox as={component} $clamp={clamp} style={sx} data-line-clamp>
+    <LineClampedBox
+      style={sx}
+      as={component}
+      $clamp={clamp}
+      title={showAsTitle ? text : ""}
+      data-line-clamp
+    >
       <Text text={text} showEmptyLines={showEmptyLines} />
     </LineClampedBox>
   );

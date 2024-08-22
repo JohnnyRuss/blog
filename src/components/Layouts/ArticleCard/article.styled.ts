@@ -41,7 +41,6 @@ export const ArticleCardBig = styled.div`
     }
 
     &:not(:has(figure.article-card__fig)) .article-card__content {
-      background-color: red;
       width: 100%;
     }
   }
@@ -113,7 +112,6 @@ export const ArticleCardMedium = styled.div`
     }
 
     &:not(:has(figure.article-md__body-fig)) .article-md__body-content {
-      background-color: red;
       height: 100%;
     }
 
@@ -153,6 +151,7 @@ export const ArticleCardSmall = styled.div`
     width: 100%;
     display: flex;
     gap: 3rem;
+    height: 24rem;
 
     &-fig {
       width: 30%;
@@ -178,7 +177,6 @@ export const ArticleCardSmall = styled.div`
     }
 
     &:not(:has(figure.article-sm__body-fig)) .article-sm__body-content {
-      background-color: red;
       width: 100%;
     }
 

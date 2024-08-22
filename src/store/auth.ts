@@ -37,27 +37,6 @@ const useAuthStore = create<AuthStoreT>()(
         (set, get) => ({
           ...initialState,
 
-          login: async (args: AuthAPI_T.SignInArgsT) => {
-            try {
-              set(() => ({ status: getStatus("PENDING") }));
-
-              const { data }: AxiosResponse<AuthAPI_T.LoginResponseT> =
-                await axiosPublicQuery.post(`/auth/signin`, args);
-
-              const { user, accessToken } = data;
-
-              s.setJWT(accessToken);
-
-              set(() => ({ user, status: getStatus("SUCCESS") }));
-
-              RouterHistory.navigate(PATHS.root_page);
-            } catch (error) {
-              const message = logger(error);
-              set(() => ({ status: getStatus("FAIL", message) }));
-              throw error;
-            }
-          },
-
           register: async (args: AuthAPI_T.SignUpArgsT) => {
             try {
               set(() => ({ status: getStatus("PENDING") }));
@@ -73,6 +52,27 @@ const useAuthStore = create<AuthStoreT>()(
 
               RouterHistory.navigate(PATHS.root_page);
             } catch (error: any) {
+              const message = logger(error);
+              set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
+            }
+          },
+
+          login: async (args: AuthAPI_T.SignInArgsT) => {
+            try {
+              set(() => ({ status: getStatus("PENDING") }));
+
+              const { data }: AxiosResponse<AuthAPI_T.LoginResponseT> =
+                await axiosPublicQuery.post(`/auth/signin`, args);
+
+              const { user, accessToken } = data;
+
+              s.setJWT(accessToken);
+
+              set(() => ({ user, status: getStatus("SUCCESS") }));
+
+              RouterHistory.navigate(PATHS.root_page);
+            } catch (error) {
               const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
               throw error;
@@ -105,6 +105,85 @@ const useAuthStore = create<AuthStoreT>()(
             }
           },
 
+          forgotPassword: async (args) => {
+            try {
+              set(() => ({ status: getStatus("PENDING") }));
+
+              await axiosPublicQuery.patch(`/auth/forgot-password`, args);
+
+              set(() => ({ status: getStatus("SUCCESS") }));
+
+              RouterHistory.navigate(PATHS.confirm_email_page, {
+                state: { isProcessingPasswordUpdate: true },
+              });
+            } catch (error) {
+              const message = logger(error);
+              set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
+            }
+          },
+
+          confirmEmail: async (args) => {
+            try {
+              set(() => ({ status: getStatus("PENDING") }));
+
+              await axiosPublicQuery.put("/auth/forgot-password", args);
+
+              set(() => ({ status: getStatus("SUCCESS") }));
+
+              RouterHistory.navigate(PATHS.update_password_page, {
+                state: { emailIsConfirmed: true },
+              });
+            } catch (error: any) {
+              const message = logger(error);
+              set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
+            }
+          },
+
+          updatePassword: async (args) => {
+            try {
+              set(() => ({ status: getStatus("PENDING") }));
+
+              await axiosPublicQuery.post("/auth/forgot-password", args);
+
+              set(() => ({ status: getStatus("SUCCESS") }));
+
+              RouterHistory.navigate(PATHS.auth_page);
+            } catch (error: any) {
+              const message = logger(error);
+              set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
+            }
+          },
+
+          deleteAccount: async (args) => {
+            try {
+              set(() => ({ status: getStatus("PENDING") }));
+
+              await axiosPrivateQuery.post(`/users/${args.userId}/delete`, {
+                password: args.password,
+              });
+
+              s.removeJWT();
+
+              set(() => ({
+                user: initialState.user,
+                status: getStatus("SUCCESS"),
+              }));
+
+              const isOnPrivateRoute = PRIVATE_ROUTES.some((route) =>
+                RouterHistory.location.pathname.includes(route)
+              );
+
+              if (isOnPrivateRoute) RouterHistory.navigate(PATHS.root_page);
+            } catch (error: any) {
+              const message = logger(error);
+              set(() => ({ status: getStatus("FAIL", message) }));
+              throw error;
+            }
+          },
+
           updateUser(args) {
             if (args.key === "username") {
               const currentLocation = RouterHistory.location.pathname;
@@ -117,6 +196,10 @@ const useAuthStore = create<AuthStoreT>()(
             }
 
             set(() => ({ user: { ...get().user, [args.key]: args.value } }));
+          },
+
+          clearUser: () => {
+            set(() => ({ user: initialState.user }));
           },
         }),
         {

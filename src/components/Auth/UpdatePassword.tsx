@@ -1,14 +1,32 @@
+import {
+  useLocation,
+  //  useNavigate
+} from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Controller } from "react-hook-form";
+
+// import { PATHS } from "@/config/paths";
 import useUpdatePasswordQuery from "@/hooks/api/auth/useUpdatePasswordQuery";
 
-import * as Form from "@/components/Layouts/Form";
 import AuthLayout from "./components/AuthLayout";
+import * as Form from "@/components/Layouts/Form";
 import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const UpdatePassword: React.FC = () => {
   const { form, onUpdatePassword, status } = useUpdatePasswordQuery();
 
-  return (
+  // const navigate = useNavigate();
+  const { state } = useLocation();
+  const emailIsConfirmed = state?.emailIsConfirmed;
+
+  const [isAvailable, setIsAvailable] = useState(false);
+
+  useEffect(() => {
+    // if (!emailIsConfirmed) return navigate(PATHS.auth_page);
+    setIsAvailable(true);
+  }, [emailIsConfirmed]);
+
+  return isAvailable ? (
     <AuthLayout onSubmit={onUpdatePassword}>
       <Controller
         control={form.control}
@@ -44,6 +62,8 @@ const UpdatePassword: React.FC = () => {
 
       {status.loading && <StandSpinner />}
     </AuthLayout>
+  ) : (
+    <></>
   );
 };
 

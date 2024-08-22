@@ -17,3 +17,4 @@ export { default as useGetEditorPickedArticles } from "./useGetEditorPickedArtic
 export { default as useGetRecentArticlesQuery } from "./useGetRecentArticlesQuery";
 // Others
 export { default as useLikeArticleQuery } from "./useLikeArticleQuery";
+export { default as useGetUserArticlesQuery } from "./useGetUserArticlesQuery";

@@ -58,7 +58,11 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
               <LineClamp clamp={2} component="h3" text={article.title} />
             </Link>
 
-            <LineClamp clamp={2} sx={descriptionStyles} text={description} />
+            <LineClamp
+              clamp={thumbnail ? 2 : 11}
+              sx={descriptionStyles}
+              text={description}
+            />
           </div>
 
           <div className="article-md__body-content--about">

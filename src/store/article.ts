@@ -4,28 +4,32 @@ import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 import { produce } from "immer";
 
+import { authStore } from "@/store";
+import { DYNAMIC_ROUTES } from "@/config/paths";
+import { RouterHistory } from "@/config/config";
 import { ARTICLES_PER_PAGE } from "@/config/config";
 import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
 import { generateQueryableString, logger } from "@/utils";
-import { authStore } from "@/store";
 
 import {
   ArticleStateT,
   ArticleStoreT,
 } from "@/interface/store/article.store.types";
+
 import {
-  ArticleShortT,
   ArticleT,
+  ArticleShortT,
   GetAllArticlesResponseT,
 } from "@/interface/db/article.types";
+
 import { CategoryT } from "@/interface/db/category.types";
 
 const initialState: ArticleStateT = {
   // ========== CUD ==========
   categorySuggestions: [],
   createStatus: getStatus("IDLE"),
-  deleteStatus: getStatus("IDLE"),
+  deleteStatus: { ...getStatus("IDLE"), articleId: "" },
 
   // ========== Articles ==========
   hasMore: false,
@@ -144,7 +148,10 @@ const useArticleStore = create<ArticleStoreT>()(
         try {
           set(() => ({ createStatus: getStatus("PENDING") }));
 
-          console.log(args);
+          await axiosPrivateQuery.put(
+            `/articles/${args.articleSlug}`,
+            args.data
+          );
 
           set(() => ({
             createStatus: getStatus("SUCCESS"),
@@ -158,16 +165,44 @@ const useArticleStore = create<ArticleStoreT>()(
 
       async delete(args) {
         try {
-          set(() => ({ deleteStatus: getStatus("PENDING") }));
-
-          console.log(args);
-
           set(() => ({
-            deleteStatus: getStatus("SUCCESS"),
+            deleteStatus: {
+              ...getStatus("PENDING"),
+              articleId: args.articleId,
+            },
           }));
+
+          await axiosPrivateQuery.delete(
+            `/articles/${args.articleSlug}?id=${args.articleId}`
+          );
+
+          set((state) =>
+            produce(state, (draft) => {
+              if (draft.article._id === args.articleId) {
+                const username = authStore.getState().user.username;
+                RouterHistory.navigate(
+                  DYNAMIC_ROUTES.profile_articles(username)
+                );
+              }
+
+              draft.articles = draft.articles.filter(
+                (article) => article._id !== args.articleId
+              );
+
+              draft.deleteStatus = {
+                ...getStatus("SUCCESS"),
+                articleId: "",
+              };
+            })
+          );
         } catch (error: any) {
           const message = logger(error);
-          set(() => ({ deleteStatus: getStatus("FAIL", message) }));
+          set(() => ({
+            deleteStatus: {
+              ...getStatus("FAIL", message),
+              articleId: args.articleId,
+            },
+          }));
           throw error;
         }
       },
@@ -386,6 +421,36 @@ const useArticleStore = create<ArticleStoreT>()(
         set(() => ({
           recentArticles: initialState.recentArticles,
           recentStatus: initialState.recentStatus,
+        }));
+      },
+
+      // ========== User Articles ==========
+      async getUserArticles(args) {
+        try {
+          set(() => ({ readAllStatus: getStatus("PENDING") }));
+
+          const { data }: AxiosResponse<Array<ArticleShortT>> =
+            await axiosPrivateQuery.get(
+              `/articles/${args.username}/all${
+                args.limit ? `?limit=${args.limit}` : ""
+              }`
+            );
+
+          set(() => ({
+            articles: data,
+            readAllStatus: getStatus("SUCCESS"),
+          }));
+        } catch (error: any) {
+          const message = logger(error);
+          set(() => ({ readAllStatus: getStatus("FAIL", message) }));
+          throw error;
+        }
+      },
+
+      cleanUpUserArticles() {
+        set(() => ({
+          articles: initialState.articles,
+          readAllStatus: initialState.readAllStatus,
         }));
       },
 

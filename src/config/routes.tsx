@@ -40,6 +40,7 @@ const Routes: Array<RouteT> = [
     element: <Pages.WritePage />,
     children: [],
   },
+
   // PROFILE
   {
     path: PATHS.profile_page,
@@ -50,6 +51,12 @@ const Routes: Array<RouteT> = [
         path: PATHS.profile_review,
         title: "profile-review-page",
         element: <Pages.ProfileReviewPage />,
+        children: [],
+      },
+      {
+        path: PATHS.profile_articles,
+        title: "profile-articles-page",
+        element: <Pages.UserArticlesPage />,
         children: [],
       },
       {
@@ -96,6 +103,7 @@ const Routes: Array<RouteT> = [
     element: <Pages.UserProfileSettingsPage />,
     children: [],
   },
+
   // AUTH
   {
     path: PATHS.auth_page,
@@ -134,6 +142,7 @@ const Routes: Array<RouteT> = [
       },
     ],
   },
+
   // DASHBOARD
   {
     path: PATHS.dashboard_page,
@@ -154,6 +163,7 @@ const Routes: Array<RouteT> = [
       },
     ],
   },
+
   // 404
   {
     path: PATHS.unknown_page,
