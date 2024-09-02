@@ -54,6 +54,7 @@ export { default as InfiniteScroll } from "./InfiniteScroll/InfiniteScroll";
 export { default as EmptyMessage } from "./EmptyMessage/EmptyMessage";
 export { default as Dialog } from "./Dialog/Dialog";
 export { default as Dropdown } from "./Dropdown/Dropdown";
+export { default as DropdownItem } from "./Dropdown/DropdownItem";
 export { default as CreateListForm } from "./CreateListForm/CreateListForm";
 export { default as ListCard } from "./ListCard/ListCard";
 export { default as ListCardSkeleton } from "./ListCard/ListCardSkeleton";

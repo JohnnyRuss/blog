@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-import { useSearchParams } from "@/hooks/utils";
+import { useCommentsContext } from "@/Providers/useProviders";
 
 import * as Styled from "./styles/comments.styled";
 import ArticleHeadActions from "./ArticleHeadActions";
@@ -9,15 +7,9 @@ import CommentsList from "./CommentsList";
 import { SectionTitle, Container } from "@/components/Layouts";
 import { Close } from "@/components/Layouts/Icons";
 
-type CommentsT = {};
-
-const Comments: React.FC<CommentsT> = () => {
-  const { removeParam, getParam } = useSearchParams();
-
-  const [comment, setComment] = useState("");
-
-  const onClose = () => removeParam("comments");
-  const isCommentsActive = getParam("comments") === "1";
+const Comments: React.FC = () => {
+  const { focusDefaultForm, isCommentsActive, onClosePopup } =
+    useCommentsContext();
 
   return (
     <>
@@ -26,7 +18,7 @@ const Comments: React.FC<CommentsT> = () => {
           <ArticleHeadActions showFollowButton={false} />
         </div>
 
-        <CommentsForm comment={comment} setComment={setComment} />
+        <CommentsForm focused={focusDefaultForm} />
       </Styled.Comments>
 
       {isCommentsActive && (
@@ -34,7 +26,7 @@ const Comments: React.FC<CommentsT> = () => {
           <Container className="comments-popup__header">
             <SectionTitle title="Comments" />
 
-            <button className="close-btn" onClick={onClose}>
+            <button className="close-btn" onClick={onClosePopup}>
               <Close />
             </button>
           </Container>
@@ -43,7 +35,7 @@ const Comments: React.FC<CommentsT> = () => {
             <div className="content-box">
               <CommentsList />
 
-              <CommentsForm comment={comment} setComment={setComment} />
+              <CommentsForm focused={true} />
             </div>
           </Container>
         </Styled.CommentsPopUp>

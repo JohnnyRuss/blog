@@ -4,57 +4,54 @@ import { v4 as uuid } from "uuid";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 
 import * as Styled from "./dropdown.styled";
+import DropdownButton from "./DropdownButton";
+import DropdownBackdrop from "./DropdownBackdrop";
+import DropdownItem from "./DropdownItem";
 
-type DropdownItemT = {
-  label: string;
-  onSelect?: (item?: Omit<DropdownItemT, "onSelect">) => void;
-  active?: boolean;
-  danger?: boolean;
-  authorized?: boolean;
-  role?: string;
-};
-
-type DropdownT<T extends DropdownItemT> = {
-  data: T[];
-  onSelect?: (item: any) => void;
-  dropdownMaxHeight?: number;
-  dropdownMinWidth?: number;
-  dropdownClass?: string;
-  buttonClass?: string;
-  Button: React.ReactNode;
-};
+import { DropdownItemT } from "@/interface/ui/commons.types";
+import { DropdownT, OnSelectItemT, OnToggleDropDownT } from "./dropdown.types";
 
 const Dropdown: React.FC<DropdownT<DropdownItemT>> = ({
-  data,
+  data = [],
   onSelect,
   buttonClass,
   dropdownClass,
   dropdownMaxHeight = 190,
   dropdownMinWidth = 170,
   Button,
+  children,
 }) => {
   const { isAuthenticated, decodedUser } = useCheckIsAuthenticatedUser(true);
 
-  const filteredItems = isAuthenticated
-    ? data.filter((item) =>
-        item.role ? item.role === decodedUser?.role : item
-      )
-    : data.filter((item) => !item.authorized);
+  const filteredItems =
+    data.length === 0
+      ? []
+      : isAuthenticated
+      ? data.filter((item) =>
+          item.role ? item.role === decodedUser?.role : item
+        )
+      : data.filter((item) => !item.authorized);
 
   const [openDropdown, setOpenDropdown] = useState(false);
 
-  const onToggleDropDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const onToggleDropDown: OnToggleDropDownT = (e) => {
+    e?.preventDefault();
+    e?.stopPropagation();
 
-    if (filteredItems.length <= 0) return;
+    if (data.length > 0 && filteredItems.length <= 0) return;
+
     setOpenDropdown((prev) => !prev);
   };
 
-  const onSelectItem = (item: DropdownItemT) => {
+  const onSelectItem: OnSelectItemT = (item) => {
     item.onSelect ? item.onSelect(item) : onSelect ? onSelect(item) : "";
     setOpenDropdown(false);
   };
+
+  const allowOpen =
+    openDropdown &&
+    ((data.length > 0 && filteredItems.length > 0) ||
+      (data.length === 0 && children));
 
   return (
     <Styled.Dropdown
@@ -62,42 +59,27 @@ const Dropdown: React.FC<DropdownT<DropdownItemT>> = ({
       $dropdown_max_height={dropdownMaxHeight}
       $dropdown_min_width={dropdownMinWidth}
     >
-      <button
-        type="button"
-        name="options dropdown"
-        aria-label="options dropdown"
-        onClick={onToggleDropDown}
-        className={`dropdown__trigger-btn ${buttonClass || ""} ${
-          data.some((item) => item.active) ? "active" : ""
-        }`}
-      >
-        {Button}
-      </button>
+      <DropdownButton
+        Button={Button}
+        buttonClass={buttonClass}
+        onToggleDropDown={onToggleDropDown}
+        isActive={data.some((item) => item.active)}
+      />
 
-      {openDropdown && filteredItems.length > 0 && (
+      {allowOpen && (
         <>
-          <div
-            onClick={onToggleDropDown}
-            className="dropdown__backdrop scroll-block"
-          />
+          <DropdownBackdrop onToggleDropDown={onToggleDropDown} />
 
           <div className={`dropdown__window-wrapper ${dropdownClass || ""}`}>
             <div className="dropdown__window">
-              {filteredItems.map((item) => (
-                <div
-                  key={uuid()}
-                  onClick={(e: React.MouseEvent) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    onSelectItem(item);
-                  }}
-                  className={`${item.active ? "active" : ""} ${
-                    item.danger ? "danger" : ""
-                  } dropdown__window-item`}
-                >
-                  {item.label}
-                </div>
-              ))}
+              {typeof children === "function" ? (
+                (() => children(onToggleDropDown))()
+              ) : (
+                <DropdownItemsList
+                  onSelectItem={onSelectItem}
+                  filteredItems={filteredItems}
+                />
+              )}
             </div>
           </div>
         </>
@@ -107,3 +89,19 @@ const Dropdown: React.FC<DropdownT<DropdownItemT>> = ({
 };
 
 export default Dropdown;
+
+function DropdownItemsList({
+  onSelectItem,
+  filteredItems,
+}: {
+  onSelectItem: OnSelectItemT;
+  filteredItems: Array<DropdownItemT>;
+}) {
+  return (
+    <>
+      {filteredItems.map((item) => (
+        <DropdownItem key={uuid()} item={item} onSelectItem={onSelectItem} />
+      ))}
+    </>
+  );
+}

@@ -32,6 +32,8 @@ import { FaRegCommentDots, FaCheck, FaCamera } from "react-icons/fa6";
 import { GiHamburgerMenu } from "react-icons/gi";
 // lia
 import { LiaUserEditSolid } from "react-icons/lia";
+// sl
+import { SlOptions } from "react-icons/sl";
 
 // A
 const ArrowTriangleRight = IoIosArrowForward;
@@ -60,6 +62,8 @@ const Lock = MdLockOutline;
 const List = IoListSharp;
 // N
 const NotePencil = PiNotePencilDuotone;
+// O
+const Options = SlOptions;
 // P
 const Public = MdOutlinePublic;
 const Profile = CgProfile;
@@ -92,6 +96,7 @@ export {
   List,
   LogOut,
   NotePencil,
+  Options,
   Public,
   Profile,
   Remove,

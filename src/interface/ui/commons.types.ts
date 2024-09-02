@@ -30,9 +30,19 @@ type DialogT = {
   onConfirm: () => void;
 };
 
+type DropdownItemT = {
+  label?: React.ReactNode;
+  onSelect?: (item?: Omit<DropdownItemT, "onSelect">) => void;
+  active?: boolean;
+  danger?: boolean;
+  authorized?: boolean;
+  role?: string;
+};
+
 export type {
   MultiSelectOptionT,
   MultiSelectPropsT,
   OnMultipleSelectT,
   DialogT,
+  DropdownItemT,
 };

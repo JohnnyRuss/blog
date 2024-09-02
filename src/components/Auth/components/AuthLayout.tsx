@@ -1,3 +1,7 @@
+import { Link } from "react-router-dom";
+
+import { PATHS } from "@/config/paths";
+
 import * as Styled from "./auth.styled";
 import LogoBlack from "@/assets/logo/logo-black.webp";
 import LogoWhite from "@/assets/logo/logo-white.webp";
@@ -14,16 +18,18 @@ const AuthLayout: React.FC<AuthLayoutT> = ({ children, onSubmit }) => {
 
   return (
     <Styled.Auth>
-      <figure className="logo">
-        <img
-          src={mode === "light" ? LogoBlack : LogoWhite}
-          alt="blog"
-          title="blog"
-          loading="eager"
-          width={70}
-          height="100%"
-        />
-      </figure>
+      <Link to={PATHS.home_page}>
+        <figure className="logo">
+          <img
+            src={mode === "light" ? LogoBlack : LogoWhite}
+            alt="blog"
+            title="blog"
+            loading="eager"
+            width={70}
+            height="100%"
+          />
+        </figure>
+      </Link>
 
       <form className="auth-form" onSubmit={onSubmit}>
         {children}

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "@/hooks/utils";
 import { useUserTraceQuery } from "@/hooks/api/userTrace";
 import { useReadArticleQuery } from "@/hooks/api/articles";
+import CommentsProvider from "@/Providers/CommentsProvider";
 
 import * as UI from "./components";
 import * as Styled from "./article.styled";
@@ -61,7 +62,9 @@ const Article: React.FC = () => {
           </aside> */}
         </div>
 
-        <UI.Comments />
+        <CommentsProvider>
+          <UI.Comments />
+        </CommentsProvider>
 
         {/* <UI.RelatedArticles /> */}
       </Styled.Article>
