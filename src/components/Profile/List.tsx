@@ -1,9 +1,10 @@
-import { useSearchParams } from "@/hooks/utils";
-import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 import { listsStore } from "@/store";
+import { useCommentsPopup, useSearchParams } from "@/hooks/utils";
+import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 
-import { CreateListModal } from "@/components/Layouts";
+import CommentsProvider from "@/Providers/CommentsProvider";
 import { ListHeader, ListArticles } from "./components/List";
+import { CommentsPopup, CreateListModal } from "@/components/Layouts";
 
 const List: React.FC = () => {
   useGetSavedArticlesIdsQuery();
@@ -12,6 +13,8 @@ const List: React.FC = () => {
   const isAddingToList = getParam("save") || "";
 
   const listsStatus = listsStore.use.listArticlesStatus();
+
+  const { isOpenedComments, onCloseComments } = useCommentsPopup();
 
   return (
     <>
@@ -22,6 +25,16 @@ const List: React.FC = () => {
       </div>
 
       {isAddingToList && <CreateListModal />}
+
+      {isOpenedComments && (
+        <CommentsProvider>
+          <CommentsPopup
+            showCommentsForm={false}
+            showCommentOptions={false}
+            onClosePopup={onCloseComments}
+          />
+        </CommentsProvider>
+      )}
     </>
   );
 };

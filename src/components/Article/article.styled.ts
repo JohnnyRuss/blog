@@ -27,6 +27,17 @@ export const Article = styled.article`
     top: 8.5rem;
   }
 
+  .article-footer--actions {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+
+    .article-actions--bar {
+      border-top: 1px solid ${({ theme }) => theme.colors.gray_shade};
+      padding: 1.25rem 0.75rem 0rem;
+    }
+  }
+
   @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
     .flex-container {
       flex-direction: column;

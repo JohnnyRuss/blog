@@ -23,7 +23,7 @@ const AppModal = styled.div`
   }
 
   .modal-window {
-    background: ${({ theme }) => theme.colors.white};
+    background: ${({ theme }) => theme.colors.bg};
     box-shadow: ${({ theme }) => theme.boxShadow.radial_lg};
     border-radius: 1rem;
     overflow: hidden;

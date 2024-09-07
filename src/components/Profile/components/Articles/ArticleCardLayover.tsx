@@ -32,6 +32,7 @@ const ArticleCardLayover: React.FC<ArticleCardLayoverT> = ({
             >
               <Edit />
             </button>
+
             <button
               onClick={onDelete}
               className="article-card--sm__layover-delete--btn"

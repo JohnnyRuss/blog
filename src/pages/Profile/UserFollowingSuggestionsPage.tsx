@@ -1,10 +1,17 @@
 import { lazy } from "react";
 
-import { SuspenseContainer } from "@/components/Layouts";
+import { useRestrictUnauthorizedEnterOnPage } from "@/hooks/auth";
+
+import { SuspenseContainer, StandSpinner } from "@/components/Layouts";
+
 const WhoToFollow = lazy(() => import("@/components/Profile/WhoToFollow"));
 
 const UserFollowingSuggestionsPage: React.FC = () => {
-  return (
+  const { loading } = useRestrictUnauthorizedEnterOnPage();
+
+  return loading ? (
+    <StandSpinner />
+  ) : (
     <SuspenseContainer>
       <WhoToFollow />
     </SuspenseContainer>

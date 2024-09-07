@@ -10,7 +10,7 @@ import * as Form from "@/components/Layouts/Form";
 import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const Login: React.FC = () => {
-  const { form, onAuth } = useSignInQuery();
+  const { form, onAuth } = useSignInQuery(null);
 
   const status = authStore.use.status();
 

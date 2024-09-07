@@ -1,4 +1,8 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+
+const figBackdropColor = css`
+  background-color: ${({ theme }) => theme.colors.gray};
+`;
 
 export const ArticleCardBig = styled.div`
   .article-card {
@@ -14,6 +18,7 @@ export const ArticleCardBig = styled.div`
       border-radius: 1rem;
       overflow: hidden;
       box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+      ${figBackdropColor};
 
       img {
         width: 100%;
@@ -93,6 +98,7 @@ export const ArticleCardMedium = styled.div`
       height: 40%;
       border-radius: 0.5rem;
       overflow: hidden;
+      ${figBackdropColor};
 
       img {
         margin-bottom: -2rem;
@@ -158,6 +164,7 @@ export const ArticleCardSmall = styled.div`
       min-height: 100%;
       border-radius: 0.5rem;
       overflow: hidden;
+      ${figBackdropColor};
 
       img {
         margin-bottom: -2rem;

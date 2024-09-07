@@ -75,6 +75,7 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
             likes={article.likes}
             articleId={article._id}
             showLikeButton={showLikeButton}
+            commentsCount={article.commentsCount}
           />
         </div>
       </li>

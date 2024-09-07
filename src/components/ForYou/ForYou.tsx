@@ -1,9 +1,11 @@
-import { useSearchParams } from "@/hooks/utils";
+import { useSearchParams, useCommentsPopup } from "@/hooks/utils";
+import CommentsProvider from "@/Providers/CommentsProvider";
 
 import {
   AsideCategories,
   CreateListModal,
   AsideRecentlySaved,
+  CommentsPopup,
 } from "@/components/Layouts";
 import ArticlesList from "./ArticlesList";
 import * as Styled from "./forYou.styled";
@@ -12,7 +14,9 @@ type ForYouT = {};
 
 const ForYou: React.FC<ForYouT> = () => {
   const { getParam } = useSearchParams();
+
   const isAddingToList = getParam("save") || "";
+  const { isOpenedComments, onCloseComments } = useCommentsPopup();
 
   return (
     <>
@@ -29,6 +33,16 @@ const ForYou: React.FC<ForYouT> = () => {
       </Styled.ForYou>
 
       {isAddingToList && <CreateListModal />}
+
+      {isOpenedComments && (
+        <CommentsProvider>
+          <CommentsPopup
+            showCommentsForm={false}
+            showCommentOptions={false}
+            onClosePopup={onCloseComments}
+          />
+        </CommentsProvider>
+      )}
     </>
   );
 };

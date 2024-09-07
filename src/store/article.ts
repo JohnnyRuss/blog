@@ -4,13 +4,12 @@ import { immer } from "zustand/middleware/immer";
 import { AxiosResponse } from "axios";
 import { produce } from "immer";
 
-import { authStore } from "@/store";
+import { authStore, listsStore } from "@/store";
 import { DYNAMIC_ROUTES } from "@/config/paths";
-import { RouterHistory } from "@/config/config";
-import { ARTICLES_PER_PAGE } from "@/config/config";
 import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
 import { generateQueryableString, logger } from "@/utils";
+import { RouterHistory, ARTICLES_PER_PAGE } from "@/config/config";
 
 import {
   ArticleStateT,
@@ -54,6 +53,7 @@ const initialState: ArticleStateT = {
     title: "",
     likes: [],
     views: 0,
+    commentsCount: 0,
     createdAt: "",
     updatedAt: "",
   },
@@ -74,6 +74,7 @@ const initialState: ArticleStateT = {
     createdAt: "",
     slug: "",
     title: "",
+    commentsCount: 0,
     picked: false,
   },
 
@@ -468,18 +469,36 @@ const useArticleStore = create<ArticleStoreT>()(
 
           set((state) =>
             produce(state, (draft) => {
-              const candidateArticle = draft.articles.find(
-                (article) => article._id === args.articleId
-              );
-
               const isActiveArticle = draft.article._id === args.articleId;
 
               if (isActiveArticle)
                 draft.article.likes = updateLikes(draft.article.likes);
 
-              if (!candidateArticle) return;
+              const findCandidateArticle = (articles: Array<ArticleShortT>) =>
+                articles.find((article) => article._id === args.articleId);
 
-              candidateArticle.likes = updateLikes(candidateArticle.likes);
+              const candidateArticleInList = findCandidateArticle(
+                draft.articles
+              );
+
+              const articlesInUserList = listsStore.getState().listArticles;
+
+              const candidateArticleInUserList =
+                findCandidateArticle(articlesInUserList);
+
+              if (candidateArticleInList)
+                candidateArticleInList.likes = updateLikes(
+                  candidateArticleInList.likes
+                );
+
+              if (candidateArticleInUserList)
+                listsStore.setState({
+                  listArticles: articlesInUserList.map((article) =>
+                    article._id === candidateArticleInUserList._id
+                      ? { ...article, likes: updateLikes(article.likes) }
+                      : article
+                  ),
+                });
             })
           );
         } catch (error) {

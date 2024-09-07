@@ -37,12 +37,12 @@ const useAuthStore = create<AuthStoreT>()(
         (set, get) => ({
           ...initialState,
 
-          register: async (args: AuthAPI_T.SignUpArgsT) => {
+          register: async ({ params, args }) => {
             try {
               set(() => ({ status: getStatus("PENDING") }));
 
               const { data }: AxiosResponse<AuthAPI_T.LoginResponseT> =
-                await axiosPublicQuery.post(`/auth/signup`, args);
+                await axiosPublicQuery.post(`/auth/signup`, params);
 
               const { user, accessToken } = data;
 
@@ -50,7 +50,7 @@ const useAuthStore = create<AuthStoreT>()(
 
               set(() => ({ user, status: getStatus("SUCCESS") }));
 
-              RouterHistory.navigate(PATHS.root_page);
+              if (args.redirect) RouterHistory.navigate(PATHS.root_page);
             } catch (error: any) {
               const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
@@ -58,12 +58,12 @@ const useAuthStore = create<AuthStoreT>()(
             }
           },
 
-          login: async (args: AuthAPI_T.SignInArgsT) => {
+          login: async ({ params, args }) => {
             try {
               set(() => ({ status: getStatus("PENDING") }));
 
               const { data }: AxiosResponse<AuthAPI_T.LoginResponseT> =
-                await axiosPublicQuery.post(`/auth/signin`, args);
+                await axiosPublicQuery.post(`/auth/signin`, params);
 
               const { user, accessToken } = data;
 
@@ -71,7 +71,7 @@ const useAuthStore = create<AuthStoreT>()(
 
               set(() => ({ user, status: getStatus("SUCCESS") }));
 
-              RouterHistory.navigate(PATHS.root_page);
+              if (args.redirect) RouterHistory.navigate(PATHS.root_page);
             } catch (error) {
               const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));

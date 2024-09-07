@@ -39,6 +39,10 @@ export const ArticlesList = styled.div`
       color: ${({ theme }) => theme.colors.red};
     }
 
+    &-edit--btn {
+      color: ${({ theme }) => theme.colors.gray_shade};
+    }
+
     &:hover .article-card--sm__layover-delete--btn,
     &:hover .article-card--sm__layover-edit--btn {
       transform: scale(1);

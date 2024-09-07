@@ -3,16 +3,17 @@ import { useParams } from "react-router-dom";
 
 import { userStore } from "@/store";
 import { extractUserFirstName } from "@/utils";
-import { useSearchParams } from "@/hooks/utils";
 import { DYNAMIC_ROUTES } from "@/config/paths";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
+import { useSearchParams, useCommentsPopup } from "@/hooks/utils";
 
 import { ReviewBlock } from "./components/Review";
 import { HistoryList } from "./components/History";
 import { FollowingList } from "./components/Following";
 import { ArticlesList } from "./components/Articles";
 import { UserLists, SavedLists } from "./components/UserLists";
-import { CreateListModal } from "@/components/Layouts";
+import { CreateListModal, CommentsPopup } from "@/components/Layouts";
+import CommentsProvider from "@/Providers/CommentsProvider";
 
 export const StyledReview = styled.section`
   display: flex;
@@ -38,6 +39,8 @@ const Review: React.FC = () => {
   const emptyMessage = isActiveUserProfile
     ? "You haven't lists yet"
     : `${userFirstName} hasn't Public lists`;
+
+  const { isOpenedComments, onCloseComments } = useCommentsPopup();
 
   return (
     <>
@@ -93,6 +96,16 @@ const Review: React.FC = () => {
       </StyledReview>
 
       {isAddingToList && <CreateListModal />}
+
+      {isOpenedComments && (
+        <CommentsProvider>
+          <CommentsPopup
+            showCommentsForm={false}
+            showCommentOptions={false}
+            onClosePopup={onCloseComments}
+          />
+        </CommentsProvider>
+      )}
     </>
   );
 };

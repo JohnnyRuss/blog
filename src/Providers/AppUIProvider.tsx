@@ -1,8 +1,10 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-import { Dialog } from "@/components/Layouts";
+import { Dialog, Modal } from "@/components/Layouts";
+import AuthPopup from "@/components/Auth/AuthPopup";
 
 import { DialogT } from "@/interface/ui/commons.types";
+import { useSearchParams } from "@/hooks/utils";
 
 type DialogConfigT = Omit<DialogT, "onClose">;
 type ActivateDialogArgsT = Omit<DialogT, "open" | "onClose">;
@@ -12,14 +14,23 @@ type AppUIProviderT = {
 };
 
 type AppUIContextT = {
+  activateAuthPopup: () => void;
+  onCloseAuthPopup: () => void;
   activateDialog: (args: ActivateDialogArgsT) => void;
 };
 
 export const AppUIContext = createContext<AppUIContextT>({
   activateDialog: () => {},
+  onCloseAuthPopup: () => {},
+  activateAuthPopup: () => {},
 });
 
 const AppUIProvider: React.FC<AppUIProviderT> = ({ children }) => {
+  const { setParam, removeParam, getParam } = useSearchParams();
+
+  /////////////
+  // DIALOG //
+  ///////////
   const dialogConfig: DialogConfigT = {
     open: false,
     title: "",
@@ -50,9 +61,57 @@ const AppUIProvider: React.FC<AppUIProviderT> = ({ children }) => {
     }));
   };
 
+  /////////////////
+  // AUTH POPUP //
+  ///////////////
+
+  const authPopupParam = getParam("auth");
+
+  const authPopupMethod =
+    authPopupParam === "1" ? "LOGIN" : authPopupParam === "2" ? "REGISTER" : "";
+
+  const isOpenAuthPopup = authPopupMethod !== "";
+
+  const [isRegistering, setIsRegistering] = useState(false);
+
+  const activateAuthPopup = () => setParam("auth", "1");
+
+  const onCloseAuthPopup = () => {
+    removeParam("auth");
+    setIsRegistering(false);
+  };
+
+  const onSwitchAuthMethod = () => {
+    setIsRegistering((prev) => !prev);
+    setParam("auth", isRegistering ? "1" : "2");
+  };
+
+  useEffect(() => {
+    if (authPopupMethod === "REGISTER") setIsRegistering(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <AppUIContext.Provider value={{ activateDialog }}>
+    <AppUIContext.Provider
+      value={{
+        activateDialog,
+        activateAuthPopup,
+        onCloseAuthPopup,
+      }}
+    >
+      <Modal
+        open={isOpenAuthPopup}
+        showCloseBtn={true}
+        onClose={onCloseAuthPopup}
+      >
+        <AuthPopup
+          isRegistering={isRegistering}
+          onSwitchAuthMethod={onSwitchAuthMethod}
+        />
+      </Modal>
+
       <Dialog {...dialog} onClose={onCloseDialog} />
+
       {children}
     </AppUIContext.Provider>
   );

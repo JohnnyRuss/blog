@@ -1,10 +1,12 @@
-import { useSearchParams } from "@/hooks/utils";
+import CommentsProvider from "@/Providers/CommentsProvider";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
+import { useSearchParams, useCommentsPopup } from "@/hooks/utils";
 
 import {
+  CommentsPopup,
   AsideCategories,
-  AsideWhoToFollow,
   CreateListModal,
+  AsideWhoToFollow,
   AsidePopularArticles,
 } from "@/components/Layouts";
 import * as Styled from "./bog.styled";
@@ -13,9 +15,10 @@ import ArticlesList from "./components/ArticlesList";
 
 const Blog: React.FC = () => {
   const { getParam } = useSearchParams();
-  const isAddingToList = getParam("save") || "";
-
   const { isAuthenticated } = useCheckIsAuthenticatedUser(true);
+
+  const isAddingToList = getParam("save") || "";
+  const { isOpenedComments, onCloseComments } = useCommentsPopup();
 
   return (
     <>
@@ -33,6 +36,16 @@ const Blog: React.FC = () => {
       </Styled.Blog>
 
       {isAddingToList && <CreateListModal />}
+
+      {isOpenedComments && (
+        <CommentsProvider>
+          <CommentsPopup
+            showCommentsForm={false}
+            showCommentOptions={false}
+            onClosePopup={onCloseComments}
+          />
+        </CommentsProvider>
+      )}
     </>
   );
 };

@@ -5,9 +5,21 @@ export const Auth = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 100%;
   height: 100vh;
   gap: 8rem;
+
+  &.popup {
+    height: max-content;
+    padding: 4rem;
+    gap: 4rem;
+    width: 38rem;
+    border-radius: 2rem;
+    border: 1px solid white;
+
+    .submit-btn {
+      margin-top: 2rem;
+    }
+  }
 
   .auth-form {
     display: flex;
@@ -35,6 +47,7 @@ export const Auth = styled.section`
       text-align: center;
       font-size: ${({ theme }) => theme.fontSize.sm};
 
+      button,
       strong a {
         text-decoration: underline;
         color: ${({ theme }) => theme.colors.blue};

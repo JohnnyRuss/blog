@@ -1,15 +1,15 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { memo } from "react";
 
 import {
   useFollowUserQuery,
   useCheckIsFollowingUserQuery,
 } from "@/hooks/api/userFollow";
-import { articleStore, listsStore } from "@/store";
 import { useSearchParams } from "@/hooks/utils";
+import { articleStore, listsStore } from "@/store";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 import { useLikeArticleQuery } from "@/hooks/api/articles";
 import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
+import { useAppUIContext } from "@/Providers/useProviders";
 
 import { FollowButton } from "@/components/Layouts";
 import * as Styled from "./styles/articleHeadActions.styled";
@@ -19,98 +19,99 @@ type ArticleHeadActionsT = {
   showFollowButton?: boolean;
 };
 
-const ArticleHeadActions: React.FC<ArticleHeadActionsT> = ({
-  showFollowButton = true,
-}) => {
-  const { setParam } = useSearchParams();
+const ArticleHeadActions: React.FC<ArticleHeadActionsT> = memo(
+  ({ showFollowButton = true }) => {
+    const { activateAuthPopup } = useAppUIContext();
 
-  useGetSavedArticlesIdsQuery();
+    const { setParam } = useSearchParams();
 
-  const article = articleStore.use.article();
-  const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
-  const belongsToActiveUser = article.author._id === user._id;
+    useGetSavedArticlesIdsQuery();
 
-  const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
+    const article = articleStore.use.article();
+    const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
+    const belongsToActiveUser = article.author._id === user._id;
 
-    if (!article._id) return;
+    const onSave = (e: React.MouseEvent<HTMLButtonElement>) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    setParam("save", article._id);
-  };
+      if (!article._id) return;
 
-  const { onLike: onLikeQuery } = useLikeArticleQuery();
+      setParam("save", article._id);
+    };
 
-  const onLike = async () => {
-    if (!isAuthenticated) return;
-    await onLikeQuery({ articleId: article._id });
-  };
+    const { onLike: onLikeQuery } = useLikeArticleQuery();
 
-  const onShowComments = () => setParam("comments", "1");
+    const onLike = async () => {
+      if (!isAuthenticated) return activateAuthPopup();
+      await onLikeQuery({ articleId: article._id });
+    };
 
-  const { followQuery, status } = useFollowUserQuery(article.author._id);
-  const { check, isFollowingUser } = useCheckIsFollowingUserQuery();
+    const onShowComments = () => {
+      setParam("comments", "1");
+    };
 
-  const onFollow = async () => {
-    if (belongsToActiveUser) return;
-    await followQuery();
-    await check(article.author._id);
-  };
+    const { followQuery, status } = useFollowUserQuery(article.author._id);
+    const { check, isFollowingUser } = useCheckIsFollowingUserQuery(
+      article.author._id
+    );
 
-  useEffect(() => {
-    if (belongsToActiveUser) return;
-    (async () => await check(article.author._id))();
-  }, [belongsToActiveUser, article.author._id]);
+    const onFollow = async () => {
+      if (belongsToActiveUser || !article.author._id) return;
+      await followQuery();
+      await check(article.author._id);
+    };
 
-  const savedArticlesIds = listsStore.use.savedArticlesIds();
+    const savedArticlesIds = listsStore.use.savedArticlesIds();
 
-  return (
-    <Styled.ArticleHeadActions>
-      {isAuthenticated && !belongsToActiveUser && showFollowButton && (
-        <FollowButton
-          onClick={onFollow}
-          disabled={status.loading}
-          isFollowing={isFollowingUser}
-        />
-      )}
+    return (
+      <Styled.ArticleHeadActions>
+        {isAuthenticated && !belongsToActiveUser && showFollowButton && (
+          <FollowButton
+            onClick={onFollow}
+            disabled={status.loading}
+            isFollowing={isFollowingUser}
+          />
+        )}
 
-      <div className="actions-item views">
-        <EyeOpen />
-        <span>{article.views}</span>
-      </div>
+        <div className="actions-item views">
+          <EyeOpen />
+          <span>{article.views}</span>
+        </div>
 
-      <button
-        onClick={onLike}
-        className={`actions-item heart ${
-          article.likes.includes(user._id) ? "active" : ""
-        }`}
-      >
-        <Heart />
-        <span>{article.likes.length}</span>
-      </button>
-
-      <button
-        onClick={onShowComments}
-        className={`actions-item heart ${
-          article.likes.includes(user._id) ? "active" : ""
-        }`}
-      >
-        <Comment />
-        <span>{16}</span>
-      </button>
-
-      {isAuthenticated && !belongsToActiveUser && (
         <button
-          onClick={onSave}
-          className={`actions-item bookmark ${
-            savedArticlesIds.includes(article._id) ? "active" : ""
+          onClick={onLike}
+          className={`actions-item heart ${
+            article.likes.includes(user._id) ? "active" : ""
           }`}
         >
-          <Bookmark />
+          <Heart />
+          <span>{article.likes.length}</span>
         </button>
-      )}
-    </Styled.ArticleHeadActions>
-  );
-};
+
+        <button
+          onClick={onShowComments}
+          className={`actions-item comment ${
+            article.likes.includes(user._id) ? "active" : ""
+          }`}
+        >
+          <Comment />
+          <span>{16}</span>
+        </button>
+
+        {isAuthenticated && !belongsToActiveUser && (
+          <button
+            onClick={onSave}
+            className={`actions-item bookmark ${
+              savedArticlesIds.includes(article._id) ? "active" : ""
+            }`}
+          >
+            <Bookmark />
+          </button>
+        )}
+      </Styled.ArticleHeadActions>
+    );
+  }
+);
 
 export default ArticleHeadActions;

@@ -1,10 +1,17 @@
 import { lazy } from "react";
-import { SuspenseContainer } from "@/components/Layouts";
+
+import { useRedirectUnAuthorized } from "@/hooks/auth";
+
+import { SuspenseContainer, StandSpinner } from "@/components/Layouts";
 
 const Write = lazy(() => import("@/components/Write/Write"));
 
 const WritePage: React.FC = () => {
-  return (
+  const { loading } = useRedirectUnAuthorized();
+
+  return loading ? (
+    <StandSpinner />
+  ) : (
     <SuspenseContainer>
       <Write />
     </SuspenseContainer>

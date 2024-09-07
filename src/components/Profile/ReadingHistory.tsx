@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
 import { animateRight } from "@/styles/animations";
 
+import { useCommentsPopup } from "@/hooks/utils";
 import { useClearHistoryQuery } from "@/hooks/api/history";
 import { useAppUIContext } from "@/Providers/useProviders";
 
-import { Spinner } from "@/components/Layouts";
 import { HistoryList } from "./components/History";
+import { Spinner, CommentsPopup } from "@/components/Layouts";
 import * as Styled from "./styles/history.styled";
+import CommentsProvider from "@/Providers/CommentsProvider";
 
 const ReadingHistory: React.FC = () => {
   const { clearQuery, status } = useClearHistoryQuery();
@@ -23,25 +25,39 @@ const ReadingHistory: React.FC = () => {
       type: "danger",
     });
 
+  const { isOpenedComments, onCloseComments } = useCommentsPopup();
+
   return (
-    <Styled.History>
-      <motion.div
-        className="reading-history__header"
-        {...animateRight({ once: true })}
-      >
-        <p>You can clear your reading history for a fresh start.</p>
+    <>
+      <Styled.History>
+        <motion.div
+          className="reading-history__header"
+          {...animateRight({ once: true })}
+        >
+          <p>You can clear your reading history for a fresh start.</p>
 
-        <button onClick={onClearHistory}>Clear History</button>
-      </motion.div>
+          <button onClick={onClearHistory}>Clear History</button>
+        </motion.div>
 
-      <HistoryList />
+        <HistoryList />
 
-      {status.loading && (
-        <div className="spinner-layout">
-          <Spinner />
-        </div>
+        {status.loading && (
+          <div className="spinner-layout">
+            <Spinner />
+          </div>
+        )}
+      </Styled.History>
+
+      {isOpenedComments && (
+        <CommentsProvider>
+          <CommentsPopup
+            showCommentsForm={false}
+            showCommentOptions={false}
+            onClosePopup={onCloseComments}
+          />
+        </CommentsProvider>
       )}
-    </Styled.History>
+    </>
   );
 };
 

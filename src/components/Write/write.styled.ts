@@ -15,6 +15,8 @@ export const Write = styled.div`
     font-size: ${({ theme }) => theme.fontSize.h3};
     outline: none;
     font-weight: 700;
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.colors.white : theme.colors.black};
 
     &::placeholder {
       font-weight: 400;

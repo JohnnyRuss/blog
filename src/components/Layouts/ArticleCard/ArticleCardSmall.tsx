@@ -60,6 +60,7 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({
             likes={article.likes}
             articleId={article._id}
             showLikeButton={showLikeButton}
+            commentsCount={article.commentsCount}
           />
         </div>
 

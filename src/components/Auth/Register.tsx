@@ -1,69 +1,18 @@
 import { Link } from "react-router-dom";
-import { Controller } from "react-hook-form";
 
 import { PATHS } from "@/config/paths";
 import useRegistrationQuery from "@/hooks/api/auth/useRegistrationQuery";
 
-import * as Form from "@/components/Layouts/Form";
+import RegisterForm from "./components/RegisterForm";
 import AuthLayout from "./components/AuthLayout";
 import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const Register: React.FC = () => {
-  const { form, onRegistration, status } = useRegistrationQuery();
+  const { form, onRegistration, status } = useRegistrationQuery(null);
 
   return (
     <AuthLayout onSubmit={onRegistration}>
-      <Controller
-        control={form.control}
-        name="fullname"
-        render={({ field, fieldState: { error } }) => (
-          <Form.TextField
-            fieldProps={field}
-            label="Fullname"
-            hasError={error ? true : false}
-            message={error?.message || ""}
-          />
-        )}
-      />
-
-      <Controller
-        control={form.control}
-        name="email"
-        render={({ field, fieldState: { error } }) => (
-          <Form.TextField
-            fieldProps={field}
-            label="Email"
-            hasError={error ? true : false}
-            message={error?.message || ""}
-          />
-        )}
-      />
-
-      <Controller
-        control={form.control}
-        name="password"
-        render={({ field, fieldState: { error } }) => (
-          <Form.TextFieldPassword
-            fieldProps={field}
-            label="Password"
-            hasError={error ? true : false}
-            message={error?.message || ""}
-          />
-        )}
-      />
-
-      <Controller
-        control={form.control}
-        name="confirm_password"
-        render={({ field, fieldState: { error } }) => (
-          <Form.TextFieldPassword
-            fieldProps={field}
-            label="Confirm Password"
-            hasError={error ? true : false}
-            message={error?.message || ""}
-          />
-        )}
-      />
+      <RegisterForm form={form} />
 
       {status.error && <ErrorMessage message={status.message} />}
 

@@ -58,6 +58,8 @@ export const TextFieldPassword = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.colors.gray_dark : theme.colors.blue_shade};
   }
 `;
 

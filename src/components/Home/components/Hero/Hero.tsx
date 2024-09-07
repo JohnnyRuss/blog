@@ -29,12 +29,14 @@ const Hero: React.FC = () => {
         <HeroSkeleton />
       ) : status.status === "SUCCESS" ? (
         <article className="hero__post">
-          <motion.figure
-            className="hero__post-fig"
-            {...animateRight({ inView: true, once: false })}
-          >
-            <img width="100%" height="100%" src={thumbnail} title="" alt="" />
-          </motion.figure>
+          {thumbnail && (
+            <motion.figure
+              className="hero__post-fig"
+              {...animateRight({ inView: true, once: false })}
+            >
+              <img width="100%" height="100%" src={thumbnail} title="" alt="" />
+            </motion.figure>
+          )}
 
           <div className="hero__post-content">
             <motion.div {...animateBottom({ inView: true, once: false })}>

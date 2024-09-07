@@ -5,19 +5,23 @@ import { useLikeArticleQuery } from "@/hooks/api/articles";
 
 import * as Styled from "./styles/cardFooter.styled";
 import { Heart, Bookmark, Comment } from "@/components/Layouts/Icons";
+import { useAppUIContext } from "@/Providers/useProviders";
 
 type CardFooterT = {
   articleId: string;
   likes: Array<string>;
   showLikeButton: boolean;
+  commentsCount: number;
 };
 
 const CardFooter: React.FC<CardFooterT> = ({
   likes,
+  commentsCount,
   articleId,
   showLikeButton,
 }) => {
   const { setParam } = useSearchParams();
+  const { activateAuthPopup } = useAppUIContext();
 
   const { user, isAuthenticated } = useCheckIsAuthenticatedUser(true);
 
@@ -38,9 +42,19 @@ const CardFooter: React.FC<CardFooterT> = ({
     e.preventDefault();
     e.stopPropagation();
 
-    if (!isAuthenticated || !articleId) return;
+    if (!isAuthenticated || !articleId) return activateAuthPopup();
 
     onLike({ articleId });
+  };
+
+  const onViewComments = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!articleId) return;
+
+    setParam("comments", "1");
+    setParam("article", articleId);
   };
 
   return (
@@ -57,9 +71,9 @@ const CardFooter: React.FC<CardFooterT> = ({
         </button>
       )}
 
-      <button className="card-footer__btn comments">
+      <button className="card-footer__btn comments" onClick={onViewComments}>
         <Comment />
-        <span>7</span>
+        <span>{commentsCount}</span>
       </button>
 
       {isAuthenticated && (

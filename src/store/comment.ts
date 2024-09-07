@@ -143,7 +143,12 @@ const useCommentStore = create<CommentStoreT>()(
       },
 
       cleanUpComments() {
-        set(() => ({ comments: [] }));
+        set(() => ({
+          comments: [],
+          addCommentStatus: getStatus("IDLE"),
+          updateCommentStatus: { ...getStatus("IDLE"), commentId: "" },
+          deleteCommentStatus: { ...getStatus("IDLE"), commentId: "" },
+        }));
       },
     })),
     { name: "comments" }

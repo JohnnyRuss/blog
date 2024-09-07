@@ -4,11 +4,12 @@ import { userStore } from "@/store";
 import { PATHS } from "@/config/paths";
 
 import {
-  useGetUserArticlesQuery,
   useDeleteArticleQuery,
+  useGetUserArticlesQuery,
 } from "@/hooks/api/articles";
-import { generateArray, textCapitalize } from "@/utils";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
+
+import { generateArray, textCapitalize } from "@/utils";
 import { useAppUIContext } from "@/Providers/useProviders";
 
 import {

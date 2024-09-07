@@ -13,6 +13,8 @@ export default function useCheckIsFollowingUserQuery(candidateUserId?: string) {
 
   const check = async (userId?: string) => {
     try {
+      if (!isAuthenticated) return;
+
       const { data }: AxiosResponse<{ isFollowing: boolean }> =
         await axiosPrivateQuery.get(
           `/follow/${userId || candidateUserId}/check`

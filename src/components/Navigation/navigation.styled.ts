@@ -169,7 +169,10 @@ export const Navigation = styled(motion.nav)`
         }
 
         &:hover {
-          color: ${({ theme }) => theme.colors.blue_shade};
+          color: ${({ theme }) =>
+            theme.mode === "dark"
+              ? theme.colors.blue_tint
+              : theme.colors.blue_shade};
         }
 
         &.danger:hover {

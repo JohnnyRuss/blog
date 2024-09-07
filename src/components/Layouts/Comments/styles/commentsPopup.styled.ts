@@ -10,42 +10,25 @@ const popup_animation = keyframes`
   }
 `;
 
-export const Comments = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2.5rem;
-
-  .article-actions--bar {
-    border-top: 1px solid ${({ theme }) => theme.colors.gray_shade};
-    padding: 1.25rem 0.75rem 0rem;
-  }
-`;
-
-export const CommentsForm = styled.form`
-  display: flex;
-  align-items: flex-start;
-  gap: 1.5rem;
-
-  button {
-    line-height: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: ${({ theme }) => theme.fontSize.h3};
-    color: ${({ theme }) => theme.colors.green};
-  }
-`;
-
-export const CommentsPopUp = styled.div`
+export const CommentsPopup = styled.div`
   position: fixed;
   z-index: 999;
-  background: rgba(299, 299, 299, 0.8)
+  background: ${({ theme }) =>
+    theme.mode === "dark"
+      ? `rgba(0, 0, 0, 0.8)
+    radial-gradient(
+      ellipse at top,
+      rgba(235, 239, 242, 0.3) 50%,
+      rgba(208, 216, 217, 0.2) 75%,
+      rgba(191, 191, 189, 0.2) 85%
+    )`
+      : `rgba(299, 299, 299, 0.8)
     radial-gradient(
       ellipse at top,
       rgba(235, 239, 242, 0.5) 50%,
       rgba(208, 216, 217, 0.5) 75%,
       rgba(191, 191, 189, 0.5) 85%
-    );
+    )`};
   backdrop-filter: blur(2px);
   inset: 0;
   top: 75px;
@@ -105,8 +88,16 @@ export const CommentsPopUp = styled.div`
     &--item {
       width: 100%;
       display: flex;
+      flex-direction: column;
       align-items: flex-start;
       gap: 2rem;
+
+      &__wrapper {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        gap: 2rem;
+      }
 
       .comments-list--item__fig {
         width: 5rem;
@@ -132,7 +123,10 @@ export const CommentsPopUp = styled.div`
         }
 
         &-text {
-          color: ${({ theme }) => theme.colors.gray_dark};
+          color: ${({ theme }) =>
+            theme.mode === "dark"
+              ? theme.colors.white
+              : theme.colors.gray_dark};
         }
 
         &-date {
@@ -156,6 +150,11 @@ export const CommentsPopUp = styled.div`
           align-items: center;
           gap: 0.5rem;
         }
+      }
+
+      [data-error-message] {
+        margin-left: 7rem;
+        width: max-content;
       }
     }
   }

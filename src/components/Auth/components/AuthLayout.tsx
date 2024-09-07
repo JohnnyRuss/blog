@@ -9,15 +9,20 @@ import LogoWhite from "@/assets/logo/logo-white.webp";
 import { useThemeContext } from "@/Providers/useProviders";
 
 type AuthLayoutT = {
+  useAsPopup?: boolean;
   children: React.ReactNode;
   onSubmit: (e: React.FormEvent) => Promise<void>;
 };
 
-const AuthLayout: React.FC<AuthLayoutT> = ({ children, onSubmit }) => {
+const AuthLayout: React.FC<AuthLayoutT> = ({
+  children,
+  onSubmit,
+  useAsPopup = false,
+}) => {
   const { mode } = useThemeContext();
 
   return (
-    <Styled.Auth>
+    <Styled.Auth className={useAsPopup ? "popup" : ""}>
       <Link to={PATHS.home_page}>
         <figure className="logo">
           <img

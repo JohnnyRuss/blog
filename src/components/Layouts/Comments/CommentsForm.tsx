@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useCommentsContext } from "@/Providers/useProviders";
 
-import * as Styled from "./styles/comments.styled";
+import * as Styled from "./styles/commentsForm.styled";
 import { Send } from "@/components/Layouts/Icons";
 import { TextareaField } from "@/components/Layouts/Form";
 

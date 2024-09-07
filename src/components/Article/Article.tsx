@@ -13,8 +13,9 @@ import {
   ErrorMessage,
   QuillEditor,
   CreateListModal,
-  // AsideCategories,
-  // AsidePopularArticles,
+  Comments,
+  AsideCategories,
+  AsidePopularArticles,
 } from "@/components/Layouts";
 
 const Article: React.FC = () => {
@@ -25,7 +26,10 @@ const Article: React.FC = () => {
   const updateTrace = useUserTraceQuery();
 
   useEffect(() => {
+    window.scrollTo({ top: 0, left: 0 });
+
     if (!data.slug) return;
+
     updateTrace(data.slug);
   }, [data.slug]);
 
@@ -55,18 +59,24 @@ const Article: React.FC = () => {
             )}
           </div>
 
-          {/* <aside className="article-aside">
+          <aside className="article-aside">
             <AsidePopularArticles />
 
             <AsideCategories userbased="-1" />
-          </aside> */}
+          </aside>
         </div>
 
-        <CommentsProvider>
-          <UI.Comments />
-        </CommentsProvider>
+        <div className="article-footer--actions">
+          <div className="article-actions--bar">
+            <UI.ArticleHeadActions showFollowButton={false} />
+          </div>
 
-        {/* <UI.RelatedArticles /> */}
+          <CommentsProvider>
+            <Comments />
+          </CommentsProvider>
+        </div>
+
+        <UI.RelatedArticles />
       </Styled.Article>
 
       {isAddingToList && <CreateListModal />}

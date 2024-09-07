@@ -15,8 +15,14 @@ type AuthStateT = {
 };
 
 type AuthActionsT = {
-  login: (args: SignInArgsT) => Promise<void>;
-  register: (args: SignUpArgsT) => Promise<void>;
+  login: (args: {
+    params: SignInArgsT;
+    args?: { redirect: boolean };
+  }) => Promise<void>;
+  register: (args: {
+    params: SignUpArgsT;
+    args?: { redirect: boolean };
+  }) => Promise<void>;
   logout: () => Promise<void>;
   forgotPassword: (args: ForgotPasswordArgsT) => Promise<void>;
   confirmEmail: (args: ConfirmEmailArgsT) => Promise<void>;

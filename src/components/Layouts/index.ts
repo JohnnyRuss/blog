@@ -9,6 +9,11 @@ export { default as AsidePopularArticles } from "./AsidePopularArticles/AsidePop
 export { default as AsideWhoToFollow } from "./AsideWhoToFollow/AsideWhoToFollow";
 export { default as AsideRecentlySaved } from "./AsideRecentlySaved/AsideRecentlySaved";
 
+// Comments
+export { default as Comments } from "./Comments/Comments";
+export { default as CommentsForm } from "./Comments/CommentsForm";
+export { default as CommentsPopup } from "./Comments/CommentsPopup";
+
 // CARDS
 export { default as ArticleCardBig } from "./ArticleCard/ArticleCardBig";
 export { default as ArticleCardBigSkeleton } from "./ArticleCard/ArticleCardBigSkeleton";

@@ -151,6 +151,7 @@ export const quillReadOnly = css`
         background-color: #1b2024;
         border: 1px solid ${({ theme }) => theme.colors.gray_shade};
         padding: 2rem;
+        margin: 2rem 0rem;
         border-radius: 0.5rem;
         overflow-x: auto;
         ${scrollbar}

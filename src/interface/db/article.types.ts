@@ -10,6 +10,7 @@ type ArticleT = {
   body: string;
   views: number;
   likes: Array<string>;
+  commentsCount: number;
   updatedAt: string;
   createdAt: string;
 };
@@ -29,9 +30,10 @@ type ArticleShortT = {
   body: string;
   author: ArticleAuthorT;
   categories: Array<CategoryT>;
+  commentsCount: number;
+  likes: Array<string>;
   createdAt: string;
   picked: boolean;
-  likes: Array<string>;
 };
 
 // API

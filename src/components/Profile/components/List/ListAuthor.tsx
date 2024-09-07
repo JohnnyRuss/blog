@@ -1,6 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-
 import {
   useFollowUserQuery,
   useCheckIsFollowingUserQuery,
@@ -21,18 +18,13 @@ const ListAuthor: React.FC<ListAuthorT> = ({ author }) => {
   const belongsToActiveUser = author._id === user._id;
 
   const { followQuery, status } = useFollowUserQuery(author._id);
-  const { check, isFollowingUser } = useCheckIsFollowingUserQuery();
+  const { check, isFollowingUser } = useCheckIsFollowingUserQuery(author._id);
 
   const onFollow = async () => {
     if (belongsToActiveUser) return;
     await followQuery();
     await check(author._id);
   };
-
-  useEffect(() => {
-    if (belongsToActiveUser) return;
-    (async () => await check(author._id))();
-  }, [belongsToActiveUser, author._id]);
 
   return (
     <Styled.ListAuthor>

@@ -55,7 +55,9 @@ export const CommentsContext = createContext<CommentsContextT>({
 const CommentsProvider: React.FC<CommentsProviderT> = ({ children }) => {
   const { removeParam, getParam } = useSearchParams();
 
-  const articleId = articleStore.use.article()._id;
+  const { activateDialog, activateAuthPopup } = useAppUIContext();
+
+  const articleId = getParam("article") || articleStore.use.article()._id;
   const { isAuthenticated, decodedUser } = useCheckIsAuthenticatedUser(true);
 
   const [focusDefaultForm, setFocusDefaultForm] = useState(false);
@@ -120,7 +122,8 @@ const CommentsProvider: React.FC<CommentsProviderT> = ({ children }) => {
   const onAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!articleId || !comment || !isAuthenticated) return;
+    if (!isAuthenticated) return activateAuthPopup();
+    else if (!articleId || !comment) return;
 
     if (commentToUpdate && decodedUser._id === commentToUpdate.authorId) {
       setCommentToUpdate(null);
@@ -143,7 +146,6 @@ const CommentsProvider: React.FC<CommentsProviderT> = ({ children }) => {
   // Delete comment //
   ///////////////////
 
-  const { activateDialog } = useAppUIContext();
   const { onDeleteCommentQuery } = useDeleteCommentQuery();
 
   const onStartDeleteComment = (params: {
