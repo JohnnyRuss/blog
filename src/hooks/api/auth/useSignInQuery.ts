@@ -1,13 +1,12 @@
 import { authStore } from "@/store";
 import { useAuthForm } from "@/utils/validations/authSchema";
 
-export default function useSignInQuery({
-  onDone,
-  redirectOnDone = true,
-}: {
-  onDone?: () => void;
-  redirectOnDone?: boolean;
-} | null) {
+export default function useSignInQuery(
+  params: {
+    onDone?: () => void;
+    redirectOnDone?: boolean;
+  } | null
+) {
   const form = useAuthForm();
 
   const status = authStore.use.status();
@@ -15,11 +14,11 @@ export default function useSignInQuery({
 
   const onAuth = form.handleSubmit(async (values) => {
     await login({
-      args: { redirect: redirectOnDone },
+      args: { redirect: params?.redirectOnDone || false },
       params: { email: values.email, password: values.password },
     });
 
-    onDone && onDone();
+    params?.onDone && params.onDone();
   });
 
   return { form, onAuth, status };

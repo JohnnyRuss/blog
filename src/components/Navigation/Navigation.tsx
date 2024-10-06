@@ -15,6 +15,11 @@ const Navigation: React.FC = () => {
 
   const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
 
+  const closeMobileNav = () => {
+    if (!openNav) return;
+    setOpenNav(false);
+  };
+
   return (
     <Styled.Navigation
       className={openNav ? "open scroll-block" : "closed"}
@@ -32,14 +37,24 @@ const Navigation: React.FC = () => {
             to={PATHS.home_page}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            <li className="nav-routes__block-list--item">Home</li>
+            <li
+              onClick={closeMobileNav}
+              className="nav-routes__block-list--item"
+            >
+              Home
+            </li>
           </NavLink>
 
           <NavLink
             to={PATHS.blog_page}
             className={({ isActive }) => (isActive ? "active" : "")}
           >
-            <li className="nav-routes__block-list--item">Blog</li>
+            <li
+              onClick={closeMobileNav}
+              className="nav-routes__block-list--item"
+            >
+              Blog
+            </li>
           </NavLink>
 
           {isAuthenticated && (
@@ -48,14 +63,24 @@ const Navigation: React.FC = () => {
                 to={PATHS.for_you_page}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                <li className="nav-routes__block-list--item">For You</li>
+                <li
+                  onClick={closeMobileNav}
+                  className="nav-routes__block-list--item"
+                >
+                  For You
+                </li>
               </NavLink>
 
               <NavLink
                 to={DYNAMIC_ROUTES.profile_page(user.username)}
                 className={({ isActive }) => (isActive ? "active" : "")}
               >
-                <li className="nav-routes__block-list--item">Profile</li>
+                <li
+                  onClick={closeMobileNav}
+                  className="nav-routes__block-list--item"
+                >
+                  Profile
+                </li>
               </NavLink>
             </>
           )}
@@ -65,7 +90,12 @@ const Navigation: React.FC = () => {
               to={PATHS.auth_page}
               className={({ isActive }) => (isActive ? "active" : "")}
             >
-              <li className="nav-routes__block-list--item">Login</li>
+              <li
+                onClick={closeMobileNav}
+                className="nav-routes__block-list--item"
+              >
+                Login
+              </li>
             </NavLink>
           )}
         </ul>

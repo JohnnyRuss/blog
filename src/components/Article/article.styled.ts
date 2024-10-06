@@ -28,9 +28,11 @@ export const Article = styled.article`
   }
 
   .article-footer--actions {
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
+    margin-top: 3rem;
 
     .article-actions--bar {
       border-top: 1px solid ${({ theme }) => theme.colors.gray_shade};
@@ -57,8 +59,25 @@ export const Article = styled.article`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    padding: 2rem 0rem;
+
     .flex-container {
       padding: 0;
+    }
+
+    .article-aside {
+      [data-aside-block]:first-child {
+        order: 2;
+      }
+
+      [data-aside-block]:last-child {
+        order: 1;
+
+        [data-category-chip] span {
+          width: 100%;
+          text-align: center;
+        }
+      }
     }
   }
 `;

@@ -1,13 +1,12 @@
 import { authStore } from "@/store";
 import useRegistrationForm from "@/utils/validations/registrationSchema";
 
-export default function useRegistrationQuery({
-  onDone,
-  redirectOnDone = true,
-}: {
-  onDone: () => void;
-  redirectOnDone?: boolean;
-}) {
+export default function useRegistrationQuery(
+  params: {
+    onDone?: () => void;
+    redirectOnDone?: boolean;
+  } | null
+) {
   const form = useRegistrationForm();
 
   const status = authStore.use.status();
@@ -15,7 +14,7 @@ export default function useRegistrationQuery({
 
   const onRegistration = form.handleSubmit(async (values) => {
     await register({
-      args: { redirect: redirectOnDone || false },
+      args: { redirect: params?.redirectOnDone || false },
       params: {
         fullname: values.fullname,
         email: values.email,
@@ -24,7 +23,7 @@ export default function useRegistrationQuery({
       },
     });
 
-    onDone && onDone();
+    params?.onDone && params.onDone();
   });
 
   return { form, onRegistration, status };

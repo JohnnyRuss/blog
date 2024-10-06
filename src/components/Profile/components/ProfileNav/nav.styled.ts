@@ -25,9 +25,10 @@ export const ProfileNav = styled.nav`
     ul {
       display: flex;
       align-items: center;
-      gap: 3rem;
       height: 5rem;
-      width: 100%;
+      width: max-content;
+      max-width: 100%;
+      gap: 3rem;
       box-sizing: content-box;
 
       .react-multi-carousel-item {
@@ -71,6 +72,14 @@ export const ProfileNav = styled.nav`
           &::after {
             animation: ${borderTransition} 1s ease forwards;
           }
+        }
+      }
+
+      @media screen and (${({ theme }) => theme.breakpoints.desktop}) {
+        gap: 1rem;
+
+        .profile-nav--list__item {
+          padding: 0 1rem;
         }
       }
 

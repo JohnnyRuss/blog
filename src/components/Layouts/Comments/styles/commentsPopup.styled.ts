@@ -162,4 +162,19 @@ export const CommentsPopup = styled.div`
   .content-box [data-comment-form] {
     margin-top: auto;
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    border-top-left-radius: 4rem;
+    border-top-right-radius: 4rem;
+    padding-top: 2.5rem;
+    gap: 2rem;
+
+    .comments-popup__content-box--container .wrapper {
+      padding: 0;
+    }
+
+    .content-box .comments-list {
+      padding: 0;
+    }
+  }
 `;

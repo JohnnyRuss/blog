@@ -58,4 +58,25 @@ export const ArticleHead = styled.div`
       text-decoration: underline;
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .article-head__sub {
+      padding: 0;
+    }
+
+    .article-head__sub-box.actions-box {
+      flex-direction: column;
+      gap: 1.5rem;
+
+      [data-category-chip] {
+        order: 2;
+        width: 100%;
+
+        span {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    }
+  }
 `;

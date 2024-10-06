@@ -13,4 +13,8 @@ export const Articles = styled.section`
     flex-direction: column;
     gap: 5rem;
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    order: 2;
+  }
 `;

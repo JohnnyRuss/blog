@@ -19,6 +19,14 @@ export const Auth = styled.section`
     .submit-btn {
       margin-top: 2rem;
     }
+
+    @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+      border-radius: 0rem;
+      border: none;
+      padding: 0rem;
+      max-width: 100%;
+      height: 91vh;
+    }
   }
 
   .auth-form {

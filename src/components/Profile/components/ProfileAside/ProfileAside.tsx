@@ -23,6 +23,7 @@ const ProfileAside: React.FC = memo(() => {
   return (
     <Styled.ProfileAside>
       <ProfileAvatar />
+
       {!isAuthenticated ? (
         <AsidePopularArticles />
       ) : isOnFollowingSuggestionsPage ? (

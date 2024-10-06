@@ -72,7 +72,7 @@ const ArticleSubHead: React.FC = () => {
             )}
           </div>
 
-          <div className="article-head__sub-box">
+          <div className="article-head__sub-box actions-box">
             <CategoryChip category={article.categories[0]} size="md" />
 
             <ArticleHeadActions />

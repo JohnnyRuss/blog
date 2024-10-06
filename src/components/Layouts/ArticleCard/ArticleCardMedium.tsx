@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import moment from "moment";
-import { useMemo } from "react";
 import { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -24,14 +23,6 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
   showLikeButton = false,
 }) => {
   const theme = useTheme();
-
-  const descriptionStyles = useMemo(
-    () => ({
-      fontSize: theme.fontSize.sm,
-      color: theme.mode === "dark" ? theme.colors.gray : theme.colors.gray_dark,
-    }),
-    []
-  );
 
   const { description, thumbnail } = useQuill(article.body);
 
@@ -60,8 +51,8 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
 
             <LineClamp
               clamp={thumbnail ? 2 : 11}
-              sx={descriptionStyles}
               text={description}
+              sx={{ fontSize: theme.fontSize.sm }}
             />
           </div>
 

@@ -8,7 +8,9 @@ import AuthLayout from "./components/AuthLayout";
 import { ErrorMessage, StandSpinner } from "@/components/Layouts";
 
 const Register: React.FC = () => {
-  const { form, onRegistration, status } = useRegistrationQuery(null);
+  const { form, onRegistration, status } = useRegistrationQuery({
+    redirectOnDone: true,
+  });
 
   return (
     <AuthLayout onSubmit={onRegistration}>

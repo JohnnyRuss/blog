@@ -17,19 +17,16 @@ const Profile: React.FC<ProfileT> = ({ children }) => {
   return (
     <Styled.Profile>
       {status.status === "SUCCESS" ? (
-        <>
-          <div className="profile__main-thread">
-            <ProfileNav />
-            <div className="profile__child-wrapper">{children}</div>
-          </div>
-
-          <ProfileAside />
-        </>
+        <div className="profile__main-thread">
+          <ProfileNav />
+          <div className="profile__child-wrapper">{children}</div>
+        </div>
       ) : status.status === "FAIL" ? (
         <Navigate to={PATHS.home_page} replace={true} />
       ) : (
         <></>
       )}
+      <ProfileAside />
     </Styled.Profile>
   );
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -49,13 +50,7 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
           <LineClamp
             clamp={7}
             text={description}
-            sx={{
-              fontSize: theme.fontSize.sm,
-              color:
-                theme.mode === "dark"
-                  ? theme.colors.gray
-                  : theme.colors.gray_dark,
-            }}
+            sx={{ fontSize: theme.fontSize.sm }}
           />
 
           <Link to={DYNAMIC_ROUTES.article_page(article.slug)}>

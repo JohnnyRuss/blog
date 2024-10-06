@@ -39,4 +39,40 @@ export const ArticleHeadActions = styled.div`
       fill: red;
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    order: 1;
+    display: grid;
+    grid-template-columns: 4;
+    grid-template-rows: 2;
+    width: 100%;
+    justify-content: stretch;
+    justify-items: flex-end;
+
+    button.follow-card__btn {
+      grid-row: 1;
+      grid-column: 1/5;
+      width: 100%;
+    }
+
+    .actions-item.views {
+      grid-row: 2;
+      grid-column: 1;
+    }
+
+    .actions-item.heart {
+      grid-row: 2;
+      grid-column: 2;
+    }
+
+    .actions-item.comment {
+      grid-row: 2;
+      grid-column: 3;
+    }
+
+    .actions-item.bookmark {
+      grid-row: 2;
+      grid-column: 4;
+    }
+  }
 `;

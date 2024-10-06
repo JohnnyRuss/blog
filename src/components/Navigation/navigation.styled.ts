@@ -13,9 +13,6 @@ export const Navigation = styled(motion.nav)`
   background-color: ${({ theme }) => theme.colors.bg};
   ${themeTransition};
 
-  .nav-logo {
-  }
-
   .theme-btn {
     width: 60px;
     height: 26px;
@@ -183,6 +180,22 @@ export const Navigation = styled(motion.nav)`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    justify-content: flex-end;
+    gap: 2.5rem;
+
+    .nav-logo {
+      margin-right: auto;
+    }
+
+    .theme-btn {
+      margin-right: auto;
+      margin-left: unset;
+    }
+
+    .profile-dropdown__box {
+      margin-left: 0rem;
+    }
+
     .nav__burger-btn {
       display: flex;
       position: relative;
@@ -195,13 +208,12 @@ export const Navigation = styled(motion.nav)`
       z-index: 99;
       top: 0;
       right: 0;
-      transform: scale(0.1);
       opacity: 0;
-      width: 15rem;
-      height: 15rem;
+      width: 100vw;
+      height: 100vh;
       overflow: hidden;
       backdrop-filter: blur(3px);
-      transition: all 0.5s ease-out;
+      transition: all 0.3s ease;
       transform-origin: top right;
 
       &-list {
@@ -210,7 +222,7 @@ export const Navigation = styled(motion.nav)`
         position: absolute;
         z-index: 99;
         opacity: 0;
-        height: 30vh;
+        height: 100vh;
         width: 50vw;
         right: 0;
         top: 0;
@@ -218,8 +230,7 @@ export const Navigation = styled(motion.nav)`
         align-items: stretch;
         background-color: ${({ theme }) => theme.colors.bg};
         box-shadow: -10px 0px 20px 4px rgba(0, 0, 0, 0.7);
-        transform: translateY(-100%);
-        transition: all 0.5s 0.3s ease-out;
+        transition: all 0.3s ease;
       }
 
       &-list--item {
@@ -237,17 +248,17 @@ export const Navigation = styled(motion.nav)`
     }
 
     &.open .nav-routes__block {
-      width: 100vw;
-      height: 100vh;
       opacity: 1;
-      transform: scale(1);
       pointer-events: all;
 
       &-list {
-        height: 100vh;
-        transform: translateY(0);
         opacity: 1;
       }
+    }
+
+    &.open .nav__burger-btn {
+      position: absolute;
+      right: -2rem;
     }
   }
 `;

@@ -1,4 +1,5 @@
 import { Text } from "@/components/Layouts";
+import { ComponentProps } from "react";
 import styled from "styled-components";
 
 type LineClampT = {
@@ -8,7 +9,7 @@ type LineClampT = {
   sx?: React.CSSProperties;
   component?: keyof JSX.IntrinsicElements;
   showAsTitle?: boolean;
-};
+} & ComponentProps<"div">;
 
 const LineClampedBox = styled.div<{ $clamp: number }>`
   display: -webkit-box;

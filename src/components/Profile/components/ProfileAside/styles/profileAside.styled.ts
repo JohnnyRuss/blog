@@ -8,6 +8,8 @@ export const ProfileAside = styled.aside`
   position: sticky;
   top: 8.5rem;
   height: 100%;
+  margin-left: auto;
+  max-width: 30rem;
 
   .user-details {
     display: flex;
@@ -55,6 +57,7 @@ export const ProfileAside = styled.aside`
     gap: 2rem;
     position: unset;
     width: 100%;
+    margin: auto;
 
     .user-details {
       border: none;

@@ -65,4 +65,29 @@ export const Filter = styled.div`
       border-bottom: 1px solid ${({ theme }) => theme.colors.gray_shade};
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
+    gap: 0rem;
+
+    [data-textfield] {
+      width: 20rem;
+    }
+
+    .categories-slider__container {
+      width: calc(100% - 20rem);
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    flex-direction: column;
+    gap: 1.2rem;
+
+    [data-textfield] {
+      width: 100%;
+    }
+
+    .categories-slider__container {
+      width: 100%;
+    }
+  }
 `;

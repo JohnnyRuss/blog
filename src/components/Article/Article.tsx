@@ -57,6 +57,16 @@ const Article: React.FC = () => {
             {status.status === "FAIL" && (
               <ErrorMessage message={status.message} align="center" size="md" />
             )}
+
+            <div className="article-footer--actions">
+              <div className="article-actions--bar">
+                <UI.ArticleHeadActions showFollowButton={false} />
+              </div>
+
+              <CommentsProvider>
+                <Comments />
+              </CommentsProvider>
+            </div>
           </div>
 
           <aside className="article-aside">
@@ -66,17 +76,7 @@ const Article: React.FC = () => {
           </aside>
         </div>
 
-        <div className="article-footer--actions">
-          <div className="article-actions--bar">
-            <UI.ArticleHeadActions showFollowButton={false} />
-          </div>
-
-          <CommentsProvider>
-            <Comments />
-          </CommentsProvider>
-        </div>
-
-        <UI.RelatedArticles />
+        {/* <UI.RelatedArticles /> */}
       </Styled.Article>
 
       {isAddingToList && <CreateListModal />}

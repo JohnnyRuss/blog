@@ -39,6 +39,7 @@ export const Container = styled.div`
     .wrapper {
       max-width: 100%;
       width: 100%;
+      padding: 0 1rem;
     }
   }
 `;

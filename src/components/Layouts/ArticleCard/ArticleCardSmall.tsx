@@ -45,14 +45,8 @@ const ArticleCardSmall: React.FC<ArticleCardSmallT> = ({
 
             <LineClamp
               clamp={5}
-              sx={{
-                fontSize: theme.fontSize.sm,
-                color:
-                  theme.mode === "dark"
-                    ? theme.colors.gray
-                    : theme.colors.gray_dark,
-              }}
               text={description}
+              sx={{ fontSize: theme.fontSize.sm }}
             />
           </div>
 
