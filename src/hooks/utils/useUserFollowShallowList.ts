@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import { UserDetailsT } from "@/interface/db/user.types";
 
 export default function useUserFollowShallowList(data: Array<UserDetailsT>) {
+  const { pathname } = useLocation();
+
   const [dataShallow, setDataShallow] = useState<Array<UserDetailsT>>([]);
 
   useEffect(() => {
@@ -18,7 +21,7 @@ export default function useUserFollowShallowList(data: Array<UserDetailsT>) {
     return () => {
       setDataShallow(() => []);
     };
-  }, []);
+  }, [pathname]);
 
   function checkIsFollowing(user: UserDetailsT): boolean {
     return data.some((candidateUser) => candidateUser._id === user._id);

@@ -16,11 +16,8 @@ import {
 import { animateLeft } from "@/styles/animations";
 import * as Styled from "./whoToFollow.styled";
 
-type AsideWhoToFollowT = {};
-
-const AsideWhoToFollow: React.FC<AsideWhoToFollowT> = memo(() => {
-  const { data, status } = useWhoToFollowQuery();
-
+const AsideWhoToFollow: React.FC = memo(() => {
+  const { data, status } = useWhoToFollowQuery(6);
   const { checkIsFollowing, dataShallow } = useUserFollowShallowList(data);
 
   const { username } = authStore.use.user();

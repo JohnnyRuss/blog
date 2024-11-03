@@ -10,10 +10,12 @@ export const ArticleCardBig = styled.div`
     align-items: flex-start;
     gap: 2rem;
     width: 100%;
+    height: 35rem;
 
     &__fig {
       align-self: stretch;
       width: 40%;
+      height: 100%;
       padding: 0;
       border-radius: 1rem;
       overflow: hidden;
@@ -22,7 +24,8 @@ export const ArticleCardBig = styled.div`
 
       img {
         width: 100%;
-        min-height: 100%;
+        height: 100%;
+        max-height: 100%;
         margin-bottom: -1rem;
         object-fit: cover;
         border-radius: inherit;
@@ -53,7 +56,7 @@ export const ArticleCardBig = styled.div`
   @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
     .article-card {
       div[data-line-clamp] {
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 7;
       }
     }
   }
@@ -62,10 +65,12 @@ export const ArticleCardBig = styled.div`
     .article-card {
       flex-direction: column;
       gap: 1rem;
+      height: 45rem;
 
       &__fig {
         width: 100%;
-        height: 28vh;
+        height: 45%;
+        background-color: red;
       }
 
       &__content {
@@ -74,8 +79,27 @@ export const ArticleCardBig = styled.div`
         gap: 1rem;
       }
 
-      div[data-line-clamp] {
-        -webkit-line-clamp: 4;
+      h3[data-line-clamp] {
+        line-clamp: 1 !important;
+        -webkit-line-clamp: 1 !important;
+      }
+
+      &:not(:has(figure.article-card__fig)) .article-card__content {
+        height: 100%;
+
+        div[data-line-clamp] {
+          line-clamp: 13 !important;
+          -webkit-line-clamp: 13 !important;
+        }
+      }
+
+      &:has(figure.article-card__fig) .article-card__content {
+        height: 55%;
+
+        div[data-line-clamp] {
+          line-clamp: 4 !important;
+          -webkit-line-clamp: 4 !important;
+        }
       }
     }
   }
@@ -89,6 +113,7 @@ export const ArticleCardMedium = styled.div`
   .article-md__body {
     height: 100%;
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -104,6 +129,7 @@ export const ArticleCardMedium = styled.div`
         margin-bottom: -2rem;
         border-radius: inherit;
         width: 100%;
+        max-width: 100%;
         height: 100%;
         object-fit: cover;
         object-position: center;
@@ -112,6 +138,7 @@ export const ArticleCardMedium = styled.div`
 
     &-content {
       height: 60%;
+      max-width: 100%;
       display: flex;
       flex-direction: column;
       gap: 2rem;
@@ -125,6 +152,12 @@ export const ArticleCardMedium = styled.div`
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      max-width: 100%;
+
+      &__description {
+        background: indigo !important;
+        font-size: ${({ theme }) => theme.fontSize.sm};
+      }
     }
 
     &-content--about {
@@ -136,6 +169,14 @@ export const ArticleCardMedium = styled.div`
       &__date {
         font-size: ${({ theme }) => theme.fontSize.xs};
         color: ${({ theme }) => theme.colors.gray_shade};
+      }
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .article-md__body {
+      &-content--about {
+        margin: unset;
       }
     }
   }
@@ -199,23 +240,20 @@ export const ArticleCardSmall = styled.div`
 
     @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
       gap: 2rem;
+      height: 17rem;
 
-      &-content {
-        gap: 1rem;
-      }
-
-      &-fig {
-        min-width: 15rem;
-      }
-    }
-
-    @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
       &-fig {
         display: none;
       }
 
       &-content {
+        gap: 1rem;
         width: 100%;
+      }
+
+      &-content--text div[data-line-clamp] {
+        line-clamp: 3;
+        -webkit-line-clamp: 3;
       }
     }
   }

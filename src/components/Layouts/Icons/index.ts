@@ -34,6 +34,8 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { LiaUserEditSolid } from "react-icons/lia";
 // sl
 import { SlOptions } from "react-icons/sl";
+// lu
+import { LuSearch, LuSearchX } from "react-icons/lu";
 
 // A
 const ArrowTriangleRight = IoIosArrowForward;
@@ -73,6 +75,8 @@ const Remove = CiSaveUp1;
 const Save = CiSaveDown1;
 const SavedLists = PiListStarLight;
 const Send = IoMdSend;
+const Search = LuSearch;
+const SearchX = LuSearchX;
 // T
 const Text = PiArticle;
 
@@ -103,5 +107,7 @@ export {
   Save,
   SavedLists,
   Send,
+  Search,
+  SearchX,
   Text,
 };

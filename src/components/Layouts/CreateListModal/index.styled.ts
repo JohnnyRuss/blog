@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const CreateListModal = styled.div`
   height: 60vh;
   width: 100%;
-  min-width: 20vw;
+  min-width: 40rem;
   color: ${({ theme }) => theme.colors.gray_dark};
   display: flex;
   flex-direction: column;
@@ -45,5 +45,14 @@ export const CreateListModal = styled.div`
     justify-content: flex-end;
     gap: 2rem;
     color: ${({ theme }) => theme.colors.green};
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.tablet_sm}) {
+    min-width: 35rem;
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    min-width: 85vw;
+    height: 75vh;
   }
 `;

@@ -7,3 +7,5 @@ export { default as generateQueryableString } from "./generateQueryableString";
 export { default as getTimeString } from "./getTimeString";
 export { default as logger } from "./logger";
 export { default as generateArray } from "./generateArray";
+export { default as existsIn } from "./existsIn";
+export { default as toggleArrayItem } from "./toggleArrayItem";

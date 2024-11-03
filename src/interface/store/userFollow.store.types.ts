@@ -10,7 +10,7 @@ type UserFollowStateT = {
 };
 
 type UserFollowActionsT = {
-  getUsersToFollow: () => Promise<void>;
+  getUsersToFollow: (limit?: number) => Promise<void>;
   cleanUpUsersToFollow: () => void;
   getFollowingUsers: () => Promise<void>;
   cleanUpFollowingUsers: () => void;

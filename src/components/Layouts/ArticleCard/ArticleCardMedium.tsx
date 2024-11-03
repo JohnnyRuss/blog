@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import moment from "moment";
-import { useTheme } from "styled-components";
 import { Link } from "react-router-dom";
 
 import { useQuill } from "@/hooks/utils";
@@ -22,12 +21,10 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
   article,
   showLikeButton = false,
 }) => {
-  const theme = useTheme();
-
   const { description, thumbnail } = useQuill(article.body);
 
   return (
-    <Styled.ArticleCardMedium>
+    <Styled.ArticleCardMedium data-article-card-medium>
       <li className="article-md__body">
         {thumbnail && (
           <figure className="article-md__body-fig">
@@ -50,9 +47,9 @@ const ArticleCardMedium: React.FC<ArticleCardMediumT> = ({
             </Link>
 
             <LineClamp
-              clamp={thumbnail ? 2 : 11}
+              clamp={thumbnail ? 2 : 8}
               text={description}
-              sx={{ fontSize: theme.fontSize.sm }}
+              className="article-md__body-content--text__description"
             />
           </div>
 

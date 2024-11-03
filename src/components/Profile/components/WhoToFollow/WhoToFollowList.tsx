@@ -29,7 +29,11 @@ const WhoToFollowList: React.FC = memo(() => {
               key={user._id}
               {...animateTop({ once: true, inView: true })}
             >
-              <FollowCard user={user} isFollowing={!checkIsFollowing(user)} />
+              <FollowCard
+                user={user}
+                showBio={true}
+                isFollowing={!checkIsFollowing(user)}
+              />
             </motion.div>
           ))}
     </StyledList>

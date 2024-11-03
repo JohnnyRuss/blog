@@ -16,7 +16,15 @@ import * as Styled from "./styles/articleHead.styled";
 import ArticleHeadActions from "./ArticleHeadActions";
 import { Edit, Delete } from "@/components/Layouts/Icons";
 
-const ArticleSubHead: React.FC = () => {
+type ArticleSubHeadT = {
+  isFollowingUser: boolean;
+  checkIsFollowingUser: (userId: string) => Promise<void>;
+};
+
+const ArticleSubHead: React.FC<ArticleSubHeadT> = ({
+  isFollowingUser,
+  checkIsFollowingUser,
+}) => {
   const navigate = useNavigate();
 
   const article = articleStore.use.article();
@@ -75,7 +83,10 @@ const ArticleSubHead: React.FC = () => {
           <div className="article-head__sub-box actions-box">
             <CategoryChip category={article.categories[0]} size="md" />
 
-            <ArticleHeadActions />
+            <ArticleHeadActions
+              isFollowingUser={isFollowingUser}
+              checkIsFollowingUser={checkIsFollowingUser}
+            />
           </div>
         </div>
 

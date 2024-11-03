@@ -8,6 +8,38 @@ import {
 } from "@/utils/validations/articleSchema";
 import { articleStore } from "@/store";
 import { PATHS } from "@/config/paths";
+import { CategoryT } from "@/interface/db/category.types";
+
+const wrapImagesInDiv = (html: string): string => {
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  const paragraphs = Array.from(doc.querySelectorAll("p"));
+  let tempDiv = null;
+
+  paragraphs.forEach((p) => {
+    const hasImg = p.querySelector("img");
+
+    if (hasImg) {
+      if (!tempDiv) {
+        tempDiv = doc.createElement("div");
+        tempDiv.className = "image-grid"; // Add class for styling
+        p.parentNode.insertBefore(tempDiv, p);
+      }
+      tempDiv.appendChild(p);
+    } else {
+      if (tempDiv) {
+        p.parentNode.insertBefore(tempDiv, p.nextSibling);
+        tempDiv = null;
+      }
+    }
+  });
+
+  if (tempDiv) {
+    doc.body.appendChild(tempDiv); // Append last created div if it exists
+  }
+
+  return doc.body.innerHTML;
+};
 
 export default function useCreateArticleQuery(articleSlug?: string) {
   const navigate = useNavigate();
@@ -36,11 +68,27 @@ export default function useCreateArticleQuery(articleSlug?: string) {
 
   const cleanUp = articleStore.use.cleanUpSuggestions();
 
+  const refreshCategorySuggestions = async (
+    categories: Array<Partial<CategoryT> & { isNew?: boolean }>
+  ) => {
+    const hasNewCategories = categories.some((c) => c.isNew);
+    if (!hasNewCategories) return;
+    await getCategorySuggestions();
+  };
+
   const onPublish = form.handleSubmit(async (values) => {
-    if (!isUpdating) await create(values);
-    else {
+    if (!isUpdating) {
+      await create(values);
+      await refreshCategorySuggestions(values.categories);
+    } else {
       if (!articleSlug) return;
-      await update({ articleSlug, data: values });
+
+      await update({
+        articleSlug,
+        data: { ...values, body: wrapImagesInDiv(values.body) },
+      });
+
+      await refreshCategorySuggestions(values.categories);
     }
 
     form.reset({ _id: "", slug: "", title: "", body: "", categories: [] });

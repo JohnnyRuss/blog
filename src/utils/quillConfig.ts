@@ -14,31 +14,33 @@ hljs.configure({
 });
 
 const quillConfig: QuillOptions = {
+  theme: "snow",
   modules: {
     syntax: {
       highlight: (text: string) => hljs.highlightAuto(text).value,
     },
-    toolbar: [
-      [{ header: [1, 2, 3, 4, false] }],
-      ["blockquote", "code-block"],
-      ["link", "image", "video"],
-      ["bold", "italic", "underline", "strike"],
-      [{ align: [] }],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
+    toolbar: {
+      container: [
+        [{ header: [1, 2, 3, 4, false] }],
+        ["blockquote", "code-block"],
+        ["link", "image", "video"],
+        ["bold", "italic", "underline", "strike"],
+        [{ align: [] }],
+        [
+          { list: "ordered" },
+          { list: "bullet" },
+          { indent: "-1" },
+          { indent: "+1" },
+        ],
+        [{ color: [] }, { background: [] }],
+        [{ script: "sub" }, { script: "super" }],
+        [{ direction: "rtl" }, "clean"],
       ],
-      [{ color: [] }, { background: [] }],
-      [{ script: "sub" }, { script: "super" }],
-      [{ direction: "rtl" }, "clean"],
-    ],
+    },
     clipboard: {
       matchVisual: true,
     },
   },
-  theme: "snow",
   formats: [
     "header",
     "bold",

@@ -6,7 +6,6 @@ import {
   CommentsPopup,
   AsideCategories,
   CreateListModal,
-  AsideWhoToFollow,
   AsidePopularArticles,
 } from "@/components/Layouts";
 import * as Styled from "./bog.styled";
@@ -30,7 +29,8 @@ const Blog: React.FC = () => {
 
           <aside className="blog-aside">
             <AsideCategories />
-            {isAuthenticated ? <AsideWhoToFollow /> : <AsidePopularArticles />}
+
+            <AsidePopularArticles showAsForYou={isAuthenticated} />
           </aside>
         </div>
       </Styled.Blog>

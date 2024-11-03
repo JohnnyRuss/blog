@@ -26,7 +26,7 @@ const Articles: React.FC = () => {
           data.map((article) => (
             <motion.div
               key={article._id}
-              {...animateTop({ inView: true, once: false })}
+              {...animateTop({ inView: true, once: true })}
             >
               <ArticleCardBig article={article} />
             </motion.div>

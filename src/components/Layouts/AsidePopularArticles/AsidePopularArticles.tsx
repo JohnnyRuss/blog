@@ -1,16 +1,35 @@
 import { generateArray } from "@/utils";
-import { useGetPopularArticles } from "@/hooks/api/articles";
+import {
+  useGetPopularArticlesQuery,
+  useGetAsideForYouArticles,
+} from "@/hooks/api/articles";
 
 import * as Styled from "./popularArticles.styled";
 import PopularArticleCard from "./PopularArticleCard";
 import PopularArticleCardSkeleton from "./PopularArticleCardSkeleton";
 import { AsideBlockItemContainer, ErrorMessage } from "@/components/Layouts";
 
-const AsidePopularArticles: React.FC = () => {
-  const { data, status } = useGetPopularArticles();
+type AsidePopularArticlesT = {
+  showAsForYou?: boolean;
+};
+
+const AsidePopularArticles: React.FC<AsidePopularArticlesT> = ({
+  showAsForYou = false,
+}) => {
+  const { data: popularArticles, status: popularArticlesStatus } =
+    useGetPopularArticlesQuery(!showAsForYou);
+
+  const { data: forYouArticles, status: forYouArticlesStatus } =
+    useGetAsideForYouArticles(showAsForYou);
+
+  const data = showAsForYou ? forYouArticles : popularArticles;
+  const status = showAsForYou ? forYouArticlesStatus : popularArticlesStatus;
+
+  const title = showAsForYou ? "For You" : "Most Popular";
+  const subTitle = showAsForYou ? "Your Interests" : "What's hot";
 
   return (
-    <AsideBlockItemContainer title="Most Popular" subTitle="What's hot">
+    <AsideBlockItemContainer title={title} subTitle={subTitle}>
       <Styled.PopularArticles>
         {status.loading ? (
           generateArray(4).map((id) => <PopularArticleCardSkeleton key={id} />)

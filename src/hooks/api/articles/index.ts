@@ -10,7 +10,7 @@ export { default as useGetTopArticleQuery } from "./useGetTopArticleQuery";
 // Related Articles
 export { default as useGetRelatedArticlesQuery } from "./useGetRelatedArticlesQuery";
 // Popular Articles
-export { default as useGetPopularArticles } from "./useGetPopularArticles";
+export { default as useGetPopularArticlesQuery } from "./useGetPopularArticlesQuery";
 // Editor Picked Articles
 export { default as useGetEditorPickedArticles } from "./useGetEditorPickedArticles";
 // Recent Articles
@@ -18,3 +18,4 @@ export { default as useGetRecentArticlesQuery } from "./useGetRecentArticlesQuer
 // Others
 export { default as useLikeArticleQuery } from "./useLikeArticleQuery";
 export { default as useGetUserArticlesQuery } from "./useGetUserArticlesQuery";
+export { default as useGetAsideForYouArticles } from "./useGetAsideForYouArticles";

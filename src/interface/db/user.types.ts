@@ -1,3 +1,5 @@
+import { CategoryT } from "@/interface/db/category.types";
+
 type UserT = {
   _id: string;
   email: string;
@@ -34,6 +36,7 @@ type UpdateUserArgsT = {
 type UpdateUserResponseT = {
   key: string;
   value: string;
+  accessToken?: string;
 };
 
 type UpdateProfileImageArgsT = {
@@ -50,6 +53,18 @@ type UpdateProfileImageResponseT = {
   url: string;
 };
 
+type AddUserInterestArgsT = {
+  categoryId: string;
+};
+
+type RemoveUserInterestArgsT = {
+  categoryId: string;
+};
+
+type GetUserInterestsArgsT = Array<CategoryT>;
+
+type GetUserInterestsResponseT = Array<CategoryT>;
+
 export type {
   UserT,
   UserSearchT,
@@ -61,4 +76,8 @@ export type {
   UpdateProfileImageArgsT,
   DeleteProfileImageArgsT,
   UpdateProfileImageResponseT,
+  AddUserInterestArgsT,
+  RemoveUserInterestArgsT,
+  GetUserInterestsArgsT,
+  GetUserInterestsResponseT,
 };

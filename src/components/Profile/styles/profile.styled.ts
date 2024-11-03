@@ -23,7 +23,8 @@ export const Profile = styled.section`
     }
   }
 
-  @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
     padding: 0 0 1.5rem 0;
+    gap: 1.5rem;
   }
 `;

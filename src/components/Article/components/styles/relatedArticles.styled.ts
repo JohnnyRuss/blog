@@ -21,4 +21,21 @@ export const RelatedArticles = styled.section`
   div[data-line-clamp] {
     -webkit-line-clamp: 4;
   }
+
+  .article-card {
+    height: 26rem;
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.desktop_sm}) {
+    .articles-container {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .article-card {
+      height: auto;
+    }
+  }
 `;

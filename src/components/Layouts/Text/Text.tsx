@@ -15,7 +15,7 @@ const Text: React.FC<TextT> = ({ text, showEmptyLines = true }) => {
           fragment === "" && showEmptyLines ? (
             <br key={uuid()} />
           ) : (
-            <p key={uuid()} style={{ width: "100%" }}>
+            <p key={uuid()} style={{ width: "100%", maxWidth: "100%" }}>
               {fragment}
             </p>
           )

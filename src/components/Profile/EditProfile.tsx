@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 
 import { userStore } from "@/store";
 import { animateTopStagger } from "@/styles/animations";
+
 import { useUpdateUserQuery, useGetUserDetailsQuery } from "@/hooks/api/user";
 
 import * as UI from "./components/EditProfile";
@@ -68,6 +69,10 @@ const EditProfile: React.FC = () => {
           />
         </motion.div>
       </motion.div>
+
+      <UI.DeleteAccountField />
+
+      <UI.UserInterests />
 
       {status.loading && <StandSpinner />}
     </Styled.Edit>

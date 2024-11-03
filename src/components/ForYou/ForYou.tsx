@@ -1,11 +1,15 @@
-import { useSearchParams, useCommentsPopup } from "@/hooks/utils";
+import { useEffect, useState } from "react";
+
+import { listsStore } from "@/store";
 import CommentsProvider from "@/Providers/CommentsProvider";
+import { useSearchParams, useCommentsPopup } from "@/hooks/utils";
 
 import {
+  CommentsPopup,
   AsideCategories,
+  AsideWhoToFollow,
   CreateListModal,
   AsideRecentlySaved,
-  CommentsPopup,
 } from "@/components/Layouts";
 import ArticlesList from "./ArticlesList";
 import * as Styled from "./forYou.styled";
@@ -18,6 +22,16 @@ const ForYou: React.FC<ForYouT> = () => {
   const isAddingToList = getParam("save") || "";
   const { isOpenedComments, onCloseComments } = useCommentsPopup();
 
+  const recentlySavedArticles = listsStore.use.savedArticles();
+  const [showWhoToFollow, setShowWhoToFollow] = useState(false);
+
+  useEffect(() => {
+    if (recentlySavedArticles.length <= 0 && !showWhoToFollow)
+      setShowWhoToFollow(true);
+    else if (recentlySavedArticles.length > 0 && showWhoToFollow)
+      setShowWhoToFollow(false);
+  }, [recentlySavedArticles.length, showWhoToFollow]);
+
   return (
     <>
       <Styled.ForYou>
@@ -28,6 +42,8 @@ const ForYou: React.FC<ForYouT> = () => {
             <AsideCategories userbased="-1" />
 
             <AsideRecentlySaved />
+
+            {showWhoToFollow && <AsideWhoToFollow />}
           </aside>
         </div>
       </Styled.ForYou>

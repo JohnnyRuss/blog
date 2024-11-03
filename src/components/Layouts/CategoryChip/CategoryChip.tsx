@@ -10,9 +10,14 @@ import React from "react";
 type CategoryChipT = {
   category: CategoryT;
   size?: "sm" | "md" | "lg";
+  redirectOnClick?: boolean;
 };
 
-const CategoryChip: React.FC<CategoryChipT> = ({ category, size = "lg" }) => {
+const CategoryChip: React.FC<CategoryChipT> = ({
+  category,
+  size = "lg",
+  redirectOnClick = true,
+}) => {
   const sizeClass =
     size === "sm"
       ? "size-sm"
@@ -27,6 +32,9 @@ const CategoryChip: React.FC<CategoryChipT> = ({ category, size = "lg" }) => {
   const onCategory = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
+
+    if (!redirectOnClick) return;
+
     navigate(`${PATHS.blog_page}?category=${category.query}`);
   };
 

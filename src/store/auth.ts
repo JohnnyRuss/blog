@@ -101,7 +101,6 @@ const useAuthStore = create<AuthStoreT>()(
             } catch (error: any) {
               const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
-              throw error;
             }
           },
 
@@ -180,7 +179,6 @@ const useAuthStore = create<AuthStoreT>()(
             } catch (error: any) {
               const message = logger(error);
               set(() => ({ status: getStatus("FAIL", message) }));
-              throw error;
             }
           },
 

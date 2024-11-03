@@ -5,7 +5,7 @@ export const HistoryList = styled.div`
   .infinite-scroll-component {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    gap: 8rem;
 
     &::-webkit-scrollbar {
       display: none;
@@ -15,7 +15,7 @@ export const HistoryList = styled.div`
   .history-group--box {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 5rem;
 
     &__list {
       display: flex;

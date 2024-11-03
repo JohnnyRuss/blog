@@ -87,6 +87,11 @@ const quill = css`
     p:has(img):has(:nth-child(3)) {
       grid-template-columns: repeat(3, 1fr);
     }
+
+    p,
+    p > * {
+      color: ${({ theme }) => theme.colors.gray_dark};
+    }
   }
 `;
 
@@ -122,8 +127,13 @@ export const quillReadOnly = css`
         line-height: 1.5;
         letter-spacing: 0.5px;
         pointer-events: none !important;
-        color: ${({ theme }) => theme.colors.text} !important;
         ${hyphens};
+      }
+
+      em {
+        ${hyphens};
+        word-wrap: break-word;
+        max-width: 100%;
       }
 
       p > span {
@@ -134,6 +144,7 @@ export const quillReadOnly = css`
         background-color: ${({ theme }) => theme.colors.gray};
         color: ${({ theme }) => theme.colors.gray_dark};
         width: max-content;
+        max-width: 100%;
         display: inline-block;
         padding: 0.3rem;
         padding-left: 0.5rem;

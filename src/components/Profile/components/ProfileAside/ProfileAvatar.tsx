@@ -59,6 +59,12 @@ const ProfileAvatar: React.FC = () => {
           {userDetails?.fullname || ""}
         </motion.span>
 
+        {userDetails.bio !== "" && (
+          <motion.p className="user-details__info-bio" {...child}>
+            {userDetails.bio}
+          </motion.p>
+        )}
+
         {isActiveUserProfile && isAuthenticated && (
           <>
             <motion.div className="user-details__info-write--btn" {...child}>

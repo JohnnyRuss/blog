@@ -10,12 +10,16 @@ import { axiosPrivateQuery } from "@/services/axios";
 
 type UseGetCategoriesQueryT = {
   setLimit?: boolean;
+  extract?: boolean;
   userbased?: "1" | "-1";
+  runOnMount?: boolean;
 };
 
 export default function useGetCategoriesQuery({
   setLimit = true,
   userbased = "1",
+  extract = false,
+  runOnMount = true,
 }: UseGetCategoriesQueryT) {
   const [data, setData] = useState<Array<CategoryT>>([]);
   const [status, setStatus] = useState<LoadingStatusT>({
@@ -25,13 +29,15 @@ export default function useGetCategoriesQuery({
     status: "IDLE",
   });
 
-  const getCategories = async () => {
+  const getCategories = async (search?: string) => {
     try {
       setStatus((prev) => ({ ...prev, status: "PENDING", loading: true }));
 
       const { data }: AxiosResponse<Array<CategoryT>> =
         await axiosPrivateQuery.get(
-          `/categories?userbased=${userbased}${setLimit ? "&limit=6" : ""}`
+          `/categories?userbased=${userbased}${setLimit ? "&limit=6" : ""}${
+            search ? `&search=${search}` : ""
+          }${extract ? "&extract=1" : ""}`
         );
 
       setData(data);
@@ -51,6 +57,8 @@ export default function useGetCategoriesQuery({
   };
 
   useEffect(() => {
+    if (!runOnMount) return;
+
     getCategories();
 
     return () => {
@@ -66,5 +74,5 @@ export default function useGetCategoriesQuery({
     };
   }, []);
 
-  return { data, status };
+  return { data, status, getCategories };
 }

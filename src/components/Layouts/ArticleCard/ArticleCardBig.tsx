@@ -21,7 +21,7 @@ type ArticleCardBigT = {
 const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
   const theme = useTheme();
 
-  const { description, thumbnail } = useQuill(article.body);
+  const { description, thumbnail } = useQuill(article.body, [700, 900]);
   const category = article.categories[0];
 
   return (
@@ -48,7 +48,7 @@ const ArticleCardBig: React.FC<ArticleCardBigT> = ({ article }) => {
           </Link>
 
           <LineClamp
-            clamp={7}
+            clamp={thumbnail ? 7 : 12}
             text={description}
             sx={{ fontSize: theme.fontSize.sm }}
           />

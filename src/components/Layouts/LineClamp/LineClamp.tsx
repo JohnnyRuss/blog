@@ -18,6 +18,7 @@ const LineClampedBox = styled.div<{ $clamp: number }>`
   overflow: hidden;
   -webkit-line-clamp: ${({ $clamp }) => $clamp};
   width: 100%;
+  max-width: 100%;
 `;
 
 const LineClamp: React.FC<LineClampT> = ({

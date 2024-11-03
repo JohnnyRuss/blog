@@ -12,9 +12,14 @@ import { UserDetailsT } from "@/interface/db/user.types";
 type FollowCardT = {
   user: UserDetailsT;
   isFollowing: boolean;
+  showBio?: boolean;
 };
 
-const FollowCard: React.FC<FollowCardT> = ({ user, isFollowing }) => {
+const FollowCard: React.FC<FollowCardT> = ({
+  user,
+  isFollowing,
+  showBio = false,
+}) => {
   const theme = useTheme();
 
   const { followQuery, status } = useFollowUserQuery(user._id);
@@ -42,17 +47,20 @@ const FollowCard: React.FC<FollowCardT> = ({ user, isFollowing }) => {
 
         <small>{user.email}</small>
 
-        <LineClamp
-          clamp={2}
-          sx={{
-            fontSize: theme.fontSize.sm,
-            color:
-              theme.mode === "dark"
-                ? theme.colors.gray
-                : theme.colors.gray_dark,
-          }}
-          text={user.bio}
-        />
+        {showBio && (
+          <LineClamp
+            clamp={1}
+            sx={{
+              fontSize: theme.fontSize.sm,
+              maxWidth: "90%",
+              color:
+                theme.mode === "dark"
+                  ? theme.colors.gray
+                  : theme.colors.gray_dark,
+            }}
+            text={user.bio}
+          />
+        )}
       </div>
 
       <FollowButton

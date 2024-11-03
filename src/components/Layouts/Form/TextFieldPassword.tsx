@@ -11,13 +11,14 @@ type TextFieldPasswordT = {
   label?: string;
   hasError: boolean;
   fieldProps: HookFormTextFieldT;
-};
+} & React.ComponentProps<"input">;
 
 const TextFieldPassword: React.FC<TextFieldPasswordT> = ({
   label,
   message,
   hasError,
   fieldProps,
+  ...inputProps
 }) => {
   const [inputType, setInputType] = useState<"text" | "password">("password");
 
@@ -34,6 +35,7 @@ const TextFieldPassword: React.FC<TextFieldPasswordT> = ({
           {...fieldProps}
           id={fieldProps.name}
           className="text-field__input"
+          {...inputProps}
         />
 
         <EyeButton shown={inputType === "password"} toggleType={onToggleType} />

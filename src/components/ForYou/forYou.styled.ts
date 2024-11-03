@@ -52,5 +52,9 @@ export const ForYou = styled.section`
     .for-you__content-box {
       padding: 0;
     }
+
+    .infinite-scroll-component {
+      gap: 3rem;
+    }
   }
 `;

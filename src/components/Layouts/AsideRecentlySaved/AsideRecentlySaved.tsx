@@ -28,7 +28,7 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
     };
   }, []);
 
-  return (
+  return data.length > 0 && !status.loading ? (
     <AsideBlockItemContainer title="Recently Saved" subTitle="Your bookmarks">
       <Styled.RecentlySaved data-recently-saved>
         <ul className="saved-list">
@@ -49,7 +49,7 @@ const AsideRecentlySaved: React.FC<AsideRecentlySavedT> = memo(() => {
         </Link>
       </Styled.RecentlySaved>
     </AsideBlockItemContainer>
-  );
+  ) : null;
 });
 
 export default AsideRecentlySaved;

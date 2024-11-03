@@ -50,6 +50,12 @@ export const ProfileAside = styled.aside`
         color: ${({ theme }) => theme.colors.green};
         text-decoration: underline;
       }
+
+      &-bio {
+        text-align: center;
+        font-size: ${({ theme }) => theme.fontSize.sm};
+        color: ${({ theme }) => theme.colors.gray_shade};
+      }
     }
   }
 
@@ -65,6 +71,12 @@ export const ProfileAside = styled.aside`
 
     [data-aside-block] {
       display: none;
+    }
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .user-details {
+      padding-bottom: 1rem;
     }
   }
 `;

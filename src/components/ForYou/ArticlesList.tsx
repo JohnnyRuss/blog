@@ -17,7 +17,7 @@ const ArticlesList: React.FC = memo(() => {
   useGetSavedArticlesIdsQuery();
 
   const { data, getArticlesQuery, hasMore, status, total } =
-    useReadAllArticlesQuery("userbased=1&sort=-common,-views,-createdAt");
+    useReadAllArticlesQuery("userbased=1&sort=-common,-createdAt,-views");
 
   return (
     <div className="for-you__articles-list">

@@ -6,7 +6,7 @@ class LocaleStorage {
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  getValue(key: string): string {
+  getValue(key: string): string | Array<string> {
     const value = localStorage.getItem(key);
     return value ? JSON.parse(value) : "";
   }
@@ -30,7 +30,7 @@ class LocaleStorage {
   }
 
   getJWT() {
-    return this.getValue(BLOG_PASSPORT_KEY);
+    return this.getValue(BLOG_PASSPORT_KEY) as string;
   }
 
   removeJWT() {

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useSearchParams } from "@/hooks/utils";
 import { useUserTraceQuery } from "@/hooks/api/userTrace";
 import { useReadArticleQuery } from "@/hooks/api/articles";
+import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
+import { useCheckIsFollowingUserQuery } from "@/hooks/api/userFollow";
 import CommentsProvider from "@/Providers/CommentsProvider";
 
 import * as UI from "./components";
@@ -25,6 +27,12 @@ const Article: React.FC = () => {
   const { data, status } = useReadArticleQuery();
   const updateTrace = useUserTraceQuery();
 
+  useGetSavedArticlesIdsQuery();
+
+  const { check, isFollowingUser } = useCheckIsFollowingUserQuery(
+    data.author._id
+  );
+
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0 });
 
@@ -41,7 +49,10 @@ const Article: React.FC = () => {
             {status.loading ? (
               <UI.ArticleHeadSkeleton />
             ) : status.status === "SUCCESS" ? (
-              <UI.ArticleHead />
+              <UI.ArticleHead
+                checkIsFollowingUser={check}
+                isFollowingUser={isFollowingUser}
+              />
             ) : (
               <></>
             )}
@@ -60,7 +71,11 @@ const Article: React.FC = () => {
 
             <div className="article-footer--actions">
               <div className="article-actions--bar">
-                <UI.ArticleHeadActions showFollowButton={false} />
+                <UI.ArticleHeadActions
+                  showFollowButton={false}
+                  checkIsFollowingUser={check}
+                  isFollowingUser={isFollowingUser}
+                />
               </div>
 
               <CommentsProvider>
@@ -76,7 +91,7 @@ const Article: React.FC = () => {
           </aside>
         </div>
 
-        {/* <UI.RelatedArticles /> */}
+        <UI.RelatedArticles />
       </Styled.Article>
 
       {isAddingToList && <CreateListModal />}

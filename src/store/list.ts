@@ -6,11 +6,10 @@ import { produce } from "immer";
 
 import { logger } from "@/utils";
 import { userStore } from "@/store";
-import { RouterHistory } from "@/config/config";
 import { DYNAMIC_ROUTES } from "@/config/paths";
-import { ARTICLES_PER_PAGE } from "@/config/config";
 import { axiosPrivateQuery } from "@/services/axios";
 import { createSelectors, getStatus } from "./helpers";
+import { RouterHistory, ARTICLES_PER_PAGE } from "@/config/config";
 
 import {
   ArticleShortT,
@@ -18,6 +17,7 @@ import {
 } from "@/interface/db/article.types";
 import { ListT, ListShortT, ListArticlesT } from "@/interface/db/list.types";
 import { ListStateT, ListStoreT } from "@/interface/store/list.store.types";
+import { toggleArrayItem } from "@/utils";
 
 const initialState: ListStateT = {
   // ========== CREATE ==========
@@ -166,53 +166,67 @@ const useListStore = create<ListStoreT>()(
         }
       },
 
-      async addToList(args) {
+      async addToList({ articleId, listId }) {
         try {
           const { data }: AxiosResponse<ListArticlesT> =
-            await axiosPrivateQuery.post(`/lists/${args.listId}`, {
-              articleId: args.articleId,
+            await axiosPrivateQuery.post(`/lists/${listId}`, {
+              articleId: articleId,
             });
 
           set((state) => {
             return produce(state, (draft) => {
+              const listsToAdd = draft.listsToAdd;
+              const savedArticles = draft.savedArticles;
+              const savedArticlesIds = draft.savedArticlesIds;
+
               // update listsToAdd
-              const listToAdd = draft.listsToAdd.find(
-                (list) => list._id === args.listId
+              const listToModify = listsToAdd.find(
+                (list) => list._id === listId
               );
 
-              listToAdd.articles = listToAdd.articles.some(
-                (article) => article.article === args.articleId
-              )
-                ? listToAdd.articles.filter(
-                    (article) => article.article !== args.articleId
-                  )
-                : [
-                    ...listToAdd.articles,
-                    { savedAt: new Date().toString(), article: args.articleId },
-                  ];
+              const itemTooAdd = {
+                article: articleId,
+                savedAt: new Date().toString(),
+              };
+
+              listToModify.articles = toggleArrayItem({
+                array: listToModify.articles,
+                itemToAdd: itemTooAdd,
+                itemKeyToToggle: "article",
+                filterBy: articleId,
+              });
+
+              // update savedArticles
+              const lastAddedArticle = data[data.length - 1].article;
+
+              draft.savedArticles = toggleArrayItem({
+                array: savedArticles,
+                itemToAdd: lastAddedArticle,
+                itemKeyToToggle: "_id",
+                filterBy: lastAddedArticle._id,
+              });
 
               // update savedArticlesIds
-              draft.savedArticlesIds = draft.savedArticlesIds.some(
-                (articleId) => articleId === args.articleId
-              )
-                ? draft.savedArticlesIds.filter(
-                    (articleId) => articleId !== args.articleId
-                  )
-                : [...draft.savedArticlesIds, args.articleId];
+              draft.savedArticlesIds = toggleArrayItem({
+                array: savedArticlesIds,
+                itemToAdd: articleId,
+                filterBy: articleId,
+              });
 
               //update lists
-
               if (draft.lists.length <= 0) return;
 
-              const list = draft.lists.find((list) => list._id === args.listId);
+              const list = draft.lists.find((list) => list._id === listId);
 
               if (!list) return;
 
-              list.articles = list.articles.some(
-                (article) => article.article._id === args.articleId
-              )
+              const existsInListArticles = list.articles.some(
+                (article) => article.article._id === articleId
+              );
+
+              list.articles = existsInListArticles
                 ? list.articles.filter(
-                    (article) => article.article._id !== args.articleId
+                    (article) => article.article._id !== articleId
                   )
                 : [...data];
             });
@@ -220,7 +234,6 @@ const useListStore = create<ListStoreT>()(
         } catch (error: any) {
           const message = logger(error);
           set(() => ({ listsStatus: getStatus("FAIL", message) }));
-          throw error;
         }
       },
 

@@ -26,7 +26,7 @@ export const ArticlesList = styled.div`
   @media screen and (${({ theme }) => theme.breakpoints.mobile}) {
     .loading-skeleton,
     .infinite-scroll-component {
-      gap: 5rem;
+      /* gap: 5rem; */
     }
   }
 `;

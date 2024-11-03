@@ -27,12 +27,14 @@ const useUserFollowStore = create<UserFollowStoreT>()(
     immer((set) => ({
       ...initialState,
 
-      async getUsersToFollow() {
+      async getUsersToFollow(limit) {
         try {
           set(() => ({ usersToFollowStatus: getStatus("PENDING") }));
 
           const { data }: AxiosResponse<Array<UserDetailsT>> =
-            await axiosPrivateQuery.get(`/follow/suggestions`);
+            await axiosPrivateQuery.get(
+              `/follow/suggestions${limit ? `?limit=${limit}` : ""}`
+            );
 
           set(() => ({
             usersToFollow: data,

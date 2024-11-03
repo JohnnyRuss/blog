@@ -20,7 +20,7 @@ export default function useCheckIsAuthenticatedUser(
     username: string;
   } | null>(null);
 
-  async function check() {
+  function check() {
     let isAuthenticatedUser = false;
 
     const token = LocaleStorage.getJWT();
@@ -43,10 +43,9 @@ export default function useCheckIsAuthenticatedUser(
   useEffect(() => {
     if (!runOnMount) return;
 
-    (async () => {
-      const { isAuthenticatedUser } = await check();
-      setIsAuthenticated(isAuthenticatedUser);
-    })();
+    const { isAuthenticatedUser } = check();
+
+    setIsAuthenticated(isAuthenticatedUser);
   }, [runOnMount, user]);
 
   return { check, user, isAuthenticated, decodedUser };

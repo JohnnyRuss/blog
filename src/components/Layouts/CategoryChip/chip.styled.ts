@@ -41,6 +41,7 @@ export const CategoryChip = styled.div<{ $bg_color: string }>`
 
   .categories__list-item--fig {
     width: 4rem;
+    min-width: 4rem;
     height: 4rem;
     border-radius: 100%;
     overflow: hidden;

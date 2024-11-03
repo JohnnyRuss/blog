@@ -1,14 +1,10 @@
 import { memo } from "react";
 
-import {
-  useFollowUserQuery,
-  useCheckIsFollowingUserQuery,
-} from "@/hooks/api/userFollow";
 import { useSearchParams } from "@/hooks/utils";
 import { articleStore, listsStore } from "@/store";
+import { useFollowUserQuery } from "@/hooks/api/userFollow";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
 import { useLikeArticleQuery } from "@/hooks/api/articles";
-import { useGetSavedArticlesIdsQuery } from "@/hooks/api/lists";
 import { useAppUIContext } from "@/Providers/useProviders";
 
 import { FollowButton } from "@/components/Layouts";
@@ -17,15 +13,15 @@ import { EyeOpen, Heart, Bookmark, Comment } from "@/components/Layouts/Icons";
 
 type ArticleHeadActionsT = {
   showFollowButton?: boolean;
+  isFollowingUser: boolean;
+  checkIsFollowingUser: (userId: string) => Promise<void>;
 };
 
 const ArticleHeadActions: React.FC<ArticleHeadActionsT> = memo(
-  ({ showFollowButton = true }) => {
+  ({ showFollowButton = true, isFollowingUser, checkIsFollowingUser }) => {
     const { activateAuthPopup } = useAppUIContext();
 
     const { setParam } = useSearchParams();
-
-    useGetSavedArticlesIdsQuery();
 
     const article = articleStore.use.article();
     const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
@@ -52,14 +48,12 @@ const ArticleHeadActions: React.FC<ArticleHeadActionsT> = memo(
     };
 
     const { followQuery, status } = useFollowUserQuery(article.author._id);
-    const { check, isFollowingUser } = useCheckIsFollowingUserQuery(
-      article.author._id
-    );
 
     const onFollow = async () => {
       if (belongsToActiveUser || !article.author._id) return;
+
       await followQuery();
-      await check(article.author._id);
+      await checkIsFollowingUser(article.author._id);
     };
 
     const savedArticlesIds = listsStore.use.savedArticlesIds();
@@ -96,7 +90,7 @@ const ArticleHeadActions: React.FC<ArticleHeadActionsT> = memo(
           }`}
         >
           <Comment />
-          <span>{16}</span>
+          <span>{article.commentsCount}</span>
         </button>
 
         {isAuthenticated && !belongsToActiveUser && (

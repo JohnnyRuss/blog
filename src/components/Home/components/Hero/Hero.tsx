@@ -19,7 +19,7 @@ const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   const { data, status } = useGetTopArticleQuery();
-  const { description, thumbnail } = useQuill(data?.body);
+  const { description, thumbnail } = useQuill(data?.body, [700, 1000]);
 
   return (
     <Styled.Hero>
@@ -32,25 +32,25 @@ const Hero: React.FC = () => {
           {thumbnail && (
             <motion.figure
               className="hero__post-fig"
-              {...animateRight({ inView: true, once: false })}
+              {...animateRight({ inView: true, once: true })}
             >
               <img width="100%" height="100%" src={thumbnail} title="" alt="" />
             </motion.figure>
           )}
 
           <div className="hero__post-content">
-            <motion.div {...animateBottom({ inView: true, once: false })}>
+            <motion.div {...animateBottom({ inView: true, once: true })}>
               <LineClamp clamp={2} component="h3" text={data.title} />
             </motion.div>
 
-            <motion.div {...animateLeft({ inView: true, once: false })}>
+            <motion.div {...animateLeft({ inView: true, once: true })}>
               <LineClamp clamp={8} text={description} />
             </motion.div>
 
             <motion.button
               onClick={() => navigate(`/${data.slug}`)}
               className="hero__post-content--more__btn"
-              {...animateTop({ inView: true, once: false })}
+              {...animateTop({ inView: true, once: true })}
             >
               <strong>
                 <u>View More</u>

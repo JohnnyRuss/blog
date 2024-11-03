@@ -9,17 +9,19 @@ export default function useGetSavedArticlesIdsQuery() {
   const data = listsStore.use.savedArticlesIds();
   const cleanUp = listsStore.use.cleanUpSavedArticlesIds();
 
-  const { isAuthenticated } = useCheckIsAuthenticatedUser(true);
+  const { check } = useCheckIsAuthenticatedUser(false);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    const { isAuthenticatedUser } = check();
+
+    if (!isAuthenticatedUser) return;
 
     (async () => await get())();
 
     return () => {
       cleanUp();
     };
-  }, [isAuthenticated]);
+  }, []);
 
   return { data };
 }

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { AxiosResponse } from "axios";
 
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
@@ -11,7 +11,7 @@ export default function useCheckIsFollowingUserQuery(candidateUserId?: string) {
 
   const { isAuthenticated } = useCheckIsAuthenticatedUser(true);
 
-  const check = async (userId?: string) => {
+  const check = useCallback(async (userId?: string) => {
     try {
       if (!isAuthenticated) return;
 
@@ -24,7 +24,7 @@ export default function useCheckIsFollowingUserQuery(candidateUserId?: string) {
     } catch (error) {
       logger(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     if (!isAuthenticated || !candidateUserId) return;

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { userFollowStore } from "@/store";
 
-export default function useWhoToFollowQuery() {
+export default function useWhoToFollowQuery(limit?: number) {
   const status = userFollowStore.use.usersToFollowStatus();
 
   const data = userFollowStore.use.usersToFollow();
@@ -12,7 +12,7 @@ export default function useWhoToFollowQuery() {
   const cleanUpFollowingUsers = userFollowStore.use.cleanUpFollowingUsers();
 
   useEffect(() => {
-    (async () => get())();
+    (async () => get(limit))();
 
     return () => {
       cleanUp();
