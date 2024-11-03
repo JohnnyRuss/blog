@@ -21,7 +21,7 @@ export default function useUserFollowShallowList(data: Array<UserDetailsT>) {
     return () => {
       setDataShallow(() => []);
     };
-  }, [pathname]);
+  }, [pathname, data]);
 
   function checkIsFollowing(user: UserDetailsT): boolean {
     return data.some((candidateUser) => candidateUser._id === user._id);

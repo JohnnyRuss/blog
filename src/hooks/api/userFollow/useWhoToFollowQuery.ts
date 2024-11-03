@@ -1,9 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 import { userFollowStore } from "@/store";
 
 export default function useWhoToFollowQuery(limit?: number) {
+  const { pathname } = useLocation();
   const status = userFollowStore.use.usersToFollowStatus();
 
   const data = userFollowStore.use.usersToFollow();
@@ -18,7 +20,7 @@ export default function useWhoToFollowQuery(limit?: number) {
       cleanUp();
       cleanUpFollowingUsers();
     };
-  }, []);
+  }, [pathname]);
 
   return { status, data };
 }

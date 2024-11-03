@@ -28,7 +28,7 @@ const AsideWhoToFollow: React.FC = memo(() => {
         <ul className="follow-list">
           {status.loading
             ? generateArray(6).map((id) => <FollowCardSkeleton key={id} />)
-            : dataShallow.map((user) => (
+            : dataShallow.slice(0, 5).map((user) => (
                 <motion.div
                   key={user._id}
                   {...animateLeft({ inView: true, once: true })}
