@@ -5,7 +5,7 @@ const headerStyles = css`
   align-items: center;
   gap: 2rem;
   justify-content: space-between;
-  margin: 5rem 0rem;
+  margin: 7rem 0rem 4rem 0rem;
 
   button {
     display: flex;
@@ -29,8 +29,6 @@ const headerStyles = css`
 `;
 
 export const UserInterests = styled.div`
-  margin-top: 5rem;
-
   .user-interests__header {
     ${headerStyles}
   }
@@ -48,5 +46,13 @@ export const UserInterests = styled.div`
       theme.mode === "light" ? theme.colors.white : theme.colors.gray_dark};
     text-transform: uppercase;
     font-size: ${({ theme }) => theme.fontSize.md};
+  }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .user-interests__header {
+      button.edit-interests__btn span:first-child {
+        display: none;
+      }
+    }
   }
 `;

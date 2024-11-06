@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
-import { PATHS, DYNAMIC_ROUTES } from "@/config/paths";
 import { animateBottom } from "@/styles/animations";
+import { PATHS, DYNAMIC_ROUTES } from "@/config/paths";
 import { useCheckIsAuthenticatedUser } from "@/hooks/auth";
+import { useWindowDimension } from "@/hooks/utils";
 
 import * as UI from "./components";
 import * as Styled from "./navigation.styled";
@@ -13,12 +14,18 @@ const Navigation: React.FC = () => {
   const [openNav, setOpenNav] = useState(false);
   const onOpenNav = () => setOpenNav((prev) => !prev);
 
+  const { width } = useWindowDimension();
+
   const { isAuthenticated, user } = useCheckIsAuthenticatedUser(true);
 
   const closeMobileNav = () => {
     if (!openNav) return;
     setOpenNav(false);
   };
+
+  useEffect(() => {
+    if (width > 640 && openNav) setOpenNav(() => false);
+  }, [width, openNav]);
 
   return (
     <Styled.Navigation
@@ -31,7 +38,7 @@ const Navigation: React.FC = () => {
 
       {isAuthenticated && <WriteButton showTitle={false} />}
 
-      <div className="nav-routes__block">
+      <div className={`nav-routes__block ${openNav ? "scroll-block" : ""}`}>
         <ul className="nav-routes__block-list">
           <NavLink
             to={PATHS.home_page}

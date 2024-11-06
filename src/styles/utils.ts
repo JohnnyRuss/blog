@@ -90,7 +90,8 @@ const quill = css`
 
     p,
     p > * {
-      color: ${({ theme }) => theme.colors.gray_dark};
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? theme.colors.gray : theme.colors.gray_dark};
     }
   }
 `;

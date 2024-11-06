@@ -12,7 +12,15 @@ const popup_animation = keyframes`
 
 export const CommentsPopup = styled.div`
   position: fixed;
+  /* inset: 0; */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 75px;
   z-index: 999;
+  overflow: hidden;
+  max-width: 100%;
   background: ${({ theme }) =>
     theme.mode === "dark"
       ? `rgba(0, 0, 0, 0.8)
@@ -30,38 +38,31 @@ export const CommentsPopup = styled.div`
       rgba(191, 191, 189, 0.5) 85%
     )`};
   backdrop-filter: blur(2px);
-  inset: 0;
-  top: 75px;
   border-top-left-radius: 8rem;
   border-top-right-radius: 8rem;
-  box-shadow: ${({ theme }) => theme.boxShadow.radial_lg};
   border-top: 1px solid ${({ theme }) => theme.colors.gray_shade};
-  overflow: hidden;
-  padding: 4.5rem 1rem 1rem 1rem;
+  box-shadow: ${({ theme }) => theme.boxShadow.radial_lg};
+  /* padding: 4.5rem 1rem 1rem 1rem; */
   display: flex;
   flex-direction: column;
   gap: 4rem;
   animation: ${popup_animation} 0.3s ease forwards;
 
-  .comments-popup__header,
-  .comments-popup__header .wrapper {
-    min-height: auto !important;
-  }
-
-  .comments-popup__header .wrapper {
+  .comments-popup__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 3rem;
   }
 
   .close-btn {
     font-size: ${({ theme }) => theme.fontSize.xxl};
   }
 
-  .comments-popup__content-box--container,
-  .comments-popup__content-box--container .wrapper {
+  .comments-popup__content-box--container {
     min-height: unset !important;
     height: 100%;
+    padding: 0 3rem 1.5rem 3rem;
   }
 
   .content-box {
@@ -143,6 +144,15 @@ export const CommentsPopup = styled.div`
         .comment-options {
           right: 0;
           left: unset;
+        }
+
+        .comment-options--btn {
+          margin-top: 0.5rem;
+          font-size: 30px;
+          color: ${({ theme }) =>
+            theme.mode === "light"
+              ? theme.colors.gray_dark
+              : theme.colors.white};
         }
 
         .comment-options span {

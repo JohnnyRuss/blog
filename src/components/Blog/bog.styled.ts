@@ -35,6 +35,8 @@ export const Blog = styled.section`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    padding-top: 1rem;
+
     .blog-content__box {
       padding: 0;
     }

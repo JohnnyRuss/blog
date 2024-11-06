@@ -75,6 +75,11 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  button,
+  a{
+    -webkit-tap-highlight-color: transparent;
+  }
+
 `;
 
 export { GlobalStyles };

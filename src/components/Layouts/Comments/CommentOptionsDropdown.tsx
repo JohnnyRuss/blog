@@ -15,7 +15,12 @@ const CommentOptionsDropdown: React.FC<CommentOptionsDropdownT> = ({
   onUpdateComment,
 }) => {
   return (
-    <Dropdown Button={<Options />} dropdownClass="comment-options" data={[]}>
+    <Dropdown
+      Button={<Options />}
+      dropdownClass="comment-options"
+      buttonClass="comment-options--btn"
+      data={[]}
+    >
       {(onToggleDropdown) => (
         <>
           {isCommentAuthor && (

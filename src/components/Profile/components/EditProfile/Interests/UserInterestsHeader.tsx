@@ -13,7 +13,7 @@ const UserInterestsHeader: React.FC = () => {
       <SectionTitle title="Your Interests" />
 
       <button className="edit-interests__btn" onClick={onOpenEdit}>
-        Fit Your Interests
+        <span>Fit Your Interests</span>
         <span>
           <Edit />
         </span>

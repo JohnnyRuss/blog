@@ -7,6 +7,7 @@ import {
   MultiSelectOptionT,
   MultiSelectPropsT,
 } from "@/interface/ui/commons.types";
+import { useEffect } from "react";
 
 const MultiSelect = <T,>({
   value,
@@ -14,6 +15,7 @@ const MultiSelect = <T,>({
   onSelect,
   error,
   message,
+  placeholder,
 }: MultiSelectPropsT<T>) => {
   const handleSelect = (
     values: Array<MultiSelectOptionT<T> & { __isNew__?: boolean }>
@@ -22,6 +24,11 @@ const MultiSelect = <T,>({
     const isNew = lastIndex >= 0 ? values[lastIndex].__isNew__ : false;
     onSelect({ lastIndex, isNew, values });
   };
+
+  useEffect(() => {
+    const el = document.querySelector("span.gray");
+    if (el) el.textContent = placeholder || "Select";
+  }, [placeholder]);
 
   return (
     <Styled.SelectContainer>

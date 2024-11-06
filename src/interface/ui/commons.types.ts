@@ -17,6 +17,7 @@ type MultiSelectPropsT<T> = {
   onSelect: OnMultipleSelectT<T>;
   error?: boolean;
   message?: string;
+  placeholder?: string;
 };
 
 type DialogT = {

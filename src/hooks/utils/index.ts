@@ -5,3 +5,4 @@ export { default as useUserFollowShallowList } from "./useUserFollowShallowList"
 export { default as useCommentsPopup } from "./useCommentsPopup";
 export { default as useQuillSlider } from "./useQuillSlider";
 export { default as useQuillConfig } from "./useQuillConfig";
+export { default as useWindowDimension } from "./useWindowDimension";

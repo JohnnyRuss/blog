@@ -50,4 +50,21 @@ export const Dialog = styled.div<{ $type: DialogT["type"] }>`
       }
     }
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    width: 100%;
+    padding: 2rem 1rem;
+
+    .dialog-title {
+      font-size: ${({ theme }) => theme.fontSize.lg};
+    }
+
+    .dialog-message {
+      font-size: ${({ theme }) => theme.fontSize.base};
+    }
+
+    .dialog__actions .dialog__action-btn {
+      font-size: ${({ theme }) => theme.fontSize.sm};
+    }
+  }
 `;

@@ -171,6 +171,7 @@ export const FitInterestsModal = styled.div`
     .user-editable--interests__header {
       flex-direction: column;
       margin: unset;
+      margin-bottom: 1.5rem;
     }
   }
 `;

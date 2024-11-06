@@ -207,13 +207,14 @@ export const Navigation = styled(motion.nav)`
       position: fixed;
       z-index: 99;
       top: 0;
+      bottom: 0;
       right: 0;
+      left: 0;
       opacity: 0;
       width: 100vw;
       height: 100vh;
       overflow: hidden;
       backdrop-filter: blur(3px);
-      transition: all 0.3s ease;
       transform-origin: top right;
 
       &-list {
@@ -258,7 +259,7 @@ export const Navigation = styled(motion.nav)`
 
     &.open .nav__burger-btn {
       position: absolute;
-      right: -2rem;
+      right: 0rem;
     }
   }
 `;

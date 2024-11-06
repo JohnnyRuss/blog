@@ -49,6 +49,8 @@ export const ForYou = styled.section`
   }
 
   @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    padding-top: 1rem;
+
     .for-you__content-box {
       padding: 0;
     }

@@ -109,6 +109,7 @@ const Write: React.FC = () => {
             options={options}
             error={error ? true : false}
             message={error?.message}
+            placeholder="Select Categories..."
             value={field.value.map(fitCategoryData)}
             onSelect={(value: OnSelectCategoryReturnT) =>
               onSelectCategory({ fieldChangeHandler: field.onChange, value })

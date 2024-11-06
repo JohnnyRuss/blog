@@ -1,7 +1,7 @@
 import CommentsList from "./CommentsList";
 import CommentsForm from "./CommentsForm";
 import { Close } from "@/components/Layouts/Icons";
-import { SectionTitle, Container } from "@/components/Layouts";
+import { SectionTitle } from "@/components/Layouts";
 
 import * as Styled from "./styles/commentsPopup.styled";
 
@@ -18,21 +18,21 @@ const CommentsPopup: React.FC<CommentsPopUpT> = ({
 }) => {
   return (
     <Styled.CommentsPopup className="scroll-block">
-      <Container className="comments-popup__header">
+      <div className="comments-popup__header">
         <SectionTitle title="Comments" />
 
         <button className="close-btn" onClick={onClosePopup}>
           <Close />
         </button>
-      </Container>
+      </div>
 
-      <Container className="comments-popup__content-box--container">
+      <div className="comments-popup__content-box--container">
         <div className="content-box">
           <CommentsList showCommentOptions={showCommentOptions} />
 
           {showCommentsForm && <CommentsForm focused={true} />}
         </div>
-      </Container>
+      </div>
     </Styled.CommentsPopup>
   );
 };

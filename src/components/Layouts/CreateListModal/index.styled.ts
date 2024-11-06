@@ -28,6 +28,8 @@ export const CreateListModal = styled.div`
     display: flex;
     align-items: center;
     gap: 1rem;
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.colors.white : theme.colors.gray_dark};
 
     .privacy-icon {
       margin-left: auto;
@@ -35,6 +37,7 @@ export const CreateListModal = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 20px;
     }
   }
 

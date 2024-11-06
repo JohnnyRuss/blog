@@ -46,6 +46,13 @@ const AppModal = styled.div`
     padding: 0rem 2rem 2rem 2rem;
     position: relative;
   }
+
+  @media screen and (${({ theme }) => theme.breakpoints.mobile_lg}) {
+    .modal-window {
+      min-width: unset;
+      min-height: unset;
+    }
+  }
 `;
 
 const Modal: React.FC<ModalT> = ({ children, onClose, open, showCloseBtn }) => {
