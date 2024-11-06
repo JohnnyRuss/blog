@@ -1,6 +1,4 @@
 import { CheckBox } from "@/components/Layouts";
-import PrivateIcon from "@/assets/icons/private.svg";
-import PublicIcon from "@/assets/icons/public.svg";
 
 import { ListShortT } from "@/interface/db/list.types";
 
