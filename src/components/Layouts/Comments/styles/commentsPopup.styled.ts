@@ -42,17 +42,19 @@ export const CommentsPopup = styled.div`
   border-top-right-radius: 8rem;
   border-top: 1px solid ${({ theme }) => theme.colors.gray_shade};
   box-shadow: ${({ theme }) => theme.boxShadow.radial_lg};
-  /* padding: 4.5rem 1rem 1rem 1rem; */
+  padding-bottom: 1rem;
   display: flex;
   flex-direction: column;
   gap: 4rem;
   animation: ${popup_animation} 0.3s ease forwards;
 
   .comments-popup__header {
+    width: 1280px;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 3rem;
+    padding: 2rem 3rem 0.5rem 3rem;
   }
 
   .close-btn {
@@ -62,11 +64,11 @@ export const CommentsPopup = styled.div`
   .comments-popup__content-box--container {
     min-height: unset !important;
     height: 100%;
-    padding: 0 3rem 1.5rem 3rem;
   }
 
   .content-box {
-    width: 100%;
+    width: 1280px;
+    margin: 0 auto;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -179,12 +181,14 @@ export const CommentsPopup = styled.div`
     padding-top: 2.5rem;
     gap: 2rem;
 
-    .comments-popup__content-box--container .wrapper {
-      padding: 0;
+    .comments-popup__header {
+      width: 100%;
     }
 
-    .content-box .comments-list {
-      padding: 0;
+    .comments-popup__content-box--container {
+      .content-box {
+        width: 100%;
+      }
     }
   }
 `;

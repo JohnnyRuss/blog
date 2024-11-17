@@ -51,18 +51,23 @@ const Review: React.FC = () => {
               ? "Your Articles"
               : `${userFirstName}'s Articles`
           }
-          redirectPath={DYNAMIC_ROUTES.profile_articles(username || "")}
         >
-          <ArticlesList limit={4} />
+          <ArticlesList
+            limit={4}
+            redirectPath={DYNAMIC_ROUTES.profile_articles(username || "")}
+          />
         </ReviewBlock>
 
         <ReviewBlock
           title={
             isActiveUserProfile ? "Your Lists" : `${userFirstName}'s Lists`
           }
-          redirectPath={DYNAMIC_ROUTES.profile_lists(username || "")}
         >
-          <UserLists limit={3} emptyMessage={emptyMessage} />
+          <UserLists
+            limit={3}
+            emptyMessage={emptyMessage}
+            redirectPath={DYNAMIC_ROUTES.profile_lists(username || "")}
+          />
         </ReviewBlock>
 
         <ReviewBlock
@@ -71,25 +76,27 @@ const Review: React.FC = () => {
               ? "Saved Lists"
               : `${extractUserFirstName(user.fullname)}'s Saved Lists`
           }
-          redirectPath={DYNAMIC_ROUTES.profile_saved_lists(username || "")}
         >
-          <SavedLists limit={3} userId={user._id} />
+          <SavedLists
+            limit={3}
+            userId={user._id}
+            redirectPath={DYNAMIC_ROUTES.profile_saved_lists(username || "")}
+          />
         </ReviewBlock>
 
         {isActiveUserProfile && (
           <>
-            <ReviewBlock
-              title="Reading History"
-              redirectPath={DYNAMIC_ROUTES.profile_history(username || "")}
-            >
-              <HistoryList limit={4} />
+            <ReviewBlock title="Reading History">
+              <HistoryList
+                limit={4}
+                redirectPath={DYNAMIC_ROUTES.profile_history(username || "")}
+              />
             </ReviewBlock>
 
-            <ReviewBlock
-              title="Following"
-              redirectPath={DYNAMIC_ROUTES.profile_following(username || "")}
-            >
-              <FollowingList />
+            <ReviewBlock title="Following">
+              <FollowingList
+                redirectPath={DYNAMIC_ROUTES.profile_following(username || "")}
+              />
             </ReviewBlock>
           </>
         )}

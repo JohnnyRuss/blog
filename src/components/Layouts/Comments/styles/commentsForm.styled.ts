@@ -4,6 +4,12 @@ export const CommentsForm = styled.form`
   display: flex;
   align-items: flex-start;
   gap: 1.5rem;
+  max-width: 100%;
+  padding: 0 2rem;
+
+  [data-textarea] {
+    max-width: 100%;
+  }
 
   button {
     line-height: 1;

@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 
 import { userStore } from "@/store";
 import { PATHS } from "@/config/paths";
@@ -24,9 +24,10 @@ import { ArticleSchemaT } from "@/utils/validations/articleSchema";
 
 type ArticlesListT = {
   limit?: number;
+  redirectPath?: string;
 };
 
-const ArticlesList: React.FC<ArticlesListT> = ({ limit }) => {
+const ArticlesList: React.FC<ArticlesListT> = ({ limit, redirectPath }) => {
   const navigate = useNavigate();
 
   const { username } = useParams();
@@ -60,34 +61,42 @@ const ArticlesList: React.FC<ArticlesListT> = ({ limit }) => {
     decodedUser?.username === user?.username && decodedUser._id === user._id;
 
   return (
-    <Styled.ArticlesList>
-      {status.loading ? (
-        generateArray(limit || 6).map((id) => (
-          <ArticleCardSmallSkeleton key={id} />
-        ))
-      ) : data.length <= 0 ? (
-        <EmptyMessage message={emptyMessage} />
-      ) : (
-        data.map((article) => (
-          <ArticleCardLayover
-            key={article._id}
-            errorMessage={
-              article._id === deleteStatus.articleId && deleteStatus.error
-                ? deleteStatus.message
-                : ""
-            }
-            loading={
-              article._id === deleteStatus.articleId && deleteStatus.loading
-            }
-            onDelete={() => onDelete(article.slug, article._id)}
-            onEdit={() => onEdit(article, article.slug)}
-            showActions={belongsToActiveUser}
-          >
-            <ArticleCardSmall article={article} />
-          </ArticleCardLayover>
-        ))
+    <>
+      <Styled.ArticlesList>
+        {status.loading ? (
+          generateArray(limit || 6).map((id) => (
+            <ArticleCardSmallSkeleton key={id} />
+          ))
+        ) : data.length <= 0 ? (
+          <EmptyMessage message={emptyMessage} />
+        ) : (
+          data.map((article) => (
+            <ArticleCardLayover
+              key={article._id}
+              errorMessage={
+                article._id === deleteStatus.articleId && deleteStatus.error
+                  ? deleteStatus.message
+                  : ""
+              }
+              loading={
+                article._id === deleteStatus.articleId && deleteStatus.loading
+              }
+              onDelete={() => onDelete(article.slug, article._id)}
+              onEdit={() => onEdit(article, article.slug)}
+              showActions={belongsToActiveUser}
+            >
+              <ArticleCardSmall article={article} />
+            </ArticleCardLayover>
+          ))
+        )}
+      </Styled.ArticlesList>
+
+      {redirectPath && data.length > 0 && (
+        <Link to={redirectPath} className="review-block__more">
+          Show All
+        </Link>
       )}
-    </Styled.ArticlesList>
+    </>
   );
 };
 

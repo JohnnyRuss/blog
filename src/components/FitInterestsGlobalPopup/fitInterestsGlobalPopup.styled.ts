@@ -83,6 +83,8 @@ export const FitInterestsGlobalPopup = styled.div`
       padding: 1rem;
       position: relative;
       background-color: ${({ theme }) => theme.colors.gray};
+      color: ${({ theme }) =>
+        theme.mode === "dark" ? theme.colors.gray_dark : theme.colors.gray};
       border: 1px solid ${({ theme }) => theme.colors.gray_shade};
       cursor: pointer;
       text-align: center;

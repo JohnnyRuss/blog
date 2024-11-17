@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { memo } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
@@ -20,28 +21,40 @@ const StyledList = styled.div`
   gap: 3rem;
 `;
 
-const FollowingList: React.FC = memo(() => {
+type FollowingListT = {
+  redirectPath?: string;
+};
+
+const FollowingList: React.FC<FollowingListT> = memo(({ redirectPath }) => {
   const { data, status } = useGetFollowingUsersQuery();
 
   const { checkIsFollowing, dataShallow } = useUserFollowShallowList(data);
 
   return (
-    <StyledList>
-      {status.loading ? (
-        generateArray(5).map((id) => <FollowCardSkeleton key={id} />)
-      ) : dataShallow.length === 0 ? (
-        <EmptyMessage message="You aren't following other users" />
-      ) : (
-        dataShallow.map((user) => (
-          <motion.div
-            key={user._id}
-            {...animateTop({ once: true, inView: true })}
-          >
-            <FollowCard user={user} isFollowing={checkIsFollowing(user)} />
-          </motion.div>
-        ))
+    <>
+      <StyledList>
+        {status.loading ? (
+          generateArray(5).map((id) => <FollowCardSkeleton key={id} />)
+        ) : dataShallow.length === 0 ? (
+          <EmptyMessage message="You aren't following other users" />
+        ) : (
+          dataShallow.map((user) => (
+            <motion.div
+              key={user._id}
+              {...animateTop({ once: true, inView: true })}
+            >
+              <FollowCard user={user} isFollowing={checkIsFollowing(user)} />
+            </motion.div>
+          ))
+        )}
+      </StyledList>
+
+      {redirectPath && data.length > 0 && (
+        <Link to={redirectPath} className="review-block__more">
+          Show All
+        </Link>
       )}
-    </StyledList>
+    </>
   );
 });
 
