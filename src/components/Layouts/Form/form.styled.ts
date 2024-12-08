@@ -90,6 +90,7 @@ export const OTPField = styled.div`
       outline: none;
       border: 1px solid ${({ theme }) => theme.colors.gray_shade};
       font-size: ${({ theme }) => theme.fontSize.base};
+      color: ${({ theme }) => theme.colors.gray_dark};
     }
   }
 `;
