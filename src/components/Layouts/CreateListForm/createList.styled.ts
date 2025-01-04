@@ -19,4 +19,11 @@ export const CreateList = styled.div`
     gap: 2rem;
     color: ${({ theme }) => theme.colors.green};
   }
+
+  .privacy-checkbox {
+    display: flex;
+    align-items: center;
+    color: ${({ theme }) =>
+      theme.mode === "dark" ? theme.colors.white : theme.colors.gray_dark};
+  }
 `;

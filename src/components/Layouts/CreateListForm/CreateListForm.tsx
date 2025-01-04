@@ -62,7 +62,7 @@ const CreateListForm: React.FC<CreateListFormT> = ({
                   field.onChange(e.target.checked ? "PRIVATE" : "PUBLIC")
                 }
               />
-              <p style={{ display: "flex", alignItems: "Center" }}>
+              <p className="privacy-checkbox">
                 <CheckBox checked={field.value === "PRIVATE" ? true : false} />
                 <img
                   src={PrivateIcon}
